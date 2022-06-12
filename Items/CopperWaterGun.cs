@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,6 +20,16 @@ namespace WaterGuns.Items
 
             Item.damage = 8;
             Item.knockBack = 2;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Vector2 offset = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.ToRadians(10 * i));
+                Projectile.NewProjectile(source, position, offset, type, damage, knockback, player.whoAmI);
+            }
+            return false;
         }
 
         public override void AddRecipes()
