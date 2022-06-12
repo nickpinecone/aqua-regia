@@ -18,16 +18,20 @@ namespace WaterGuns.Items
         {
             Item.CloneDefaults(ItemID.WaterGun);
 
-            Item.damage = 8;
+            Item.damage = 800;
             Item.knockBack = 2;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 2; i++)
+            position.Y -= 448;
+            for (int i = -1; i < 2; i++)
             {
-                Vector2 offset = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.ToRadians(10 * i));
-                Projectile.NewProjectile(source, position, offset, type, damage, knockback, player.whoAmI);
+                velocity = new Vector2(Main.MouseWorld.X - position.X, Main.MouseWorld.Y - position.Y + ((Main.MouseWorld.X - position.X) / 16 * (Main.MouseWorld.X - position.X > 0 ? -1 : 1)));
+                velocity = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.ToRadians(5 * i));
+                velocity.Normalize();
+                velocity *= 16;
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
             }
             return false;
         }
