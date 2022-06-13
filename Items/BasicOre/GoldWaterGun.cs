@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Items
+namespace WaterGuns.Items.BasicOre
 {
     public class GoldWaterGun : ModItem
     {
@@ -26,11 +26,16 @@ namespace WaterGuns.Items
         {
             for (int i = 0; i < 2; i++)
             {
-                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(6 * i));
+                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(6 * i * player.direction));
                 Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }
 
             return false;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(0, 4);
         }
 
         public override void AddRecipes()

@@ -1,8 +1,9 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Items
+namespace WaterGuns.Items.BasicOre
 {
     public class CopperWaterGun : ModItem
     {
@@ -18,6 +19,11 @@ namespace WaterGuns.Items
 
             Item.damage = 8;
             Item.knockBack = 1;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(0, 4);
         }
 
         public override void AddRecipes()
