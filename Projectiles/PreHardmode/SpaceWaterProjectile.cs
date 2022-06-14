@@ -42,6 +42,16 @@ namespace WaterGuns.Projectiles.PreHardmode
             return base.OnTileCollide(oldVelocity);
         }
 
+        public override void Kill(int timeLeft)
+        {
+            for (int i = -5; i < 0; i++)
+            {
+                var dust = Dust.NewDust(new Vector2(Projectile.position.X - 10, Projectile.position.Y - 5), 60, 10, 10, Projectile.velocity.X, Projectile.velocity.Y, 0, new Color(61, 192, 194), 0.6f);
+
+                base.Kill(timeLeft);
+            }
+        }
+
         float gravity = 0.001f;
         public override void AI()
         {
