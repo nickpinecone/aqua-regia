@@ -10,18 +10,33 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void SetDefaults()
         {
             AIType = ProjectileID.WaterGun;
-            Projectile.CloneDefaults(ProjectileID.WaterGun);
 
-            Projectile.penetrate += 3;
+            // Making my own projectile inspired by water gun projectile
+            Projectile.damage = 1;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 62;
+
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.extraUpdates = 2;
+
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+
+            Projectile.penetrate = 2;
         }
 
         int counter = 0;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (counter < 5)
+            if (counter < 4)
             {
                 counter += 1;
-                Projectile.velocity = -oldVelocity.RotatedByRandom(MathHelper.ToRadians(55));
+
+                var velocity = -oldVelocity.RotatedByRandom(MathHelper.ToRadians(45));
+                Projectile.velocity = velocity;
+                Projectile.timeLeft = 62;
+                gravity = 0.001f;
                 return false;
             }
             return base.OnTileCollide(oldVelocity);
@@ -33,6 +48,11 @@ namespace WaterGuns.Projectiles.PreHardmode
             // Curve it like the in-game water gun projectile
             gravity += 0.002f;
             Projectile.velocity.Y += gravity;
+
+            // Creating some dust to see the projectile
+            var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(61, 192, 194), 1.5f);
+            dust.fadeIn = 1;
+            dust.noGravity = true;
 
             base.AI();
         }

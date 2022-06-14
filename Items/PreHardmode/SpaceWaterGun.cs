@@ -23,6 +23,14 @@ namespace WaterGuns.Items.PreHardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SpaceWaterProjectile>();
         }
 
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
+            Projectile.NewProjectile(source, new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4), modifiedVelocity, type, damage, knockback, player.whoAmI);
+            return false;
+            // return base.Shoot(player, source, position, velocity, type, damage, knockback);
+        }
+
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 4);
@@ -31,7 +39,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.CrimtaneBar, 16);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 22);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
