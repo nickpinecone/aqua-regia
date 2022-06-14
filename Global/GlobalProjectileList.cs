@@ -13,7 +13,7 @@ namespace WaterGuns.Global
             {
                 projectile.damage = 1;
                 projectile.penetrate = 1;
-                projectile.timeLeft = 10000;
+                projectile.timeLeft = 600;
 
                 projectile.width = 8;
                 projectile.height = 8;
