@@ -18,7 +18,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             Item.CloneDefaults(ItemID.WaterGun);
 
-            Item.damage = 14;
+            Item.damage = 13;
             Item.knockBack = 2;
         }
 
@@ -31,7 +31,7 @@ namespace WaterGuns.Items.PreHardmode
             {
                 var modifiedVelocity = new Vector2(0, 1).RotatedByRandom(MathHelper.ToRadians(7));
                 position.X = position.RotatedByRandom(MathHelper.ToRadians(0.4f)).X;
-                modifiedVelocity *= 10;
+                modifiedVelocity *= 14;
 
                 Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }

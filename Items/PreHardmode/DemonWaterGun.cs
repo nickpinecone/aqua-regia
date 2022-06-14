@@ -18,7 +18,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             Item.CloneDefaults(ItemID.WaterGun);
 
-            Item.damage = 17;
+            Item.damage = 15;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.DemonWaterProjectile>();
         }

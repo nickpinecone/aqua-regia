@@ -12,7 +12,6 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             Projectile.CloneDefaults(ProjectileID.WaterGun);
             AIType = ProjectileID.WaterGun;
-            Projectile.damage += 4;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

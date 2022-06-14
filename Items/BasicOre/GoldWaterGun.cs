@@ -18,7 +18,7 @@ namespace WaterGuns.Items.BasicOre
         {
             Item.CloneDefaults(ItemID.WaterGun);
 
-            Item.damage = 14;
+            Item.damage = 10;
             Item.knockBack = 3;
         }
 
