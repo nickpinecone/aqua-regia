@@ -11,7 +11,7 @@ namespace WaterGuns.Global
             if (item.type == ItemID.WaterGun)
             {
                 item.DamageType = DamageClass.Ranged;
-                item.damage = 1;
+                item.damage = 0;
 
                 item.autoReuse = true;
             }
