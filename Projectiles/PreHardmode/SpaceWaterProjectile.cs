@@ -63,7 +63,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.velocity.Y += gravity;
 
             // Creating some dust to see the projectile
-            var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(61, 192, 194), 1.5f);
+            var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(27, 225, 228), 1.5f);
             dust.fadeIn = 1;
             dust.noGravity = true;
 
