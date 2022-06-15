@@ -24,7 +24,7 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            position.Y -= 480;
+            position.Y -= 512;
             position.X = Main.MouseWorld.X;
 
             for (int i = 0; i < 3; i++)

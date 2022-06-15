@@ -18,7 +18,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             Item.CloneDefaults(ItemID.WaterGun);
 
-            Item.damage = 19;
+            Item.damage = 17;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SpaceWaterProjectile>();
         }
