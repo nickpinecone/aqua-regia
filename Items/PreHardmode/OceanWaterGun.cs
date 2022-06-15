@@ -18,7 +18,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             Item.CloneDefaults(ItemID.WaterGun);
 
-            Item.damage = 11;
+            Item.damage = 10;
             Item.knockBack = 2;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.OceanWaterProjectile>();
         }
@@ -40,8 +40,9 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Seashell, 14);
-            recipe.AddIngredient(ItemID.Starfish, 16);
+            recipe.AddIngredient(ItemID.Seashell, 12);
+            recipe.AddIngredient(ItemID.Starfish, 10);
+            recipe.AddIngredient(ItemID.Coral, 8);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
