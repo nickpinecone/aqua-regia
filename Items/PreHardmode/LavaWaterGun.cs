@@ -19,7 +19,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.CloneDefaults(ItemID.WaterGun);
 
             Item.damage = 31;
-            Item.knockBack = 4;
+            Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.LavaWaterProjectile>();
             Item.useTime -= 8;
         }
