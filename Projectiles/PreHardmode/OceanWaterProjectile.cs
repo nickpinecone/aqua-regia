@@ -15,8 +15,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         }
     }
 
-
-    public class OceanWaterProjectile : ModProjectile
+    public class OceanWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
@@ -31,16 +30,6 @@ namespace WaterGuns.Projectiles.PreHardmode
             offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
             Projectile.NewProjectile(Projectile.InheritSource(Main.projectile[ModContent.ProjectileType<BubbleProjectile>()]), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             base.OnHitNPC(target, damage, knockback, crit);
-        }
-
-        float gravity = 0.001f;
-        public override void AI()
-        {
-            // Curve it like the in-game water gun projectile
-            gravity += 0.002f;
-            Projectile.velocity.Y += gravity;
-
-            base.AI();
         }
     }
 }

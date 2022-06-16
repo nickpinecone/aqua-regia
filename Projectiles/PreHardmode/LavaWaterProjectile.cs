@@ -6,23 +6,11 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
-    public class LavaWaterProjectile : ModProjectile
+    public class LavaWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
-            // Projectile.CloneDefaults(ProjectileID.WaterGun);
-            AIType = ProjectileID.WaterGun;
-
-            Projectile.damage = 1;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 62;
-
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.extraUpdates = 2;
-
-            Projectile.friendly = true;
-            Projectile.hostile = false;
+            base.SetDefaults();
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -31,21 +19,17 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        float gravity = 0.001f;
         public override void AI()
         {
-            // Curve it like the in-game water gun projectile
-            gravity += 0.002f;
-            Projectile.velocity.Y += gravity;
+            base.AI();
 
             // Creating some dust to see the projectile
             var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(246, 103, 8), 1.5f);
-            var dust2 = Dust.NewDust(Projectile.position, 10, 10, DustID.Flare);
-            Main.dust[dust2].noGravity = true;
             dust.fadeIn = 1;
             dust.noGravity = true;
 
-            base.AI();
+            var dust2 = Dust.NewDust(Projectile.position, 10, 10, DustID.Flare);
+            Main.dust[dust2].noGravity = true;
         }
     }
 }

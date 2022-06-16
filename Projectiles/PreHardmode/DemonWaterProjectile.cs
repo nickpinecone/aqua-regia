@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
-    public class DemonWaterProjectile : ModProjectile
+    public class DemonWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
@@ -26,16 +26,6 @@ namespace WaterGuns.Projectiles.PreHardmode
             // Spawn default water projectile
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), offset, modifiedVelocity, ProjectileID.WaterGun, Projectile.damage, Projectile.knockBack, Projectile.owner);
             base.OnHitNPC(target, damage, knockback, crit);
-        }
-
-        float gravity = 0.001f;
-        public override void AI()
-        {
-            // Curve it like the in-game water gun projectile
-            gravity += 0.002f;
-            Projectile.velocity.Y += gravity;
-
-            base.AI();
         }
     }
 }

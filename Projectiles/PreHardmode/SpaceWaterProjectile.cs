@@ -5,23 +5,11 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
-    public class SpaceWaterProjectile : ModProjectile
+    public class SpaceWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
-            AIType = ProjectileID.WaterGun;
-
-            // Making my own projectile inspired by water gun projectile
-            Projectile.damage = 1;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 62;
-
-            Projectile.width = 8;
-            Projectile.height = 8;
-            Projectile.extraUpdates = 2;
-
-            Projectile.friendly = true;
-            Projectile.hostile = false;
+            base.SetDefaults();
 
             Projectile.penetrate = 2;
         }
@@ -36,7 +24,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 var velocity = -oldVelocity.RotatedByRandom(MathHelper.ToRadians(45));
                 Projectile.velocity = velocity;
                 Projectile.timeLeft = 62;
-                gravity = 0.001f;
+                base.gravity = 0.001f;
                 return false;
             }
             return base.OnTileCollide(oldVelocity);
@@ -55,19 +43,14 @@ namespace WaterGuns.Projectiles.PreHardmode
             }
         }
 
-        float gravity = 0.001f;
         public override void AI()
         {
-            // Curve it like the in-game water gun projectile
-            gravity += 0.002f;
-            Projectile.velocity.Y += gravity;
+            base.AI();
 
             // Creating some dust to see the projectile
             var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(27, 225, 228), 1.5f);
             dust.fadeIn = 1;
             dust.noGravity = true;
-
-            base.AI();
         }
     }
 }
