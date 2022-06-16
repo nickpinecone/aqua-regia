@@ -30,7 +30,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             offset.X = Projectile.position.X + Main.rand.Next(-60, 60);
             offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
 
-            Projectile.NewProjectile(Projectile.InheritSource(Main.projectile[ModContent.ProjectileType<BubbleProjectile>()]), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             base.OnHitNPC(target, damage, knockback, crit);
         }
     }
