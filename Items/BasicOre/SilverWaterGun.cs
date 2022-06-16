@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Items.BasicOre
 {
-    public class SilverWaterGun : ModItem
+    public class SilverWaterGun : BaseWaterGun
     {
         public override void SetDefaults()
         {
