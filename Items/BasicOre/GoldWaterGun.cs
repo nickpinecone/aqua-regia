@@ -6,17 +6,16 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Items.BasicOre
 {
-    public class GoldWaterGun : ModItem
+    public class GoldWaterGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("BasicSword"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
             Tooltip.SetDefault("Shoots two streams of water");
         }
 
         public override void SetDefaults()
         {
-            Item.CloneDefaults(ItemID.WaterGun);
+            base.SetDefaults();
 
             Item.damage = 10;
             Item.knockBack = 3;
@@ -31,11 +30,6 @@ namespace WaterGuns.Items.BasicOre
             }
 
             return false;
-        }
-
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(0, 4);
         }
 
         public override void AddRecipes()
