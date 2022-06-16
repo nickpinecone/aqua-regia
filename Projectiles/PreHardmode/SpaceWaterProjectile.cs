@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
@@ -36,11 +37,15 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void Kill(int timeLeft)
         {
             // Spawn dust when projectile dies, copying water gun behavior
-            for (int i = -5; i < 0; i++)
+            for (int i = 0; i < 10; i++)
             {
+                var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 48), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 48));
+
                 Projectile.velocity.Normalize();
-                Projectile.velocity *= 4;
-                var dust = Dust.NewDust(new Vector2(Projectile.position.X - 20, Projectile.position.Y - 5), 60, 10, 10, Projectile.velocity.X, Projectile.velocity.Y, 0, new Color(61, 192, 194), 0.6f);
+                var velocity = Projectile.velocity * 8;
+
+                var dust = Dust.NewDust(offset, 60, 5, DustID.Wet, velocity.X, velocity.Y, 0, default, 0.8f);
+                Main.dust[dust].fadeIn = 0.2f;
 
                 base.Kill(timeLeft);
             }
@@ -51,9 +56,17 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.AI();
 
             // Creating some dust to see the projectile
-            var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(27, 225, 228), 1.5f);
-            dust.fadeIn = 1;
-            dust.noGravity = true;
+            var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
+            offset.Normalize();
+            offset *= 3;
+
+            for (int i = 0; i < 4; i++)
+            {
+                var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0));
+                dust.noGravity = true;
+                dust.fadeIn = 1;
+            }
         }
     }
 }

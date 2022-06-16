@@ -34,7 +34,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.CopperAxe, 18);
+            recipe.AddIngredient(ItemID.HellstoneBar, 16);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
