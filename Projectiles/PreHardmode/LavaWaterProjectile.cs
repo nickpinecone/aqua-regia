@@ -24,12 +24,20 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.AI();
 
             // Creating some dust to see the projectile
-            var dust = Dust.NewDustPerfect(Projectile.Center, 211, new Vector2(0, 0), 0, new Color(246, 103, 8), 1.5f);
-            dust.fadeIn = 1;
-            dust.noGravity = true;
+            var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
+            offset.Normalize();
+            offset *= 3;
+
+            for (int i = 0; i < 4; i++)
+            {
+                var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 0, new Color(255, 215, 70));
+                dust.noGravity = true;
+                dust.fadeIn = 1;
+            }
 
             // Fire dust that emits light
-            var dust2 = Dust.NewDust(Projectile.position, 10, 10, DustID.Flare);
+            var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Flare, 0, 0, 0, default, 3f);
             Main.dust[dust2].noGravity = true;
         }
     }
