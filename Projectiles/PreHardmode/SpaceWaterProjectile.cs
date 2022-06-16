@@ -21,8 +21,11 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 counter += 1;
 
+                // Bounce off the wall without creating a new projectile
                 var velocity = -oldVelocity.RotatedByRandom(MathHelper.ToRadians(45));
                 Projectile.velocity = velocity;
+
+                // Reset gravity and timeLeft so it doesnt destroy
                 Projectile.timeLeft = 62;
                 base.gravity = 0.001f;
                 return false;

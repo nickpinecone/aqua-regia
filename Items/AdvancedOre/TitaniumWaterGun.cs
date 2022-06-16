@@ -23,12 +23,13 @@ namespace WaterGuns.Items.AdvancedOre
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            // Make it a little inaccurate
-            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
-            Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            base.Shoot(player, source, position, velocity, type, damage, knockback);
 
+            // Make it inaccurate, get it closer to player and rotate
+            var modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
             var secondPosition = new Vector2(position.X + modifiedVelocity.X * 2, position.Y + modifiedVelocity.Y * 2);
             var secondVelocity = modifiedVelocity.RotatedBy(MathHelper.ToRadians(180));
+
             Projectile.NewProjectile(source, secondPosition, secondVelocity, type, damage, knockback, player.whoAmI);
 
             return false;

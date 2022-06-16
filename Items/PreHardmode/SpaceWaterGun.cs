@@ -24,8 +24,9 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
-            Projectile.NewProjectile(source, new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4), modifiedVelocity, type, damage, knockback, player.whoAmI);
+            // Custom projectile doesnt position right so offset it
+            var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
+            base.Shoot(player, source, offset, velocity, type, damage, knockback);
             return false;
         }
 

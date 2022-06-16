@@ -28,6 +28,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             dust.fadeIn = 1;
             dust.noGravity = true;
 
+            // Fire dust that emits light
             var dust2 = Dust.NewDust(Projectile.position, 10, 10, DustID.Flare);
             Main.dust[dust2].noGravity = true;
         }

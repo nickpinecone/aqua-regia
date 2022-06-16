@@ -25,7 +25,8 @@ namespace WaterGuns.Items.BasicOre
         {
             for (int i = 0; i < 2; i++)
             {
-                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(6 * i * player.direction));
+                int distanceBetween = 6;
+                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
                 Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }
 
