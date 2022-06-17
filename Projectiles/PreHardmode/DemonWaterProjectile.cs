@@ -25,7 +25,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             modifiedVelocity *= projectileSpeed;
 
             // Offset from the target 
-            var offset = new Vector2(Projectile.position.X + 196 * direction, Projectile.position.Y - 196);
+            var offset = new Vector2(Projectile.position.X + (196 + Main.rand.Next(-5, 5)) * direction, Projectile.position.Y - (196 + Main.rand.Next(-5, 5)));
 
             // Spawn default water projectile
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), offset, modifiedVelocity, ProjectileID.WaterGun, Projectile.damage, Projectile.knockBack, Projectile.owner);

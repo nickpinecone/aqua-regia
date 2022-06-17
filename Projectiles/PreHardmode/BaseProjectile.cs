@@ -28,6 +28,21 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.hostile = false;
         }
 
+        public void CreateDust(Color color, float scale)
+        {
+            var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
+            offset.Normalize();
+            offset *= 3;
+
+            for (int i = 0; i < 4; i++)
+            {
+                var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 0, color, scale);
+                dust.noGravity = true;
+                dust.fadeIn = 1;
+            }
+        }
+
         protected float gravity = 0.001f;
         public override void AI()
         {
@@ -36,7 +51,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.velocity.Y += gravity;
 
             // The dust should be created in the child class
-            // Dust.NewDust(...)
+            // base.CreateDust(...)
 
             base.AI();
         }

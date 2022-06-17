@@ -55,18 +55,8 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             base.AI();
 
-            // Creating some dust to see the projectile
-            var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
-            offset.Normalize();
-            offset *= 3;
-
-            for (int i = 0; i < 4; i++)
-            {
-                var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0));
-                dust.noGravity = true;
-                dust.fadeIn = 1;
-            }
+            // // Creating some dust to see the projectile
+            base.CreateDust(default, 1f);
         }
     }
 }
