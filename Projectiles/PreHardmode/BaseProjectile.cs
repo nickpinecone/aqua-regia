@@ -30,6 +30,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public void CreateDust(Color color, float scale)
         {
+            // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
             offset.Normalize();
             offset *= 3;

@@ -11,6 +11,8 @@ namespace WaterGuns.Items.Hardmode
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.WaterGun);
+            Item.useTime -= 2;
+            Item.useAnimation -= 2;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
