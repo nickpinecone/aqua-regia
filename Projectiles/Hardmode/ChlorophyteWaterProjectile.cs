@@ -13,6 +13,8 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
+
+            Projectile.timeLeft += 20;
         }
 
         public override void AI()
