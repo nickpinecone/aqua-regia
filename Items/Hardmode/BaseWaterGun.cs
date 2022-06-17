@@ -4,16 +4,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Items.AdvancedOre
+namespace WaterGuns.Items.Hardmode
 {
     public abstract class BaseWaterGun : ModItem
     {
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.WaterGun);
-            Item.shoot = ModContent.ProjectileType<Projectiles.AdvancedOre.AdvancedWaterProjectile>();
-            Item.useTime -= 2;
-            Item.useAnimation -= 2;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

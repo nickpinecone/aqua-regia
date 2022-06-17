@@ -13,6 +13,7 @@ namespace WaterGuns.Global
                 item.DamageType = DamageClass.Ranged;
                 item.damage = 1;
 
+                item.noMelee = true;
                 item.autoReuse = true;
             }
         }
