@@ -27,18 +27,5 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.friendly = true;
             Projectile.hostile = false;
         }
-
-        protected float gravity = 0.001f;
-        public override void AI()
-        {
-            // Curve it like the in-game water gun projectile
-            gravity += 0.002f;
-            Projectile.velocity.Y += gravity;
-
-            // The dust should be created in the child class
-            // Dust.NewDust(...)
-
-            base.AI();
-        }
     }
 }

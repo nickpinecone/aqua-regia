@@ -17,13 +17,13 @@ namespace WaterGuns.Items.Hardmode
 
             Item.damage = 35;
             Item.knockBack = 5;
-            // Item.shoot = ModContent.ProjectileType<Projectiles.
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.CursedWaterProjectile>();
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.CursedFlames, 18);
+            recipe.AddIngredient(ItemID.CursedFlame, 18);
             recipe.AddIngredient(ModContent.ItemType<PreHardmode.DemonWaterGun>(), 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
