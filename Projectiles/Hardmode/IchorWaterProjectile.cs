@@ -29,7 +29,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
             base.CreateDust(new Color(255, 250, 41), 1.1f, 6);
 
-            // Fire dust that emits light
+            // Ichor dust that emits little light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Ichor, 0, 0, 0, default, 0.8f);
             Main.dust[dust2].noGravity = true;
         }

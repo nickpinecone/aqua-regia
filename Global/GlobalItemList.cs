@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +17,15 @@ namespace WaterGuns.Global
                 item.noMelee = true;
                 item.autoReuse = true;
             }
+        }
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            if (item.type == ItemID.WaterGun)
+            {
+                tooltips[5].Text = "Squirts a dangerous stream of water";
+            }
+            base.ModifyTooltips(item, tooltips);
         }
     }
 }

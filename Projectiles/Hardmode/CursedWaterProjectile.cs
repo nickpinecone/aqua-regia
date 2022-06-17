@@ -8,8 +8,6 @@ namespace WaterGuns.Projectiles.Hardmode
 {
     public class CursedWaterProjectile : BaseProjectile
     {
-        public bool second = false;
-
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -50,7 +48,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
             base.CreateDust(new Color(96, 248, 2), 1.2f);
 
-            // Fire dust that emits light
+            // Cursed Flame dust that emits light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.CursedTorch, 0, 0, 0, default, 1.6f);
             Main.dust[dust2].fadeIn = 1.2f;
             Main.dust[dust2].noGravity = true;
