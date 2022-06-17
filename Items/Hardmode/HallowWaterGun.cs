@@ -17,12 +17,12 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 40;
+            Item.damage = 20;
             Item.knockBack = 5;
 
-            Item.shootSpeed -= 4;
-            Item.useTime += 20;
-            Item.useAnimation += 20;
+            Item.shootSpeed -= 6;
+            Item.useTime += 30;
+            Item.useAnimation += 30;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.HallowWaterProjectile>();
         }
@@ -32,7 +32,7 @@ namespace WaterGuns.Items.Hardmode
             for (int i = -1; i < 2; i += 2)
             {
                 Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
-                var offset = position + (modifiedVelocity * 12).RotatedBy(MathHelper.ToRadians(90 * i));
+                var offset = position + (modifiedVelocity * 14).RotatedBy(MathHelper.ToRadians(90 * i));
                 Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }
             return false;

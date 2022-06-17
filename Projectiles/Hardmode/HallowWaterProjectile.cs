@@ -6,12 +6,20 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
-    public class WaterProjectile : ModProjectile
+    public class WaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.WaterGun);
+            base.SetDefaults();
             AIType = ProjectileID.WaterGun;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft -= 20;
+        }
+
+        public override void AI()
+        {
+            base.AI();
+            base.CreateDust(default, 1);
         }
     }
 
@@ -19,12 +27,13 @@ namespace WaterGuns.Projectiles.Hardmode
     {
         public override void SetDefaults()
         {
-            // Projectile.CloneDefaults(ProjectileID.WaterGun);
             AIType = ProjectileID.WaterGun;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 80;
+            Projectile.timeLeft = 140;
         }
 
+        int delayMax = 30;
+        int delay = 30;
         public override void AI()
         {
             base.AI();
@@ -32,7 +41,13 @@ namespace WaterGuns.Projectiles.Hardmode
             var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.position.X, Main.MouseWorld.Y - Projectile.position.Y);
             distanceToMouse.Normalize();
             Projectile.rotation = Projectile.position.AngleTo(Main.MouseWorld);
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, distanceToMouse * 4, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+            if (Main.mouseLeft && delay >= delayMax)
+            {
+                delay = 0;
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, distanceToMouse * 10, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            }
+            delay += 1;
 
         }
     }
