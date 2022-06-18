@@ -12,7 +12,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Souls of defeated foes linger around you. Press right click to release them");
+            Tooltip.SetDefault("Consolidates an ice shard every fourth shot. Press right click to release them");
         }
 
         public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace WaterGuns.Items.PreHardmode
                 var velocity = Main.MouseWorld - player.position;
                 velocity.Normalize();
                 velocity *= 10;
-                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
+                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
 
                 projs[i].friendly = true;
                 projs[i].velocity = velocity;
