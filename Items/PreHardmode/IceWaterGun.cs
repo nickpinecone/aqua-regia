@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -31,6 +32,7 @@ namespace WaterGuns.Items.PreHardmode
                 velocity *= 10;
                 velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
 
+                projs[i].friendly = true;
                 projs[i].velocity = velocity;
             }
 
@@ -44,7 +46,7 @@ namespace WaterGuns.Items.PreHardmode
         int maxNumOfShots = 3;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (numOfShots < 3)
+            if (numOfShots < 3 && projs.Count < 3)
             {
                 numOfShots += 1;
             }
@@ -54,22 +56,12 @@ namespace WaterGuns.Items.PreHardmode
 
                 if (projs.Count < 3)
                 {
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ProjectileID.IceBolt, 10, 4, player.whoAmI);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), 6, 4, player.whoAmI);
                     projs.Add(proj);
                 }
             }
 
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
-        }
-
-        public override void HoldItem(Player player)
-        {
-            for (int i = 0; i < projs.Count; i++)
-            {
-                projs[i].position = player.position;
-            }
-
-            base.HoldItem(player);
         }
 
         public override void AddRecipes()
