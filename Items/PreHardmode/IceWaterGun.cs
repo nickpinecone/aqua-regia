@@ -40,10 +40,20 @@ namespace WaterGuns.Items.PreHardmode
             return base.AltFunctionUse(player);
         }
 
-        List<Projectile> projs = new List<Projectile>();
+        public override void HoldItem(Player player)
+        {
+            // Because while you shoot AltFunctionUse doesnt trigger for some reason
+            // Found this workaround
+            if (Main.mouseRight)
+            {
+                this.AltFunctionUse(player);
+            }
+            base.HoldItem(player);
+        }
 
         int numOfShots = 0;
         int maxNumOfShots = 3;
+        List<Projectile> projs = new List<Projectile>();
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (numOfShots < 3 && projs.Count < 3)
@@ -56,7 +66,7 @@ namespace WaterGuns.Items.PreHardmode
 
                 if (projs.Count < 3)
                 {
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), 6, 4, player.whoAmI);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), 8, 4, player.whoAmI);
                     projs.Add(proj);
                 }
             }
