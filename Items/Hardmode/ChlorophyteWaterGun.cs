@@ -15,10 +15,10 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 48;
+            Item.damage = 54;
             Item.knockBack = 5;
-            Item.useTime -= 8;
-            Item.useAnimation -= 8;
+            Item.useTime -= 10;
+            Item.useAnimation -= 10;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.ChlorophyteWaterProjectile>();
         }
