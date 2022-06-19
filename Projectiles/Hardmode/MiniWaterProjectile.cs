@@ -20,21 +20,20 @@ namespace WaterGuns.Projectiles.Hardmode
 
         int delayMax = 15;
         int delay = 15;
-        bool turned = false;
         public override void AI()
         {
             base.AI();
 
-            var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.position.X, Main.MouseWorld.Y - Projectile.position.Y);
+            var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.Center.X, Main.MouseWorld.Y - Projectile.Center.Y);
             distanceToMouse.Normalize();
-            Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld);
+            Projectile.spriteDirection = (Main.MouseWorld.Y - Projectile.position.Y > 0) ? 1 : -1;
+            Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld) - (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
 
             if (Main.mouseLeft && delay >= delayMax)
             {
                 delay = 0;
                 var velocity = distanceToMouse * 10;
-                var offset = new Vector2(Projectile.position.X + MathF.Abs(velocity.X * 2), Projectile.position.Y + MathF.Abs(velocity.Y * 2)) + (Projectile.velocity * 1.5f).RotatedBy(90);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<AdvancedOre.AdvancedWaterProjectile>(), 40, 3, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AdvancedOre.AdvancedWaterProjectile>(), 40, 3, Projectile.owner);
             }
             delay += 1;
         }
