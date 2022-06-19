@@ -29,6 +29,7 @@ namespace WaterGuns.Items.PreHardmode
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Chain, 3);
             recipe.AddIngredient(ItemID.IronBar, 20);
+            recipe.AddIngredient(ItemID.Hook, 1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
