@@ -23,7 +23,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 5;
             Item.knockBack = 0.8f;
 
-            Item.useTime += 4;
+            Item.useTime += 3;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.WoodenWaterProjectile>();
         }
 

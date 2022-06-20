@@ -34,7 +34,7 @@ namespace WaterGuns.Projectiles.Hardmode
             {
                 delay = 0;
                 var velocity = distanceToMouse * 10;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<AdvancedOre.AdvancedWaterProjectile>(), 40, 3, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<TitaniumWaterProjectile>(), 40, 3, Projectile.owner);
             }
             delay += 1;
         }

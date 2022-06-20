@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Projectiles.AdvancedOre
+namespace WaterGuns.Projectiles.Hardmode
 {
-    public class AdvancedWaterProjectile : ModProjectile
+    public class TitaniumWaterProjectile : ModProjectile
     {
         public override void SetDefaults()
         {
