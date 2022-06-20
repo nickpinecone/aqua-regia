@@ -10,7 +10,10 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("An additional acorn falls on an enemy, but only above ground");
+            Tooltip.SetDefault(
+                "An additional acorn falls on an enemy, but only when trees are near.\n" +
+                "'Prevents deforestation'"
+            );
         }
 
         public override void SetDefaults()
@@ -18,7 +21,7 @@ namespace WaterGuns.Items.PreHardmode
             base.SetDefaults();
 
             Item.damage = 5;
-            Item.knockBack = 0.5f;
+            Item.knockBack = 0.8f;
 
             Item.useTime += 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.WoodenWaterProjectile>();

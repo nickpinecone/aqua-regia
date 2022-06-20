@@ -34,10 +34,14 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            var position = target.position;
-            position.Y -= 320;
+            if (Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.Trees))
+            {
+                var position = target.position;
+                position.Y -= 320;
 
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, new Vector2(0, 10), ModContent.ProjectileType<AcornProjectile>(), 4, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, new Vector2(0, 10), ModContent.ProjectileType<AcornProjectile>(), 4, Projectile.knockBack, Projectile.owner);
+            }
+
             base.OnHitNPC(target, damage, knockback, crit);
         }
     }

@@ -62,7 +62,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void AI()
         {
-            waterGun.position = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
+            waterGun.Center = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
             base.AI();
         }
     }

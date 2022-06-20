@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Items.BasicOre
+namespace WaterGuns.Items.PreHardmode
 {
     public class GoldWaterGun : BaseWaterGun
     {

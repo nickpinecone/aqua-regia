@@ -14,6 +14,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.width = 8;
             Projectile.height = 8;
 
+            Projectile.timeLeft = 2400;
             Projectile.friendly = false;
             Projectile.hostile = false;
         }
