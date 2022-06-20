@@ -11,7 +11,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault(
-                "An additional acorn falls on an enemy, but only when trees are near.\n" +
+                "Additional acorn falls on an enemy, but only when trees are near.\n" +
                 "'Prevents deforestation'"
             );
         }

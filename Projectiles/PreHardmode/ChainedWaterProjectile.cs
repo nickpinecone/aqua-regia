@@ -16,6 +16,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             Projectile.friendly = false;
             Projectile.hostile = false;
+            Projectile.scale = 0.9f;
         }
 
         public override void OnSpawn(IEntitySource source)

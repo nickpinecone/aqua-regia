@@ -10,7 +10,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Water bounces off the walls");
+            Tooltip.SetDefault("Water bounces off the walls and pierces enemies");
         }
 
         public override void SetDefaults()

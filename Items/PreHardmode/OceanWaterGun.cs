@@ -10,7 +10,10 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Spawns additional bubbles");
+            Tooltip.SetDefault(
+                "Spawns additional bubbles" +
+                "\n'It pops!'"
+            );
         }
 
         public override void SetDefaults()

@@ -17,7 +17,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             // Determines from what side the new projectile spawns
-            int direction = Main.MouseWorld.X - Projectile.position.X > 0 ? 1 : -1;
+            int direction = Main.rand.NextBool() ? -1 : 1;
 
             // Speed it up a bit
             int projectileSpeed = 10;

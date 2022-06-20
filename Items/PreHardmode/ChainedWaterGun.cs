@@ -10,7 +10,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Spawns an additional stream of water upon impact");
+            Tooltip.SetDefault("Literally a gun on a chain");
         }
 
         public override void SetDefaults()

@@ -12,14 +12,14 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Consolidates an ice shard every fourth shot. Press right click to release them");
+            Tooltip.SetDefault("Consolidates an ice shard every fourth shot. Right click to release them");
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.damage = 11;
+            Item.damage = 13;
             Item.knockBack = 3;
         }
 
@@ -66,7 +66,7 @@ namespace WaterGuns.Items.PreHardmode
 
                 if (projs.Count < 3)
                 {
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), 8, 4, player.whoAmI);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), Item.damage - 3, 4, player.whoAmI);
                     projs.Add(proj);
                 }
             }
