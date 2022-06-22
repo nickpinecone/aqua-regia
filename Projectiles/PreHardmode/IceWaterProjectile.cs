@@ -15,6 +15,12 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.friendly = false;
         }
 
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            target.AddBuff(BuffID.Frostburn, 240);
+            base.OnHitNPC(target, damage, knockback, crit);
+        }
+
         Vector2 spin = new Vector2(24, 0);
         public override void AI()
         {

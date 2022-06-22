@@ -18,6 +18,8 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 73;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SoundwaveWaterProjectile>();
+            Item.useTime -= 4;
+            Item.useAnimation -= 4;
         }
 
         public override void AddRecipes()
