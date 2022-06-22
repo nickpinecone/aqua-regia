@@ -1,0 +1,31 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace WaterGuns.Items.Hardmode
+{
+    public class SoundwaveWaterGun : BaseWaterGun
+    {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Shoots a powerful sound wave fused with water");
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            Item.damage = 73;
+            Item.knockBack = 6;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SoundwaveWaterProjectile>();
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.DirtBlock, 1);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+        }
+    }
+}

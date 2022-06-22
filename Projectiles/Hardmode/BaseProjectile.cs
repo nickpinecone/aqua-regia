@@ -28,7 +28,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.hostile = false;
         }
 
-        public void CreateDust(Color color, float scale, int amount = 4)
+        public void CreateDust(Color color, float scale, int amount = 4, int fadeIn = 1)
         {
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
@@ -40,7 +40,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
                 var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 0, color, scale);
                 dust.noGravity = true;
-                dust.fadeIn = 1;
+                dust.fadeIn = fadeIn;
             }
         }
     }
