@@ -18,8 +18,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.penetrate = 1;
             Projectile.timeLeft = 62;
 
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 16;
+            Projectile.height = 16;
 
             // Whithout extra updates it feels slow
             Projectile.extraUpdates = 2;

@@ -16,8 +16,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.penetrate = 1;
             Projectile.timeLeft = 240;
 
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 32;
+            Projectile.height = 32;
 
             Projectile.friendly = true;
             Projectile.hostile = false;
