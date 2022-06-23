@@ -16,7 +16,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (Projectile.height == 8)
+            if (Projectile.height == 16)
             {
                 for (int i = -1; i < 2; i += 2)
                 {

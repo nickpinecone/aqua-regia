@@ -22,7 +22,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.AI();
             base.CreateDust(default, 1.5f, 1, 1);
 
-            bool upwards = Projectile.height == 8 ? true : false;
+            bool upwards = Projectile.height == 16 ? true : false;
             int direction = upwards ? 1 : -1;
             Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(0.5f * direction));
         }

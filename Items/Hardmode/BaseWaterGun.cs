@@ -22,15 +22,7 @@ namespace WaterGuns.Items.Hardmode
             // Make them a little inaccurate like in-game water gun
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(1));
             // Custom projectile doesnt position right so offset it
-            var offset = Vector2.Zero;
-            if (isOffset)
-            {
-                offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
-            }
-            else
-            {
-                offset = position;
-            }
+            var offset = isOffset ? new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4) : position;
             Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
             return false;

@@ -14,8 +14,8 @@ namespace WaterGuns.Global
                 projectile.damage = 1;
                 projectile.penetrate = 1;
 
-                projectile.width = 8;
-                projectile.height = 8;
+                projectile.width = 16;
+                projectile.height = 16;
 
                 projectile.friendly = true;
                 projectile.hostile = false;

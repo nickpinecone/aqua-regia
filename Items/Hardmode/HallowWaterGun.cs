@@ -22,7 +22,6 @@ namespace WaterGuns.Items.Hardmode
 
             Item.shootSpeed -= 6;
             Item.useTime += 30;
-            // Item.useAnimation += 30;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.HallowWaterProjectile>();
         }
