@@ -31,7 +31,7 @@ namespace WaterGuns.Items.PreHardmode
             recipe.AddIngredient(ItemID.Seashell, 12);
             recipe.AddIngredient(ItemID.Starfish, 10);
             recipe.AddIngredient(ItemID.Coral, 8);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }
     }

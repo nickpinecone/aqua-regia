@@ -25,10 +25,12 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool AltFunctionUse(Player player)
         {
+            // Release the shards
             for (int i = 0; i < projs.Count; i++)
             {
                 var velocity = Main.MouseWorld - player.position;
                 velocity.Normalize();
+                // Speed them up and make a bit inaccurate
                 velocity *= 10;
                 velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
 

@@ -13,12 +13,15 @@ namespace WaterGuns.Items.PreHardmode
             Item.CloneDefaults(ItemID.WaterGun);
         }
 
+        protected bool isOffset = false;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             // All of them use custom projectiles that shoot straight 
             // Make them a little inaccurate like in-game water gun
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3.3f));
-            Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            // Offset if need be
+            var offset = isOffset ? new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4) : position;
+            Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
             return false;
         }
