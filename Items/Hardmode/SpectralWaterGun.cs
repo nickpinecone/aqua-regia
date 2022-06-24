@@ -12,7 +12,7 @@ namespace WaterGuns.Items.Hardmode
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Releases souls that chase down enemies");
+            Tooltip.SetDefault("Hitting enemies increases damage. Right click to release wisps");
         }
 
         public override bool AltFunctionUse(Player player)
@@ -20,15 +20,16 @@ namespace WaterGuns.Items.Hardmode
             int soulsDamage = Item.damage - normalDamage;
             Item.damage = normalDamage;
 
-            int soulsNumber = soulsDamage;
+            int soulsNumber = soulsDamage / 4;
 
             soulsNumber = soulsNumber > 10 ? 10 : soulsNumber;
 
-            soulsDamage += 30;
+            soulsDamage *= 2;
 
+            var angle = player.position.AngleTo(Main.MouseWorld);
             for (int i = 0; i < soulsNumber; i++)
             {
-                Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(45)), ProjectileID.LostSoulFriendly, soulsDamage, 5, player.whoAmI);
+                Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(10, 0).RotatedBy(angle).RotatedByRandom(MathHelper.ToRadians(90)), ProjectileID.LostSoulFriendly, soulsDamage, 5, player.whoAmI);
             }
 
             return base.AltFunctionUse(player);
@@ -46,11 +47,12 @@ namespace WaterGuns.Items.Hardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
-            base.isOffset = false;
 
             Item.damage = 38;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SpectralWaterProjectile>();
+            Item.useTime -= 2;
+            Item.useAnimation -= 2;
 
             normalDamage = Item.damage;
         }
