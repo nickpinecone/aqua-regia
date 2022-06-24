@@ -18,7 +18,7 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 81;
+            Item.damage = 64;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
         }
@@ -35,7 +35,7 @@ namespace WaterGuns.Items.Hardmode
                     var randomPosition = Main.npc[i].Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(rotation));
                     var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180));
                     modifiedVelocity.RotatedByRandom(MathHelper.ToRadians(10));
-                    Projectile.NewProjectile(source, randomPosition, modifiedVelocity, type, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, randomPosition, modifiedVelocity, type, damage / 2, knockback, player.whoAmI);
                 }
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
