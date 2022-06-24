@@ -22,6 +22,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 Main.player[Projectile.owner].HeldItem.damage += 2;
                 if (Main.player[Projectile.owner].HeldItem.damage >= 88)
                 {
+                    // Play sound to know it cant become stronger
                     SoundEngine.PlaySound(SoundID.Item4);
                 }
             }
@@ -32,7 +33,7 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
-            base.CreateDust(new Color(255, 255, 255), 1f);
+            base.CreateDust(default, 1f);
         }
     }
 }
