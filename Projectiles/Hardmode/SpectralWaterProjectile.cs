@@ -13,6 +13,7 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
+            Projectile.timeLeft += 10;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

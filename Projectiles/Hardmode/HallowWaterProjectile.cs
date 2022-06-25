@@ -12,7 +12,7 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             AIType = ProjectileID.WaterGun;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 140;
+            Projectile.timeLeft = 160;
         }
 
         int delayMax = 30;

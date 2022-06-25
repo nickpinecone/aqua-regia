@@ -4,7 +4,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using System;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
@@ -20,13 +19,16 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
                 var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.tileCollide = false;
+                proj.timeLeft -= 5;
             }
             Projectile.timeLeft = 0;
+
+            base.Kill(timeLeft);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -37,9 +39,10 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            base.AutoAim();
             base.AI();
+            base.AutoAim();
+
+            Projectile.rotation = Projectile.velocity.ToRotation();
         }
     }
 }

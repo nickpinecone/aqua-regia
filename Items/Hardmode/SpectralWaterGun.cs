@@ -15,6 +15,19 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Hitting enemies increases damage. Right click to release wisps");
         }
 
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            Item.damage = 38;
+            Item.knockBack = 5;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SpectralWaterProjectile>();
+            Item.useTime -= 3;
+            Item.useAnimation -= 3;
+
+            normalDamage = Item.damage;
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             int soulsDamage = Item.damage - normalDamage;
@@ -44,18 +57,6 @@ namespace WaterGuns.Items.Hardmode
             base.HoldItem(player);
         }
 
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-
-            Item.damage = 38;
-            Item.knockBack = 5;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SpectralWaterProjectile>();
-            Item.useTime -= 2;
-            Item.useAnimation -= 2;
-
-            normalDamage = Item.damage;
-        }
 
         public override void AddRecipes()
         {
