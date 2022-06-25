@@ -27,7 +27,8 @@ namespace WaterGuns.Projectiles.Hardmode
             if (delay >= 15)
             {
                 delay = 0;
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(0, 10), ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, new Vector2(0, 10), ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                proj.width += 10;
             }
 
             base.CreateDust(default, 1.2f, 3);

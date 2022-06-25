@@ -35,7 +35,10 @@ namespace WaterGuns.Items.Hardmode
                     var randomPosition = Main.npc[i].Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(rotation));
                     var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180));
                     modifiedVelocity.RotatedByRandom(MathHelper.ToRadians(10));
-                    Projectile.NewProjectile(source, randomPosition, modifiedVelocity, type, damage / 2, knockback, player.whoAmI);
+
+                    var proj = Projectile.NewProjectileDirect(source, randomPosition, modifiedVelocity, type, damage / 2, knockback, player.whoAmI);
+                    proj.tileCollide = false;
+
                 }
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);

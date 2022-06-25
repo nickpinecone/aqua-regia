@@ -6,23 +6,6 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
-    public class WaterProjectile : BaseProjectile
-    {
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            AIType = ProjectileID.WaterGun;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft -= 20;
-        }
-
-        public override void AI()
-        {
-            base.AI();
-            base.CreateDust(default, 1);
-        }
-    }
-
     public class HallowWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
@@ -47,7 +30,10 @@ namespace WaterGuns.Projectiles.Hardmode
                 delay = 0;
                 var velocity = distanceToMouse * 10;
                 var offset = new Vector2(Projectile.position.X + velocity.X * 4, Projectile.position.Y + velocity.Y * 4);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                proj.tileCollide = false;
+                proj.timeLeft -= 20;
             }
             delay += 1;
 

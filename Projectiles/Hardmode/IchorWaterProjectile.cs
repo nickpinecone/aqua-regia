@@ -15,6 +15,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
             Projectile.tileCollide = false;
+            Projectile.timeLeft += 20;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -27,7 +28,7 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.AI();
 
-            base.CreateDust(new Color(255, 250, 41), 1.1f, 6);
+            base.CreateDust(new Color(255, 250, 41), 1.2f);
 
             // Ichor dust that emits little light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Ichor, 0, 0, 0, default, 0.8f);

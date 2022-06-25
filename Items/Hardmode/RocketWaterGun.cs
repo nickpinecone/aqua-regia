@@ -20,7 +20,8 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 73;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
-            Item.useTime -= 2;
+            Item.useTime -= 8;
+            Item.useAnimation -= 8;
         }
 
         int shot = 0;
@@ -35,7 +36,13 @@ namespace WaterGuns.Items.Hardmode
                 shot = 0;
             }
 
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
+            var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
+            var proj = Projectile.NewProjectileDirect(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            proj.timeLeft += 20;
+            proj.penetrate = 2;
+
+            return false;
         }
 
         public override void AddRecipes()
