@@ -18,6 +18,10 @@ namespace WaterGuns.Global
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.AncientWaterGun>()));
             }
+            else if (npc.type == NPCID.DukeFishron)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.SeaWaterGun>()));
+            }
             base.ModifyNPCLoot(npc, npcLoot);
         }
     }

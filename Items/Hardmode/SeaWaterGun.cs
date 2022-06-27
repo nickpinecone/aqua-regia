@@ -34,14 +34,5 @@ namespace WaterGuns.Items.Hardmode
 
             return false;
         }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.DukeFishronMask, 1);
-            recipe.AddIngredient(ModContent.ItemType<PreHardmode.OceanWaterGun>(), 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
-        }
     }
 }
