@@ -25,8 +25,8 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.DirtBlock, 1);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.ShroomiteBar, 16);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
     }

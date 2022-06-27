@@ -16,7 +16,6 @@ namespace WaterGuns.Items.Hardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
-            base.isOffset = false;
 
             Item.damage = 46;
             Item.knockBack = 5;
@@ -27,7 +26,8 @@ namespace WaterGuns.Items.Hardmode
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.PixieDust, 18);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.CrystalShard, 12);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
     }

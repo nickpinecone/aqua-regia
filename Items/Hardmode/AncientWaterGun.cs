@@ -47,8 +47,8 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.BeetleHusk, 18);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.BeetleHusk, 10);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
     }

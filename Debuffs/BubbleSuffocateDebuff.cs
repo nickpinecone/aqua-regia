@@ -9,7 +9,7 @@ namespace WaterGuns.Debuffs
 {
     public class BubbleSuffocateDebuff : ModBuff
     {
-        int delay = 0;
+        int delay = 6;
         public override void Update(NPC npc, ref int buffIndex)
         {
             base.Update(npc, ref buffIndex);

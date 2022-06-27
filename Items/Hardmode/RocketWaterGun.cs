@@ -49,7 +49,7 @@ namespace WaterGuns.Items.Hardmode
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.FragmentVortex, 18);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(412); // Ancient manipulator
             recipe.Register();
         }
     }
