@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace WaterGuns.Items.Hardmode
 {
@@ -32,6 +33,8 @@ namespace WaterGuns.Items.Hardmode
 
             if (shot >= 4)
             {
+                SoundEngine.PlaySound(SoundID.Item11);
+
                 Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage, knockback, player.whoAmI);
                 shot = 0;
             }

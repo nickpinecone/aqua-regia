@@ -19,6 +19,8 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item14);
+
             for (int i = 0; i < 3; i++)
             {
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
