@@ -24,8 +24,6 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Debuffs.BubbleSuffocateDebuff>(), 240);
-
             // Offset randomly
             var offset = new Vector2();
             offset.X = Projectile.position.X + Main.rand.Next(-60, 60);

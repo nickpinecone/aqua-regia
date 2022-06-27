@@ -18,7 +18,7 @@ namespace WaterGuns.Debuffs
             npc.lifeRegen -= 32;
 
             delay += 1;
-            if (delay > 6)
+            if (delay > 5)
             {
                 // Offset randomly
                 var offset = new Vector2();
@@ -26,7 +26,7 @@ namespace WaterGuns.Debuffs
                 offset.Y = npc.position.Y + npc.height + Main.rand.Next(0, 60);
 
                 // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), offset, new Vector2(0, -6), ModContent.ProjectileType<Projectiles.PreHardmode.BubbleProjectile>(), 28, 0, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), offset, new Vector2(0, -6), ModContent.ProjectileType<Projectiles.PreHardmode.BubbleProjectile>(), 32, 0, Main.myPlayer);
                 delay = 0;
             }
 
