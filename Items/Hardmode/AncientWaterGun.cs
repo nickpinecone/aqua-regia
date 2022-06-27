@@ -43,13 +43,5 @@ namespace WaterGuns.Items.Hardmode
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.BeetleHusk, 10);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
-        }
     }
 }

@@ -10,7 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Rapid but inaccurate");
+            Tooltip.SetDefault("Rapid but inaccurate. Press right click to turn into a turret");
         }
 
         public override void SetDefaults()
@@ -50,15 +50,6 @@ namespace WaterGuns.Items.Hardmode
                 Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }
             return false;
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.ChainGun, 1);
-            recipe.AddIngredient(ItemID.WaterBucket, 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
         }
     }
 }

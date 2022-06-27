@@ -15,7 +15,7 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 73;
+            Item.damage = 63;
             Item.knockBack = 6;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SoundwaveWaterProjectile>();
             Item.useTime -= 4;
