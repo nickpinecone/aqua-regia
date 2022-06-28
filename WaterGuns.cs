@@ -1,6 +1,6 @@
 using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ID;
 
 namespace WaterGuns
 {

@@ -41,7 +41,7 @@ namespace WaterGuns.Items.Hardmode
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.HallowedBar, 18);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
     }

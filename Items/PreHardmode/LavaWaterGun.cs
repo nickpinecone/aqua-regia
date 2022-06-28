@@ -8,10 +8,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault(
-                "Inflicts burn on enemies" +
-                "\n'Lava Water?!'"
-            );
+            Tooltip.SetDefault("Inflicts burn on enemies");
         }
 
         public override void SetDefaults()
