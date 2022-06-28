@@ -43,7 +43,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.TitaniumBar, 18);
+            recipe.AddRecipeGroup("MoreWaterGuns:TitaniumBars", 18);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
