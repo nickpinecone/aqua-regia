@@ -18,9 +18,9 @@ namespace WaterGuns
             return defaultInaccuracy - defaultInaccuracy * waterGunAccuracy;
         }
 
-        public float CalculateSpeed(float defaultSpeed)
+        public float CalculateSpeed()
         {
-            return defaultSpeed + defaultSpeed * waterGunSpeed;
+            return 1 + waterGunSpeed;
         }
 
         public float CalculateRange(float defaultRange)
