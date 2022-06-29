@@ -24,8 +24,8 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float inaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(4);
-            float offsetInaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(0.3f);
+            float inaccuracy = CalculateAccuracy(4);
+            float offsetInaccuracy = CalculateAccuracy(0.3f);
 
             // Put it above the mouse
             // Could create complications if zoomed out too much
@@ -34,7 +34,7 @@ namespace WaterGuns.Items.Hardmode
             position.X = Main.MouseWorld.X;
 
             // Speed them up a bit
-            int projectileSpeed = 14;
+            float projectileSpeed = 14 * CalculateSpeed();
 
             for (int i = 0; i < 4; i++)
             {

@@ -38,9 +38,9 @@ namespace WaterGuns.Items.Hardmode
                 shot = 0;
             }
 
-            float inaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(4);
+            float inaccuracy = CalculateAccuracy(4);
 
-            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));
+            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
             var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
             var proj = Projectile.NewProjectileDirect(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
             proj.timeLeft += 20;

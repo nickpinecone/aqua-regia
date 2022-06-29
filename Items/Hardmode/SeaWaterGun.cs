@@ -27,7 +27,7 @@ namespace WaterGuns.Items.Hardmode
             for (int i = -1; i < 2; i += 2)
             {
                 int distanceBetween = 1;
-                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
+                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction)) * CalculateSpeed();
                 var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
                 Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }
