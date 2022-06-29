@@ -8,14 +8,31 @@ namespace WaterGuns
 {
     public class GlobalPlayer : ModPlayer
     {
-        // 1 = stat not changed, 0 = stat maxed
-        public float waterGunAcuraccy = 1;
-        public float waterGunSpeed = 1;
-        public float waterGunRange = 1;
+        // 0 = stat not changed, 1 = stat maxed
+        public float waterGunAccuracy = 0;
+        public float waterGunSpeed = 0;
+        public float waterGunRange = 0;
 
         public float CalculateAccuracy(float defaultInaccuracy)
         {
-            return defaultInaccuracy * waterGunAcuraccy;
+            return defaultInaccuracy - defaultInaccuracy * waterGunAccuracy;
+        }
+
+        public float CalculateSpeed(float defaultSpeed)
+        {
+            return defaultSpeed + defaultSpeed * waterGunSpeed;
+        }
+
+        public float CalculateRange(float defaultRange)
+        {
+            return defaultRange + defaultRange * waterGunRange;
+        }
+
+        public override void ResetEffects()
+        {
+            waterGunAccuracy = 0;
+            waterGunSpeed = 0;
+            waterGunRange = 0;
         }
     }
 }

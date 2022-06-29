@@ -8,6 +8,11 @@ namespace WaterGuns.Accessories
 {
     public class WaterGunScope : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("40% increase to water guns accuracy");
+        }
+
         public override void SetDefaults()
         {
             Item.width = 20;
@@ -17,7 +22,7 @@ namespace WaterGuns.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<GlobalPlayer>().waterGunAcuraccy = 0.6f;
+            player.GetModPlayer<GlobalPlayer>().waterGunAccuracy = 0.4f;
         }
     }
 }

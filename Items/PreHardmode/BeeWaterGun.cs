@@ -22,7 +22,8 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            var modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3.3f));
+            float inaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(defaultInaccuracy);
+            var modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));
             Projectile.NewProjectile(source, position, modifiedVelocity, ProjectileID.Bee, 8, 1, player.whoAmI);
             Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
             return false;
