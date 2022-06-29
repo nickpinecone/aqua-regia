@@ -13,10 +13,17 @@ namespace WaterGuns.Items.PreHardmode
             Item.CloneDefaults(ItemID.WaterGun);
         }
 
-        protected bool isOffset = false;
+        protected float defaultInaccuracy = 3.3f;
         protected float inaccuracy = 3.3f;
+        public float CalculateAccuracy()
+        {
+            return defaultInaccuracy * Main.player[Main.myPlayer].GetModPlayer<GlobalPlayer>().waterGunAcuraccy;
+        }
+
+        protected bool isOffset = false;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            inaccuracy = CalculateAccuracy();
             // All of them use custom projectiles that shoot straight 
             // Make them a little inaccurate like in-game water gun
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));

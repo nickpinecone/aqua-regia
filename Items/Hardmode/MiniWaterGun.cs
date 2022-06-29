@@ -43,9 +43,10 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            float inaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(8);
             if (!turretMode)
             {
-                Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(8));
+                Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));
                 var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
                 Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
             }

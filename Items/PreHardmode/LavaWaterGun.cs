@@ -15,7 +15,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetDefaults();
             base.isOffset = true;
-            base.inaccuracy = 0;
+            base.defaultInaccuracy = 0;
 
             Item.damage = 31;
             Item.knockBack = 5;

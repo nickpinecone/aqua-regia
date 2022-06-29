@@ -30,7 +30,6 @@ namespace WaterGuns.Items.Hardmode
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             shot += 1;
-
             if (shot >= 4)
             {
                 SoundEngine.PlaySound(SoundID.Item11);
@@ -39,7 +38,9 @@ namespace WaterGuns.Items.Hardmode
                 shot = 0;
             }
 
-            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
+            float inaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(4);
+
+            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));
             var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
             var proj = Projectile.NewProjectileDirect(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
             proj.timeLeft += 20;

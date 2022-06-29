@@ -33,9 +33,12 @@ namespace WaterGuns.Items.Hardmode
             // Speed them up a bit
             int projectileSpeed = 14;
 
+            // Chage accuracy
+            float inaccuracy = player.GetModPlayer<GlobalPlayer>().CalculateAccuracy(4);
+
             for (int i = 0; i < 4; i++)
             {
-                var modifiedVelocity = new Vector2(0, 1).RotatedByRandom(MathHelper.ToRadians(4));
+                var modifiedVelocity = new Vector2(0, 1).RotatedByRandom(MathHelper.ToRadians(inaccuracy));
                 position.X = position.RotatedByRandom(MathHelper.ToRadians(0.4f)).X;
                 modifiedVelocity *= projectileSpeed;
 
