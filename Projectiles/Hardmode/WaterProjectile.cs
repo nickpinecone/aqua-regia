@@ -17,7 +17,10 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1);
+            if (Projectile.height == 32)
+                base.CreateDust(default, 2);
+            else
+                base.CreateDust(default, 1);
         }
     }
 }

@@ -23,6 +23,11 @@ namespace WaterGuns.Items.Hardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
         }
 
+        public override bool? UseItem(Player player)
+        {
+            return base.UseItem(player);
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float inaccuracy = CalculateAccuracy(10);
@@ -41,7 +46,6 @@ namespace WaterGuns.Items.Hardmode
 
                     var proj = Projectile.NewProjectileDirect(source, randomPosition, modifiedVelocity, type, damage / 2, knockback, player.whoAmI);
                     proj.tileCollide = false;
-
                 }
             }
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
