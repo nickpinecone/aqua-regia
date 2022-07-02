@@ -10,7 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("The longer is charges, the harder it hits");
+            Tooltip.SetDefault("--DEMO--\n The longer is charges, the harder it hits");
         }
 
         public override void SetDefaults()
