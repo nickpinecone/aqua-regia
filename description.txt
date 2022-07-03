@@ -1,4 +1,4 @@
 A Terraria mod that brings more water guns to the game that actually do damage
 
-Discord server: https://discord.gg/hEcs7ynpee
+Discord server: https://discord.gg/hEcs7ynpee (In need of spriters)
 The source code on github: https://github.com/ThreeDotsEllipsis/more-water-guns

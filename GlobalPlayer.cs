@@ -32,6 +32,7 @@ namespace WaterGuns
         public void ReleaseBlastShield()
         {
             int numOfProjs = 8;
+            int damage = 40;
             var player = Main.player[Main.myPlayer];
             if (waterGunShield)
             {
@@ -39,7 +40,7 @@ namespace WaterGuns
                 {
                     var velocity = new Vector2(0, 1).RotatedBy(MathHelper.ToRadians(i * (360 / numOfProjs)));
                     velocity *= 10 * CalculateSpeed();
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center, velocity, ModContent.ProjectileType<Projectiles.Hardmode.SoundwaveProjectile>(), 40, 8, player.whoAmI);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center, velocity, ModContent.ProjectileType<Projectiles.Hardmode.SoundwaveProjectile>(), damage, 8, player.whoAmI);
                     proj.tileCollide = false;
                     proj.penetrate = -1;
                     proj.timeLeft = 60;
