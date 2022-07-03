@@ -6,18 +6,11 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Accessories
 {
-    public class WaterGunEnhancer : ModItem
+    public class WaterGunEnhancer : BaseAccessory
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("44% increase to water guns accuracy\n12% increase to water guns projectiles speed");
-        }
-
-        public override void SetDefaults()
-        {
-            Item.width = 20;
-            Item.height = 20;
-            Item.accessory = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
