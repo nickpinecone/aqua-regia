@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,7 +11,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("--DEMO--\n The longer is charges, the harder it hits");
+            Tooltip.SetDefault("The longer is charges, the harder it hits");
         }
 
         public override void SetDefaults()
@@ -34,11 +35,11 @@ namespace WaterGuns.Items.Hardmode
 
                 if (counter >= 10)
                 {
-                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, ModContent.ProjectileType<Projectiles.Hardmode.ChargingWaterProjectiles.HugeWaterProjectile>(), Item.damage, Item.knockBack, player.whoAmI);
+                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, ModContent.ProjectileType<Projectiles.Hardmode.ChargingWaterProjectiles.HugeWaterProjectile>(), (int)(Item.damage * 2f), Item.knockBack, player.whoAmI);
                 }
                 else if (counter >= 5)
                 {
-                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, ModContent.ProjectileType<Projectiles.Hardmode.ChargingWaterProjectiles.MediumWaterProjectile>(), Item.damage, Item.knockBack, player.whoAmI);
+                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, ModContent.ProjectileType<Projectiles.Hardmode.ChargingWaterProjectiles.MediumWaterProjectile>(), (int)(Item.damage * 1.5f), Item.knockBack, player.whoAmI);
                 }
                 else
                 {
@@ -52,7 +53,14 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            counter += 1;
+            if (counter < 10)
+            {
+                counter += 1;
+                if (counter >= 10)
+                {
+                    SoundEngine.PlaySound(SoundID.Item4);
+                }
+            }
             return false;
         }
 

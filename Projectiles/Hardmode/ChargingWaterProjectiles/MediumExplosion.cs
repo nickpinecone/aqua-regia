@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace WaterGuns.Projectiles.Hardmode.ChargingWaterProjectiles
 {
@@ -16,13 +17,14 @@ namespace WaterGuns.Projectiles.Hardmode.ChargingWaterProjectiles
             AIType = ProjectileID.WaterGun;
             Projectile.height = height;
             Projectile.width = width;
-            Projectile.timeLeft = 4;
+            Projectile.timeLeft = 6;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
         }
 
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item14);
             for (int i = 0; i < 24; i++)
             {
                 var rotation = Main.rand.Next(0, 360);
