@@ -27,15 +27,22 @@ namespace WaterGuns.Items.Hardmode
         {
             if (counter >= 1 && !Main.mouseLeft)
             {
-                var distanceToMouse = new Vector2(Main.MouseWorld.X - player.position.X, Main.MouseWorld.Y - player.position.Y);
+                var distanceToMouse = new Vector2(Main.MouseWorld.X - player.Center.X, Main.MouseWorld.Y - player.Center.Y);
                 distanceToMouse.Normalize();
                 distanceToMouse *= 10;
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center, distanceToMouse, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+                var offset = new Vector2(player.Center.X + distanceToMouse.X * 4, player.Center.Y + distanceToMouse.Y * 4);
 
-                if (counter >= 5)
+                if (counter >= 10)
                 {
-                    proj.height *= 2;
-                    proj.width *= 2;
+                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, ModContent.ProjectileType<Projectiles.Hardmode.ChargingWaterProjectiles.HugeWaterProjectile>(), Item.damage, Item.knockBack, player.whoAmI);
+                }
+                else if (counter >= 5)
+                {
+                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, ModContent.ProjectileType<Projectiles.Hardmode.ChargingWaterProjectiles.MediumWaterProjectile>(), Item.damage, Item.knockBack, player.whoAmI);
+                }
+                else
+                {
+                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, distanceToMouse, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
                 }
 
                 counter = 0;
