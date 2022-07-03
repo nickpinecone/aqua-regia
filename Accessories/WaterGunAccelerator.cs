@@ -24,5 +24,13 @@ namespace WaterGuns.Accessories
         {
             player.GetModPlayer<GlobalPlayer>().waterGunSpeed = 0.1f;
         }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.IronBar, 10);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+        }
     }
 }

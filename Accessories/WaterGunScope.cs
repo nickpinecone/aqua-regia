@@ -24,5 +24,14 @@ namespace WaterGuns.Accessories
         {
             player.GetModPlayer<GlobalPlayer>().waterGunAccuracy = 0.4f;
         }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.Glass, 20);
+            recipe.AddRecipeGroup("MoreWaterGuns:GoldBars", 14);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+        }
     }
 }
