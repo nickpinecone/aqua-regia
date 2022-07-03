@@ -24,7 +24,6 @@ namespace WaterGuns.Accessories
         {
             player.GetModPlayer<GlobalPlayer>().waterGunAccuracy = 0.44f;
             player.GetModPlayer<GlobalPlayer>().waterGunSpeed = 0.12f;
-            player.GetModPlayer<GlobalPlayer>().waterGunShield = true;
         }
 
         public override void AddRecipes()

@@ -28,7 +28,7 @@ namespace WaterGuns.Accessories
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.HallowedBar, 14);
+            recipe.AddRecipeGroup("MoreWaterGuns:TitaniumBars", 12);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

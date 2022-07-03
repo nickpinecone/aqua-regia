@@ -45,7 +45,7 @@ namespace WaterGuns.Items.Hardmode
                 proj.penetrate = -1;
             }
 
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            return false;
         }
 
         public override void AddRecipes()
