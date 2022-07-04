@@ -15,7 +15,7 @@ namespace WaterGuns.Accessories
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<GlobalPlayer>().waterGunShield = true;
+            player.GetModPlayer<GlobalPlayer>().waterShield = true;
             player.statDefense += 4;
         }
 

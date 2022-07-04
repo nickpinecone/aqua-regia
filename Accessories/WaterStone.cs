@@ -10,12 +10,12 @@ namespace WaterGuns.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("12% increase to water guns damage");
+            Tooltip.SetDefault("10% increase to range damage");
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<GlobalPlayer>().waterGunDamage = 0.12f;
+            player.GetDamage(DamageClass.Ranged) += 0.10f;
         }
 
         public override void AddRecipes()

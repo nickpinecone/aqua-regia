@@ -10,14 +10,14 @@ namespace WaterGuns.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("12% increase to water guns damage\nAdds 4 defense\nReleases water streams when hit");
+            Tooltip.SetDefault("12% increase to ranged damage\nAdds 5 defense\nReleases water streams when hit");
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<GlobalPlayer>().waterGunShield = true;
-            player.GetModPlayer<GlobalPlayer>().waterGunDamage = 0.12f;
-            player.statDefense += 4;
+            player.GetModPlayer<GlobalPlayer>().waterShield = true;
+            player.GetDamage(DamageClass.Ranged) += 0.12f;
+            player.statDefense += 5;
         }
 
         public override void AddRecipes()
