@@ -6,25 +6,25 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Accessories
 {
-    public class WaterGunUltimata : BaseAccessory
+    public class WaterProtector : BaseAccessory
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("44% increase to water guns accuracy\n12% increase to water guns projectiles speed\nReleases water streams when hit");
+            Tooltip.SetDefault("12% increase to water guns damage\nAdds 4 defense\nReleases water streams when hit");
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<GlobalPlayer>().waterGunAccuracy = 0.44f;
-            player.GetModPlayer<GlobalPlayer>().waterGunSpeed = 0.12f;
             player.GetModPlayer<GlobalPlayer>().waterGunShield = true;
+            player.GetModPlayer<GlobalPlayer>().waterGunDamage = 0.12f;
+            player.statDefense += 4;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<Accessories.WaterGunEnhancer>(), 1);
-            recipe.AddIngredient(ModContent.ItemType<Accessories.WaterGunShield>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<Accessories.WaterStone>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<Accessories.WaterShield>(), 1);
             recipe.AddTile(TileID.TinkerersWorkbench);
             recipe.Register();
         }

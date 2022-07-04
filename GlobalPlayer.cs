@@ -11,7 +11,7 @@ namespace WaterGuns
         // 0 = stat not changed, 1 = stat maxed
         public float waterGunAccuracy = 0;
         public float waterGunSpeed = 0;
-        public float waterGunRange = 0;
+        public float waterGunDamage = 0;
         public bool waterGunShield = false;
 
         public float CalculateAccuracy(float defaultInaccuracy)
@@ -24,15 +24,15 @@ namespace WaterGuns
             return 1 + waterGunSpeed;
         }
 
-        public float CalculateRange(float defaultRange)
+        public int CalculateDamage(int defaultDamage)
         {
-            return defaultRange + defaultRange * waterGunRange;
+            return defaultDamage + (int)(defaultDamage * waterGunDamage);
         }
 
         public void ReleaseBlastShield()
         {
             int numOfProjs = 8;
-            int damage = 40;
+            int damage = 40 * CalculateDamage(40);
             var player = Main.player[Main.myPlayer];
             if (waterGunShield)
             {
@@ -64,7 +64,7 @@ namespace WaterGuns
         {
             waterGunAccuracy = 0;
             waterGunSpeed = 0;
-            waterGunRange = 0;
+            waterGunDamage = 0;
             waterGunShield = false;
         }
     }
