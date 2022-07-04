@@ -10,12 +10,13 @@ namespace WaterGuns.Accessories
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("10% increase to range damage");
+            Tooltip.SetDefault("10% increase to range damage\nWater Shield does a bit more damage");
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetDamage(DamageClass.Ranged) += 0.10f;
+            player.GetModPlayer<GlobalPlayer>().waterStone = true;
         }
 
         public override void AddRecipes()

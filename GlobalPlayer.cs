@@ -12,6 +12,7 @@ namespace WaterGuns
         public float waterGunAccuracy = 0;
         public float waterGunSpeed = 0;
         public bool waterShield = false;
+        public bool waterStone = false;
 
         public float CalculateAccuracy(float defaultInaccuracy)
         {
@@ -26,7 +27,7 @@ namespace WaterGuns
         public void ReleaseBlastShield()
         {
             int numOfProjs = 8;
-            int damage = 40;
+            int damage = 40 + (int)(waterStone ? 40f * 0.2f : 0);
             var player = Main.player[Main.myPlayer];
             if (waterShield)
             {
@@ -59,6 +60,7 @@ namespace WaterGuns
             waterGunAccuracy = 0;
             waterGunSpeed = 0;
             waterShield = false;
+            waterStone = false;
         }
     }
 }
