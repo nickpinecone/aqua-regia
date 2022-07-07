@@ -16,18 +16,10 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 20;
         }
 
-        int projSize = 1;
-        public override void OnSpawn(IEntitySource source)
-        {
-            int size = ((Items.Hardmode.CustomData)source).ProjSize;
-            projSize = size;
-            base.OnSpawn(source);
-        }
-
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, projSize);
+            base.CreateDust(default, 1);
             base.AutoAim();
         }
     }

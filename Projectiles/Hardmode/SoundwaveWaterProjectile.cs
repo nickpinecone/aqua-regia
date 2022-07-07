@@ -6,6 +6,15 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
+    public class SoundWaveData : IEntitySource
+    {
+        public string context = "";
+        public bool isUp = false;
+
+        public string Context { get { return context; } }
+        public bool IsUpwards { get { return isUp; } set { isUp = value; } }
+    }
+
     public class SoundwaveProjectile : BaseProjectile
     {
         public override void SetDefaults()
@@ -17,13 +26,19 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.width = 90;
         }
 
+        bool isUp = false;
+        public override void OnSpawn(IEntitySource source)
+        {
+            isUp = ((SoundWaveData)source).IsUpwards;
+            base.OnSpawn(source);
+        }
+
         public override void AI()
         {
             base.AI();
             base.CreateDust(default, 1.5f, 1, 1);
 
-            bool upwards = Projectile.height == 16 ? true : false;
-            int direction = upwards ? 1 : -1;
+            int direction = isUp ? 1 : -1;
             Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(0.5f * direction));
         }
     }
@@ -49,13 +64,22 @@ namespace WaterGuns.Projectiles.Hardmode
                 delay = 0;
 
                 var velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(90));
-                var projUp = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+                var data = new SoundWaveData();
+                data.IsUpwards = true;
+                data.context = Projectile.GetSource_FromThis().Context;
+
+                var projUp = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 projUp.timeLeft += count * 3;
 
                 velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(-90));
-                var projDown = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+
+                data = new SoundWaveData();
+                data.IsUpwards = false;
+                data.context = Projectile.GetSource_FromThis().Context;
+
+                var projDown = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 projDown.timeLeft += count * 3;
-                projDown.height -= 1;
 
                 count += 1;
             }
