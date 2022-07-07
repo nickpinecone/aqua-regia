@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
@@ -17,10 +16,18 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 20;
         }
 
+        int projSize = 1;
+        public override void OnSpawn(IEntitySource source)
+        {
+            int size = ((Items.Hardmode.CustomData)source).ProjSize;
+            projSize = size;
+            base.OnSpawn(source);
+        }
+
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1);
+            base.CreateDust(default, projSize);
             base.AutoAim();
         }
     }
