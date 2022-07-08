@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -43,11 +44,19 @@ namespace WaterGuns.Projectiles.Special
             }
         }
 
+        int direction = 0;
+        public override void OnSpawn(IEntitySource source)
+        {
+            int directionData = ((Items.Special.SwordData)source).direction;
+            direction = directionData;
+            base.OnSpawn(source);
+        }
+
         Vector2 offset = new Vector2(0, 1);
         public override void AI()
         {
             CreateDust(default, 1);
-            Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(0.4f));
+            Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(0.4f * -direction));
             base.AI();
         }
     }
