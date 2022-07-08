@@ -12,6 +12,7 @@ namespace WaterGuns.Items.Special
         {
             Item.CloneDefaults(ItemID.ImpStaff);
             Item.shoot = ModContent.ProjectileType<Projectiles.Special.WaterGunSummon>();
+            Item.damage = 66;
         }
     }
 }
