@@ -29,7 +29,14 @@ namespace WaterGuns.Projectiles.Hardmode
         bool isUp = false;
         public override void OnSpawn(IEntitySource source)
         {
-            isUp = ((SoundWaveData)source).IsUpwards;
+            if (source is SoundWaveData data)
+            {
+                isUp = ((SoundWaveData)source).IsUpwards;
+            }
+            else
+            {
+                isUp = true;
+            }
             base.OnSpawn(source);
         }
 
