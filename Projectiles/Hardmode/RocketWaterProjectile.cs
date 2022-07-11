@@ -15,6 +15,7 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.RocketI;
             Projectile.damage = 1;
             Projectile.timeLeft = 120;
+            hasKillEffect = false;
         }
 
         public override void Kill(int timeLeft)

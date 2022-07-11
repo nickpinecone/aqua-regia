@@ -21,6 +21,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.LavaWaterProjectile>();
             Item.useTime -= 8;
+            Item.useAnimation -= 8;
         }
 
         public override void AddRecipes()

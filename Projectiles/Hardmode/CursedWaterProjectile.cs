@@ -12,6 +12,7 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
+            hasKillEffect = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -40,6 +41,12 @@ namespace WaterGuns.Projectiles.Hardmode
 
             target.AddBuff(BuffID.CursedInferno, 240);
             base.OnHitNPC(target, damage, knockback, crit);
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.CreateKillEffect(new Color(96, 248, 2), 0.8f);
+            base.Kill(timeLeft);
         }
 
         public override void AI()

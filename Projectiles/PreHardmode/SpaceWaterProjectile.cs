@@ -35,19 +35,8 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void Kill(int timeLeft)
         {
-            // Spawn dust when projectile dies, copying water gun behavior
-            for (int i = 0; i < 14; i++)
-            {
-                var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 48), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 48));
-
-                Projectile.velocity.Normalize();
-                var velocity = Projectile.velocity * 8;
-
-                var dust = Dust.NewDust(offset, 60, 5, DustID.Wet, velocity.X, velocity.Y, 0, default, 0.6f);
-                Main.dust[dust].fadeIn = 0.2f;
-
-                base.Kill(timeLeft);
-            }
+            base.CreateKillEffect();
+            base.Kill(timeLeft);
         }
 
         public override void AI()
