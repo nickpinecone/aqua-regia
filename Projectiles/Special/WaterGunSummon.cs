@@ -9,6 +9,17 @@ namespace WaterGuns.Projectiles.Special
 {
     public class WaterGunSummon : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Water Gun Minion");
+            // This is necessary for right-click targeting
+            ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
+            // Denotes that this projectile is a pet or minion
+            Main.projPet[Projectile.type] = true;
+            // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+            ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
+        }
+
         public override void SetDefaults()
         {
             Projectile.netImportant = true;
@@ -16,7 +27,7 @@ namespace WaterGuns.Projectiles.Special
             Projectile.height = 26;
             Projectile.aiStyle = 62;
             Projectile.penetrate = -1;
-            Projectile.timeLeft *= 5;
+            Projectile.timeLeft = 2;
             Projectile.minion = true;
             Projectile.minionSlots = 1f;
             Projectile.tileCollide = false;
@@ -31,6 +42,16 @@ namespace WaterGuns.Projectiles.Special
         int delay = 0;
         public override void AI()
         {
+            Player player = Main.player[Main.myPlayer];
+            if (player.dead || !player.active)
+            {
+                player.ClearBuff(ModContent.BuffType<Debuffs.WaterGunSummonBuff>());
+            }
+            if (player.HasBuff(ModContent.BuffType<Debuffs.WaterGunSummonBuff>()))
+            {
+                Projectile.timeLeft = 2;
+            }
+
             float leastDist = float.PositiveInfinity;
             var vector = Vector2.Zero;
             for (int i = 0; i < Main.npc.Length; i++)
