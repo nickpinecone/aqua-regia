@@ -32,24 +32,24 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public void CreateKillEffect(Color color = default, float scale = 0.6f)
         {
-            if (hasKillEffect)
+            for (int i = 0; i < 10; i++)
             {
-                for (int i = 0; i < 10; i++)
-                {
-                    var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 36), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 36));
+                var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 36), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 36));
 
-                    Projectile.velocity.Normalize();
-                    var velocity = (Projectile.velocity * 4).RotatedByRandom(MathHelper.ToRadians(10));
+                Projectile.velocity.Normalize();
+                var velocity = (Projectile.velocity * 4).RotatedByRandom(MathHelper.ToRadians(10));
 
-                    var dust = Dust.NewDust(offset, 40, 5, DustID.Wet, velocity.X, velocity.Y, 0, color, scale);
-                    Main.dust[dust].fadeIn = 0.2f;
-                }
+                var dust = Dust.NewDust(offset, 40, 5, DustID.Wet, velocity.X, velocity.Y, 0, color, scale);
+                Main.dust[dust].fadeIn = 0.2f;
             }
         }
 
         public override void Kill(int timeLeft)
         {
-            CreateKillEffect();
+            if (hasKillEffect)
+            {
+                CreateKillEffect();
+            }
             base.Kill(timeLeft);
         }
 
