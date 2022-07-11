@@ -23,7 +23,7 @@ namespace WaterGuns.Global
         {
             if (item.type == ItemID.WaterGun)
             {
-                tooltips[5].Text = "Squirts a dangerous stream of water";
+                tooltips[5].Text = "Squirts a harmful stream of water";
             }
             base.ModifyTooltips(item, tooltips);
         }
