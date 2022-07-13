@@ -21,7 +21,6 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 35;
             Item.knockBack = 3;
             Item.scale = 0.8f;
-            Item.useAmmo = ItemID.BottledWater;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.IchorWaterProjectile>();
         }
 

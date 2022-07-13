@@ -57,13 +57,13 @@ namespace WaterGuns.Projectiles.Special
             for (int i = 0; i < Main.npc.Length; i++)
             {
                 var dist = Projectile.Distance(Main.npc[i].position);
-                var distance = Main.player[Main.myPlayer].position - Main.npc[i].position;
-                bool isVisible = Math.Abs(distance.X) < Main.ViewSize.X && Math.Abs(distance.Y) < Main.ViewSize.Y;
+                var distance = Projectile.position - Main.npc[i].position;
+                bool isVisible = Math.Abs(distance.X) < Main.ViewSize.X / 2f && Math.Abs(distance.Y) < Main.ViewSize.Y / 2f;
 
                 if (Main.npc[i].life > 0 && isVisible && dist < leastDist)
                 {
                     leastDist = dist;
-                    vector = Main.npc[i].position - Projectile.position;
+                    vector = Main.npc[i].Center - Projectile.Center;
 
                     Projectile.rotation = Projectile.Center.AngleTo(Main.npc[i].position) - (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
                 }
@@ -78,7 +78,8 @@ namespace WaterGuns.Projectiles.Special
                 {
                     vector.Normalize();
                     var offset = Projectile.Center + vector * 10;
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), offset, vector * 10, ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), offset, vector * 10, ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    proj.timeLeft += 10;
                 }
             }
 
