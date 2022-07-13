@@ -3,11 +3,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
+using Terraria.DataStructures;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
     public abstract class BaseProjectile : ModProjectile
     {
+        public Color color;
+        public int dustAmount;
+        public float dustScale;
+        public float fadeIn;
+
         public override void SetDefaults()
         {
             // If derivatives dont call base.SetDefaults() they use Projectile.CloneDefaults(ProjectileID.WaterGun);
@@ -26,6 +32,18 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             Projectile.friendly = true;
             Projectile.hostile = false;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (source is WaterGuns.ProjectileData data)
+            {
+                color = data.color;
+                dustAmount = data.dustAmount;
+                dustScale = data.dustScale;
+                fadeIn = data.fadeIn;
+            }
+            base.OnSpawn(source);
         }
 
         public void CreateKillEffect(Color color = default, float scale = 0.7f)
