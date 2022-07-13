@@ -24,5 +24,15 @@ namespace WaterGuns.Global
             }
             base.ModifyNPCLoot(npc, npcLoot);
         }
+
+        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        {
+            if (type == NPCID.Merchant)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.BottledWater);
+                nextSlot++;
+            }
+            base.SetupShop(type, shop, ref nextSlot);
+        }
     }
 }
