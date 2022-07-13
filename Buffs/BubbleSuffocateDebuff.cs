@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 
-namespace WaterGuns.Debuffs
+namespace WaterGuns.Buffs
 {
     public class BubbleSuffocateDebuff : ModBuff
     {

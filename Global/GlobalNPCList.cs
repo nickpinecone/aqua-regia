@@ -27,6 +27,7 @@ namespace WaterGuns.Global
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
+            // Make merchant sell bottled water
             if (type == NPCID.Merchant)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.BottledWater);

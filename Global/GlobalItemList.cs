@@ -23,6 +23,7 @@ namespace WaterGuns.Global
             {
                 item.ammo = ItemID.BottledWater;
                 item.useAmmo = item.shoot;
+                item.value = 6;
             }
         }
 

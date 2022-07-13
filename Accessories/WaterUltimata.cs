@@ -10,6 +10,7 @@ namespace WaterGuns.Accessories
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Super Soaker");
             Tooltip.SetDefault("44% increase to water guns accuracy\n12% increase to water guns projectiles speed\n12% increase to ranged damage\nReleases water streams when hit\nAdds 5 defense\nWater Shield does a bit more damage");
         }
 

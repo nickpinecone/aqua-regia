@@ -52,7 +52,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.Kill(timeLeft);
         }
 
-        public void CreateDust(Color color, float scale, int amount = 4, int fadeIn = 1)
+        public void CreateDust(Color color, float scale, int amount = 4, float fadeIn = 1)
         {
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);

@@ -45,9 +45,9 @@ namespace WaterGuns.Projectiles.Special
             Player player = Main.player[Main.myPlayer];
             if (player.dead || !player.active)
             {
-                player.ClearBuff(ModContent.BuffType<Debuffs.WaterGunSummonBuff>());
+                player.ClearBuff(ModContent.BuffType<Buffs.WaterGunSummonBuff>());
             }
-            if (player.HasBuff(ModContent.BuffType<Debuffs.WaterGunSummonBuff>()))
+            if (player.HasBuff(ModContent.BuffType<Buffs.WaterGunSummonBuff>()))
             {
                 Projectile.timeLeft = 2;
             }

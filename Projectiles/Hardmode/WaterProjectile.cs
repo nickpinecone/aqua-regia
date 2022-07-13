@@ -14,10 +14,27 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
         }
 
+
+        public Color color = default;
+        public int dustAmount = 4;
+        public float dustScale = 1;
+        public float fadeIn = 1;
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (source is WaterGuns.ProjectileData data)
+            {
+                color = data.color;
+                dustAmount = data.dustAmount;
+                dustScale = data.dustScale;
+                fadeIn = data.fadeIn;
+            }
+            base.OnSpawn(source);
+        }
+
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1);
+            base.CreateDust(color, dustScale, dustAmount, fadeIn);
         }
     }
 }

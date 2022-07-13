@@ -17,7 +17,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(ModContent.BuffType<Debuffs.BubbleSuffocateDebuff>(), 240);
+            target.AddBuff(ModContent.BuffType<Buffs.BubbleSuffocateDebuff>(), 240);
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
