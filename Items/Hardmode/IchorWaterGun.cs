@@ -10,6 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Ichor Rainer");
             Tooltip.SetDefault("Inflicts ichor debuff");
         }
 
@@ -19,7 +20,14 @@ namespace WaterGuns.Items.Hardmode
 
             Item.damage = 35;
             Item.knockBack = 3;
+            Item.scale = 0.8f;
+            Item.useAmmo = ItemID.BottledWater;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.IchorWaterProjectile>();
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-6, 0);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

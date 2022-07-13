@@ -40,7 +40,6 @@ namespace WaterGuns.Projectiles.Hardmode
                 var velocity = (Projectile.velocity * 4).RotatedByRandom(MathHelper.ToRadians(10));
 
                 var dust = Dust.NewDust(offset, 40, 5, DustID.Wet, velocity.X, velocity.Y, 0, color, scale);
-                Main.dust[dust].fadeIn = 0.2f;
             }
         }
 

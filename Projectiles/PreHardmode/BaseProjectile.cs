@@ -30,13 +30,6 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public void CreateKillEffect(Color color = default, float scale = 0.7f)
         {
-            for (int i = 0; i < 6; i++)
-            {
-                var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 48), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 48));
-                var dust = Dust.NewDust(offset, 30, 10, DustID.Wet, 0, 0, 0, color, scale);
-                Main.dust[dust].fadeIn = 0.2f;
-            }
-
             for (int i = 0; i < 14; i++)
             {
                 var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 48), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 48));
@@ -45,7 +38,6 @@ namespace WaterGuns.Projectiles.PreHardmode
                 var velocity = (Projectile.velocity * 4).RotatedByRandom(MathHelper.ToRadians(10));
 
                 var dust = Dust.NewDust(offset, 50, 5, DustID.Wet, velocity.X, velocity.Y, 0, color, scale);
-                Main.dust[dust].fadeIn = 0.2f;
             }
         }
 

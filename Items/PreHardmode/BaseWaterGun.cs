@@ -12,6 +12,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             Item.CloneDefaults(ItemID.WaterGun);
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>();
+            Item.useAmmo = ItemID.BottledWater;
         }
 
         public float CalculateAccuracy(float inaccuracy = 3.3f)

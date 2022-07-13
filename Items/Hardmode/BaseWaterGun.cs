@@ -13,6 +13,7 @@ namespace WaterGuns.Items.Hardmode
             Item.CloneDefaults(ItemID.WaterGun);
             Item.useTime -= 2;
             Item.useAnimation -= 2;
+            Item.useAmmo = ItemID.BottledWater;
         }
 
         public float CalculateAccuracy(float inaccuracy = 1f)

@@ -17,6 +17,13 @@ namespace WaterGuns.Global
                 item.noMelee = true;
                 item.autoReuse = true;
             }
+
+            // Make bottled water ammo
+            if (item.type == ItemID.BottledWater)
+            {
+                item.ammo = ItemID.BottledWater;
+                item.useAmmo = item.shoot;
+            }
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
