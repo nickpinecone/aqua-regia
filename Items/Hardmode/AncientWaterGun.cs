@@ -30,8 +30,7 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float inaccuracy = CalculateAccuracy(10);
-
+            base.defaultInaccuracy = 10;
             for (int i = 0; i < Main.npc.Length; i++)
             {
                 var distance = player.position - Main.npc[i].position;
@@ -41,13 +40,12 @@ namespace WaterGuns.Items.Hardmode
                     int rotation = Main.rand.Next(0, 360);
                     var randomPosition = Main.npc[i].Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(rotation));
                     var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180));
-                    modifiedVelocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));
-                    modifiedVelocity *= CalculateSpeed();
 
-                    var proj = Projectile.NewProjectileDirect(source, randomPosition, modifiedVelocity, type, damage / 2, knockback, player.whoAmI);
+                    var proj = base.SpawnProjectile(player, source, randomPosition, modifiedVelocity, type, damage, knockback);
                     proj.tileCollide = false;
                 }
             }
+            base.defaultInaccuracy = 1;
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }

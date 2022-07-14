@@ -22,6 +22,7 @@ namespace WaterGuns.Items.Hardmode
             Item.knockBack = 3;
             Item.scale = 0.8f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.IchorWaterProjectile>();
+            base.defaultInaccuracy = 4;
         }
 
         public override Vector2? HoldoutOffset()
@@ -31,7 +32,6 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float inaccuracy = CalculateAccuracy(4);
             float offsetInaccuracy = CalculateAccuracy(0.3f);
 
             // Put it above the mouse
@@ -40,16 +40,12 @@ namespace WaterGuns.Items.Hardmode
             position.Y -= Main.ViewSize.Y / 1.5f;
             position.X = Main.MouseWorld.X;
 
-            // Speed them up a bit
-            float projectileSpeed = 14 * CalculateSpeed();
-
             for (int i = 0; i < 4; i++)
             {
-                var modifiedVelocity = new Vector2(0, 1).RotatedByRandom(MathHelper.ToRadians(inaccuracy));
+                var modifiedVelocity = new Vector2(0, 14);
                 position.X = position.RotatedByRandom(MathHelper.ToRadians(offsetInaccuracy)).X;
-                modifiedVelocity *= projectileSpeed;
 
-                Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
+                base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);
             }
 
             return false;

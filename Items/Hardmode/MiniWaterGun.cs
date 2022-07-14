@@ -23,6 +23,7 @@ namespace WaterGuns.Items.Hardmode
             Item.useTime = 5;
             Item.useAnimation = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.MiniWaterProjectile>();
+            base.defaultInaccuracy = 8;
         }
 
         bool turretMode = false;
@@ -43,12 +44,9 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float inaccuracy = CalculateAccuracy(8);
             if (!turretMode)
             {
-                Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
-                var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
-                Projectile.NewProjectile(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
+                base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             }
             return false;
         }

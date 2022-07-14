@@ -8,6 +8,11 @@ namespace WaterGuns.Ammo
 {
     public class StrongBottledWater : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Tooltip.SetDefault("Adds 100 damage");
+            base.SetStaticDefaults();
+        }
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.BottledWater);

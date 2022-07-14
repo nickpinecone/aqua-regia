@@ -11,6 +11,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Rocket Water Launcher");
             Tooltip.SetDefault("Shoots rockets that explode into water projctiles");
         }
 
@@ -23,30 +24,36 @@ namespace WaterGuns.Items.Hardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
             Item.useTime -= 8;
             Item.useAnimation -= 8;
+
+            base.offsetAmount = new Vector2(6, 6);
+            base.offsetIndependent = new Vector2(0, -8);
         }
 
         int shot = 0;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            base.defaultInaccuracy = 1;
             shot += 1;
             if (shot >= 4)
             {
                 SoundEngine.PlaySound(SoundID.Item11);
 
-                Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage, knockback, player.whoAmI);
+                SpawnProjectile(player, source, position, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage, knockback);
                 shot = 0;
             }
 
-            float inaccuracy = CalculateAccuracy(4);
-
-            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
-            var offset = new Vector2(position.X + velocity.X * 4, position.Y + velocity.Y * 4);
-            var proj = Projectile.NewProjectileDirect(source, offset, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            base.defaultInaccuracy = 4;
+            var proj = base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             proj.timeLeft += 20;
             proj.penetrate = 2;
 
             return false;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-20, -6);
         }
 
         public override void AddRecipes()

@@ -20,24 +20,18 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 40;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.TitaniumWaterProjectile>();
+            base.defaultInaccuracy = 1;
+            base.isOffset = false;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float inaccuracy = CalculateAccuracy(1);
+            var proj1 = base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
 
-            // All of them use custom projectiles that shoot straight 
-            // Make them a little inaccurate like in-game water gun
-            Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
-            // Custom projectile doesnt position right so offset it
-            Projectile.NewProjectile(source, position, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            var secondPosition = new Vector2(position.X + proj1.velocity.X * 2, position.Y + proj1.velocity.Y * 2);
+            var secondVelocity = proj1.velocity.RotatedBy(MathHelper.ToRadians(180));
 
-            // Make it inaccurate, get it closer to player and rotate
-            modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
-            var secondPosition = new Vector2(position.X + modifiedVelocity.X * 2, position.Y + modifiedVelocity.Y * 2);
-            var secondVelocity = modifiedVelocity.RotatedBy(MathHelper.ToRadians(180));
-
-            Projectile.NewProjectile(source, secondPosition, secondVelocity, type, damage, knockback, player.whoAmI);
+            base.SpawnProjectile(player, source, secondPosition, secondVelocity, type, damage, knockback);
 
             return false;
         }
