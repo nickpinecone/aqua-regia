@@ -33,13 +33,17 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            base.defaultInaccuracy = 1;
+            base.defaultInaccuracy = 2;
             shot += 1;
             if (shot >= 4)
             {
                 SoundEngine.PlaySound(SoundID.Item11);
 
-                SpawnProjectile(player, source, position, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage, knockback);
+                for (int i = -1; i < 2; i += 2)
+                {
+                    var offset = position + velocity.RotatedBy(MathHelper.ToDegrees(90 * i)) * 1.1f;
+                    SpawnProjectile(player, source, offset, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage, knockback);
+                }
                 shot = 0;
             }
 

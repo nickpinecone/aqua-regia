@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using System;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
@@ -11,33 +12,41 @@ namespace WaterGuns.Projectiles.Hardmode
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.RocketI);
+            Projectile.width = 16;
+            Projectile.height = 16;
+            Projectile.penetrate = 1;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
             AIType = ProjectileID.RocketI;
             Projectile.damage = 1;
             Projectile.timeLeft = 120;
             hasKillEffect = false;
+            Projectile.tileCollide = true;
         }
 
         public override void Kill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 12; i++)
+            {
+                var rotation = Main.rand.Next(0, 360);
+                var velocity = new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(rotation));
+                velocity *= 8f;
+                var dust = Dust.NewDustDirect(Projectile.Center, 8, 8, DustID.Cloud, velocity.X, velocity.Y, 75, default);
+                dust.scale = 4;
+                dust.noGravity = true;
+            }
+
+            for (int i = 0; i < 5; i++)
             {
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
                 var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.tileCollide = false;
-                proj.timeLeft -= 5;
+                proj.timeLeft -= 30;
             }
-            Projectile.timeLeft = 0;
 
             base.Kill(timeLeft);
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            this.Kill(0);
-            return false;
         }
 
         public override void AI()
@@ -46,6 +55,27 @@ namespace WaterGuns.Projectiles.Hardmode
             base.AutoAim();
 
             Projectile.rotation = Projectile.velocity.ToRotation();
+
+            // Terraria source code shenanigans
+            if ((double)Math.Abs((float)Projectile.velocity.X) >= 8.0 || (double)Math.Abs((float)Projectile.velocity.Y) >= 8.0)
+            {
+                for (int index1 = 0; index1 < 2; ++index1)
+                {
+                    float num1 = 0.0f;
+                    float num2 = 0.0f;
+                    if (index1 == 1)
+                    {
+                        num1 = (float)(Projectile.velocity.X * 0.5);
+                        num2 = (float)(Projectile.velocity.Y * 0.5);
+                    }
+                    int index3 = Dust.NewDust(Vector2.Subtract(new Vector2((float)(Projectile.position.X + 3.0) + num1, (float)(Projectile.position.Y + 3.0) + num2), Vector2.Multiply(Projectile.velocity, 0.5f)), Projectile.width - 8, Projectile.height - 8, 31, 0.0f, 0.0f, 100, new Color(107, 203, 255), 0.5f);
+                    Main.dust[index3].fadeIn = (float)(1.0 + (double)Main.rand.Next(5) * 0.100000001490116);
+                    Dust dust3 = Main.dust[index3];
+                    dust3.velocity = Vector2.Multiply(dust3.velocity, 0.05f);
+                }
+            }
+            if ((double)Math.Abs((float)Projectile.velocity.X) < 15.0 && (double)Math.Abs((float)Projectile.velocity.Y) < 15.0)
+                Projectile.velocity = Vector2.Multiply(Projectile.velocity, 1.1f);
         }
     }
 }

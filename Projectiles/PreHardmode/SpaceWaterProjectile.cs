@@ -44,7 +44,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.AI();
 
             // // Creating some dust to see the projectile
-            base.CreateDust(default, 1f);
+            base.CreateDust(default, 1.2f);
         }
     }
 }

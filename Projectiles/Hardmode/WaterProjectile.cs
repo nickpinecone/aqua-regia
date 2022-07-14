@@ -14,10 +14,9 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
         }
 
-
         public Color color = default;
         public int dustAmount = 4;
-        public float dustScale = 1;
+        public float dustScale = 1.2f;
         public float fadeIn = 1;
         public override void OnSpawn(IEntitySource source)
         {

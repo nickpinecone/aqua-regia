@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Adds 100 damage");
+            Tooltip.SetDefault("Adds 100 damage\nDEV STUFF");
             base.SetStaticDefaults();
         }
         public override void SetDefaults()

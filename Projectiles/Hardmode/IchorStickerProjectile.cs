@@ -16,6 +16,7 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
             Projectile.timeLeft += 120;
             hasKillEffect = false;
+            Projectile.penetrate = -1;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

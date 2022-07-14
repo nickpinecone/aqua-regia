@@ -52,7 +52,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.Kill(timeLeft);
         }
 
-        public void CreateDust(Color color, float scale, int amount = 4, float fadeIn = 1)
+        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1)
         {
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
@@ -62,7 +62,7 @@ namespace WaterGuns.Projectiles.Hardmode
             for (int i = 0; i < amount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 0, color, scale);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 75, color, scale);
                 dust.noGravity = true;
                 dust.fadeIn = fadeIn;
             }

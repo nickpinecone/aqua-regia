@@ -1,4 +1,8 @@
 A Terraria mod that brings more water guns to the game that actually do damage
 
+Water Guns now consume bottled water as ammo, but it could be bought from the Merchant.
+
+More custom ammo and better sprites are comming.
+
 Discord server: https://discord.gg/hEcs7ynpee (In need of spriters)
 The source code on github: https://github.com/ThreeDotsEllipsis/more-water-guns

@@ -16,7 +16,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 30;
         }
 
-        float gravity = 0.08f;
+        float gravity = 0.1f;
         int delay = 0;
         public override void AI()
         {

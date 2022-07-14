@@ -22,7 +22,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.AI();
 
             // Creating some dust to see the projectile
-            base.CreateDust(new Color(255, 215, 50), 1f);
+            base.CreateDust(new Color(255, 215, 50));
 
             // Fire dust that emits light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Flare, 0, 0, 0, default, 3f);
