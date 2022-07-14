@@ -21,7 +21,7 @@ namespace WaterGuns.Items.PreHardmode
 
             base.defaultInaccuracy = 2;
             base.isOffset = true;
-            base.offsetAmount = new Vector2(2f, 2f);
+            base.offsetAmount = new Vector2(5f, 5f);
             base.offsetIndependent = new Vector2(0, -6);
         }
 

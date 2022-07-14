@@ -18,7 +18,8 @@ namespace WaterGuns.Projectiles.PreHardmode
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.WaterGun);
+            // Projectile.CloneDefaults(ProjectileID.WaterGun);
+            base.SetDefaults();
             AIType = ProjectileID.WaterGun;
         }
 

@@ -31,7 +31,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             if (delay > 10)
             {
                 var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, velocity, ProjectileID.WaterGun, 20, 3, Projectile.owner);
+
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
                 delay = 0;
             }
             Projectile.rotation = Projectile.rotation + 0.1f;

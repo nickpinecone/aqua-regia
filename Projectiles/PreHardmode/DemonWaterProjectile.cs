@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
@@ -8,7 +9,8 @@ namespace WaterGuns.Projectiles.PreHardmode
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.WaterGun);
+            // Projectile.CloneDefaults(ProjectileID.WaterGun);
+            base.SetDefaults();
             AIType = ProjectileID.WaterGun;
         }
 
@@ -26,7 +28,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             var offset = new Vector2(Projectile.position.X + (196 + Main.rand.Next(-5, 5)) * direction, Projectile.position.Y - (196 + Main.rand.Next(-5, 5)));
 
             // Spawn default water projectile
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), offset, modifiedVelocity, ProjectileID.WaterGun, Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectile(base.data, offset, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             base.OnHitNPC(target, damage, knockback, crit);
         }
     }

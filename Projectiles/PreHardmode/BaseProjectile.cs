@@ -9,10 +9,8 @@ namespace WaterGuns.Projectiles.PreHardmode
 {
     public abstract class BaseProjectile : ModProjectile
     {
-        public Color color;
-        public int dustAmount;
-        public float dustScale;
-        public float fadeIn;
+        public WaterGuns.ProjectileData data = null;
+        public bool defaultDust = true;
 
         public override void SetDefaults()
         {
@@ -36,12 +34,19 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is WaterGuns.ProjectileData data)
+            if (source is WaterGuns.ProjectileData newData)
             {
-                color = data.color;
-                dustAmount = data.dustAmount;
-                dustScale = data.dustScale;
-                fadeIn = data.fadeIn;
+                data = newData;
+            }
+            else
+            {
+                data = new WaterGuns.ProjectileData(source);
+                // Data
+                data.color = default;
+                data.dustAmount = 4;
+                data.dustScale = 1.2f;
+                data.fadeIn = 1;
+                data.alpha = 75;
             }
             base.OnSpawn(source);
         }
@@ -59,19 +64,24 @@ namespace WaterGuns.Projectiles.PreHardmode
             }
         }
 
-        public void CreateDust(Color color = default, float scale = 1.2f)
+        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)
         {
+            if (data.color != default)
+            {
+                color = data.color;
+            }
+
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
             offset.Normalize();
             offset *= 3;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < data.dustAmount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 75, color, scale);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), alpha, color, scale);
                 dust.noGravity = true;
-                dust.fadeIn = 1;
+                dust.fadeIn = fadeIn;
             }
         }
 
@@ -83,7 +93,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.velocity.Y += gravity;
 
             // The dust should be created in the child class
-            // base.CreateDust(...)
+            if (defaultDust)
+                CreateDust(data.color, data.dustScale, data.dustAmount, data.fadeIn, data.alpha);
 
             base.AI();
         }
