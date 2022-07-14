@@ -11,6 +11,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.CloneDefaults(ProjectileID.IceBolt);
             AIType = ProjectileID.IceBolt;
             Projectile.friendly = false;
+
+            base.defaultDust = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
