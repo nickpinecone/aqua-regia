@@ -33,12 +33,6 @@ namespace WaterGuns.Projectiles.PreHardmode
             return base.OnTileCollide(oldVelocity);
         }
 
-        public override void Kill(int timeLeft)
-        {
-            base.CreateKillEffect();
-            base.Kill(timeLeft);
-        }
-
         public override void AI()
         {
             base.AI();

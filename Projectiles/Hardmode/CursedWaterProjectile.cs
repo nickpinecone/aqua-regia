@@ -12,7 +12,6 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
-            hasKillEffect = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -43,17 +42,11 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        public override void Kill(int timeLeft)
-        {
-            base.CreateKillEffect(new Color(96, 248, 2), 0.8f);
-            base.Kill(timeLeft);
-        }
-
         public override void AI()
         {
             base.AI();
 
-            base.CreateDust(new Color(96, 248, 2), 1.2f);
+            base.CreateDust(new Color(96, 248, 2), 1.4f);
 
             // Cursed Flame dust that emits light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.CursedTorch, 0, 0, 0, default, 1.6f);

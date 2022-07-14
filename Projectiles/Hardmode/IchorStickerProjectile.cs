@@ -15,7 +15,6 @@ namespace WaterGuns.Projectiles.Hardmode
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
             Projectile.timeLeft += 120;
-            hasKillEffect = false;
             Projectile.penetrate = -1;
         }
 

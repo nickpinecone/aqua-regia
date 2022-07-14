@@ -20,7 +20,6 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.RocketI;
             Projectile.damage = 1;
             Projectile.timeLeft = 120;
-            hasKillEffect = false;
             Projectile.tileCollide = true;
         }
 
@@ -41,7 +40,7 @@ namespace WaterGuns.Projectiles.Hardmode
             for (int i = 0; i < 3; i++)
             {
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                var proj = Projectile.NewProjectileDirect(base.data, Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.tileCollide = false;
                 proj.timeLeft -= 30;
             }

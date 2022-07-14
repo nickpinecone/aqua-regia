@@ -4,12 +4,18 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
-    public class TitaniumWaterProjectile : ModProjectile
+    public class TitaniumWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.WaterGun);
+            base.SetDefaults();
             AIType = ProjectileID.WaterGun;
+        }
+
+        public override void AI()
+        {
+            base.CreateDust();
+            base.AI();
         }
     }
 }

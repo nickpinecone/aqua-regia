@@ -41,27 +41,17 @@ namespace WaterGuns.Projectiles.PreHardmode
             else
             {
                 data = new WaterGuns.ProjectileData(source);
-                // Data
-                data.color = default;
-                data.dustAmount = 4;
-                data.dustScale = 1.2f;
-                data.fadeIn = 1;
-                data.alpha = 75;
             }
             base.OnSpawn(source);
         }
 
-        public void CreateKillEffect(Color color = default, float scale = 0.7f)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            for (int i = 0; i < 14; i++)
+            if (data.confusionBuff)
             {
-                var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 48), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 48));
-
-                Projectile.velocity.Normalize();
-                var velocity = (Projectile.velocity * 4).RotatedByRandom(MathHelper.ToRadians(10));
-
-                var dust = Dust.NewDust(offset, 50, 5, DustID.Wet, velocity.X, velocity.Y, 0, color, scale);
+                target.AddBuff(BuffID.Confused, 2);
             }
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)

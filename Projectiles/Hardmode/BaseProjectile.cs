@@ -9,15 +9,8 @@ namespace WaterGuns.Projectiles.Hardmode
 {
     public abstract class BaseProjectile : ModProjectile
     {
-        public Color globalColor;
-        public int dustAmount;
-        public float dustScale;
-        public float fadeIn;
+        public WaterGuns.ProjectileData data = null;
 
-        // Effects
-        public bool confusionBuff = false;
-
-        public bool hasKillEffect = true;
         public override void SetDefaults()
         {
             // If derivatives dont call base.SetDefaults() they use Projectile.CloneDefaults(ProjectileID.WaterGun);
@@ -38,58 +31,56 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.hostile = false;
         }
 
-        public void CreateKillEffect(Color color = default, float scale = 0.6f)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                var offset = new Vector2(Projectile.Center.X - MathF.Abs(Projectile.velocity.X * 36), Projectile.Center.Y - MathF.Abs(Projectile.velocity.Y * 36));
-
-                Projectile.velocity.Normalize();
-                var velocity = (Projectile.velocity * 4).RotatedByRandom(MathHelper.ToRadians(10));
-
-                var dust = Dust.NewDust(offset, 40, 5, DustID.Wet, velocity.X, velocity.Y, 0, color, scale);
-            }
-        }
-
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is WaterGuns.ProjectileData data)
+            if (source is WaterGuns.ProjectileData newData)
             {
-                globalColor = data.color;
-                dustAmount = data.dustAmount;
-                dustScale = data.dustScale;
-                fadeIn = data.fadeIn;
-
-                // Effects
-                confusionBuff = data.confusionBuff;
+                data = newData;
+            }
+            else
+            {
+                data = new WaterGuns.ProjectileData(source);
             }
             base.OnSpawn(source);
         }
 
         public override void Kill(int timeLeft)
         {
-            if (hasKillEffect)
-            {
-                CreateKillEffect();
-            }
             base.Kill(timeLeft);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (confusionBuff)
+            if (data.confusionBuff)
             {
-                target.AddBuff(BuffID.Confused, 240);
+                target.AddBuff(BuffID.Confused, 2);
             }
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
         public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)
         {
-            if (globalColor != default)
+            if (data.color != default)
             {
-                color = globalColor;
+                color = data.color;
             }
+            else if (data.alpha != 75)
+            {
+                alpha = data.alpha;
+            }
+            else if (data.fadeIn != 1)
+            {
+                fadeIn = data.fadeIn;
+            }
+            else if (data.dustScale != 1.2f)
+            {
+                scale = data.dustScale;
+            }
+            else if (data.dustAmount != 4)
+            {
+                amount = data.dustAmount;
+            }
+
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
             offset.Normalize();
@@ -98,7 +89,7 @@ namespace WaterGuns.Projectiles.Hardmode
             for (int i = 0; i < amount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), alpha, color, scale);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), data.alpha, color, scale);
                 dust.noGravity = true;
                 dust.fadeIn = fadeIn;
             }
