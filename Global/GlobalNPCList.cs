@@ -22,6 +22,10 @@ namespace WaterGuns.Global
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.SeaWaterGun>()));
             }
+            else if (npc.type == NPCID.IchorSticker)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.IchorStickerGun>(), 8));
+            }
             base.ModifyNPCLoot(npc, npcLoot);
         }
 

@@ -14,7 +14,7 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
-            Projectile.timeLeft += 20;
+            Projectile.timeLeft += 120;
             hasKillEffect = false;
         }
 
@@ -24,10 +24,11 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        protected float gravity = 0.003f;
+        protected float gravity = 0.001f;
         public override void AI()
         {
             base.AI();
+            gravity += 0.0012f;
             Projectile.velocity.Y += gravity;
 
             base.CreateDust(new Color(255, 250, 41), 1.2f);
