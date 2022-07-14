@@ -17,11 +17,16 @@ namespace WaterGuns
                 context = original.Context;
             }
 
-            public Color color;
-            public int dustAmount;
-            public float dustScale;
-            public float fadeIn;
+            public Color color = default;
+            public int dustAmount = 4;
+            public float dustScale = 1.2f;
+            public float fadeIn = 1;
+            public int alpha = 75;
+
+            // Effects
+            public bool confusionBuff = false;
         }
+
         public override void AddRecipeGroups()
         {
             Terraria.RecipeGroup goldBars = new Terraria.RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar", new int[]

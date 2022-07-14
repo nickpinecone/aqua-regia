@@ -38,7 +38,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 dust.noGravity = true;
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
                 var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

@@ -42,7 +42,7 @@ namespace WaterGuns.Items.Hardmode
                 for (int i = -1; i < 2; i += 2)
                 {
                     var offset = position + velocity.RotatedBy(MathHelper.ToDegrees(90 * i)) * 1.1f;
-                    SpawnProjectile(player, source, offset, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage, knockback);
+                    SpawnProjectile(player, source, offset, velocity, ModContent.ProjectileType<Projectiles.Hardmode.RocketWaterProjectile>(), damage / 2, knockback);
                 }
                 shot = 0;
             }

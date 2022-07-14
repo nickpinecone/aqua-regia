@@ -9,6 +9,14 @@ namespace WaterGuns.Projectiles.Hardmode
 {
     public abstract class BaseProjectile : ModProjectile
     {
+        public Color globalColor;
+        public int dustAmount;
+        public float dustScale;
+        public float fadeIn;
+
+        // Effects
+        public bool confusionBuff = false;
+
         public bool hasKillEffect = true;
         public override void SetDefaults()
         {
@@ -43,6 +51,21 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            if (source is WaterGuns.ProjectileData data)
+            {
+                globalColor = data.color;
+                dustAmount = data.dustAmount;
+                dustScale = data.dustScale;
+                fadeIn = data.fadeIn;
+
+                // Effects
+                confusionBuff = data.confusionBuff;
+            }
+            base.OnSpawn(source);
+        }
+
         public override void Kill(int timeLeft)
         {
             if (hasKillEffect)
@@ -52,8 +75,21 @@ namespace WaterGuns.Projectiles.Hardmode
             base.Kill(timeLeft);
         }
 
-        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            if (confusionBuff)
+            {
+                target.AddBuff(BuffID.Confused, 240);
+            }
+            base.OnHitNPC(target, damage, knockback, crit);
+        }
+
+        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)
+        {
+            if (globalColor != default)
+            {
+                color = globalColor;
+            }
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
             offset.Normalize();
@@ -62,7 +98,7 @@ namespace WaterGuns.Projectiles.Hardmode
             for (int i = 0; i < amount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 75, color, scale);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), alpha, color, scale);
                 dust.noGravity = true;
                 dust.fadeIn = fadeIn;
             }

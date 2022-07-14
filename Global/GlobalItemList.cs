@@ -19,10 +19,10 @@ namespace WaterGuns.Global
             }
 
             // Make bottled water ammo
-            if (item.type == ItemID.BottledWater)
+            else if (item.type == ItemID.BottledWater)
             {
                 item.ammo = ItemID.BottledWater;
-                item.useAmmo = item.shoot;
+                item.useAmmo = 0;
                 item.value = 6;
             }
         }

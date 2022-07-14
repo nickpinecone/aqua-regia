@@ -18,6 +18,7 @@ namespace WaterGuns.Projectiles.Hardmode
         public int dustAmount = 4;
         public float dustScale = 1.2f;
         public float fadeIn = 1;
+        public int alpha = 75;
         public override void OnSpawn(IEntitySource source)
         {
             if (source is WaterGuns.ProjectileData data)
@@ -26,6 +27,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 dustAmount = data.dustAmount;
                 dustScale = data.dustScale;
                 fadeIn = data.fadeIn;
+                alpha = data.alpha;
             }
             base.OnSpawn(source);
         }
@@ -33,7 +35,7 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
-            base.CreateDust(color, dustScale, dustAmount, fadeIn);
+            base.CreateDust(color, dustScale, dustAmount, fadeIn, alpha);
         }
     }
 }

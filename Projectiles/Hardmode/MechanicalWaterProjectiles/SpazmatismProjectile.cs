@@ -33,7 +33,6 @@ namespace WaterGuns.Projectiles.Hardmode.MechanicalWaterProjectiles
                 var offset = new Vector2(Projectile.position.X + velocity.X * 4, Projectile.position.Y + velocity.Y * 4);
 
                 WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(Projectile.GetSource_FromThis());
-                data.color = new Color(96, 248, 2);
                 data.dustAmount = 2;
                 data.dustScale = 2;
                 data.fadeIn = 0;

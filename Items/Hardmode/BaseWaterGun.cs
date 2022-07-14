@@ -32,17 +32,21 @@ namespace WaterGuns.Items.Hardmode
         protected Vector2 offsetIndependent = new Vector2(0, 0);
         public Projectile SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.StrongBottledWater>())
+            WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
+
+            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BathWaterAmmo>())
             {
-                damage += 100;
+                data.confusionBuff = true;
+                data.color = new Color(247, 2, 248);
             }
+
             float inaccuracy = CalculateAccuracy(defaultInaccuracy);
             // All of them use custom projectiles that shoot straight 
             // Make them a little inaccurate like in-game water gun
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
             // Offset if need be
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;
-            var proj = Projectile.NewProjectileDirect(source, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
             return proj;
         }
 

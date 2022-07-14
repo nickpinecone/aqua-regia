@@ -6,17 +6,19 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo
 {
-    public class StrongBottledWater : ModItem
+    public class EndlessBottledWater : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Adds 100 damage\nDEV STUFF");
+            Tooltip.SetDefault("DEV STUFF");
             base.SetStaticDefaults();
         }
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.BottledWater);
             Item.ammo = ItemID.BottledWater;
+            Item.consumable = false;
+            Item.maxStack = 1;
         }
     }
 }
