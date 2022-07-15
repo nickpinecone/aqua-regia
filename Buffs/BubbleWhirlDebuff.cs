@@ -7,18 +7,15 @@ using System;
 
 namespace WaterGuns.Buffs
 {
-    public class BubbleSuffocateDebuff : ModBuff
+    public class BubbleWhirlDebuff : ModBuff
     {
         int delay = 6;
         public override void Update(NPC npc, ref int buffIndex)
         {
             base.Update(npc, ref buffIndex);
 
-            if (!npc.boss) npc.velocity = new Vector2(0, -1);
-            npc.lifeRegen -= 32;
-
             delay += 1;
-            if (delay > 5)
+            if (delay > 1)
             {
                 // Offset randomly
                 var offset = new Vector2();

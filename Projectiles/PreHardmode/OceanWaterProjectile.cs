@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,6 +12,39 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             Projectile.CloneDefaults(ProjectileID.Bubble);
             AIType = ProjectileID.Bubble;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            int random = Main.rand.Next(-5, 5);
+            randomOffset1 = random;
+
+            random = Main.rand.Next(-5, 5);
+            randomOffset2 = random;
+
+            base.OnSpawn(source);
+        }
+
+        int delay = 0;
+        int randomOffset1 = 0;
+        int randomOffset2 = 0;
+        public override void AI()
+        {
+            delay += 1;
+            if (delay < 20 + randomOffset1)
+            {
+                Projectile.position += new Vector2(1.5f, 0);
+            }
+            else if (delay < 40 + randomOffset2)
+            {
+                Projectile.position += new Vector2(-1.5f, 0);
+            }
+            else
+            {
+                delay = 0;
+            }
+
+            base.AI();
         }
     }
 

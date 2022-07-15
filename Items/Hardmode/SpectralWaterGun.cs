@@ -34,10 +34,8 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = normalDamage;
 
             int soulsNumber = soulsDamage / 4;
-
             soulsNumber = soulsNumber > 10 ? 10 : soulsNumber;
-
-            soulsDamage *= 2;
+            soulsDamage = (int)(soulsDamage * 1.5f);
 
             var angle = player.position.AngleTo(Main.MouseWorld);
             for (int i = 0; i < soulsNumber; i++)

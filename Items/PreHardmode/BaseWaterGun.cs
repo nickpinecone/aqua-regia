@@ -41,6 +41,14 @@ namespace WaterGuns.Items.PreHardmode
 
                 data.color = new Color(247, 2, 248);
             }
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.IchorWaterAmmo>())
+            {
+                data.hasBuff = true;
+                data.buffType = BuffID.Ichor;
+                data.buffTime = 240;
+
+                data.color = new Color(255, 250, 41);
+            }
 
             float inaccuracy = CalculateAccuracy(defaultInaccuracy);
             // All of them use custom projectiles that shoot straight 
