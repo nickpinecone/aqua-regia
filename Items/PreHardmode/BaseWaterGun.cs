@@ -35,7 +35,10 @@ namespace WaterGuns.Items.PreHardmode
 
             if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BathWaterAmmo>())
             {
-                data.confusionBuff = true;
+                data.hasBuff = true;
+                data.buffType = BuffID.Confused;
+                data.buffTime = 240;
+
                 data.color = new Color(247, 2, 248);
             }
 

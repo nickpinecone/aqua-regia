@@ -24,7 +24,9 @@ namespace WaterGuns
             public int alpha = 75;
 
             // Effects
-            public bool confusionBuff = false;
+            public bool hasBuff = false;
+            public int buffType = 0;
+            public int buffTime = 0;
         }
 
         public override void AddRecipeGroups()

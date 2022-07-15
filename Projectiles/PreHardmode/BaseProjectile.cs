@@ -47,9 +47,9 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (data.confusionBuff)
+            if (data.hasBuff)
             {
-                target.AddBuff(BuffID.Confused, 2);
+                target.AddBuff(data.buffType, data.buffTime);
             }
             base.OnHitNPC(target, damage, knockback, crit);
         }
