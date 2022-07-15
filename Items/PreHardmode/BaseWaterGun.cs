@@ -42,7 +42,7 @@ namespace WaterGuns.Items.PreHardmode
                 data.color = new Color(247, 2, 248);
             }
 
-            float inaccuracy = CalculateAccuracy();
+            float inaccuracy = CalculateAccuracy(defaultInaccuracy);
             // All of them use custom projectiles that shoot straight 
             // Make them a little inaccurate like in-game water gun
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();

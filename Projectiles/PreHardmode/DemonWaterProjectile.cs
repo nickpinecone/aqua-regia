@@ -16,19 +16,12 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            // Determines from what side the new projectile spawns
-            int direction = Main.rand.NextBool() ? -1 : 1;
-
-            // Speed it up a bit
-            int projectileSpeed = 10;
-            var modifiedVelocity = new Vector2(1 * direction, 0).RotatedBy(MathHelper.ToRadians(225 * -direction)).RotatedByRandom(MathHelper.ToRadians(5));
-            modifiedVelocity *= projectileSpeed;
-
-            // Offset from the target 
-            var offset = new Vector2(Projectile.position.X + (196 + Main.rand.Next(-5, 5)) * direction, Projectile.position.Y - (196 + Main.rand.Next(-5, 5)));
+            int rotation = Main.rand.Next(-90, 0);
+            var randomPosition = target.Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(-45)).RotatedBy(MathHelper.ToRadians(rotation));
+            var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));
 
             // Spawn default water projectile
-            Projectile.NewProjectile(base.data, offset, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectile(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             base.OnHitNPC(target, damage, knockback, crit);
         }
     }

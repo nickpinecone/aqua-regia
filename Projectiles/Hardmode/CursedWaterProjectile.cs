@@ -20,19 +20,12 @@ namespace WaterGuns.Projectiles.Hardmode
             {
                 for (int i = -1; i < 2; i += 2)
                 {
-                    // Determines from what side the new projectile spawns
-                    int direction = i;
-
-                    // Speed it up a bit
-                    int projectileSpeed = 10;
-                    var modifiedVelocity = new Vector2(1 * direction, 0).RotatedBy(MathHelper.ToRadians(225 * -direction)).RotatedByRandom(MathHelper.ToRadians(2));
-                    modifiedVelocity *= projectileSpeed;
-
-                    // Offset from the target 
-                    var offset = new Vector2(Projectile.position.X + (196 + Main.rand.Next(-5, 5)) * direction, Projectile.position.Y - (196 + Main.rand.Next(-5, 5)));
+                    int rotation = Main.rand.Next(0, 360);
+                    var randomPosition = target.Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(rotation));
+                    var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180));
 
                     // Spawn default water projectile
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), offset, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), randomPosition, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     proj.tileCollide = false;
                     proj.height -= 1;
                 }
