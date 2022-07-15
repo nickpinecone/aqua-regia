@@ -8,14 +8,14 @@ namespace WaterGuns.Projectiles.Hardmode
 {
     public class IchorWaterProjectile : BaseProjectile
     {
-        public bool second = false;
-
         public override void SetDefaults()
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
             Projectile.tileCollide = false;
             Projectile.timeLeft += 20;
+
+            base.affectedByAmmo = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

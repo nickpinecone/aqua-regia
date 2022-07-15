@@ -10,6 +10,7 @@ namespace WaterGuns.Projectiles.Hardmode
     public abstract class BaseProjectile : ModProjectile
     {
         public WaterGuns.ProjectileData data = null;
+        protected bool affectedByAmmo = true;
 
         public override void SetDefaults()
         {
@@ -33,7 +34,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is WaterGuns.ProjectileData newData)
+            if (source is WaterGuns.ProjectileData newData && affectedByAmmo)
             {
                 data = newData;
             }

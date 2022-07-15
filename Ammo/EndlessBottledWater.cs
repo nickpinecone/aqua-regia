@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo
 {
-    public class EndlessBottledWater : ModItem
+    public class EndlessBottledWater : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
@@ -15,8 +15,9 @@ namespace WaterGuns.Ammo
         }
         public override void SetDefaults()
         {
-            Item.CloneDefaults(ItemID.BottledWater);
             Item.ammo = ItemID.BottledWater;
+            Item.height = 20;
+            Item.width = 20;
             Item.consumable = false;
             Item.maxStack = 1;
         }

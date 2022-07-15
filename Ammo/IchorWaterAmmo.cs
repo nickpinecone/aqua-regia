@@ -6,17 +6,12 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo
 {
-    public class IchorWaterAmmo : ModItem
+    public class IchorWaterAmmo : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
             Tooltip.SetDefault("inflicts ichor debuff");
             base.SetStaticDefaults();
-        }
-        public override void SetDefaults()
-        {
-            Item.CloneDefaults(ItemID.BottledWater);
-            Item.ammo = ItemID.BottledWater;
         }
     }
 }

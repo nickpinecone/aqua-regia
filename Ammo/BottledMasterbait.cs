@@ -6,11 +6,11 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo
 {
-    public class BathWaterAmmo : BaseAmmo
+    public class BottledMasterbait : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Deals mental damage");
+            Tooltip.SetDefault("Poisons and charms your enemies");
             base.SetStaticDefaults();
         }
     }

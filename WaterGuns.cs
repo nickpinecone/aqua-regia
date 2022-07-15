@@ -27,6 +27,9 @@ namespace WaterGuns
             public bool hasBuff = false;
             public int buffType = 0;
             public int buffTime = 0;
+
+            // Soundwave
+            public bool isUp = true;
         }
 
         public override void AddRecipeGroups()

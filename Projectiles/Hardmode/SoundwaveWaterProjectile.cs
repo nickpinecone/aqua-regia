@@ -6,15 +6,6 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
-    public class SoundWaveData : IEntitySource
-    {
-        public string context = "";
-        public bool isUp = false;
-
-        public string Context { get { return context; } }
-        public bool IsUpwards { get { return isUp; } set { isUp = value; } }
-    }
-
     public class SoundwaveProjectile : BaseProjectile
     {
         public override void SetDefaults()
@@ -26,16 +17,12 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.width = 90;
         }
 
-        bool isUp = false;
+        bool isUp = true;
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is SoundWaveData data)
+            if (source is WaterGuns.ProjectileData data)
             {
-                isUp = ((SoundWaveData)source).IsUpwards;
-            }
-            else
-            {
-                isUp = true;
+                isUp = data.isUp;
             }
             base.OnSpawn(source);
         }
@@ -72,19 +59,13 @@ namespace WaterGuns.Projectiles.Hardmode
 
                 var velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(90));
 
-                var data = new SoundWaveData();
-                data.IsUpwards = true;
-                data.context = Projectile.GetSource_FromThis().Context;
-
+                data.isUp = true;
                 var projUp = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 projUp.timeLeft += count * 3;
 
                 velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(-90));
 
-                data = new SoundWaveData();
-                data.IsUpwards = false;
-                data.context = Projectile.GetSource_FromThis().Context;
-
+                data.isUp = false;
                 var projDown = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 projDown.timeLeft += count * 3;
 

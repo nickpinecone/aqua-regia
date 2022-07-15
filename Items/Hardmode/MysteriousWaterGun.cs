@@ -40,7 +40,7 @@ namespace WaterGuns.Items.Hardmode
             projs = projs.OrderBy(x => Main.rand.Next()).ToArray();
             for (int i = 0; i < projs.Length; i++)
             {
-                var proj = Projectile.NewProjectileDirect(source, position, velocity.RotatedBy(MathHelper.ToRadians((i - projs.Length / 2) * 15)), projs[i], damage, knockback, player.whoAmI);
+                var proj = base.SpawnProjectile(player, source, position, velocity.RotatedBy(MathHelper.ToRadians((i - projs.Length / 2) * 15)), projs[i], damage / 4, knockback);
                 proj.penetrate = -1;
             }
 
