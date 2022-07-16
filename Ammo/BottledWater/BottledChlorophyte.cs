@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Deals mental damage");
+            Tooltip.SetDefault("Homes in on enemies");
             base.SetStaticDefaults();
         }
         public override void AddRecipes()

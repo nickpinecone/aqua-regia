@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Poisons and charms your enemies");
+            Tooltip.SetDefault("Makes projectiles bounce");
             base.SetStaticDefaults();
         }
         public override void AddRecipes()

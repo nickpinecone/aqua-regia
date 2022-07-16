@@ -28,6 +28,9 @@ namespace WaterGuns
             public int buffType = 0;
             public int buffTime = 0;
 
+            public bool bounces = false;
+            public bool homesIn = false;
+
             // Soundwave
             public bool isUp = true;
         }

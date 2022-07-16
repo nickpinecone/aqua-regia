@@ -11,7 +11,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("inflicts ichor debuff");
+            Tooltip.SetDefault("Unholy Unmolly");
             base.SetStaticDefaults();
         }
         public override void AddRecipes()

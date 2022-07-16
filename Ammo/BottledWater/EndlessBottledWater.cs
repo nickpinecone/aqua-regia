@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("DEV STUFF");
+            Tooltip.SetDefault("Endless");
             base.SetStaticDefaults();
         }
         public override void SetDefaults()

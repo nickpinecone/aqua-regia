@@ -34,6 +34,7 @@ namespace WaterGuns.Items.Hardmode
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
+            // Ammo Inflicts Statuses ------------------------------------------------------------
             if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledBathWater>())
             {
                 data.hasBuff = true;
@@ -47,6 +48,53 @@ namespace WaterGuns.Items.Hardmode
                 data.hasBuff = true;
                 data.buffType = BuffID.Ichor;
                 data.buffTime = 240;
+
+                data.color = new Color(255, 250, 41);
+            }
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledVenom>())
+            {
+                data.hasBuff = true;
+                data.buffType = BuffID.Venom;
+                data.buffTime = 240;
+
+                data.color = new Color(255, 250, 41);
+            }
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPoison>())
+            {
+                data.hasBuff = true;
+                data.buffType = BuffID.Poisoned;
+                data.buffTime = 240;
+
+                data.color = new Color(255, 250, 41);
+            }
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCursedFire>())
+            {
+                data.hasBuff = true;
+                data.buffType = BuffID.CursedInferno;
+                data.buffTime = 240;
+
+                data.color = new Color(255, 250, 41);
+            }
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCryogel>())
+            {
+                data.hasBuff = true;
+                data.buffType = BuffID.Frostburn;
+                data.buffTime = 240;
+
+                data.color = new Color(255, 250, 41);
+            }
+            // -----------------------------------------------------------------------------------------
+
+            // Ammo Special Effects
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledChlorophyte>())
+            {
+                data.homesIn = true;
+
+                data.color = new Color(255, 250, 41);
+            }
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledMeteorite>())
+            {
+                data.bounces = true;
 
                 data.color = new Color(255, 250, 41);
             }

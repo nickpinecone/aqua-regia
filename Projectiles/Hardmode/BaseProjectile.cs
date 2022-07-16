@@ -12,6 +12,9 @@ namespace WaterGuns.Projectiles.Hardmode
         public WaterGuns.ProjectileData data = null;
         protected bool affectedByAmmo = true;
 
+        public int defaultTime = 0;
+        public float defaultGravity = 0;
+
         public override void SetDefaults()
         {
             // If derivatives dont call base.SetDefaults() they use Projectile.CloneDefaults(ProjectileID.WaterGun);
@@ -42,7 +45,31 @@ namespace WaterGuns.Projectiles.Hardmode
             {
                 data = new WaterGuns.ProjectileData(source);
             }
+
+            defaultTime = Projectile.timeLeft;
+
             base.OnSpawn(source);
+        }
+
+        int counter = 0;
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            if (data.bounces)
+            {
+                if (counter < 4)
+                {
+                    counter += 1;
+
+                    // Bounce off the wall without creating a new projectile
+                    var velocity = -oldVelocity.RotatedByRandom(MathHelper.ToRadians(45));
+                    Projectile.velocity = velocity;
+
+                    // Reset gravity and timeLeft so it doesnt destroy
+                    Projectile.timeLeft = defaultTime;
+                    return false;
+                }
+            }
+            return base.OnTileCollide(oldVelocity);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -168,7 +195,15 @@ namespace WaterGuns.Projectiles.Hardmode
                 Projectile.velocity.X = (Projectile.velocity.X * (float)(num149 - 1) + num146) / (float)num149;
                 Projectile.velocity.Y = (Projectile.velocity.Y * (float)(num149 - 1) + num147) / (float)num149;
             }
+        }
 
+        public override void AI()
+        {
+            if (data.homesIn)
+            {
+                AutoAim();
+            }
+            base.AI();
         }
     }
 }

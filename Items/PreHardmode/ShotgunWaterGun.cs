@@ -31,7 +31,7 @@ namespace WaterGuns.Items.PreHardmode
                 int distanceBetween = Main.rand.Next(6, 10);
                 Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
                 var proj = base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);
-                proj.timeLeft -= Main.rand.Next(20, 40);
+                proj.timeLeft -= Main.rand.Next(15, 40);
             }
 
             return false;
