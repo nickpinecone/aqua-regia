@@ -14,7 +14,7 @@ namespace WaterGuns.Items.Special
         public int direction = 0;
     }
 
-    public class SwordWaterGun : ModItem
+    public abstract class SwordWaterGun : ModItem
     {
         public override void SetDefaults()
         {

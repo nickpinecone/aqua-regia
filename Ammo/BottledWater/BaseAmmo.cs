@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Ammo
+namespace WaterGuns.Ammo.BottledWater
 {
     public abstract class BaseAmmo : ModItem
     {

@@ -34,7 +34,7 @@ namespace WaterGuns.Items.Hardmode
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
-            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledBathWater>())
+            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledBathWater>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Confused;
@@ -42,7 +42,7 @@ namespace WaterGuns.Items.Hardmode
 
                 data.color = new Color(247, 2, 248);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledIchor>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledIchor>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Ichor;

@@ -4,9 +4,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Ammo
+namespace WaterGuns.Ammo.BottledWater
 {
-    public class BottledChlorophyte : BaseAmmo
+    public class BottledCursedFire : BaseAmmo
     {
         public override void SetStaticDefaults()
         {

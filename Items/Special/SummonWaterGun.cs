@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Items.Special
 {
-    public class SummonWaterGun : ModItem
+    public abstract class SummonWaterGun : ModItem
     {
         public override void SetDefaults()
         {
