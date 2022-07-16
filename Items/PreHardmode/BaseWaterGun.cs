@@ -29,7 +29,7 @@ namespace WaterGuns.Items.PreHardmode
         protected float defaultInaccuracy = 3.3f;
         protected Vector2 offsetAmount = new Vector2(4, 4);
         protected Vector2 offsetIndependent = new Vector2(0, 0);
-        public void SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public Projectile SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
@@ -58,6 +58,7 @@ namespace WaterGuns.Items.PreHardmode
             // Offset if need be
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
+            return proj;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
