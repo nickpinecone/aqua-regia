@@ -17,7 +17,7 @@ namespace WaterGuns.Ammo.BottledWater
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.MasterBait, 1);
+            recipe.AddIngredient(ItemID.MeteoriteBar, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

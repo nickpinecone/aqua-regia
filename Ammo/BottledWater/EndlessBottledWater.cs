@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Endless");
+            Tooltip.SetDefault("Magical And Endless");
             base.SetStaticDefaults();
         }
         public override void SetDefaults()
@@ -20,6 +20,13 @@ namespace WaterGuns.Ammo.BottledWater
             Item.width = 20;
             Item.consumable = false;
             Item.maxStack = 1;
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.BottledWater, 999);
+            recipe.AddTile(TileID.CrystalBall);
+            recipe.Register();
         }
     }
 }

@@ -27,6 +27,11 @@ namespace WaterGuns.Items.Hardmode
             base.defaultInaccuracy = 5;
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-24, -4);
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             for (int i = -1; i < 2; i += 2)

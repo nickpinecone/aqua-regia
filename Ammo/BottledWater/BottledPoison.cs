@@ -17,10 +17,17 @@ namespace WaterGuns.Ammo.BottledWater
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.Ichor, 1);
+            recipe.AddIngredient(ItemID.RottenChunk, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();
+
+            Recipe recipe2 = CreateRecipe();
+            recipe2.AddIngredient(ItemID.BottledWater, 50);
+            recipe2.AddIngredient(ItemID.Vertebrae, 1);
+            recipe2.AddTile(TileID.WorkBenches);
+            recipe2.ReplaceResult(Item.type, 50);
+            recipe2.Register();
         }
     }
 }
