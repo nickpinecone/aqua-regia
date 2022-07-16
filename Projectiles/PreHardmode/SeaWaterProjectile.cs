@@ -48,7 +48,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         }
     }
 
-    public class OceanWaterProjectile : BaseProjectile
+    public class SeaWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {

@@ -1,10 +1,11 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace WaterGuns.Items.PreHardmode
 {
-    public class OceanWaterGun : BaseWaterGun
+    public class SeaWaterGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +18,12 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.damage = 10;
             Item.knockBack = 2;
-            Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.OceanWaterProjectile>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SeaWaterProjectile>();
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-8, 0);
         }
 
         public override void AddRecipes()

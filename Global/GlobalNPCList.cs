@@ -20,7 +20,7 @@ namespace WaterGuns.Global
             }
             else if (npc.type == NPCID.DukeFishron)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.SeaWaterGun>()));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.OceanWaterGun>()));
             }
             else if (npc.type == NPCID.IchorSticker)
             {

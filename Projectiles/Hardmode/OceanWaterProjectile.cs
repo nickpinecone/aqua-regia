@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
-    public class SeaWaterProjectile : BaseProjectile
+    public class OceanWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {

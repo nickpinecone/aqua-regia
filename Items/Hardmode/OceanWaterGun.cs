@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Items.Hardmode
 {
-    public class SeaWaterGun : BaseWaterGun
+    public class OceanWaterGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {
@@ -19,7 +19,7 @@ namespace WaterGuns.Items.Hardmode
 
             Item.damage = 59;
             Item.knockBack = 5;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SeaWaterProjectile>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.OceanWaterProjectile>();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
