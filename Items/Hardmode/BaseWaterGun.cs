@@ -57,7 +57,7 @@ namespace WaterGuns.Items.Hardmode
                 data.buffType = BuffID.Venom;
                 data.buffTime = 240;
 
-                data.color = new Color(255, 250, 41);
+                data.color = new Color(173, 103, 230);
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPoison>())
             {
@@ -65,7 +65,7 @@ namespace WaterGuns.Items.Hardmode
                 data.buffType = BuffID.Poisoned;
                 data.buffTime = 240;
 
-                data.color = new Color(255, 250, 41);
+                data.color = new Color(0, 194, 129);
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCursedFire>())
             {
@@ -73,7 +73,7 @@ namespace WaterGuns.Items.Hardmode
                 data.buffType = BuffID.CursedInferno;
                 data.buffTime = 240;
 
-                data.color = new Color(255, 250, 41);
+                data.color = new Color(96, 248, 2);
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCryogel>())
             {
@@ -81,7 +81,7 @@ namespace WaterGuns.Items.Hardmode
                 data.buffType = BuffID.Frostburn;
                 data.buffTime = 240;
 
-                data.color = new Color(255, 250, 41);
+                data.color = new Color(67, 100, 176);
             }
             // -----------------------------------------------------------------------------------------
 
@@ -90,13 +90,13 @@ namespace WaterGuns.Items.Hardmode
             {
                 data.homesIn = true;
 
-                data.color = new Color(255, 250, 41);
+                data.color = new Color(17, 143, 36);
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledMeteorite>())
             {
                 data.bounces = true;
 
-                data.color = new Color(255, 250, 41);
+                data.color = new Color(150, 56, 147);
             }
 
             float inaccuracy = CalculateAccuracy(defaultInaccuracy);
