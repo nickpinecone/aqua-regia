@@ -37,6 +37,14 @@ namespace WaterGuns.Global
                 shop.item[nextSlot].SetDefaults(ItemID.BottledWater);
                 nextSlot++;
             }
+            else if (type == NPCID.PartyGirl)
+            {
+                if (Main.hardMode)
+                {
+                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBallonGun>());
+                    nextSlot++;
+                }
+            }
             base.SetupShop(type, shop, ref nextSlot);
         }
     }

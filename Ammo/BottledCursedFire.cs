@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo
 {
-    public class BathWaterAmmo : BaseAmmo
+    public class BottledCursedFire : BaseAmmo
     {
         public override void SetStaticDefaults()
         {

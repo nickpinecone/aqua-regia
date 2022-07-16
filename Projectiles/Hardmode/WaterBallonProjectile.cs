@@ -34,33 +34,32 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             SoundEngine.PlaySound(SoundID.Item85);
 
-            Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.position, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectileDirect(data, Projectile.position, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
             for (int i = 0; i < 14; i++)
             {
-                var rotation = Main.rand.Next(0, 360);
-                var velocity = new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(rotation));
-                velocity *= 2f;
-                var dust = Dust.NewDustDirect(Projectile.position, 30, 30, DustID.Wet, velocity.X, velocity.Y, 75, default, 1.4f);
+                Vector2 speed = Main.rand.NextVector2Unit((float)MathHelper.Pi, (float)MathHelper.Pi) * Main.rand.NextFloat();
+                speed *= 3;
+                var dust = Dust.NewDustDirect(Projectile.position, 30, 30, DustID.Wet, speed.X, speed.Y, 75, data.color, 1.4f);
             }
 
             base.Kill(timeLeft);
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
-            if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+        // public override bool OnTileCollide(Vector2 oldVelocity)
+        // {
+        //     if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+        //     if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 
-            return false;
-        }
+        //     return false;
+        // }
 
         protected float gravity = 0.04f;
         public override void AI()
         {
             Projectile.velocity.Y += gravity;
             Projectile.rotation += MathHelper.ToRadians(10);
-            Projectile.velocity *= 0.998f;
+            Projectile.velocity *= 0.997f;
 
             base.AI();
         }

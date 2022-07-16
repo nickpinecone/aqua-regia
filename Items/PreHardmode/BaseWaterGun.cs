@@ -34,7 +34,7 @@ namespace WaterGuns.Items.PreHardmode
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
             // Ammo types
-            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BathWaterAmmo>())
+            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledBathWater>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Confused;
@@ -42,7 +42,7 @@ namespace WaterGuns.Items.PreHardmode
 
                 data.color = new Color(247, 2, 248);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.IchorWaterAmmo>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledIchor>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Ichor;
@@ -50,14 +50,14 @@ namespace WaterGuns.Items.PreHardmode
 
                 data.color = new Color(255, 250, 41);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledMasterbait>())
-            {
-                data.hasBuff = true;
-                data.buffType = BuffID.Poisoned;
-                data.buffTime = 240;
+            // else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledMasterbait>())
+            // {
+            //     data.hasBuff = true;
+            //     data.buffType = BuffID.Poisoned;
+            //     data.buffTime = 240;
 
-                data.color = new Color(61, 192, 194);
-            }
+            //     data.color = new Color(61, 192, 194);
+            // }
 
             float inaccuracy = CalculateAccuracy(defaultInaccuracy);
             // All of them use custom projectiles that shoot straight 

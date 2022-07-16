@@ -20,7 +20,17 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 36;
             Item.knockBack = 3;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterBallonProjectile>();
-            Item.shootSpeed -= 7;
+            Item.shootSpeed -= 6;
+            Item.value = Item.buyPrice(0, 20, 50, 0);
+
+            base.isOffset = true;
+            base.offsetAmount = new Vector2(8, 8);
+            base.offsetIndependent = new Vector2(0, -6);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(0, 0);
         }
     }
 }

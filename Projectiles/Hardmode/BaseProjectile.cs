@@ -45,11 +45,6 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnSpawn(source);
         }
 
-        public override void Kill(int timeLeft)
-        {
-            base.Kill(timeLeft);
-        }
-
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (data.hasBuff)
