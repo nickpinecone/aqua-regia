@@ -11,6 +11,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Ancient Geyser");
             Tooltip.SetDefault("Knows exactly where your enemies are");
         }
 
@@ -31,10 +32,12 @@ namespace WaterGuns.Items.Hardmode
             {
                 var distance = player.position - Main.npc[i].position;
                 bool isVisible = Math.Abs(distance.X) < Main.ViewSize.X && Math.Abs(distance.Y) < Main.ViewSize.Y;
+
                 if (Main.npc[i].life > 0 && isVisible)
                 {
                     var randomPosition = Vector2.Zero;
                     var rotation = Main.rand.Next(-12, 12);
+
                     for (int k = 0; k < Main.ViewSize.Y; k += 16)
                     {
                         var tilePosition = (Main.npc[i].Center + new Vector2(0, k).RotatedBy(MathHelper.ToRadians(rotation))).ToTileCoordinates();

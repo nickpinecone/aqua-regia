@@ -44,7 +44,7 @@ namespace WaterGuns.Projectiles.Hardmode
             {
                 delay = 0;
                 var velocity = distanceToMouse * 10;
-                var offset = Projectile.Center + new Vector2(velocity.X * 2, velocity.Y * 2);
+                var offset = Projectile.BottomRight + new Vector2(velocity.X * 2, velocity.Y * 2);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<WaterProjectile>(), 40, 3, Projectile.owner);
             }
             delay += 1;

@@ -8,6 +8,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Aquatic Spacer");
             Tooltip.SetDefault("Water bounces off the walls and pierces enemies");
         }
 

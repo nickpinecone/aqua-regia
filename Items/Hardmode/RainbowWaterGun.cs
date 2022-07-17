@@ -10,6 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Rainbow River");
             Tooltip.SetDefault("Spawns water streams downwards");
         }
 

@@ -12,7 +12,8 @@ namespace WaterGuns.Items.Hardmode
 
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Hitting enemies increases damage. Right click to release wisps");
+            DisplayName.SetDefault("Water Wisperer");
+            Tooltip.SetDefault("Hitting enemies increases the weapon power. Right click to release it");
         }
 
         public override void SetDefaults()

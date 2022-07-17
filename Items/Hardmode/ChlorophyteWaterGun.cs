@@ -10,7 +10,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Homes in on the foes");
+            DisplayName.SetDefault("Chlorophyte Water Chaser");
+            Tooltip.SetDefault("Chases after your foes");
         }
 
         public override void SetDefaults()

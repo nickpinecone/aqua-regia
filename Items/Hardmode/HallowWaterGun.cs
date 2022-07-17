@@ -10,6 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Hallowed Fisher");
             Tooltip.SetDefault("Shoots copies of itself");
         }
 

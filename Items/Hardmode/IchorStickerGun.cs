@@ -11,7 +11,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ichor Sticker Blaster");
-            Tooltip.SetDefault("Inflicts ichor debuff");
+            Tooltip.SetDefault("Inflicts the ichor debuff");
         }
 
         public override void SetDefaults()

@@ -8,7 +8,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts cursed flames debuff");
+            DisplayName.SetDefault("Cursed Flow");
+            Tooltip.SetDefault("Inflicts the cursed flames debuff");
         }
 
         public override void SetDefaults()

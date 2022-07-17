@@ -9,6 +9,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Wooden Sprinkler");
             Tooltip.SetDefault("Additional acorn falls on an enemy, but only when trees are near");
         }
 

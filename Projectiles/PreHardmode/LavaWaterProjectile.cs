@@ -9,6 +9,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.defaultDust = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

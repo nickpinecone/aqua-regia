@@ -9,6 +9,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Sea Splasher");
             Tooltip.SetDefault("Spawns additional bubbles");
         }
 

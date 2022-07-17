@@ -9,6 +9,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Golden Water Splitter");
             Tooltip.SetDefault("Shoots two streams of water");
         }
 

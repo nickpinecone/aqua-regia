@@ -10,7 +10,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Rapid but inaccurate. Press right click to turn into a turret");
+            DisplayName.SetDefault("Mini Water Gun");
+            Tooltip.SetDefault("Rapid but inaccurate. Right click to turn into a turret");
         }
 
         public override void SetDefaults()

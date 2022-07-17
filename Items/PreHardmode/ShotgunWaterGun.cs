@@ -9,6 +9,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Water Shotgun");
             Tooltip.SetDefault("Shoots multiple streams of water");
         }
 
