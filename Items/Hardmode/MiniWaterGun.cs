@@ -26,25 +26,24 @@ namespace WaterGuns.Items.Hardmode
             base.defaultInaccuracy = 8;
         }
 
-        bool turretMode = false;
         Projectile turret = null;
         public override bool AltFunctionUse(Player player)
         {
-            turretMode = !turretMode;
-            if (turretMode)
+            if (player.HasBuff<Buffs.TurretSummonBuff>())
             {
-                turret = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>(), 0, 0, player.whoAmI);
+                player.ClearBuff(ModContent.BuffType<Buffs.TurretSummonBuff>());
             }
             else
             {
-                turret.Kill();
+                player.AddBuff(ModContent.BuffType<Buffs.TurretSummonBuff>(), 20);
+                turret = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>(), 0, 0, player.whoAmI);
             }
             return base.AltFunctionUse(player);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (!turretMode)
+            if (!player.HasBuff<Buffs.TurretSummonBuff>())
             {
                 base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             }

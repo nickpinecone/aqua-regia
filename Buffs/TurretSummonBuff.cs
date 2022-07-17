@@ -7,13 +7,12 @@ using System;
 
 namespace WaterGuns.Buffs
 {
-    public class WaterGunSummonBuff : ModBuff
+    public class TurretSummonBuff : ModBuff
     {
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Water Gun Minion");
-            Description.SetDefault("The minion will fight for you");
+            Description.SetDefault("Turret Sentury");
 
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
@@ -21,7 +20,7 @@ namespace WaterGuns.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Special.WaterGunSummon>()] > 0)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>()] > 0)
             {
                 player.buffTime[buffIndex] = 18000;
             }

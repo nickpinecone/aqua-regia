@@ -13,8 +13,8 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             Projectile.width = 8;
             Projectile.height = 8;
+            Projectile.timeLeft = 2;
 
-            Projectile.timeLeft = 2400;
             Projectile.friendly = false;
             Projectile.hostile = false;
         }
@@ -24,6 +24,16 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
+
+            Player player = Main.player[Main.myPlayer];
+            if (player.dead || !player.active)
+            {
+                player.ClearBuff(ModContent.BuffType<Buffs.TurretSummonBuff>());
+            }
+            if (player.HasBuff(ModContent.BuffType<Buffs.TurretSummonBuff>()))
+            {
+                Projectile.timeLeft = 2;
+            }
 
             var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.Center.X, Main.MouseWorld.Y - Projectile.Center.Y);
             distanceToMouse.Normalize();
