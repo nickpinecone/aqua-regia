@@ -10,7 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Chlorophyte Water Chaser");
+            DisplayName.SetDefault("Chlorophyte Water Sprayer");
             Tooltip.SetDefault("Chases after your foes");
         }
 

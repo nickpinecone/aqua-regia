@@ -11,6 +11,8 @@ namespace WaterGuns.Projectiles.Hardmode
     {
         public WaterGuns.ProjectileData data = null;
         protected bool affectedByAmmo = true;
+        protected bool affectedByBounce = true;
+        protected bool affectedByHoming = true;
 
         public int defaultTime = 0;
         public float defaultGravity = 0;
@@ -54,7 +56,7 @@ namespace WaterGuns.Projectiles.Hardmode
         int counter = 0;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            if (data.bounces)
+            if (data.bounces && affectedByBounce)
             {
                 if (counter < 4)
                 {
@@ -199,7 +201,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void AI()
         {
-            if (data.homesIn)
+            if (data.homesIn && affectedByHoming)
             {
                 AutoAim();
             }

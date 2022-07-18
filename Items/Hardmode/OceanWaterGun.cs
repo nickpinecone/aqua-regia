@@ -10,7 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ocean Ruler");
+            DisplayName.SetDefault("Ocean Overlord");
             Tooltip.SetDefault("Puts enemies in a bubble whirl");
         }
 

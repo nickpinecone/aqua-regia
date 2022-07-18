@@ -10,6 +10,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Bee Liquifier");
             Tooltip.SetDefault("Spawns bees and slows down enemies");
         }
 

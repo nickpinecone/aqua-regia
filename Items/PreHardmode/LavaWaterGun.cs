@@ -8,7 +8,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lava Shooter");
+            DisplayName.SetDefault("Lava Evaporator");
             Tooltip.SetDefault("Sets your enemies ablaze");
         }
 

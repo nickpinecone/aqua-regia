@@ -28,7 +28,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.SetDefaults();
             AIType = ProjectileID.Grenade;
             Projectile.timeLeft = 600;
-            base.affectedByAmmo = false;
+            base.affectedByHoming = false;
         }
 
         public override void Kill(int timeLeft)

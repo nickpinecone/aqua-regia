@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -16,10 +17,17 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetDefaults();
             base.isOffset = true;
+            base.offsetAmount = new Vector2(5, 5);
+            base.offsetIndependent = new Vector2(0, -5);
 
             Item.damage = 17;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SpaceWaterProjectile>();
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-16, -2);
         }
 
         public override void AddRecipes()

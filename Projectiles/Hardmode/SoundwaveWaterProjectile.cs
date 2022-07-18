@@ -15,6 +15,9 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft = 5;
             Projectile.penetrate = -1;
             Projectile.width = 90;
+
+            base.affectedByHoming = false;
+            base.affectedByBounce = false;
         }
 
         bool isUp = true;
@@ -45,6 +48,7 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
             Projectile.friendly = false;
             Projectile.extraUpdates = 1;
+            base.affectedByHoming = false;
         }
 
         int delay = 10;
@@ -72,7 +76,6 @@ namespace WaterGuns.Projectiles.Hardmode
                 count += 1;
             }
             delay += 1;
-
         }
     }
 }

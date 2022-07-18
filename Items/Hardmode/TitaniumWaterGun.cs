@@ -10,7 +10,7 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Titanium Water Blaster");
+            DisplayName.SetDefault("Titanium Riveria");
             Tooltip.SetDefault("Shoots two projecitles in opposite directions");
         }
 

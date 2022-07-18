@@ -11,7 +11,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ice Bolt");
+            DisplayName.SetDefault("Ice Glacier");
             Tooltip.SetDefault("Consolidates an ice shard every fourth shot. Right click to release them");
         }
 
