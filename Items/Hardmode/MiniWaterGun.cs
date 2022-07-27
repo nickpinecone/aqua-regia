@@ -25,6 +25,14 @@ namespace WaterGuns.Items.Hardmode
             Item.useAnimation = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.MiniWaterProjectile>();
             base.defaultInaccuracy = 8;
+
+            base.offsetAmount = new Vector2(6, 6);
+            base.offsetIndependent = new Vector2(0, 10);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-14, 10);
         }
 
         Projectile turret = null;

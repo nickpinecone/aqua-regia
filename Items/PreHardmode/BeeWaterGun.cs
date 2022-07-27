@@ -21,6 +21,14 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 20;
             Item.knockBack = 2;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.BeeWaterProjectile>();
+
+            // base.offsetAmount = new Vector2(0, 0);
+            base.offsetIndependent = new Vector2(0, -4);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, -2);
         }
 
         int delay = 2;
