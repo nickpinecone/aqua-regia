@@ -16,25 +16,31 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 30;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+            base.data.alpha = 0;
+        }
+
         float gravity = 0.1f;
         int delay = 0;
         public override void AI()
         {
             base.AI();
             Projectile.velocity.Y += gravity;
-            Color newColor = new Color(Main.rand.Next(55, 255), Main.rand.Next(55, 255), Main.rand.Next(55, 255));
+
+            Color newColor = new Color(Main.rand.Next(155, 255), Main.rand.Next(155, 255), Main.rand.Next(155, 255));
+            base.data.color = newColor;
 
             delay += 1;
             if (delay >= 23)
             {
                 delay = 0;
-                base.data.color = newColor;
-                base.data.alpha = 0;
                 var proj = Projectile.NewProjectileDirect(base.data, Projectile.Center, new Vector2(0, 10), ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.width += 10;
             }
 
-            base.CreateDust(newColor, 1.2f, 3, 1, 0);
+            base.CreateDust(default, 1.2f, 3, 1, 0);
         }
     }
 }
