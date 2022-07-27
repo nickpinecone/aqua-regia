@@ -80,8 +80,9 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.IceBlock, 30);
-            recipe.AddIngredient(ItemID.SnowBlock, 50);
+            recipe.AddIngredient(ItemID.IceBlock, 10);
+            recipe.AddIngredient(ItemID.SnowBlock, 30);
+            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

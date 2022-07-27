@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
+using System;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -21,8 +22,20 @@ namespace WaterGuns.Items.PreHardmode
             Item.knockBack = 2;
         }
 
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            base.UseStyle(player, heldItemFrame);
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            // Holding it upwards (daedalus stormbow code)
+            Vector2 vector2_1 = player.RotatedRelativePoint(player.MountedCenter, true);
+            Vector2 vector2_5;
+            vector2_5.X = (Main.mouseX + Main.screenPosition.X - vector2_1.X);
+            vector2_5.Y = (Main.mouseY + Main.screenPosition.Y - vector2_1.Y - 1000);
+            player.itemRotation = (float)Math.Atan2(vector2_5.Y * (double)player.direction, vector2_5.X * (double)player.direction);
+
             base.defaultInaccuracy = 7;
             float offsetInaccuracy = CalculateAccuracy(0.4f);
             // Put it above the mouse
