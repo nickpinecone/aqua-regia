@@ -22,16 +22,19 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.AI();
             Projectile.velocity.Y += gravity;
+            Color newColor = new Color(Main.rand.Next(55, 255), Main.rand.Next(55, 255), Main.rand.Next(55, 255));
 
             delay += 1;
-            if (delay >= 15)
+            if (delay >= 23)
             {
                 delay = 0;
+                base.data.color = newColor;
+                base.data.alpha = 0;
                 var proj = Projectile.NewProjectileDirect(base.data, Projectile.Center, new Vector2(0, 10), ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.width += 10;
             }
 
-            base.CreateDust(default, 1.2f, 3);
+            base.CreateDust(newColor, 1.2f, 3, 1, 0);
         }
     }
 }

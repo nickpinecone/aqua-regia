@@ -17,6 +17,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.baseColor = new Color(255, 88, 61);
 
             Item.damage = 13;
             Item.knockBack = 2;
