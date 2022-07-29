@@ -14,6 +14,8 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
         }
 
+        int direction = 1;
+
         public Color color = default;
         public int dustAmount = 4;
         public float dustScale = 1.2f;
@@ -28,13 +30,34 @@ namespace WaterGuns.Projectiles.Hardmode
                 dustScale = data.dustScale;
                 fadeIn = data.fadeIn;
                 alpha = data.alpha;
+
+                if (data.mysterious != 0)
+                {
+                    direction = data.mysterious;
+                    Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(45 * direction));
+                    direction = -direction;
+                }
             }
             base.OnSpawn(source);
         }
 
+        int delay = 0;
+        int delayMax = 5;
         public override void AI()
         {
             base.AI();
+            if (data.mysterious != 0)
+            {
+                delay += 1;
+                if (delay > delayMax)
+                {
+                    Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(90 * direction));
+                    direction = -direction;
+
+                    delay = 0;
+                    delayMax = 10;
+                }
+            }
             base.CreateDust(color, dustScale, dustAmount, fadeIn, alpha);
         }
     }

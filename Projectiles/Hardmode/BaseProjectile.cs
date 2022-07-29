@@ -46,6 +46,7 @@ namespace WaterGuns.Projectiles.Hardmode
             else
             {
                 data = new WaterGuns.ProjectileData(source);
+                data.mysterious = (source as WaterGuns.ProjectileData).mysterious;
             }
 
             defaultTime = Projectile.timeLeft;

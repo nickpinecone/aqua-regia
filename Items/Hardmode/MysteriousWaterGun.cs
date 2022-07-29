@@ -21,6 +21,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.defaultInaccuracy = 0;
 
             Item.damage = 92;
             Item.knockBack = 6;
@@ -28,21 +29,14 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int[] projs = {
-                ModContent.ProjectileType<SpaceWaterProjectile>(),
-                ModContent.ProjectileType<LavaWaterProjectile>(),
-                ModContent.ProjectileType<ChlorophyteWaterProjectile>(),
-                ModContent.ProjectileType<CursedWaterProjectile>(),
-                ModContent.ProjectileType<RainbowWaterProjectile>(),
-                ModContent.ProjectileType<RocketWaterProjectile>(),
-                ModContent.ProjectileType<SoundwaveWaterProjectile>(),
-            };
-
-            projs = projs.OrderBy(x => Main.rand.Next()).ToArray();
-            for (int i = 0; i < projs.Length; i++)
+            for (int i = 0; i < 3; i++)
             {
-                var proj = base.SpawnProjectile(player, source, position, velocity.RotatedBy(MathHelper.ToRadians((i - projs.Length / 2) * 15)), projs[i], damage / 4, knockback);
+                var proj = base.SpawnProjectile(player, source, position, velocity, ModContent.ProjectileType<WaterProjectile>(), damage / 2, knockback);
+                proj.tileCollide = false;
                 proj.penetrate = -1;
+                proj.timeLeft = 120;
+                if (i == 1)
+                    proj.timeLeft = 85;
             }
 
             return false;

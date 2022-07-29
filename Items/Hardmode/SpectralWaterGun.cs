@@ -19,6 +19,8 @@ namespace WaterGuns.Items.Hardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.offsetAmount = new Vector2(5, 5);
+            base.offsetIndependent = new Vector2(0, -4);
 
             Item.damage = 38;
             Item.knockBack = 5;
@@ -45,6 +47,11 @@ namespace WaterGuns.Items.Hardmode
             }
 
             return base.AltFunctionUse(player);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-26, -6);
         }
 
         public override void HoldItem(Player player)

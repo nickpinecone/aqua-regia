@@ -15,6 +15,8 @@ namespace WaterGuns.Projectiles.PreHardmode
         public int defaultTime = 0;
         public float defaultGravity = 0;
 
+        public bool applyGravity = true;
+
         public override void SetDefaults()
         {
             // If derivatives dont call base.SetDefaults() they use Projectile.CloneDefaults(ProjectileID.WaterGun);
@@ -187,8 +189,11 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void AI()
         {
             // Curve it like the in-game water gun projectile
-            gravity += 0.002f;
-            Projectile.velocity.Y += gravity;
+            if (applyGravity)
+            {
+                gravity += 0.002f;
+                Projectile.velocity.Y += gravity;
+            }
 
             // The dust should be created in the child class
             if (defaultDust)

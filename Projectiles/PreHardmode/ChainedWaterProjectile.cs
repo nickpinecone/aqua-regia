@@ -16,7 +16,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             Projectile.friendly = false;
             Projectile.hostile = false;
-            Projectile.scale = 0.9f;
+            Projectile.scale = 1.0f;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -52,7 +52,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         Projectile waterGun = null;
         public override void OnSpawn(IEntitySource source)
         {
-            waterGun = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.position, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), 0, 0, Projectile.owner);
+            waterGun = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), 0, 0, Projectile.owner);
             base.OnSpawn(source);
         }
 
@@ -64,7 +64,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void AI()
         {
-            waterGun.Center = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
+            waterGun.position = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
             base.AI();
         }
     }

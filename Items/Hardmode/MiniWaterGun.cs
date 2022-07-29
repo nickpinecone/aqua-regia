@@ -27,12 +27,12 @@ namespace WaterGuns.Items.Hardmode
             base.defaultInaccuracy = 8;
 
             base.offsetAmount = new Vector2(6, 6);
-            base.offsetIndependent = new Vector2(0, 10);
+            base.offsetIndependent = new Vector2(0, 14);
         }
 
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-14, 10);
+            return new Vector2(-14, 14);
         }
 
         Projectile turret = null;

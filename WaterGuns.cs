@@ -33,6 +33,9 @@ namespace WaterGuns
 
             // Soundwave
             public bool isUp = true;
+
+            // Mysterious mode
+            public int mysterious = 0;
         }
 
         public override void AddRecipeGroups()

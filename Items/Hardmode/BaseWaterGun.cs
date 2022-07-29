@@ -26,6 +26,8 @@ namespace WaterGuns.Items.Hardmode
             return Main.player[Main.myPlayer].GetModPlayer<GlobalPlayer>().CalculateSpeed();
         }
 
+        int count = 1;
+
         protected bool isOffset = true;
         protected float defaultInaccuracy = 1f;
         protected Vector2 offsetAmount = new Vector2(4, 4);
@@ -33,6 +35,17 @@ namespace WaterGuns.Items.Hardmode
         public Projectile SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
+
+            // Mysterious mode
+            if (source.Item.Name == "Mysterious Hydropump")
+            {
+                data.mysterious = count;
+                if (count < 0)
+                {
+                    count = 2;
+                }
+                count -= 1;
+            }
 
             // Ammo Inflicts Statuses ------------------------------------------------------------
             if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledBathWater>())

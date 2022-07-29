@@ -2,17 +2,21 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using System;
+using Terraria.DataStructures;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
     public class SpaceWaterProjectile : BaseProjectile
     {
+        int direction = 1;
+
         public override void SetDefaults()
         {
             base.SetDefaults();
 
             Projectile.penetrate = 2;
         }
+
 
         int counter = 0;
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -33,9 +37,11 @@ namespace WaterGuns.Projectiles.PreHardmode
             return base.OnTileCollide(oldVelocity);
         }
 
+        int delay = 0;
         public override void AI()
         {
             base.AI();
+
 
             // // Creating some dust to see the projectile
             base.CreateDust(default, 1.2f);

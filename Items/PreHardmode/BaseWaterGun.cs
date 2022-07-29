@@ -8,7 +8,6 @@ namespace WaterGuns.Items.PreHardmode
 {
     public abstract class BaseWaterGun : ModItem
     {
-        public Color baseColor = default;
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.WaterGun);
@@ -33,7 +32,12 @@ namespace WaterGuns.Items.PreHardmode
         public Projectile SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
-            data.color = baseColor;
+
+            // Crimson rainer color
+            if (source.Item.Name == "Crimson Rainer")
+            {
+                data.color = new Color(255, 88, 61);
+            }
 
             // Ammo Inflicts Statuses ------------------------------------------------------------
             if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledBathWater>())

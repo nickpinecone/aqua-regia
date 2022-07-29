@@ -24,6 +24,8 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
+        int delay = 0;
+        int delayMax = 5;
         public override void AI()
         {
             base.AI();
