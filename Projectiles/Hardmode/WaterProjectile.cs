@@ -45,6 +45,11 @@ namespace WaterGuns.Projectiles.Hardmode
         int delayMax = 5;
         public override void AI()
         {
+            if (base.data.mysterious != 0 && base.data.homesIn)
+            {
+                Projectile.penetrate = 1;
+            }
+
             base.AI();
             if (data.mysterious != 0)
             {

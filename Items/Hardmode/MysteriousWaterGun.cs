@@ -31,12 +31,12 @@ namespace WaterGuns.Items.Hardmode
         {
             for (int i = 0; i < 3; i++)
             {
-                var proj = base.SpawnProjectile(player, source, position, velocity, ModContent.ProjectileType<WaterProjectile>(), damage / 2, knockback);
+                var proj = base.SpawnProjectile(player, source, position, velocity * 1.3f, ModContent.ProjectileType<WaterProjectile>(), damage / 2, knockback);
                 proj.tileCollide = false;
                 proj.penetrate = -1;
-                proj.timeLeft = 120;
+                proj.timeLeft = 110;
                 if (i == 1)
-                    proj.timeLeft = 85;
+                    proj.timeLeft = 75;
             }
 
             return false;

@@ -39,6 +39,9 @@ namespace WaterGuns.Items.Hardmode
             // Mysterious mode
             if (source.Item.Name == "Mysterious Hydropump")
             {
+                data.dustScale = 1.8f;
+                data.dustAmount = 3;
+
                 data.mysterious = count;
                 if (count < 0)
                 {
