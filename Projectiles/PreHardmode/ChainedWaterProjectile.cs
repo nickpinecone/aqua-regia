@@ -28,11 +28,14 @@ namespace WaterGuns.Projectiles.PreHardmode
         int delay = 0;
         public override void AI()
         {
-            if (delay > 10)
+            if (delay > 12)
             {
-                var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation);
+                for (int i = 0; i < 4; i++)
+                {
+                    var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
+                }
                 delay = 0;
             }
             Projectile.rotation = Projectile.rotation + 0.1f;

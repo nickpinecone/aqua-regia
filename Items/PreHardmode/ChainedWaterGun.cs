@@ -14,6 +14,8 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ChainGuillotines);
+            Item.useTime *= 2;
+            Item.useAnimation *= 2;
 
             Item.DamageType = DamageClass.Ranged;
             Item.autoReuse = true;
