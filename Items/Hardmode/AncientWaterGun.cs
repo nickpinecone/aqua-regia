@@ -36,7 +36,7 @@ namespace WaterGuns.Items.Hardmode
                 if (Main.npc[i].life > 0 && isVisible)
                 {
                     var randomPosition = Vector2.Zero;
-                    var rotation = Main.rand.Next(-12, 12);
+                    var rotation = Main.rand.Next(-16, 16);
 
                     for (int k = 0; k < Main.ViewSize.Y; k += 16)
                     {

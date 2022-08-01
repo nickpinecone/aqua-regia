@@ -60,7 +60,7 @@ namespace WaterGuns.Projectiles.Hardmode
                     direction = -direction;
 
                     delay = 0;
-                    delayMax = 10;
+                    delayMax = 10 + Main.rand.Next(-1, 1);
                 }
             }
             base.CreateDust(color, dustScale, dustAmount, fadeIn, alpha);
