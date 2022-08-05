@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,6 +20,13 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 16;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.DemonWaterProjectile>();
+            base.offsetIndependent = new Vector2(0, -3);
+            base.offsetAmount = new Vector2(6, 6);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, 0);
         }
 
         public override void AddRecipes()

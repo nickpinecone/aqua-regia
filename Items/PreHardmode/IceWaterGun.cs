@@ -21,6 +21,12 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.damage = 13;
             Item.knockBack = 3;
+            base.offsetIndependent = new Vector2(0, -5);
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-2, 0);
         }
 
         public override bool AltFunctionUse(Player player)
