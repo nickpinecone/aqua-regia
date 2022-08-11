@@ -20,8 +20,15 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 16;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.DemonWaterProjectile>();
+
+            Item.useAnimation += 4;
+            Item.useTime += 4;
+            Item.shootSpeed += 4;
+            base.defaultInaccuracy = 2f;
+
+
             base.offsetIndependent = new Vector2(0, -3);
-            base.offsetAmount = new Vector2(6, 6);
+            base.offsetAmount = new Vector2(4, 4);
         }
 
         public override Vector2? HoldoutOffset()

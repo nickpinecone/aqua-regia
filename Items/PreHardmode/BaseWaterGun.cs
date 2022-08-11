@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -13,6 +14,13 @@ namespace WaterGuns.Items.PreHardmode
             Item.CloneDefaults(ItemID.WaterGun);
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>();
             Item.useAmmo = ItemID.BottledWater;
+            // Creating a SoundStyle from a sound file in this Mod, then playing it
+            SoundStyle WaterGunSoundStyle = new SoundStyle("WaterGuns/Sounds/WaterGunShoot");
+            Item.UseSound = WaterGunSoundStyle with
+            {
+                Pitch = -0.1f,
+                PitchVariance = 0.1f
+            };
         }
 
         public float CalculateAccuracy(float inaccuracy = 3.3f)

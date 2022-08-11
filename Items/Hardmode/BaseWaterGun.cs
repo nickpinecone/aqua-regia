@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace WaterGuns.Items.Hardmode
 {
@@ -14,6 +15,13 @@ namespace WaterGuns.Items.Hardmode
             Item.useTime -= 2;
             Item.useAnimation -= 2;
             Item.useAmmo = ItemID.BottledWater;
+
+            SoundStyle WaterGunSoundStyle = new SoundStyle("WaterGuns/Sounds/WaterGunShoot");
+            Item.UseSound = WaterGunSoundStyle with
+            {
+                Pitch = -0.1f,
+                PitchVariance = 0.1f
+            };
         }
 
         public float CalculateAccuracy(float inaccuracy = 1f)
