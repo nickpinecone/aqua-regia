@@ -47,14 +47,6 @@ namespace WaterGuns.Projectiles.Hardmode
             base.Kill(timeLeft);
         }
 
-        // public override bool OnTileCollide(Vector2 oldVelocity)
-        // {
-        //     if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
-        //     if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
-
-        //     return false;
-        // }
-
         protected float gravity = 0.04f;
         public override void AI()
         {
