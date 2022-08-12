@@ -34,6 +34,9 @@ namespace WaterGuns
             // Soundwave
             public bool isUp = true;
 
+            // Full charge
+            public bool fullCharge = false;
+
             // Mysterious mode
             public int mysterious = 0;
         }

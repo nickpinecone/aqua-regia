@@ -10,6 +10,8 @@ namespace WaterGuns.Items
 {
     public abstract class CommonWaterGun : ModItem
     {
+        public int pumpLevel = 0;
+
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.WaterGun);
@@ -21,6 +23,13 @@ namespace WaterGuns.Items
                 Pitch = -0.1f,
                 PitchVariance = 0.1f
             };
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            if (pumpLevel < 10)
+                pumpLevel += 1;
+            return base.AltFunctionUse(player);
         }
 
         public float CalculateAccuracy(float inaccuracy)
@@ -133,7 +142,26 @@ namespace WaterGuns.Items
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
             // Offset if need be
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;
+
+            if (pumpLevel >= 10)
+                data.fullCharge = true;
+            damage += pumpLevel;
+            knockback += pumpLevel / 5;
+            data.dustScale += pumpLevel / 5;
+
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
+
+            proj.scale += pumpLevel;
+            proj.timeLeft += pumpLevel;
+
+            if (pumpLevel > 0)
+            {
+                if (pumpLevel >= 10)
+                    pumpLevel = 0;
+                else
+                    pumpLevel -= 2;
+            }
+
             return proj;
         }
 
