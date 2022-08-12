@@ -21,6 +21,7 @@ namespace WaterGuns
             _canvas.SetState(Canvas);
         }
 
+
         public override void UpdateUI(GameTime gameTime)
         {
             _canvas?.Update(gameTime);

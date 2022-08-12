@@ -21,24 +21,22 @@ namespace WaterGuns.UI
             Append(panel); // 4
         }
 
-        public override void RightClick(UIMouseEvent evt)
+        public override void Update(GameTime gameTime)
         {
             if (Main.player[Main.myPlayer].HeldItem.ModItem is Items.CommonWaterGun gun)
             {
-                panel.Height.Set(10 + (5 * (gun.pumpLevel + 1)), 0);
-                panel.Top.Set(position.Y - 5 * (gun.pumpLevel + 1), 0);
-            }
-            base.RightClick(evt);
-        }
+                panel.BorderColor = new Color(255, 255, 255, 0);
+                panel.BackgroundColor = new Color(255, 255, 255, 0);
 
-        public override void Click(UIMouseEvent evt)
-        {
-            if (Main.player[Main.myPlayer].HeldItem.ModItem is Items.CommonWaterGun gun)
-            {
-                panel.Height.Set(10 + (5 * (gun.pumpLevel + 1)), 0);
-                panel.Top.Set(position.Y - 5 * (gun.pumpLevel + 1), 0);
+                panel.Height.Set(10 + (5 * (gun.pumpLevel)), 0);
+                panel.Top.Set(position.Y - 5 * (gun.pumpLevel), 0);
             }
-            base.Click(evt);
+            else
+            {
+                panel.BorderColor = Color.Transparent;
+                panel.BackgroundColor = Color.Transparent;
+            }
+            base.Update(gameTime);
         }
     }
 }

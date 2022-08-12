@@ -159,7 +159,11 @@ namespace WaterGuns.Items
                 if (pumpLevel >= 10)
                     pumpLevel = 0;
                 else
+                {
                     pumpLevel -= 2;
+                    if (pumpLevel < 0)
+                        pumpLevel = 0;
+                }
             }
 
             return proj;

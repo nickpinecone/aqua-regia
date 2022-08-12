@@ -32,7 +32,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.damage = 1;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 43;
+            Projectile.timeLeft = 33;
 
             Projectile.width = 76;
             Projectile.height = 146;
@@ -70,15 +70,15 @@ namespace WaterGuns.Projectiles.PreHardmode
                 delay += 1;
             else
             {
-                if (delay2 < 20)
+                if (delay2 < 12)
                 {
                     delay2 += 1;
-                    Projectile.rotation -= 0.05f;
+                    Projectile.rotation -= 0.14f;
                 }
                 else
                 {
-                    Projectile.rotation += 0.2f;
-                    Projectile.velocity = new Vector2(3, 4);
+                    Projectile.rotation += 0.26f;
+                    Projectile.velocity = new Vector2(4f, 5f);
                 }
             }
 
