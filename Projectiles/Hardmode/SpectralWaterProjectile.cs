@@ -18,13 +18,12 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (Main.player[Projectile.owner].HeldItem.damage < 88)
+            if (Main.player[Projectile.owner].HeldItem.ModItem is Items.Hardmode.SpectralWaterGun gun)
             {
-                Main.player[Projectile.owner].HeldItem.damage += 2;
-                if (Main.player[Projectile.owner].HeldItem.damage >= 88)
+                if (gun.pumpLevel < 10)
                 {
-                    // Play sound to know it cant become stronger
-                    SoundEngine.PlaySound(SoundID.Item4);
+                    gun.pumpLevel += 1;
+                    gun.Item.damage += 2;
                 }
             }
 

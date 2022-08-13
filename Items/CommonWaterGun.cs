@@ -11,6 +11,7 @@ namespace WaterGuns.Items
     public abstract class CommonWaterGun : ModItem
     {
         public int pumpLevel = 0;
+        public bool decreasePumpLevel = true;
 
         public override void SetDefaults()
         {
@@ -161,7 +162,7 @@ namespace WaterGuns.Items
             proj.scale += (proj.scale) * (pumpLevel / 10f);
             proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
 
-            if (pumpLevel > 0)
+            if (pumpLevel > 0 && decreasePumpLevel)
             {
                 if (pumpLevel >= 10)
                     pumpLevel = 0;

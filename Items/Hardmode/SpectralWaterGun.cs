@@ -21,6 +21,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetDefaults();
             base.offsetAmount = new Vector2(5, 5);
             base.offsetIndependent = new Vector2(0, -4);
+            base.decreasePumpLevel = false;
 
             Item.damage = 38;
             Item.knockBack = 5;
@@ -46,23 +47,25 @@ namespace WaterGuns.Items.Hardmode
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(10, 0).RotatedBy(angle).RotatedByRandom(MathHelper.ToRadians(90)), ProjectileID.LostSoulFriendly, soulsDamage, 5, player.whoAmI);
             }
 
-            return base.AltFunctionUse(player);
+            if (pumpLevel > 0)
+            {
+                if (pumpLevel >= 10)
+                    pumpLevel = 0;
+                else
+                {
+                    pumpLevel -= 2;
+                    if (pumpLevel < 0)
+                        pumpLevel = 0;
+                }
+            }
+
+            return false;
         }
 
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-26, -6);
         }
-
-        public override void HoldItem(Player player)
-        {
-            if (Main.mouseRight)
-            {
-                this.AltFunctionUse(player);
-            }
-            base.HoldItem(player);
-        }
-
 
         public override void AddRecipes()
         {
