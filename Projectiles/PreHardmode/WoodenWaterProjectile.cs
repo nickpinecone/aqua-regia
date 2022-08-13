@@ -98,27 +98,29 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.Trees) || Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.PalmTree))
             {
-                Vector2 position;
-
-                if (data.fullCharge)
-                {
-                    position = target.Center;
-                    position.X -= 80;
-                    position.Y -= 100;
-                }
-                else
-                {
-                    position = target.Center;
-                    position.X += Main.rand.Next(-10, 10);
-                    position.Y -= 320 + Main.rand.Next(-20, 20);
-
-                }
-
-                var attackType = data.fullCharge ? ModContent.ProjectileType<TreeSlam>() : ModContent.ProjectileType<AcornProjectile>();
-                var velocity = data.fullCharge ? Vector2.Zero : new Vector2(0, 10);
-
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity, attackType, damage, Projectile.knockBack, Projectile.owner);
+                damage += damage;
             }
+
+            Vector2 position;
+
+            if (data.fullCharge)
+            {
+                position = target.Center;
+                position.X -= 80;
+                position.Y -= 100;
+            }
+            else
+            {
+                position = target.Center;
+                position.X += Main.rand.Next(-10, 10);
+                position.Y -= 320 + Main.rand.Next(-20, 20);
+
+            }
+
+            var attackType = data.fullCharge ? ModContent.ProjectileType<TreeSlam>() : ModContent.ProjectileType<AcornProjectile>();
+            var velocity = data.fullCharge ? Vector2.Zero : new Vector2(0, 10);
+
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity, attackType, damage, Projectile.knockBack, Projectile.owner);
 
             base.OnHitNPC(target, damage, knockback, crit);
         }

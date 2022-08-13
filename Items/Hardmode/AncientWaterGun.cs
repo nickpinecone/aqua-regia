@@ -26,15 +26,24 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            var count = 0;
             // Spawn projectiles from the ground solid block
             base.defaultInaccuracy = 4;
+            // Cut damage in half
+            damage = damage / 2;
+
             for (int i = 0; i < Main.npc.Length; i++)
             {
+
                 var distance = player.position - Main.npc[i].position;
                 bool isVisible = Math.Abs(distance.X) < Main.ViewSize.X && Math.Abs(distance.Y) < Main.ViewSize.Y;
 
                 if (Main.npc[i].life > 0 && isVisible)
                 {
+                    // No more than 10
+                    count += 1;
+                    if (count > 10) break;
+
                     var randomPosition = Vector2.Zero;
                     var rotation = Main.rand.Next(-16, 16);
 

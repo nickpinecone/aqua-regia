@@ -112,7 +112,7 @@ namespace WaterGuns.Projectiles
             offset.Normalize();
             offset *= 3;
 
-            for (int i = 0; i < data.dustAmount; i++)
+            for (int i = 0; i < amount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
                 var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), alpha, color, scale);
