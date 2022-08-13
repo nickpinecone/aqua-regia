@@ -12,13 +12,13 @@ namespace WaterGuns.UI
 
         public override void OnInitialize()
         {
-            panel = new UIPanel(); // 2
-            panel.Width.Set(10, 0); // 3
-            panel.Height.Set(10, 0); // 3
+            panel = new UIPanel();
+            panel.Width.Set(10, 0);
+            panel.Height.Set(10, 0);
             position = new Vector2(Main.screenWidth + 10, Main.screenHeight - 20) / 2f;
             panel.Top.Set(position.Y, 0);
             panel.Left.Set(position.X, 0);
-            Append(panel); // 4
+            Append(panel);
         }
 
         public override void Update(GameTime gameTime)

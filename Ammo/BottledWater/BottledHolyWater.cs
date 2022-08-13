@@ -10,6 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("-WIP- BottledHolyWater");
             Tooltip.SetDefault("Holy Molly");
             base.SetStaticDefaults();
         }

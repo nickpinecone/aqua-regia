@@ -11,6 +11,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("-WIP- BottledUnholyWater");
             Tooltip.SetDefault("Unholy Unmolly");
             base.SetStaticDefaults();
         }

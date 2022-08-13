@@ -52,7 +52,7 @@ namespace WaterGuns.Items
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
             // Mysterious mode
-            if (source.Item.Name == "Mysterious Hydropump")
+            if (source.Item.Name == "-WIP- Mysterious Hydropump")
             {
                 data.dustScale = 1.8f;
                 data.dustAmount = 3;
@@ -139,20 +139,27 @@ namespace WaterGuns.Items
             float inaccuracy = CalculateAccuracy(defaultInaccuracy);
             // All of them use custom projectiles that shoot straight 
             // Make them a little inaccurate like in-game water gun
+
+            inaccuracy -= (inaccuracy) * (pumpLevel / 10f);
+
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
+
+            modifiedVelocity += ((modifiedVelocity) * (pumpLevel / 20f));
+
             // Offset if need be
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;
 
             if (pumpLevel >= 10)
                 data.fullCharge = true;
-            damage += pumpLevel;
-            knockback += pumpLevel / 5;
-            data.dustScale += pumpLevel / 5;
+            damage += (int)((damage) * (pumpLevel / 10f));
+            knockback += (knockback / 2) * (pumpLevel / 10f);
+            data.dustScale += (data.dustScale) * (pumpLevel / 10f);
+            data.dustAmount -= (data.dustAmount / 4) * (pumpLevel / 10);
 
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
-            proj.scale += pumpLevel;
-            proj.timeLeft += pumpLevel;
+            proj.scale += (proj.scale) * (pumpLevel / 10f);
+            proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
 
             if (pumpLevel > 0)
             {
