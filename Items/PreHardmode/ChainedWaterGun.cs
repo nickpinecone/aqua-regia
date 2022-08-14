@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Items.PreHardmode
 {
-    public class ChainedWaterGun : ModItem
+    public class ChainedWaterGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {

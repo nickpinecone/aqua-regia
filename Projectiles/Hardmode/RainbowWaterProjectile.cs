@@ -11,6 +11,8 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.affectedByHoming = false;
+
             AIType = ProjectileID.WaterGun;
             Projectile.penetrate = -1;
             Projectile.timeLeft += 30;
@@ -40,7 +42,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 proj.width += 10;
             }
 
-            base.CreateDust(default, 1.2f, 3, 1, 0);
+            base.CreateDust(default, data.dustScale, 3, 1, 0);
         }
     }
 }

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo.BottledWater
 {
-    public class BottledMeteorite : BaseAmmo
+    public class BottledPinkGel : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
@@ -17,7 +17,7 @@ namespace WaterGuns.Ammo.BottledWater
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.MeteoriteBar, 1);
+            recipe.AddIngredient(ItemID.PinkGel, 10);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

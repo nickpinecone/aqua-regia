@@ -130,7 +130,7 @@ namespace WaterGuns.Items
 
                 data.color = new Color(17, 143, 36);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledMeteorite>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPinkGel>())
             {
                 data.bounces = true;
 
