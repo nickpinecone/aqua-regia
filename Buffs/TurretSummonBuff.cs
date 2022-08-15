@@ -13,22 +13,7 @@ namespace WaterGuns.Buffs
         {
             base.SetStaticDefaults();
             Description.SetDefault("Turret Sentury");
-
             Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>()] > 0)
-            {
-                player.buffTime[buffIndex] = 18000;
-            }
-            else
-            {
-                player.DelBuff(buffIndex);
-                buffIndex--;
-            }
         }
     }
 }
