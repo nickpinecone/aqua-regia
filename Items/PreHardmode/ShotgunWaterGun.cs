@@ -10,7 +10,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Water Shotgun");
-            Tooltip.SetDefault("Shoots multiple streams of water");
+            Tooltip.SetDefault("Shoots multiple streams of water\nFull Pump: Significantly increases knockback, but the holder is thrown back from strong recoil");
         }
 
         public override void SetDefaults()
@@ -29,11 +29,17 @@ namespace WaterGuns.Items.PreHardmode
         {
             if (pumpLevel >= 10)
             {
+                // Recoil
                 Main.player[Main.myPlayer].velocity += -velocity;
-                knockback = 10;
+                knockback = 12;
             }
+
+            // So it applies to all shots, not the first one only
+            var _pumpLevel = pumpLevel;
+
             for (int i = -1; i < 3; i++)
             {
+                pumpLevel = _pumpLevel;
                 int distanceBetween = Main.rand.Next(6, 10);
                 Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
                 var proj = base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);

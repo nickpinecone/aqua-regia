@@ -10,8 +10,20 @@ namespace WaterGuns.Projectiles.PreHardmode
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.Bubble);
             AIType = ProjectileID.Bubble;
+
+            Projectile.damage = 1;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 40;
+            Projectile.tileCollide = true;
+
+            Projectile.width = 16;
+            Projectile.height = 16;
+
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+
+            Projectile.alpha = 75;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -48,24 +60,66 @@ namespace WaterGuns.Projectiles.PreHardmode
         }
     }
 
+    public class BubbleWhirl : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.friendly = false;
+            Projectile.hostile = false;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 30;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
+            proj.tileCollide = false;
+            proj.penetrate = -1;
+            proj.scale = 4;
+            proj.timeLeft = 40;
+            base.Kill(timeLeft);
+        }
+
+        int delay = 10;
+        public override void AI()
+        {
+            delay += 1;
+            if (delay > 10)
+            {
+                delay = 0;
+                var offset = new Vector2();
+                offset.X = Projectile.position.X + Main.rand.Next(-60, 60);
+                offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            }
+            base.AI();
+        }
+    }
+
     public class SeaWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
-            // Projectile.CloneDefaults(ProjectileID.WaterGun);
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            // Offset randomly
-            var offset = new Vector2();
-            offset.X = Projectile.position.X + Main.rand.Next(-60, 60);
-            offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
+            if (data.fullCharge)
+            {
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Bottom, new Vector2(0, 0), ModContent.ProjectileType<BubbleWhirl>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            }
+            else
+            {
+                // Offset randomly
+                var offset = new Vector2();
+                offset.X = Projectile.position.X + Main.rand.Next(-60, 60);
+                offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
 
-            // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            }
             base.OnHitNPC(target, damage, knockback, crit);
         }
     }
