@@ -31,7 +31,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         }
 
         List<Dust> dusts = new List<Dust>();
-        public void CreateDustLaser(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)
+        public void CreateDustLaser(Color color = default, float scale = 1.2f, int alpha = 75)
         {
             for (int i = 0; i < 100; i++)
             {

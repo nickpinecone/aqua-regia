@@ -55,8 +55,8 @@ namespace WaterGuns.Items.PreHardmode
         {
             if (pumpLevel >= 10)
             {
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.FrostWave, Item.damage * 2, 4, player.whoAmI);
-                proj.friendly = true;
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 4, player.whoAmI);
+                var proj2 = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 3, player.whoAmI);
 
                 for (int i = 0; i < projs.Count; i++)
                 {

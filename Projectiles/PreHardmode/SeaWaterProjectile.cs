@@ -37,6 +37,25 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnSpawn(source);
         }
 
+        public override void Kill(int timeLeft)
+        {
+            if (Projectile.scale == 4)
+            {
+                for (int i = 0; i < Main.rand.Next(2, 4); i++)
+                {
+                    // Offset randomly
+                    var offset = new Vector2();
+                    offset.X = Projectile.Center.X + Main.rand.Next(-50, 50);
+                    offset.Y = Projectile.Center.Y + Main.rand.Next(-50, 50);
+
+                    // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                }
+            }
+
+            base.Kill(timeLeft);
+        }
+
         int delay = 0;
         int randomOffset1 = 0;
         int randomOffset2 = 0;
@@ -88,8 +107,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 delay = 0;
                 var offset = new Vector2();
-                offset.X = Projectile.position.X + Main.rand.Next(-60, 60);
-                offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
+                offset.X = Projectile.Bottom.X + Main.rand.Next(-60, 60);
+                offset.Y = Projectile.Bottom.Y - Main.rand.Next(5, 40);
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             base.AI();
@@ -108,14 +127,14 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (data.fullCharge)
             {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Bottom, new Vector2(0, 0), ModContent.ProjectileType<BubbleWhirl>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Bottom, new Vector2(0, 0), ModContent.ProjectileType<BubbleWhirl>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             else
             {
                 // Offset randomly
                 var offset = new Vector2();
-                offset.X = Projectile.position.X + Main.rand.Next(-60, 60);
-                offset.Y = Projectile.position.Y + Main.rand.Next(0, 60);
+                offset.X = target.Bottom.X + Main.rand.Next(-60, 60);
+                offset.Y = target.Bottom.Y - Main.rand.Next(5, 40);
 
                 // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
