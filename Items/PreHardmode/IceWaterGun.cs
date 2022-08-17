@@ -12,7 +12,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Glacier");
-            Tooltip.SetDefault("Consolidates an ice shard every fourth shot. Right click to release them");
+            Tooltip.SetDefault("Consolidates an ice shard every third pump\nFull Pump: Ice shards turn into a frost wave");
         }
 
         public override void SetDefaults()
@@ -53,15 +53,28 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            // Release the shards
-            for (int i = 0; i < projs.Count; i++)
+            if (pumpLevel >= 10)
             {
-                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.FrostWave, Item.damage * 2, 4, player.whoAmI);
+                proj.friendly = true;
 
-                projs[i].friendly = true;
-                projs[i].velocity = velocity;
+                for (int i = 0; i < projs.Count; i++)
+                {
+                    projs[i].Kill();
+                }
             }
+            else
+            {
+                // Release the shards
+                for (int i = 0; i < projs.Count; i++)
+                {
+                    velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
 
+                    projs[i].friendly = true;
+                    projs[i].velocity = velocity;
+                }
+
+            }
             projs.Clear();
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
