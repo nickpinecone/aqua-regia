@@ -34,13 +34,14 @@ namespace WaterGuns.Items.PreHardmode
         int delay = 2;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
+
             delay += 1;
             if (delay >= 2)
             {
                 delay = 0;
                 base.SpawnProjectile(player, source, position, velocity, ProjectileID.Bee, 8, knockback);
             }
-            base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             return false;
         }
 

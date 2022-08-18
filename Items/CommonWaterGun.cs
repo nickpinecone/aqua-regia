@@ -52,20 +52,6 @@ namespace WaterGuns.Items
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
-            // Mysterious mode
-            if (source.Item.Name == "-WIP- Mysterious Hydropump")
-            {
-                data.dustScale = 1.8f;
-                data.dustAmount = 3;
-
-                data.mysterious = hydropumpCount;
-                if (hydropumpCount < 0)
-                {
-                    hydropumpCount = 2;
-                }
-                hydropumpCount -= 1;
-            }
-
             // Crimson rainer color
             if (source.Item.Name == "Crimson Rainer")
             {
@@ -145,7 +131,7 @@ namespace WaterGuns.Items
 
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy)) * CalculateSpeed();
 
-            modifiedVelocity += ((modifiedVelocity) * (pumpLevel / 20f));
+            modifiedVelocity += ((modifiedVelocity / 4) * (pumpLevel / 10f));
 
             // Offset if need be
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;

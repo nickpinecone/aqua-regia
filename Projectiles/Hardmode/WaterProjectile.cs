@@ -30,13 +30,6 @@ namespace WaterGuns.Projectiles.Hardmode
                 dustScale = data.dustScale;
                 fadeIn = data.fadeIn;
                 alpha = data.alpha;
-
-                if (data.mysterious != 0)
-                {
-                    direction = data.mysterious;
-                    Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(45 * direction));
-                    direction = -direction;
-                }
             }
             base.OnSpawn(source);
         }
@@ -45,24 +38,7 @@ namespace WaterGuns.Projectiles.Hardmode
         int delayMax = 5;
         public override void AI()
         {
-            if (base.data.mysterious != 0 && base.data.homesIn)
-            {
-                Projectile.penetrate = 1;
-            }
-
             base.AI();
-            if (data.mysterious != 0)
-            {
-                delay += 1;
-                if (delay > delayMax)
-                {
-                    Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(90 * direction));
-                    direction = -direction;
-
-                    delay = 0;
-                    delayMax = 10 + Main.rand.Next(-1, 1);
-                }
-            }
             base.CreateDust(color, dustScale, dustAmount, fadeIn, alpha);
         }
     }

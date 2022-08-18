@@ -31,14 +31,14 @@ namespace WaterGuns
             public bool bounces = false;
             public bool homesIn = false;
 
-            // Soundwave
-            public bool isUp = true;
-
             // Full charge
             public bool fullCharge = false;
 
-            // Mysterious mode
-            public int mysterious = 0;
+            // Soundwave Water Gun
+            public bool isUp = true;
+
+            // Golden Water Gun
+            public int splitCount = 0;
         }
     }
 }

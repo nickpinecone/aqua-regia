@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -10,7 +11,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Golden Water Splitter");
-            Tooltip.SetDefault("Shoots two streams of water");
+            Tooltip.SetDefault("Shoots two streams of water\nFull Pump: Water streams split mid-air");
         }
 
         public override void SetDefaults()
@@ -28,11 +29,26 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = 0; i < 2; i++)
+            var projType = 0;
+            int distanceBetween = 2;
+
+            if (pumpLevel >= 10)
             {
-                int distanceBetween = 4;
-                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
-                base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);
+                projType = ModContent.ProjectileType<Projectiles.PreHardmode.SplitProjectile>();
+                distanceBetween = 4;
+                velocity = velocity / 1.3f;
+            }
+            else
+            {
+                projType = type;
+            }
+
+            var _pumpLevel = pumpLevel;
+            for (int i = -1; i < 2; i += 2)
+            {
+                pumpLevel = _pumpLevel;
+                Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i));
+                base.SpawnProjectile(player, source, position, modifiedVelocity, projType, damage, knockback);
             }
 
             return false;
