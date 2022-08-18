@@ -16,6 +16,11 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void Kill(int timeLeft)
         {
+            if (timeLeft > 0)
+            {
+                return;
+            }
+
             if (data.splitCount < 3)
             {
                 data.splitCount += 1;
