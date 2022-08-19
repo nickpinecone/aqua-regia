@@ -7,31 +7,48 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
-    public class WaterFountain : BaseProjectile
+    public class SwordSlash : ModProjectile
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
-            base.defaultDust = false;
 
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 55;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.friendly = false;
+            Projectile.friendly = true;
             Projectile.extraUpdates = 0;
+            Projectile.width = 32;
+            Projectile.height = 32;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.rotation = MathHelper.PiOver4;
+            direction = Main.rand.NextBool() ? -1 : 1;
+            rotateAmount = Main.rand.NextFloat(-0.03f, 0.03f);
+            delayRandomness = Main.rand.Next(-2, 2);
+
+            base.OnSpawn(source);
+        }
 
         int delay = 10;
+        int delayRandomness = 0;
+        bool pastTarget = false;
+        int direction = 0;
+        float rotateAmount = 0;
+
         public override void AI()
         {
             delay += 1;
-            if (delay > 10)
+            if (pastTarget)
             {
-                delay = 0;
-                Projectile.rotation += 0.6f;
-                var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation);
-                Projectile.NewProjectile(base.data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.rotation += (0.26f + rotateAmount) * direction;
+            }
+            else if (delay > 46 + delayRandomness)
+            {
+                pastTarget = true;
+                Projectile.velocity = -Projectile.velocity / 2f;
             }
         }
 
@@ -41,7 +58,6 @@ namespace WaterGuns.Projectiles.PreHardmode
     {
         public override void SetDefaults()
         {
-            // Projectile.CloneDefaults(ProjectileID.WaterGun);
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
         }
@@ -50,10 +66,16 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (data.fullCharge)
             {
-                var modifiedVelocity = Vector2.Zero;
-                var randomPosition = target.Center;
+                for (int i = 0; i < 2; i++)
+                {
+                    int rotation = Main.rand.Next(0, 360);
+                    var randomPosition = target.Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(-45)).RotatedBy(MathHelper.ToRadians(rotation));
+                    var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));
 
-                Projectile.NewProjectile(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.WaterFountain>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SwordSlash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    proj.rotation = MathHelper.ToRadians(rotation - 180);
+                    proj.scale = 2;
+                }
             }
             else
             {
