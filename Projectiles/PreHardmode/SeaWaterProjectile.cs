@@ -110,11 +110,11 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             if (Projectile.velocity.X > 0)
             {
-                Projectile.rotation += 0.1f;
+                Projectile.rotation += 0.16f;
             }
             else
             {
-                Projectile.rotation -= 0.1f;
+                Projectile.rotation -= 0.16f;
             }
             base.AI();
         }

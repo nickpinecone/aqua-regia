@@ -7,12 +7,72 @@ using System;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
+    public class WaterGunMine : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.width = 32;
+            Projectile.height = 32;
+
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.timeLeft = 180;
+            Projectile.penetrate = -1;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.rotation = Main.rand.NextFloat(0, MathHelper.TwoPi);
+            base.OnSpawn(source);
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            applyGravity = false;
+            Projectile.velocity = Vector2.Zero;
+            return false;
+        }
+
+        bool applyGravity = true;
+        int delay = 0;
+        float gravity = 0.1f;
+
+        public override void AI()
+        {
+            if (applyGravity)
+            {
+                gravity += 0.2f;
+                Projectile.position.Y += gravity;
+                if (Projectile.velocity.X > 0)
+                {
+                    Projectile.rotation += 0.16f;
+                }
+                else
+                {
+                    Projectile.rotation -= 0.16f;
+                }
+            }
+
+            if (delay > 30)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
+                }
+                delay = 0;
+            }
+            delay += 1;
+            base.AI();
+        }
+    }
+
     public class WaterGunProjectile : ModProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 16;
+            Projectile.height = 16;
 
             Projectile.friendly = false;
             Projectile.hostile = false;
@@ -34,7 +94,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 {
                     var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
 
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
                 }
                 delay = 0;
             }

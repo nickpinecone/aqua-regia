@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,7 +10,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Literally a gun on a chain");
+            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Throws a spike that shoots water in four directions");
         }
 
         public override void SetDefaults()
@@ -22,6 +24,15 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 25;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.ChainedWaterProjectile>();
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (pumpLevel >= 10)
+            {
+                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.WaterGunMine>(), damage, knockback, player.whoAmI);
+            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override void AddRecipes()
