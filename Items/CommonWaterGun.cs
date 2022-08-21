@@ -29,7 +29,7 @@ namespace WaterGuns.Items
         public override bool AltFunctionUse(Player player)
         {
             if (pumpLevel < 10)
-                pumpLevel += 10;
+                pumpLevel += 1;
             return base.AltFunctionUse(player);
         }
 

@@ -105,6 +105,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         protected float gravity = 0.004f;
         public override void AI()
         {
+            Projectile.scale = 1.6f;
             gravity += 0.006f;
             Projectile.velocity.Y += gravity;
 
