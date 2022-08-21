@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -20,8 +21,8 @@ namespace WaterGuns.NPCs
         {
             NPC.townNPC = true;
             NPC.friendly = true;
-            NPC.width = 20;
-            NPC.height = 20;
+            NPC.width = 32;
+            NPC.height = 56;
             NPC.aiStyle = 7;
             NPC.defense = 5;
             NPC.lifeMax = 250;
@@ -33,10 +34,16 @@ namespace WaterGuns.NPCs
             NPCID.Sets.ExtraFramesCount[NPC.type] = 0;
             NPCID.Sets.DangerDetectRange[NPC.type] = 250;
             NPCID.Sets.AttackType[NPC.type] = NPCID.Sets.AttackType[NPCID.ArmsDealer];
-            NPCID.Sets.AttackTime[NPC.type] = 10;
-            NPCID.Sets.AttackAverageChance[NPC.type] = 10;
+            NPCID.Sets.AttackTime[NPC.type] = 30;
+            // NPCID.Sets.AttackAverageChance[NPC.type] = 10;
             NPCID.Sets.HatOffsetY[NPC.type] = 4;
             AnimationType = NPCID.Dryad;
+        }
+
+        public override void HitEffect(int hitDirection, double damage)
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore1>());
+            base.HitEffect(hitDirection, damage);
         }
 
         public override bool CanTownNPCSpawn(int numTownNPCs, int money)
@@ -99,25 +106,34 @@ namespace WaterGuns.NPCs
 
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)
         {
-            damage = 10;
+            damage = 6;
             knockback = 2f;
         }
 
         public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
         {
-            cooldown = 5;
+            cooldown = 10;
             randExtraCooldown = 30;
+        }
+
+        public override void DrawTownAttackGun(ref float scale, ref int item, ref int closeness)
+        {
+            scale = 0.9f;
+            item = ModContent.ItemType<Swimmer_Gun>();
+            closeness = 14;
+            base.DrawTownAttackGun(ref scale, ref item, ref closeness);
         }
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            // projType = ProjectileID.WoodenArrowFriendly;
+            projType = ModContent.ProjectileType<Swimmer_Projectile>();
             attackDelay = 1;
         }
 
+
         public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
         {
-            multiplier = 1f;
+            multiplier = 10f;
         }
     }
 }
