@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,6 +21,21 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 10;
             Item.knockBack = 2;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SeaWaterProjectile>();
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            var _pumpLevel = pumpLevel;
+            if (pumpLevel >= 10)
+            {
+                for (int i = -1; i < 2; i++)
+                {
+                    var modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(Main.rand.Next(5, 10) * i));
+                    base.SpawnProjectile(player, source, position, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.StarfishProjectile>(), damage, knockback);
+                    pumpLevel = _pumpLevel;
+                }
+            }
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override Vector2? HoldoutOffset()

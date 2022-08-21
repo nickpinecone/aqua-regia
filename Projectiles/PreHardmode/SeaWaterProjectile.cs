@@ -79,37 +79,42 @@ namespace WaterGuns.Projectiles.PreHardmode
         }
     }
 
-    public class BubbleWhirl : ModProjectile
+    public class StarfishProjectile : ModProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.friendly = false;
+            Projectile.width = 16;
+            Projectile.height = 16;
+            Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 30;
+            Projectile.tileCollide = true;
+            Projectile.damage = 1;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 120;
         }
 
-        public override void Kill(int timeLeft)
+        public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage / 4, Projectile.knockBack, Projectile.owner);
-            proj.tileCollide = false;
-            proj.penetrate = -1;
-            proj.scale = 4;
-            proj.timeLeft = 40;
-            base.Kill(timeLeft);
+            // Bounce off the wall without creating a new projectile
+            if (oldVelocity.X != Projectile.velocity.X) Projectile.velocity.X = -oldVelocity.X;
+            if (oldVelocity.Y != Projectile.velocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+
+            return false;
         }
 
-        int delay = 10;
+        protected float gravity = 0.004f;
         public override void AI()
         {
-            delay += 1;
-            if (delay > 10)
+            gravity += 0.006f;
+            Projectile.velocity.Y += gravity;
+
+            if (Projectile.velocity.X > 0)
             {
-                delay = 0;
-                var offset = new Vector2();
-                offset.X = Projectile.Bottom.X + Main.rand.Next(-60, 60);
-                offset.Y = Projectile.Bottom.Y - Main.rand.Next(5, 40);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.rotation += 0.1f;
+            }
+            else
+            {
+                Projectile.rotation -= 0.1f;
             }
             base.AI();
         }
@@ -125,11 +130,6 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (data.fullCharge)
-            {
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Bottom, new Vector2(0, 0), ModContent.ProjectileType<BubbleWhirl>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            }
-            else
             {
                 // Offset randomly
                 var offset = new Vector2();
