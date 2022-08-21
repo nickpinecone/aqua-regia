@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,36 +15,66 @@ namespace WaterGuns.NPCs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Swimmer");
             base.SetStaticDefaults();
-        }
 
-        public override void SetDefaults()
-        {
-            NPC.townNPC = true;
-            NPC.friendly = true;
-            NPC.width = 32;
-            NPC.height = 56;
-            NPC.aiStyle = 7;
-            NPC.defense = 5;
-            NPC.lifeMax = 250;
-            NPC.HitSound = SoundID.NPCHit1;
-            NPC.DeathSound = SoundID.NPCDeath1;
-            NPC.knockBackResist = 0.1f;
             Main.npcFrameCount[NPC.type] = 23;
             NPCID.Sets.AttackFrameCount[NPC.type] = NPCID.Sets.AttackType[NPCID.Dryad];
             NPCID.Sets.ExtraFramesCount[NPC.type] = 0;
             NPCID.Sets.DangerDetectRange[NPC.type] = 250;
             NPCID.Sets.AttackType[NPC.type] = NPCID.Sets.AttackType[NPCID.ArmsDealer];
             NPCID.Sets.AttackTime[NPC.type] = 30;
-            // NPCID.Sets.AttackAverageChance[NPC.type] = 10;
             NPCID.Sets.HatOffsetY[NPC.type] = 4;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                Velocity = 1f,
+                Direction = 1
+            };
+
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+            NPC.Happiness
+                .SetBiomeAffection<OceanBiome>(AffectionLevel.Like)
+                .SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike)
+                .SetNPCAffection(NPCID.Stylist, AffectionLevel.Love)
+                .SetNPCAffection(NPCID.Pirate, AffectionLevel.Love)
+                .SetNPCAffection(NPCID.Angler, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.Princess, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.GoblinTinkerer, AffectionLevel.Dislike)
+                .SetNPCAffection(NPCID.DD2Bartender, AffectionLevel.Dislike)
+            ;
+        }
+
+        public override void SetDefaults()
+        {
+            NPC.townNPC = true;
+            NPC.friendly = true;
+            NPC.width = 28;
+            NPC.height = 52;
+            NPC.aiStyle = 7;
+            NPC.defense = 5;
+            NPC.lifeMax = 250;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.knockBackResist = 0.1f;
             AnimationType = NPCID.Dryad;
+        }
+
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean
+            });
         }
 
         public override void HitEffect(int hitDirection, double damage)
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore1>());
+            if (NPC.life <= 0)
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore1>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore2>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore3>());
+            }
             base.HitEffect(hitDirection, damage);
         }
 
@@ -68,7 +100,15 @@ namespace WaterGuns.NPCs
             {
                 "Lana",
                 "Marina",
-                "Anna"
+                "Anna",
+                "Minami",
+                "Morgana",
+                "Mary",
+                "Aqua",
+                "Ridley",
+                "Sonia",
+                "Nami",
+                "Joyce"
             };
         }
 
@@ -120,7 +160,7 @@ namespace WaterGuns.NPCs
         {
             scale = 0.9f;
             item = ModContent.ItemType<Swimmer_Gun>();
-            closeness = 14;
+            closeness = 12;
             base.DrawTownAttackGun(ref scale, ref item, ref closeness);
         }
 

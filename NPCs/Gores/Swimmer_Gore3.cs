@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.NPCs.Gores
 {
-    public class Swimmer_Gore1 : ModGore
+    public class Swimmer_Gore3 : ModGore
     {
         public override void OnSpawn(Terraria.Gore gore, IEntitySource source)
         {
