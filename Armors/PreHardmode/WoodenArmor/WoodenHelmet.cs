@@ -27,7 +27,6 @@ namespace WaterGuns.Armors.PreHardmode.WoodenArmor
         public override void UpdateEquip(Player player)
         {
             base.UpdateEquip(player);
-            // player.moveSpeed += 1f;
         }
 
         public override void AddRecipes()

@@ -10,6 +10,13 @@ namespace WaterGuns.Armors.PreHardmode.WoodenArmor
     [AutoloadEquip(EquipType.Legs)]
     public class WoodenPants : ModItem
     {
+
+        public override void Load()
+        {
+            base.Load();
+            EquipLoader.AddEquipTexture(Mod, $"{Texture}Female_{EquipType.Legs}", EquipType.Legs, name: "WoodenPantsFemale");
+        }
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -27,8 +34,17 @@ namespace WaterGuns.Armors.PreHardmode.WoodenArmor
         public override void UpdateEquip(Player player)
         {
             base.UpdateEquip(player);
-            // player.moveSpeed += 1f;
+            if (!player.Male)
+                player.GetModPlayer<GlobalPlayer>().isFemleWoodenShorts = true;
         }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            base.UpdateAccessory(player, hideVisual);
+            if (!player.Male)
+                player.GetModPlayer<GlobalPlayer>().isFemleWoodenShorts = true;
+        }
+
 
         public override void AddRecipes()
         {

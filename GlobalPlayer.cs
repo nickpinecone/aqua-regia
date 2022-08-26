@@ -14,6 +14,8 @@ namespace WaterGuns
         public bool waterShield = false;
         public bool waterStone = false;
 
+        public bool isFemleWoodenShorts = false;
+
         public float CalculateAccuracy(float defaultInaccuracy)
         {
             return defaultInaccuracy - defaultInaccuracy * waterGunAccuracy;
@@ -61,6 +63,15 @@ namespace WaterGuns
             waterGunSpeed = 0;
             waterShield = false;
             waterStone = false;
+
+            isFemleWoodenShorts = false;
+        }
+        public override void FrameEffects()
+        {
+            if (isFemleWoodenShorts)
+            {
+                Player.legs = EquipLoader.GetEquipSlot(Mod, "WoodenPantsFemale", EquipType.Legs);
+            }
         }
     }
 }
