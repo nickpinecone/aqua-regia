@@ -7,7 +7,6 @@ using Terraria.Audio;
 
 namespace WaterGuns.Armors.PreHardmode.WoodenArmor
 {
-    [AutoloadEquip(EquipType.Body)]
     public class WoodenChestplate : BaseArmors.BaseChestplate
     {
         public override void SetStaticDefaults()

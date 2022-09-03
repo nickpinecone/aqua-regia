@@ -8,7 +8,7 @@ using Terraria.Audio;
 namespace WaterGuns.Vanities.Bikini
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class BikiniBottom : ModItem
+    public class BikiniBottom : Armors.BaseArmors.BasePants
     {
         string femaleTextureName = "BikiniBottomFemale";
 
@@ -16,19 +16,6 @@ namespace WaterGuns.Vanities.Bikini
         {
             base.Load();
             EquipLoader.AddEquipTexture(Mod, $"{Texture}Female_{EquipType.Legs}", EquipType.Legs, name: femaleTextureName);
-        }
-
-        public override void SetStaticDefaults()
-        {
-            base.SetStaticDefaults();
-            DisplayName.SetDefault("Shorts");
-        }
-
-        public override void SetDefaults()
-        {
-            base.SetDefaults();
-            Item.width = 20;
-            Item.height = 20;
         }
 
         public override void UpdateEquip(Player player)
@@ -49,6 +36,19 @@ namespace WaterGuns.Vanities.Bikini
                 player.GetModPlayer<GlobalPlayer>().isFemaleLegs = true;
                 player.GetModPlayer<GlobalPlayer>().femaleLegsTexture = femaleTextureName;
             }
+        }
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Shorts");
+        }
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Item.width = 20;
+            Item.height = 20;
         }
     }
 }

@@ -7,7 +7,6 @@ using Terraria.Audio;
 
 namespace WaterGuns.Armors.BaseArmors
 {
-    [AutoloadEquip(EquipType.Head)]
     public abstract class BaseHelmet : ModItem
     {
     }

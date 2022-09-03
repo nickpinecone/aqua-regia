@@ -10,10 +10,32 @@ namespace WaterGuns.Armors.PreHardmode.WoodenArmor
     [AutoloadEquip(EquipType.Legs)]
     public class WoodenPants : BaseArmors.BasePants
     {
-        public override void OnSpawn(IEntitySource source)
+        string femaleTextureName = "WoodenPantsFemale";
+
+        public override void Load()
         {
-            base.OnSpawn(source);
-            femaleTextureName = "WoodenPantsFemale";
+            base.Load();
+            EquipLoader.AddEquipTexture(Mod, $"{Texture}Female_{EquipType.Legs}", EquipType.Legs, name: femaleTextureName);
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            base.UpdateEquip(player);
+            if (!player.Male)
+            {
+                player.GetModPlayer<GlobalPlayer>().isFemaleLegs = true;
+                player.GetModPlayer<GlobalPlayer>().femaleLegsTexture = femaleTextureName;
+            }
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            base.UpdateAccessory(player, hideVisual);
+            if (!player.Male)
+            {
+                player.GetModPlayer<GlobalPlayer>().isFemaleLegs = true;
+                player.GetModPlayer<GlobalPlayer>().femaleLegsTexture = femaleTextureName;
+            }
         }
 
         public override void SetStaticDefaults()
