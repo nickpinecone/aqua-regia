@@ -1,3 +1,3 @@
-displayName = More Water Guns
+displayName = Watergunner Class
 author = ThreeDots
-version = 0.51
+version = 0.52

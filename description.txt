@@ -8,7 +8,7 @@ Adds:
 
 Water Guns consume bottled water as ammo, and it could be bought from the new Swimmer NPC
 
-(WIP) You can pump the Water Guns by right-clicking to make them stronger, at full pump level they gain new powerful attacks
+(WIP - Only Prehardmode for now) You can pump the Water Guns by right-clicking to make them stronger, at full pump level they gain new powerful attacks
 
 This mod is still work-in-progress
 More items, enhancments and better sprites are comming
