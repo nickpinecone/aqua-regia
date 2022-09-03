@@ -8,13 +8,12 @@ using Terraria.Audio;
 namespace WaterGuns.Armors.PreHardmode.WoodenArmor
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class WoodenPants : ModItem
+    public class WoodenPants : BaseArmors.BasePants
     {
-
-        public override void Load()
+        public override void OnSpawn(IEntitySource source)
         {
-            base.Load();
-            EquipLoader.AddEquipTexture(Mod, $"{Texture}Female_{EquipType.Legs}", EquipType.Legs, name: "WoodenPantsFemale");
+            base.OnSpawn(source);
+            femaleTextureName = "WoodenPantsFemale";
         }
 
         public override void SetStaticDefaults()
@@ -30,21 +29,6 @@ namespace WaterGuns.Armors.PreHardmode.WoodenArmor
             Item.height = 20;
             Item.defense = 1;
         }
-
-        public override void UpdateEquip(Player player)
-        {
-            base.UpdateEquip(player);
-            if (!player.Male)
-                player.GetModPlayer<GlobalPlayer>().isFemleWoodenShorts = true;
-        }
-
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-            base.UpdateAccessory(player, hideVisual);
-            if (!player.Male)
-                player.GetModPlayer<GlobalPlayer>().isFemleWoodenShorts = true;
-        }
-
 
         public override void AddRecipes()
         {

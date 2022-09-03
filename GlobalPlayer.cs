@@ -14,7 +14,8 @@ namespace WaterGuns
         public bool waterShield = false;
         public bool waterStone = false;
 
-        public bool isFemleWoodenShorts = false;
+        public bool isFemaleLegs = false;
+        public string femaleLegsTexture = "";
 
         public float CalculateAccuracy(float defaultInaccuracy)
         {
@@ -64,13 +65,14 @@ namespace WaterGuns
             waterShield = false;
             waterStone = false;
 
-            isFemleWoodenShorts = false;
+            isFemaleLegs = false;
+            femaleLegsTexture = "";
         }
         public override void FrameEffects()
         {
-            if (isFemleWoodenShorts)
+            if (isFemaleLegs)
             {
-                Player.legs = EquipLoader.GetEquipSlot(Mod, "WoodenPantsFemale", EquipType.Legs);
+                Player.legs = EquipLoader.GetEquipSlot(Mod, femaleLegsTexture, EquipType.Legs);
             }
         }
     }
