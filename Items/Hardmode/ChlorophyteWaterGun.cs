@@ -14,9 +14,16 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Chases after your foes");
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, -4);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.offsetAmount = new Vector2(5, 5);
+            base.offsetIndependent = new Vector2(0, -5);
 
             Item.damage = 54;
             Item.knockBack = 5;

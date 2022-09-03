@@ -14,6 +14,11 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Puts enemies in a bubble whirl");
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-20, -4);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

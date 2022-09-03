@@ -18,10 +18,17 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("\"Power, Unlimited Power!\"");
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-16, 0);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
             base.defaultInaccuracy = 0;
+            base.offsetAmount = new Vector2(6, 6);
+            base.offsetIndependent = new Vector2(0, -6);
 
             Item.damage = 92;
             Item.knockBack = 6;

@@ -15,7 +15,7 @@ namespace WaterGuns.UI
             panel = new UIPanel();
             panel.Width.Set(10, 0);
             panel.Height.Set(10, 0);
-            position = new Vector2(Main.screenWidth + 10, Main.screenHeight - 20) / 2f;
+            position = new Vector2(Main.screenWidth, Main.screenHeight - 20) / 2f;
             panel.Top.Set(position.Y, 0);
             panel.Left.Set(position.X, 0);
             Append(panel);

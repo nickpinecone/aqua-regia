@@ -14,9 +14,15 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Shoots two projecitles in opposite directions");
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(0, 0);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.offsetIndependent = new Vector2(0, -3);
 
             Item.damage = 40;
             Item.knockBack = 4;

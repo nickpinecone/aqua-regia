@@ -15,6 +15,11 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Inflicts the ichor debuff");
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(0, 0);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -24,11 +29,6 @@ namespace WaterGuns.Items.Hardmode
             Item.scale = 0.8f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.IchorWaterProjectile>();
             base.defaultInaccuracy = 4;
-        }
-
-        public override Vector2? HoldoutOffset()
-        {
-            return new Vector2(-6, 0);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

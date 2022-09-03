@@ -24,6 +24,11 @@ namespace WaterGuns.Items.Hardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(4, -2);
+        }
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             var count = 0;

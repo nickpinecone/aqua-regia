@@ -14,9 +14,15 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Spawns water streams downwards");
         }
 
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-4, -2);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.offsetIndependent = new Vector2(0, -2);
 
             Item.damage = 46;
             Item.knockBack = 5;
