@@ -16,6 +16,12 @@ namespace WaterGuns.Vanities.Bikini
             DisplayName.SetDefault("Bikini");
         }
 
+        public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
+        {
+            color = Main.player[Main.myPlayer].shirtColor;
+            base.DrawArmorColor(drawPlayer, shadow, ref color, ref glowMask, ref glowMaskColor);
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,7 +9,8 @@ namespace WaterGuns.Items.Hardmode
 {
     public class SpectralWaterGun : BaseWaterGun
     {
-        int normalDamage = 0;
+        public int hitCount = 0;
+        public List<Projectile> soulsList = new List<Projectile> { };
 
         public override void SetStaticDefaults()
         {
@@ -23,29 +25,28 @@ namespace WaterGuns.Items.Hardmode
             base.offsetIndependent = new Vector2(0, -4);
             base.decreasePumpLevel = false;
 
-            Item.damage = 38;
+            Item.damage = 55;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.SpectralWaterProjectile>();
             Item.useTime -= 3;
             Item.useAnimation -= 3;
-
-            normalDamage = Item.damage;
         }
 
         public override bool AltFunctionUse(Player player)
         {
-            int soulsDamage = Item.damage - normalDamage;
-            Item.damage = normalDamage;
+            var velocity = -Main.MouseWorld.DirectionTo(player.position);
+            velocity.Normalize();
+            velocity *= 14;
 
-            int soulsNumber = soulsDamage / 4;
-            soulsNumber = soulsNumber > 10 ? 10 : soulsNumber;
-            soulsDamage = (int)(soulsDamage * 1.5f);
-
-            var angle = player.position.AngleTo(Main.MouseWorld);
-            for (int i = 0; i < soulsNumber; i++)
+            for (int i = 0; i < soulsList.Count; i++)
             {
-                Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(10, 0).RotatedBy(angle).RotatedByRandom(MathHelper.ToRadians(90)), ProjectileID.LostSoulFriendly, soulsDamage, 5, player.whoAmI);
+                var newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20f));
+
+                soulsList[i].friendly = true;
+                soulsList[i].velocity = newVelocity;
             }
+            soulsList.Clear();
+
 
             if (pumpLevel > 0)
             {

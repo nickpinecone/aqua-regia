@@ -16,6 +16,8 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
+            base.offsetAmount = new Vector2(5, 5);
+            base.offsetIndependent = new Vector2(0, -4);
 
             Item.damage = 20;
             Item.knockBack = 6;
@@ -23,6 +25,11 @@ namespace WaterGuns.Items.PreHardmode
             Item.useTime += 12;
 
             base.defaultInaccuracy = 12;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-12, 0);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
