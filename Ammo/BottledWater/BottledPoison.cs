@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts poison");
+            Tooltip.SetDefault("4 ranged damage\nInflicts poison");
             base.SetStaticDefaults();
         }
         public override void AddRecipes()

@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts frost burn");
+            Tooltip.SetDefault("3 ranged damage\nInflicts frost burn");
             base.SetStaticDefaults();
         }
         public override void AddRecipes()

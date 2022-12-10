@@ -85,6 +85,8 @@ namespace WaterGuns.Items
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPoison>())
             {
+                damage += 4;
+
                 data.hasBuff = true;
                 data.buffType = BuffID.Poisoned;
                 data.buffTime = 240;
@@ -101,6 +103,8 @@ namespace WaterGuns.Items
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCryogel>())
             {
+                damage += 3;
+
                 data.hasBuff = true;
                 data.buffType = BuffID.Frostburn;
                 data.buffTime = 240;
@@ -118,6 +122,8 @@ namespace WaterGuns.Items
             }
             else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPinkGel>())
             {
+                damage += 2;
+
                 data.bounces = true;
 
                 data.color = new Color(150, 56, 147);

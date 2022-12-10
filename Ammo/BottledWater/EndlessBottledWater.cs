@@ -10,7 +10,7 @@ namespace WaterGuns.Ammo.BottledWater
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Magical And Endless");
+            Tooltip.SetDefault("1 ranged damage\nMagical And Endless");
             base.SetStaticDefaults();
         }
         public override void SetDefaults()
