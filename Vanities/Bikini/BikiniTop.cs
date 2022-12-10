@@ -8,7 +8,7 @@ using Terraria.Audio;
 namespace WaterGuns.Vanities.Bikini
 {
     [AutoloadEquip(EquipType.Body)]
-    public class BikiniTop : ModItem
+    public abstract class BikiniTop : ModItem
     {
         public override void SetStaticDefaults()
         {

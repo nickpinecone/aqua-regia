@@ -7,7 +7,7 @@ using Terraria.Audio;
 
 namespace WaterGuns.Blocks
 {
-    public class Machine : ModItem
+    public abstract class Machine : ModItem
     {
         public override void SetDefaults()
         {

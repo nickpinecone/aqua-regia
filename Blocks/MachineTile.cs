@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace WaterGuns.Blocks
 {
-    public class MachineTile : ModTile
+    public abstract class MachineTile : ModTile
     {
         public override void SetStaticDefaults()
         {

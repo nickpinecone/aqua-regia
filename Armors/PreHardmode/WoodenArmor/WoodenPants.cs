@@ -8,7 +8,7 @@ using Terraria.Audio;
 namespace WaterGuns.Armors.PreHardmode.WoodenArmor
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class WoodenPants : BaseArmors.BasePants
+    public abstract class WoodenPants : BaseArmors.BasePants
     {
         string femaleTextureName = "WoodenPantsFemale";
 

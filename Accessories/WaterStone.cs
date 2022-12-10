@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Accessories
 {
-    public class WaterStone : BaseAccessory
+    public abstract class WaterStone : BaseAccessory
     {
         public override void SetStaticDefaults()
         {

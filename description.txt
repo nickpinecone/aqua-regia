@@ -3,7 +3,7 @@ A Terraria mod that brings more water guns to the game that actually do damage
 Adds:
 26 water guns each with their uniqueness
 11 new ammo types for water guns
-7 accessories to boost water guns
+// 7 accessories to boost water guns
 1 town npc
 
 Water Guns consume bottled water as ammo, and it could be bought from the new Swimmer NPC

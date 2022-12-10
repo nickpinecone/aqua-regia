@@ -8,7 +8,7 @@ using Terraria.Audio;
 namespace WaterGuns.Vanities.Bikini
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class BikiniBottom : Armors.BaseArmors.BasePants
+    public abstract class BikiniBottom : Armors.BaseArmors.BasePants
     {
         string femaleTextureName = "BikiniBottomFemale";
 
