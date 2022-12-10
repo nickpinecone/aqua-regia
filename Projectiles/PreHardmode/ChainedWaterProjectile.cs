@@ -35,14 +35,14 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         bool applyGravity = true;
         int delay = 0;
-        float gravity = 0.1f;
+        float gravity = 0.005f;
 
         public override void AI()
         {
             if (applyGravity)
             {
-                gravity += 0.2f;
-                Projectile.position.Y += gravity;
+                gravity += 0.008f;
+                Projectile.velocity.Y += gravity;
                 if (Projectile.velocity.X > 0)
                 {
                     Projectile.rotation += 0.16f;

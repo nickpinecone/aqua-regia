@@ -57,24 +57,16 @@ namespace WaterGuns.Items.PreHardmode
             {
                 var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 4, player.whoAmI);
                 var proj2 = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 3, player.whoAmI);
-
-                for (int i = 0; i < projs.Count; i++)
-                {
-                    projs[i].Kill();
-                }
             }
-            else
+            // Release the shards
+            for (int i = 0; i < projs.Count; i++)
             {
-                // Release the shards
-                for (int i = 0; i < projs.Count; i++)
-                {
-                    velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
+                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
 
-                    projs[i].friendly = true;
-                    projs[i].velocity = velocity;
-                }
-
+                projs[i].friendly = true;
+                projs[i].velocity = velocity;
             }
+
             projs.Clear();
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
