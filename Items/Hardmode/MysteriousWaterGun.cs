@@ -10,7 +10,7 @@ using WaterGuns.Projectiles.Hardmode;
 
 namespace WaterGuns.Items.Hardmode
 {
-    public class MysteriousWaterGun : BaseWaterGun
+    public abstract class MysteriousWaterGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo.BottledWater
 {
-    public class BottledUnholyWater : BaseAmmo
+    public abstract class BottledUnholyWater : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
