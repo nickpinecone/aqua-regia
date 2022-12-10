@@ -31,6 +31,8 @@ namespace WaterGuns.Items.PreHardmode
                 for (int i = -1; i < 2; i++)
                 {
                     var modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(Main.rand.Next(5, 10) * i));
+                    // Slow down the starfish
+                    modifiedVelocity /= Main.rand.NextFloat(1f, 1.5f);
                     base.SpawnProjectile(player, source, position, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.StarfishProjectile>(), damage, knockback);
                     pumpLevel = _pumpLevel;
                 }
