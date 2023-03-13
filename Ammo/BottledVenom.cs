@@ -4,20 +4,20 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Ammo.BottledWater
+namespace WaterGuns.Ammo
 {
-    public class BottledIchor : BaseAmmo
+    public class BottledVenom : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts ichor debuff");
+            Tooltip.SetDefault("Inflicts venom debuff");
             base.SetStaticDefaults();
         }
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.Ichor, 1);
+            recipe.AddIngredient(ItemID.VialofVenom, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

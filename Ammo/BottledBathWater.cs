@@ -4,20 +4,20 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Ammo.BottledWater
+namespace WaterGuns.Ammo
 {
-    public class BottledVenom : BaseAmmo
+    public class BottledBathWater : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts venom debuff");
             base.SetStaticDefaults();
+            Tooltip.SetDefault("Deals mental damage");
         }
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.VialofVenom, 1);
+            recipe.AddIngredient(ItemID.GelBalloon, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

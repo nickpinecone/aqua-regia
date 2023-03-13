@@ -26,11 +26,21 @@ namespace WaterGuns.Items
             };
         }
 
-        public override bool AltFunctionUse(Player player)
+        int pumpTimer = 0;
+        public override void HoldItem(Player player)
         {
-            if (pumpLevel < 10)
-                pumpLevel += 1;
-            return base.AltFunctionUse(player);
+            pumpTimer += 1;
+            if (pumpTimer >= 20)
+            {
+                if (pumpLevel < 10)
+                {
+                    pumpLevel += 1;
+                }
+
+                pumpTimer = 0;
+            }
+
+            base.HoldItem(player);
         }
 
         public float CalculateAccuracy(float inaccuracy)
@@ -59,7 +69,7 @@ namespace WaterGuns.Items
             }
 
             // Ammo Inflicts Statuses ------------------------------------------------------------
-            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledBathWater>())
+            if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledBathWater>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Confused;
@@ -67,7 +77,7 @@ namespace WaterGuns.Items
 
                 data.color = new Color(247, 2, 248);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledIchor>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledIchor>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Ichor;
@@ -75,7 +85,7 @@ namespace WaterGuns.Items
 
                 data.color = new Color(255, 250, 41);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledVenom>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledVenom>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.Venom;
@@ -83,7 +93,7 @@ namespace WaterGuns.Items
 
                 data.color = new Color(173, 103, 230);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPoison>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledPoison>())
             {
                 damage += 4;
 
@@ -93,7 +103,7 @@ namespace WaterGuns.Items
 
                 data.color = new Color(0, 194, 129);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCursedFire>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledCursedFire>())
             {
                 data.hasBuff = true;
                 data.buffType = BuffID.CursedInferno;
@@ -101,7 +111,7 @@ namespace WaterGuns.Items
 
                 data.color = new Color(96, 248, 2);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledCryogel>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledCryogel>())
             {
                 damage += 3;
 
@@ -114,13 +124,13 @@ namespace WaterGuns.Items
             // -----------------------------------------------------------------------------------------
 
             // Ammo Special Effects
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledChlorophyte>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledChlorophyte>())
             {
                 data.homesIn = true;
 
                 data.color = new Color(17, 143, 36);
             }
-            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledWater.BottledPinkGel>())
+            else if (source.AmmoItemIdUsed == ModContent.ItemType<Ammo.BottledPinkGel>())
             {
                 damage += 2;
 
@@ -143,27 +153,33 @@ namespace WaterGuns.Items
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;
 
             if (pumpLevel >= 10)
+            {
                 data.fullCharge = true;
-            damage += (int)((damage) * (pumpLevel / 10f));
-            knockback += (knockback / 2) * (pumpLevel / 10f);
-            data.dustScale += (data.dustScale) * (pumpLevel / 10f);
-            data.dustAmount -= (data.dustAmount / 4) * (pumpLevel / 10);
+
+                damage += (int)((damage) * (pumpLevel / 10f));
+                knockback += (knockback / 2) * (pumpLevel / 10f);
+                data.dustScale += (data.dustScale) * (pumpLevel / 10f);
+                data.dustAmount -= (data.dustAmount / 4) * (pumpLevel / 10);
+            }
 
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
-            proj.scale += (proj.scale) * (pumpLevel / 10f);
-            proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
+            if (pumpLevel >= 10)
+            {
+                proj.scale += (proj.scale) * (pumpLevel / 10f);
+                proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
+            }
 
             if (pumpLevel > 0 && decreasePumpLevel)
             {
                 if (pumpLevel >= 10)
                     pumpLevel = 0;
-                else
-                {
-                    pumpLevel -= 2;
-                    if (pumpLevel < 0)
-                        pumpLevel = 0;
-                }
+                // else
+                // {
+                //     pumpLevel -= 2;
+                //     if (pumpLevel < 0)
+                //         pumpLevel = 0;
+                // }
             }
 
             return proj;

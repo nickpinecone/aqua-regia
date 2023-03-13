@@ -29,45 +29,55 @@ namespace WaterGuns.Items.PreHardmode
             return new Vector2(-2, 0);
         }
 
-        int numOfShots = 0;
-        int maxNumOfShots = 3;
         List<Projectile> projs = new List<Projectile>();
-        public override bool AltFunctionUse(Player player)
+        public override void HoldItem(Player player)
         {
-            if (numOfShots < 2 && projs.Count < 3)
+            if ((pumpLevel >= 3 && projs.Count <= 1) || (pumpLevel >= 6 && projs.Count <= 2) || (pumpLevel >= 9 && projs.Count <= 3))
             {
-                numOfShots += 1;
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), Item.damage - 3, 4, player.whoAmI);
+                projs.Add(proj);
             }
-            else
-            {
-                numOfShots = 0;
-
-                if (projs.Count < 3)
-                {
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), Item.damage - 3, 4, player.whoAmI);
-                    projs.Add(proj);
-                }
-            }
-            return base.AltFunctionUse(player);
+            base.HoldItem(player);
         }
+
+        // int numOfShots = 0;
+        // int maxNumOfShots = 3;
+        // public override bool AltFunctionUse(Player player)
+        // {
+        //     if (numOfShots < 2 && projs.Count < 3)
+        //     {
+        //         numOfShots += 1;
+        //     }
+        //     else
+        //     {
+        //         numOfShots = 0;
+
+        //         if (projs.Count < 3)
+        //         {
+        //             var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), Item.damage - 3, 4, player.whoAmI);
+        //             projs.Add(proj);
+        //         }
+        //     }
+        //     return base.AltFunctionUse(player);
+        // }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (pumpLevel >= 10)
             {
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 4, player.whoAmI);
-                var proj2 = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 3, player.whoAmI);
-            }
-            // Release the shards
-            for (int i = 0; i < projs.Count; i++)
-            {
-                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
+                // var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 4, player.whoAmI);
+                // var proj2 = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FrostWave>(), Item.damage * 2, 3, player.whoAmI);
+                // Release the shards
+                for (int i = 0; i < projs.Count; i++)
+                {
+                    velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
 
-                projs[i].friendly = true;
-                projs[i].velocity = velocity;
+                    projs[i].friendly = true;
+                    projs[i].velocity = velocity;
+                }
+                projs.Clear();
             }
 
-            projs.Clear();
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 

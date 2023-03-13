@@ -37,7 +37,7 @@ namespace WaterGuns.Items.PreHardmode
                 damage *= 2;
                 base.SpawnProjectile(player, source, position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FireBreath>(), damage, knockback);
                 count += 1;
-                if (count >= 30)
+                if (count >= 25)
                 {
                     count = 0;
                     fireBreath = false;

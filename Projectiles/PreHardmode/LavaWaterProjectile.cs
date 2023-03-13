@@ -13,7 +13,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.defaultDust = false;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
-            Projectile.timeLeft -= 20;
+            Projectile.timeLeft -= 30;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

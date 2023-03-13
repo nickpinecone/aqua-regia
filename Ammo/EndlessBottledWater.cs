@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Ammo.BottledWater
+namespace WaterGuns.Ammo
 {
     public class EndlessBottledWater : BaseAmmo
     {
