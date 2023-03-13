@@ -32,7 +32,7 @@ namespace WaterGuns.Items.PreHardmode
             var projType = 0;
             int distanceBetween = 2;
 
-            if (pumpLevel >= 10)
+            if (pumpLevel >= maxPumpLevel)
             {
                 projType = ModContent.ProjectileType<Projectiles.PreHardmode.SplitProjectile>();
                 distanceBetween = 4;

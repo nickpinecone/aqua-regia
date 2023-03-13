@@ -20,12 +20,14 @@ namespace WaterGuns.Items.PreHardmode
             base.isOffset = true;
             base.defaultInaccuracy = 3f;
             base.offsetAmount = new Vector2(6, 6);
+            base.maxPumpLevel = 16;
 
             Item.damage = 31;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.LavaWaterProjectile>();
             Item.useTime -= 8;
             Item.useAnimation -= 8;
+
         }
 
         bool fireBreath = false;
@@ -47,7 +49,7 @@ namespace WaterGuns.Items.PreHardmode
                 }
                 return false;
             }
-            else if (pumpLevel >= 10)
+            else if (pumpLevel >= maxPumpLevel)
             {
                 Item.useTime -= 8;
                 Item.useAnimation -= 8;

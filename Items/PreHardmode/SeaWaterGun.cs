@@ -21,12 +21,14 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 10;
             Item.knockBack = 2;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SeaWaterProjectile>();
+
+            base.maxPumpLevel = 7;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             var _pumpLevel = pumpLevel;
-            if (pumpLevel >= 10)
+            if (pumpLevel >= maxPumpLevel)
             {
                 for (int i = -1; i < 2; i++)
                 {

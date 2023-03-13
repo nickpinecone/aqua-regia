@@ -32,35 +32,27 @@ namespace WaterGuns.Items.Hardmode
             Item.useAnimation -= 3;
         }
 
-        public override bool AltFunctionUse(Player player)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            var velocity = -Main.MouseWorld.DirectionTo(player.position);
-            velocity.Normalize();
-            velocity *= 14;
-
-            for (int i = 0; i < soulsList.Count; i++)
+            if (pumpLevel >= maxPumpLevel)
             {
-                var newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(20f));
+                var projVelocity = -Main.MouseWorld.DirectionTo(player.position);
+                velocity.Normalize();
+                velocity *= 14;
 
-                soulsList[i].friendly = true;
-                soulsList[i].velocity = newVelocity;
-            }
-            soulsList.Clear();
-
-
-            if (pumpLevel > 0)
-            {
-                if (pumpLevel >= 10)
-                    pumpLevel = 0;
-                else
+                for (int i = 0; i < soulsList.Count; i++)
                 {
-                    pumpLevel -= 2;
-                    if (pumpLevel < 0)
-                        pumpLevel = 0;
+                    var newVelocity = projVelocity.RotatedByRandom(MathHelper.ToRadians(20f));
+
+                    soulsList[i].friendly = true;
+                    soulsList[i].velocity = newVelocity;
                 }
+                soulsList.Clear();
+
+                pumpLevel = 0;
             }
 
-            return false;
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override Vector2? HoldoutOffset()

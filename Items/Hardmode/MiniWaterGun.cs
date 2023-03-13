@@ -40,7 +40,7 @@ namespace WaterGuns.Items.Hardmode
         {
             if (!player.HasBuff<Buffs.TurretSummonBuff>())
             {
-                if (pumpLevel >= 10)
+                if (pumpLevel >= maxPumpLevel)
                 {
                     player.AddBuff(ModContent.BuffType<Buffs.TurretSummonBuff>(), 60 * 10);
                     turret = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>(), 0, 0, player.whoAmI);

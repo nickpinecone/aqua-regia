@@ -26,6 +26,7 @@ namespace WaterGuns.Items.PreHardmode
             base.isOffset = true;
             base.offsetAmount = new Vector2(3.4f, 3.4f);
             base.offsetIndependent = new Vector2(0, -0.8f);
+            base.maxPumpLevel = 6;
         }
 
         public override void AddRecipes()

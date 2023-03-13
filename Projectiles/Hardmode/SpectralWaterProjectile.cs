@@ -58,11 +58,11 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             if (Main.player[Projectile.owner].HeldItem.ModItem is Items.Hardmode.SpectralWaterGun gun)
             {
-                if (gun.pumpLevel < 10)
+                if (gun.pumpLevel < gun.maxPumpLevel)
                 {
                     gun.pumpLevel += 1;
                     gun.hitCount += 1;
-                    if (gun.soulsList.Count < 10)
+                    if (gun.soulsList.Count < gun.maxPumpLevel && gun.hitCount >= 2)
                     {
                         gun.hitCount = 0;
                         var player = Main.player[Main.myPlayer];

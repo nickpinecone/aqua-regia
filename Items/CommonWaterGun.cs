@@ -11,6 +11,7 @@ namespace WaterGuns.Items
     public abstract class CommonWaterGun : ModItem
     {
         public int pumpLevel = 0;
+        public int maxPumpLevel = 10;
         public bool decreasePumpLevel = true;
 
         public override void SetDefaults()
@@ -29,15 +30,18 @@ namespace WaterGuns.Items
         int pumpTimer = 0;
         public override void HoldItem(Player player)
         {
-            pumpTimer += 1;
-            if (pumpTimer >= 20)
+            if (decreasePumpLevel)
             {
-                if (pumpLevel < 10)
+                pumpTimer += 1;
+                if (pumpTimer >= 20)
                 {
-                    pumpLevel += 1;
-                }
+                    if (pumpLevel < maxPumpLevel)
+                    {
+                        pumpLevel += 1;
+                    }
 
-                pumpTimer = 0;
+                    pumpTimer = 0;
+                }
             }
 
             base.HoldItem(player);
@@ -152,7 +156,7 @@ namespace WaterGuns.Items
             // Offset if need be
             var offset = isOffset ? new Vector2(position.X + velocity.X * offsetAmount.X, position.Y + velocity.Y * offsetAmount.Y) : position;
 
-            if (pumpLevel >= 10)
+            if (pumpLevel >= maxPumpLevel)
             {
                 data.fullCharge = true;
 
@@ -164,7 +168,7 @@ namespace WaterGuns.Items
 
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
-            if (pumpLevel >= 10)
+            if (pumpLevel >= maxPumpLevel)
             {
                 proj.scale += (proj.scale) * (pumpLevel / 10f);
                 proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
@@ -172,7 +176,7 @@ namespace WaterGuns.Items
 
             if (pumpLevel > 0 && decreasePumpLevel)
             {
-                if (pumpLevel >= 10)
+                if (pumpLevel >= maxPumpLevel)
                     pumpLevel = 0;
                 // else
                 // {

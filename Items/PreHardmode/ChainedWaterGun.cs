@@ -28,7 +28,7 @@ namespace WaterGuns.Items.PreHardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (pumpLevel >= 10)
+            if (pumpLevel >= maxPumpLevel)
             {
                 Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.WaterGunMine>(), damage, knockback, player.whoAmI);
             }
