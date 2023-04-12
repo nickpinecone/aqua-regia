@@ -78,22 +78,6 @@ namespace WaterGuns.NPCs
             base.HitEffect(hitDirection, damage);
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
-        {
-            for (var i = 0; i < 255; i++)
-            {
-                Player player = Main.player[i];
-                foreach (Item item in player.inventory)
-                {
-                    if (item.type == ItemID.BottledWater)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
         public override List<string> SetNPCNameList()
         {
             return new List<string>()
@@ -130,17 +114,24 @@ namespace WaterGuns.NPCs
         {
             shop.item[nextSlot].SetDefaults(ItemID.BottledWater, false);
             nextSlot++;
+
+            if (Main.hardMode)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBallonGun>());
+                nextSlot++;
+            }
         }
 
         public override string GetChat()
         {
             NPC.FindFirstNPC(ModContent.NPCType<Swimmer>());
-            switch (Main.rand.Next(3))
+            switch (Main.rand.Next(4))
             {
-                case 0: return "Hello";
-                case 1: return "Test Text";
-                case 2: return "I love beaches";
-                default: return "Default text";
+                case 0: return "Hello! It's lovely weather today, isn't it?";
+                case 1: return "I think sunny days are the best.";
+                case 2: return "I love going to the beach!";
+                case 3: return "Did you know Water Guns use Bottled Water as ammo?";
+                default: return "DefaultText";
             }
         }
 

@@ -28,24 +28,5 @@ namespace WaterGuns.Global
             }
             base.ModifyNPCLoot(npc, npcLoot);
         }
-
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
-        {
-            // Make merchant sell bottled water
-            if (type == NPCID.Merchant)
-            {
-                shop.item[nextSlot].SetDefaults(ItemID.BottledWater);
-                nextSlot++;
-            }
-            else if (type == NPCID.PartyGirl)
-            {
-                if (Main.hardMode)
-                {
-                    shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBallonGun>());
-                    nextSlot++;
-                }
-            }
-            base.SetupShop(type, shop, ref nextSlot);
-        }
     }
 }

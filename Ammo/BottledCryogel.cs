@@ -10,8 +10,15 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("3 ranged damage\nInflicts frost burn");
             base.SetStaticDefaults();
+
+            base.damage = 2;
+            base.hasBuff = true;
+            base.buffType = BuffID.Frostburn;
+            base.buffTime = 240;
+            base.color = new Color(67, 100, 176);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Frostburn");
         }
         public override void AddRecipes()
         {

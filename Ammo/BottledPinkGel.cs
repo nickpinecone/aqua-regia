@@ -10,8 +10,13 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("2 ranged damage\nMakes projectiles bounce");
             base.SetStaticDefaults();
+
+            base.damage = 2;
+            base.bounces = true;
+            base.color = new Color(150, 56, 147);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nMakes projectiles bounce");
         }
         public override void AddRecipes()
         {

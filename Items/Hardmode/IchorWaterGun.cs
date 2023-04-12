@@ -40,7 +40,7 @@ namespace WaterGuns.Items.Hardmode
             vector2_5.Y = (Main.mouseY + Main.screenPosition.Y - vector2_1.Y - 1000);
             player.itemRotation = (float)Math.Atan2(vector2_5.Y * (double)player.direction, vector2_5.X * (double)player.direction);
 
-            float offsetInaccuracy = CalculateAccuracy(0.3f);
+            float offsetInaccuracy = 0.3f;
 
             // Put it above the mouse
             // Could create complications if zoomed out too much

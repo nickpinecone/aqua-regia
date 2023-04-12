@@ -10,8 +10,15 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts cursed fire");
             base.SetStaticDefaults();
+
+            base.damage = 7;
+            base.hasBuff = true;
+            base.buffType = BuffID.CursedInferno;
+            base.buffTime = 240;
+            base.color = new Color(96, 248, 2);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Cursed Inferno");
         }
         public override void AddRecipes()
         {

@@ -12,7 +12,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Glacier");
-            Tooltip.SetDefault("Consolidates an ice shard every third pump\nFull Pump: Ice shards turn into a frost wave");
+            Tooltip.SetDefault("Consolidates an ice shard every third pump\nFull Pump: Releases the ice shards");
         }
 
         public override void SetDefaults()

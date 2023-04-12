@@ -6,19 +6,22 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Ammo
 {
-    public abstract class BottledHolyWater : BaseAmmo
+    public class BottledHolyWater : BaseAmmo
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("-WIP- BottledHolyWater");
-            Tooltip.SetDefault("Holy Molly");
             base.SetStaticDefaults();
+
+            base.spawnsStar = true;
+            base.damage = 2;
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nMakes a star fall on the enemy");
         }
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.DirtBlock, 1);
+            recipe.AddIngredient(ItemID.Star, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

@@ -10,14 +10,19 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Homes in on enemies");
             base.SetStaticDefaults();
+
+            base.damage = 3;
+            base.homesIn = true;
+            base.color = new Color(17, 143, 36);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nHomes in on enemies");
         }
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.ChlorophyteBar, 1);
+            recipe.AddIngredient(ItemID.ChlorophyteOre, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

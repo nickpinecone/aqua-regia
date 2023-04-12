@@ -46,7 +46,7 @@ namespace WaterGuns.Items.PreHardmode
                 player.itemRotation = (float)Math.Atan2(vector2_5.Y * (double)player.direction, vector2_5.X * (double)player.direction);
 
                 base.defaultInaccuracy = 7;
-                float offsetInaccuracy = CalculateAccuracy(0.4f);
+                float offsetInaccuracy = 0.4f;
                 // Put it above the mouse
                 // Could create complications if zoomed out too much
                 // Projectiles will not reach all the way to the bottom

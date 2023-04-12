@@ -10,8 +10,15 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts ichor debuff");
             base.SetStaticDefaults();
+
+            base.damage = 5;
+            base.hasBuff = true;
+            base.buffType = BuffID.Ichor;
+            base.buffTime = 240;
+            base.color = new Color(255, 250, 41);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Ichor");
         }
         public override void AddRecipes()
         {

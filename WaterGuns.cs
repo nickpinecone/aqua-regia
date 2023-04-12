@@ -30,6 +30,8 @@ namespace WaterGuns
 
             public bool bounces = false;
             public bool homesIn = false;
+            public bool spawnsStar = false;
+            public bool penetrates = false;
 
             // Full charge
             public bool fullCharge = false;

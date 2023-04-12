@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace WaterGuns.Ammo
 {
@@ -11,7 +12,14 @@ namespace WaterGuns.Ammo
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault("Deals mental damage");
+
+            base.damage = 5;
+            base.hasBuff = true;
+            base.buffType = BuffID.Confused;
+            base.buffTime = 240;
+            base.color = new Color(247, 2, 248);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nDeals mental damage");
         }
         public override void AddRecipes()
         {

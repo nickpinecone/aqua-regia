@@ -10,7 +10,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Throws a spike that shoots water in four directions");
+            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Quickly spins around the player");
         }
 
         public override void SetDefaults()
@@ -18,21 +18,13 @@ namespace WaterGuns.Items.PreHardmode
             Item.CloneDefaults(ItemID.ChainGuillotines);
             Item.useTime *= 2;
             Item.useAnimation *= 2;
+            Item.useAmmo = ItemID.BottledWater;
 
             Item.DamageType = DamageClass.Ranged;
             Item.autoReuse = true;
             Item.damage = 25;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.ChainedWaterProjectile>();
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            if (pumpLevel >= maxPumpLevel)
-            {
-                Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.WaterGunMine>(), damage, knockback, player.whoAmI);
-            }
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override void AddRecipes()

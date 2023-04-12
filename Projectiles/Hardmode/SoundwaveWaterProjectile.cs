@@ -49,10 +49,11 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.friendly = false;
             Projectile.extraUpdates = 1;
             base.affectedByHoming = false;
+            Projectile.timeLeft -= 10;
         }
 
         int delay = 10;
-        int count = 1;
+        int count = 0;
         public override void AI()
         {
             base.AI();
@@ -65,13 +66,13 @@ namespace WaterGuns.Projectiles.Hardmode
 
                 data.isUp = true;
                 var projUp = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                projUp.timeLeft += count * 3;
+                projUp.timeLeft += count * 2;
 
                 velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(-90));
 
                 data.isUp = false;
                 var projDown = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                projDown.timeLeft += count * 3;
+                projDown.timeLeft += count * 2;
 
                 count += 1;
             }

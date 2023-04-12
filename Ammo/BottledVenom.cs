@@ -10,8 +10,15 @@ namespace WaterGuns.Ammo
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Inflicts venom debuff");
             base.SetStaticDefaults();
+
+            base.damage = 6;
+            base.hasBuff = true;
+            base.buffType = BuffID.Venom;
+            base.buffTime = 240;
+            base.color = new Color(173, 103, 230);
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Venom");
         }
         public override void AddRecipes()
         {

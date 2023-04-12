@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using Terraria.DataStructures;
+using System.Collections.Generic;
 
 namespace WaterGuns.Projectiles
 {
@@ -50,6 +51,11 @@ namespace WaterGuns.Projectiles
             defaultTime = Projectile.timeLeft;
             defaultGravity = gravity;
 
+            if (Projectile.penetrate != -1 && Projectile.penetrate < 3 && data.penetrates)
+            {
+                Projectile.penetrate = 3;
+            }
+
             base.OnSpawn(source);
         }
 
@@ -78,13 +84,46 @@ namespace WaterGuns.Projectiles
             return base.OnTileCollide(oldVelocity);
         }
 
+        Dictionary<NPC, int> immunityFrames = new Dictionary<NPC, int>();
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+
+            if (immunityFrames.ContainsKey(target))
+                immunityFrames[target] = 10;
+            else
+                immunityFrames.Add(target, 10);
+
             if (data.hasBuff)
             {
                 target.AddBuff(data.buffType, data.buffTime);
             }
+            if (data.spawnsStar)
+            {
+                var position = new Vector2(target.position.X, target.position.Y - Main.screenHeight) + new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
+                var velocity = (new Vector2(0, 20)).RotatedByRandom(MathHelper.ToRadians(7));
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, damage, knockback, Main.myPlayer);
+            }
             base.OnHitNPC(target, damage, knockback, crit);
+        }
+
+        public override bool? CanHitNPC(NPC target)
+        {
+            if (immunityFrames.ContainsKey(target))
+            {
+                if (immunityFrames[target] == 0)
+                {
+                    return base.CanHitNPC(target);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return base.CanHitNPC(target);
+            }
         }
 
         public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)
@@ -122,6 +161,15 @@ namespace WaterGuns.Projectiles
                 dust.noGravity = true;
                 dust.fadeIn = fadeIn;
             }
+        }
+
+        public override void AI()
+        {
+            foreach (var item in immunityFrames)
+            {
+                immunityFrames[item.Key] = Math.Max(0, item.Value - 1);
+            }
+            base.AI();
         }
 
         public void AutoAim()
