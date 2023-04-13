@@ -13,7 +13,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
 
-            base.affectedByAmmo = false;
+            base.affectedByAmmoBuff = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -27,7 +27,7 @@ namespace WaterGuns.Projectiles.Hardmode
                     var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180));
 
                     // Spawn default water projectile
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), randomPosition, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(data, randomPosition, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
                     proj.tileCollide = false;
                     proj.height -= 1;
                 }

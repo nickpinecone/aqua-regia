@@ -12,7 +12,7 @@ namespace WaterGuns.Items
     {
         public int pumpLevel = 0;
         public int maxPumpLevel = 10;
-        public bool decreasePumpLevel = true;
+        public bool increasePumpLevel = true;
 
         public override void SetDefaults()
         {
@@ -30,7 +30,7 @@ namespace WaterGuns.Items
         int pumpTimer = 0;
         public override void HoldItem(Player player)
         {
-            if (decreasePumpLevel)
+            if (increasePumpLevel)
             {
                 pumpTimer += 1;
                 if (pumpTimer >= 20)
@@ -59,16 +59,20 @@ namespace WaterGuns.Items
             // Apply ammo effects
             var ammo = (Ammo.BaseAmmo)ModContent.GetModItem(source.AmmoItemIdUsed);
 
-            damage += ammo.damage;
-            data.hasBuff = ammo.hasBuff;
-            data.buffType = ammo.buffType;
-            data.buffTime = ammo.buffTime;
-            data.color = ammo.color;
+            if (ammo != null)
+            {
+                damage += ammo.damage;
+                data.hasBuff = ammo.hasBuff;
+                data.buffType = ammo.buffType;
+                data.buffTime = ammo.buffTime;
+                data.color = ammo.color;
 
-            data.homesIn = ammo.homesIn;
-            data.bounces = ammo.bounces;
-            data.spawnsStar = ammo.spawnsStar;
-            data.penetrates = ammo.penetrates;
+                data.homesIn = ammo.homesIn;
+                data.bounces = ammo.bounces;
+                data.spawnsStar = ammo.spawnsStar;
+                data.penetrates = ammo.penetrates;
+            }
+
 
             // Crimson rainer color
             if (source.Item.Name == "Crimson Rainer")
@@ -108,7 +112,7 @@ namespace WaterGuns.Items
                 proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
             }
 
-            if (pumpLevel > 0 && decreasePumpLevel)
+            if (pumpLevel > 0 && increasePumpLevel)
             {
                 if (pumpLevel >= maxPumpLevel)
                     pumpLevel = 0;

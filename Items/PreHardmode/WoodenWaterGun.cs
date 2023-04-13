@@ -21,6 +21,8 @@ namespace WaterGuns.Items.PreHardmode
             Item.knockBack = 0.8f;
 
             Item.useTime += 3;
+            Item.useAnimation += 3;
+
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.WoodenWaterProjectile>();
 
             base.isOffset = true;

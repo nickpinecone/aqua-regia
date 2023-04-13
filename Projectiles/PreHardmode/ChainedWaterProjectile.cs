@@ -101,6 +101,9 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             if (data.fullCharge)
             {
+                data.dustScale = 2.4f;
+                data.dustAmount = 1;
+
                 if (delay >= 80)
                 {
                     Kill(0);

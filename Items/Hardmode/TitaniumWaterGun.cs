@@ -11,7 +11,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanium Riveria");
-            Tooltip.SetDefault("Shoots two projecitles in opposite directions");
+            Tooltip.SetDefault("Creates a damage zone on impact");
         }
 
         public override Vector2? HoldoutOffset()
@@ -23,24 +23,12 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
             base.offsetIndependent = new Vector2(0, -3);
+            base.offsetAmount = new Vector2(4, 4);
 
             Item.damage = 40;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.TitaniumWaterProjectile>();
             base.defaultInaccuracy = 1;
-            base.isOffset = false;
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            var proj1 = base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
-
-            var secondPosition = new Vector2(position.X + proj1.velocity.X * 2, position.Y + proj1.velocity.Y * 2);
-            var secondVelocity = proj1.velocity.RotatedBy(MathHelper.ToRadians(180));
-
-            base.SpawnProjectile(player, source, secondPosition, secondVelocity, type, damage, knockback);
-
-            return false;
         }
 
         public override void AddRecipes()

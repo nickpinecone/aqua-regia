@@ -42,6 +42,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
                 var proj = Projectile.NewProjectileDirect(base.data, Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.tileCollide = false;
+                proj.penetrate = -1;
                 proj.timeLeft -= 30;
             }
 

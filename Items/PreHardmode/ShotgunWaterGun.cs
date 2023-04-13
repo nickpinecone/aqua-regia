@@ -9,7 +9,7 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Water Shotgun");
+            DisplayName.SetDefault("Water Blunderbuss");
             Tooltip.SetDefault("Shoots multiple streams of water\nFull Pump: Significantly increases knockback, but the holder is thrown back from strong recoil");
         }
 
@@ -21,6 +21,7 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.damage = 20;
             Item.knockBack = 6;
+
             Item.useAnimation += 12;
             Item.useTime += 12;
 
@@ -37,7 +38,7 @@ namespace WaterGuns.Items.PreHardmode
             if (pumpLevel >= maxPumpLevel)
             {
                 // Recoil
-                Main.player[Main.myPlayer].velocity += -velocity;
+                Main.player[Main.myPlayer].velocity += new Vector2(-velocity.X / 1.5f, -velocity.Y * 1.5f);
                 knockback = 12;
             }
 

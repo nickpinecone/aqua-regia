@@ -17,7 +17,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 120;
             Projectile.penetrate = -1;
 
-            base.affectedByAmmo = false;
+            base.affectedByAmmoBuff = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

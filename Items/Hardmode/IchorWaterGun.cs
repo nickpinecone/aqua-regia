@@ -48,7 +48,7 @@ namespace WaterGuns.Items.Hardmode
             position.Y -= Main.ViewSize.Y / 1.5f;
             position.X = Main.MouseWorld.X;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var modifiedVelocity = new Vector2(0, 14);
                 position.X = position.RotatedByRandom(MathHelper.ToRadians(offsetInaccuracy)).X;

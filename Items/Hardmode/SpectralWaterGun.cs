@@ -23,7 +23,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetDefaults();
             base.offsetAmount = new Vector2(5, 5);
             base.offsetIndependent = new Vector2(0, -4);
-            base.decreasePumpLevel = false;
+            base.increasePumpLevel = false;
 
             Item.damage = 55;
             Item.knockBack = 5;
@@ -38,7 +38,7 @@ namespace WaterGuns.Items.Hardmode
             {
                 var projVelocity = -Main.MouseWorld.DirectionTo(player.position);
                 velocity.Normalize();
-                velocity *= 14;
+                velocity *= 100;
 
                 for (int i = 0; i < soulsList.Count; i++)
                 {

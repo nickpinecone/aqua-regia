@@ -12,7 +12,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Geyser");
-            Tooltip.SetDefault("Knows exactly where your enemies are");
+            Tooltip.SetDefault("Unleashes a geyser on your enemies");
         }
 
         public override void SetDefaults()
@@ -21,54 +21,15 @@ namespace WaterGuns.Items.Hardmode
 
             Item.damage = 64;
             Item.knockBack = 5;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.AncientWaterProjectile>();
+
+            Item.useTime += 24;
+            Item.useAnimation += 24;
         }
 
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(4, -2);
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            var count = 0;
-            // Spawn projectiles from the ground solid block
-            base.defaultInaccuracy = 4;
-            // Cut damage in half
-            damage = damage / 2;
-
-            for (int i = 0; i < Main.npc.Length; i++)
-            {
-
-                var distance = player.position - Main.npc[i].position;
-                bool isVisible = Math.Abs(distance.X) < Main.ViewSize.X && Math.Abs(distance.Y) < Main.ViewSize.Y;
-
-                if (Main.npc[i].life > 0 && isVisible)
-                {
-                    // No more than 10
-                    count += 1;
-                    if (count > 10) break;
-
-                    var randomPosition = Vector2.Zero;
-                    var rotation = Main.rand.Next(-16, 16);
-
-                    for (int k = 0; k < Main.ViewSize.Y; k += 16)
-                    {
-                        var tilePosition = (Main.npc[i].Center + new Vector2(0, k).RotatedBy(MathHelper.ToRadians(rotation))).ToTileCoordinates();
-                        if (Main.tile[tilePosition.X, tilePosition.Y].HasTile && Main.tile[tilePosition.X, tilePosition.Y].BlockType == BlockType.Solid)
-                        {
-                            randomPosition = tilePosition.ToWorldCoordinates() + new Vector2(0, 32).RotatedBy(MathHelper.ToRadians(rotation));
-                            break;
-                        }
-                    }
-                    var modifiedVelocity = new Vector2(0, -10).RotatedBy(MathHelper.ToRadians(rotation));
-
-                    var proj = base.SpawnProjectile(player, source, randomPosition, modifiedVelocity, type, damage, knockback);
-                    proj.tileCollide = false;
-                }
-            }
-            base.defaultInaccuracy = 1;
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
     }
 }

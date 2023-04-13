@@ -11,16 +11,23 @@ namespace WaterGuns.Projectiles.Hardmode
     {
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 70;
+            Projectile.height = 30;
             Projectile.timeLeft = 2;
 
-            Projectile.friendly = false;
+            Projectile.friendly = true;
             Projectile.hostile = false;
         }
 
-        int delayMax = 15;
-        int delay = 15;
+        Vector2 originPosition;
+        public override void OnSpawn(IEntitySource source)
+        {
+            originPosition = Projectile.Left;
+            base.OnSpawn(source);
+        }
+
+        int delayMax = 10;
+        int delay = 10;
         public override void AI()
         {
             base.AI();
@@ -37,14 +44,15 @@ namespace WaterGuns.Projectiles.Hardmode
 
             var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.Center.X, Main.MouseWorld.Y - Projectile.Center.Y);
             distanceToMouse.Normalize();
-            Projectile.spriteDirection = (Main.MouseWorld.Y - Projectile.position.Y > 0) ? 1 : -1;
+            Projectile.spriteDirection = (Main.MouseWorld.X - Projectile.Center.X > 0) ? 1 : -1;
             Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld) - (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
 
             if (Main.mouseLeft && delay >= delayMax)
             {
                 delay = 0;
                 var velocity = distanceToMouse * 10;
-                var offset = Projectile.BottomRight + new Vector2(velocity.X * 2, velocity.Y * 2);
+                var offset = Projectile.Center + new Vector2(velocity.X * 3.3f, velocity.Y * 3.3f);
+                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<WaterProjectile>(), 40, 3, Projectile.owner);
             }
             delay += 1;
@@ -59,6 +67,12 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
 
             Projectile.timeLeft += 20;
+        }
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+            data.dustAmount -= 1;
         }
 
         public override void AI()

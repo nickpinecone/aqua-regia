@@ -16,6 +16,8 @@ namespace WaterGuns.Items.Hardmode
 
             Item.useTime -= 2;
             Item.useAnimation -= 2;
+
+            increasePumpLevel = false;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace WaterGuns.Items.Hardmode
             Item.knockBack = 5;
 
             Item.shootSpeed -= 6;
+
             Item.useTime += 50;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.HallowWaterProjectile>();
@@ -40,11 +41,11 @@ namespace WaterGuns.Items.Hardmode
                 var offset = position + (velocity * 32).RotatedBy(MathHelper.ToRadians(90 * i));
                 if (i == -1)
                 {
-                    base.SpawnProjectile(player, source, offset, velocity, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile>(), damage, knockback);
+                    base.SpawnProjectile(player, source, offset, velocity * 1.5f, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile>(), damage, knockback);
                 }
                 else
                 {
-                    base.SpawnProjectile(player, source, offset, velocity, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.SpazmatismProjectile>(), damage, knockback);
+                    base.SpawnProjectile(player, source, offset, velocity * 1.5f, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.SpazmatismProjectile>(), damage, knockback);
                 }
             }
             return false;

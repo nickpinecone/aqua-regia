@@ -15,7 +15,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.tileCollide = false;
             Projectile.timeLeft += 20;
 
-            base.affectedByAmmo = false;
+            base.affectedByAmmoBuff = false;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

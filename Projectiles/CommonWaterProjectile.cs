@@ -11,7 +11,7 @@ namespace WaterGuns.Projectiles
     public abstract class CommonWaterProjectile : ModProjectile
     {
         public WaterGuns.ProjectileData data = null;
-        protected bool affectedByAmmo = true;
+        protected bool affectedByAmmoBuff = true;
 
         public int defaultTime = 0;
         public float defaultGravity = 0;
@@ -39,7 +39,7 @@ namespace WaterGuns.Projectiles
 
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is WaterGuns.ProjectileData newData && affectedByAmmo)
+            if (source is WaterGuns.ProjectileData newData)
             {
                 data = newData;
             }
@@ -88,13 +88,9 @@ namespace WaterGuns.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            immunityFrames[target] = 10;
 
-            if (immunityFrames.ContainsKey(target))
-                immunityFrames[target] = 10;
-            else
-                immunityFrames.Add(target, 10);
-
-            if (data.hasBuff)
+            if (data.hasBuff && affectedByAmmoBuff)
             {
                 target.AddBuff(data.buffType, data.buffTime);
             }
@@ -122,6 +118,7 @@ namespace WaterGuns.Projectiles
             }
             else
             {
+                immunityFrames.Add(target, 0);
                 return base.CanHitNPC(target);
             }
         }

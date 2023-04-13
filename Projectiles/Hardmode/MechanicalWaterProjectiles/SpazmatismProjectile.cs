@@ -13,6 +13,9 @@ namespace WaterGuns.Projectiles.Hardmode.MechanicalWaterProjectiles
             AIType = ProjectileID.WaterGun;
             Projectile.tileCollide = false;
             Projectile.timeLeft = 160;
+            Projectile.scale = 0.8f;
+
+            gravity = 0.04f;
         }
 
         int delayMax = 10;
@@ -20,6 +23,8 @@ namespace WaterGuns.Projectiles.Hardmode.MechanicalWaterProjectiles
         public override void AI()
         {
             base.AI();
+
+            Projectile.velocity.Y += gravity;
 
             var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.position.X, Main.MouseWorld.Y - Projectile.position.Y);
             distanceToMouse.Normalize();
