@@ -120,6 +120,12 @@ namespace WaterGuns.NPCs
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBallonGun>());
                 nextSlot++;
             }
+
+            if (NPC.downedQueenBee)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.PreHardmode.ChainedWaterGun>());
+                nextSlot++;
+            }
         }
 
         public override string GetChat()

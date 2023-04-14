@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -12,15 +13,17 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Glacier");
-            Tooltip.SetDefault("Consolidates an ice shard every third pump\nFull Pump: Releases the ice shards");
+            Tooltip.SetDefault("Consolidates a couple of ice shard\nFull Pump: Releases the ice shards\nDrops from Deerclops");
         }
 
         public override void SetDefaults()
         {
             base.SetDefaults();
 
-            Item.damage = 13;
-            Item.knockBack = 3;
+            Item.damage = 26;
+            Item.knockBack = 4;
+            Item.useTime -= 6;
+            Item.useAnimation -= 6;
             base.offsetIndependent = new Vector2(0, -5);
         }
 
@@ -32,34 +35,13 @@ namespace WaterGuns.Items.PreHardmode
         List<Projectile> projs = new List<Projectile>();
         public override void HoldItem(Player player)
         {
-            if ((pumpLevel >= 3 && projs.Count <= 1) || (pumpLevel >= 6 && projs.Count <= 2) || (pumpLevel >= 9 && projs.Count <= 3))
+            if ((projs.Count + 1) * 2 < pumpLevel)
             {
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), Item.damage - 3, 4, player.whoAmI);
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), (int)(Item.damage * 1.2f), 4, player.whoAmI);
                 projs.Add(proj);
             }
             base.HoldItem(player);
         }
-
-        // int numOfShots = 0;
-        // int maxNumOfShots = 3;
-        // public override bool AltFunctionUse(Player player)
-        // {
-        //     if (numOfShots < 2 && projs.Count < 3)
-        //     {
-        //         numOfShots += 1;
-        //     }
-        //     else
-        //     {
-        //         numOfShots = 0;
-
-        //         if (projs.Count < 3)
-        //         {
-        //             var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), Item.damage - 3, 4, player.whoAmI);
-        //             projs.Add(proj);
-        //         }
-        //     }
-        //     return base.AltFunctionUse(player);
-        // }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -70,7 +52,7 @@ namespace WaterGuns.Items.PreHardmode
                 // Release the shards
                 for (int i = 0; i < projs.Count; i++)
                 {
-                    velocity = velocity.RotatedByRandom(MathHelper.ToRadians(6));
+                    velocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
 
                     projs[i].friendly = true;
                     projs[i].velocity = velocity;
@@ -84,10 +66,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.IceBlock, 10);
-            recipe.AddIngredient(ItemID.SnowBlock, 30);
-            recipe.AddRecipeGroup(RecipeGroupID.IronBar, 10);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
             recipe.Register();
         }
     }

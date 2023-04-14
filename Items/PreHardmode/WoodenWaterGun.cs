@@ -35,7 +35,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Wood, 20);
-            recipe.AddIngredient(ItemID.Acorn, 10);
+            recipe.AddIngredient(ItemID.Acorn, 5);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }

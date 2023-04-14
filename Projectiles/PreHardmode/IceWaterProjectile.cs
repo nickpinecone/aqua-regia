@@ -68,6 +68,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.CloneDefaults(ProjectileID.IceBolt);
             AIType = ProjectileID.IceBolt;
             Projectile.friendly = false;
+            Projectile.scale *= 1.2f;
 
             base.defaultDust = false;
         }
@@ -78,7 +79,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        Vector2 spin = new Vector2(24, 0);
+        Vector2 spin = new Vector2(28, 0);
         public override void AI()
         {
             if (Projectile.velocity != Vector2.Zero)
@@ -87,7 +88,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             }
             else
             {
-                spin = spin.RotatedBy(MathHelper.ToRadians(1.6f));
+                spin = spin.RotatedBy(MathHelper.ToRadians(2f));
                 Projectile.position = Main.player[Main.myPlayer].position + spin;
             }
         }

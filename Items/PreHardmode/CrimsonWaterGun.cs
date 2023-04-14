@@ -54,7 +54,7 @@ namespace WaterGuns.Items.PreHardmode
                 position.X = Main.MouseWorld.X;
 
                 var _pumpLevel = pumpLevel;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     pumpLevel = _pumpLevel;
 

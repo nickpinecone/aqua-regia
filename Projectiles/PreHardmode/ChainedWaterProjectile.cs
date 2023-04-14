@@ -30,12 +30,13 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 data = new WaterGuns.ProjectileData(source);
             }
+            data.dustAmount -= 1;
 
             Projectile.rotation = Main.rand.NextFloat(0, MathHelper.TwoPi);
             base.OnSpawn(source);
         }
 
-        int delay = 0;
+        int delay = 6;
         public override void AI()
         {
             if (delay > 12)

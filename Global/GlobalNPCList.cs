@@ -26,6 +26,10 @@ namespace WaterGuns.Global
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.IchorStickerGun>(), 8));
             }
+            else if (npc.type == NPCID.Deerclops)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.PreHardmode.IceWaterGun>()));
+            }
             base.ModifyNPCLoot(npc, npcLoot);
         }
     }

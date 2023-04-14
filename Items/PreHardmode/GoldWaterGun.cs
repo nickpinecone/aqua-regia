@@ -62,9 +62,14 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddRecipeGroup("MoreWaterGuns:GoldBars", 20);
+            recipe.AddIngredient(ItemID.GoldBar, 20);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
+
+            Recipe recipe2 = CreateRecipe();
+            recipe2.AddIngredient(ItemID.PlatinumBar, 20);
+            recipe2.AddTile(TileID.Anvils);
+            recipe2.Register();
         }
     }
 }
