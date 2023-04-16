@@ -24,11 +24,19 @@ namespace WaterGuns.Global
             }
             else if (npc.type == NPCID.IchorSticker)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.IchorStickerGun>(), 8));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.IchorStickerGun>(), 4));
+            }
+            else if (npc.type == NPCID.Clinger)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.CursedBubbleGun>(), 4));
             }
             else if (npc.type == NPCID.Deerclops)
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.PreHardmode.IceWaterGun>()));
+            }
+            else if (npc.type == NPCID.QueenSlimeBoss)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.RainbowWaterGun>()));
             }
             base.ModifyNPCLoot(npc, npcLoot);
         }

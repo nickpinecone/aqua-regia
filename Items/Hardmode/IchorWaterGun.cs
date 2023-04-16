@@ -63,6 +63,7 @@ namespace WaterGuns.Items.Hardmode
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Ichor, 18);
+            recipe.AddIngredient(ItemID.HallowedBar, 10);
             recipe.AddIngredient(ModContent.ItemType<PreHardmode.CrimsonWaterGun>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();

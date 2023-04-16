@@ -32,6 +32,7 @@ namespace WaterGuns.Items.Hardmode
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.CursedFlame, 18);
+            recipe.AddIngredient(ItemID.HallowedBar, 10);
             recipe.AddIngredient(ModContent.ItemType<PreHardmode.DemonWaterGun>(), 1);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
