@@ -44,7 +44,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (data.fullCharge)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<BeeSwarm>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<BeeSwarm>(), 12, Projectile.knockBack, Projectile.owner);
             }
             target.AddBuff(ModContent.BuffType<Buffs.HoneySlowDebuff>(), 60 * 2);
             base.OnHitNPC(target, damage, knockback, crit);

@@ -90,32 +90,56 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.tileCollide = true;
             Projectile.damage = 1;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 120;
+            Projectile.timeLeft = 80;
+            Projectile.scale = 1f;
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+        Vector2 hitPoint = Vector2.Zero;
+        NPC hitTarget = null;
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            // Bounce off the wall without creating a new projectile
-            if (oldVelocity.X != Projectile.velocity.X) Projectile.velocity.X = -oldVelocity.X;
-            if (oldVelocity.Y != Projectile.velocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+            base.OnHitNPC(target, damage, knockback, crit);
+            if (hitPoint == Vector2.Zero)
+            {
+                var dir = Projectile.position.DirectionTo(target.position);
+                var dist = Projectile.position.Distance(target.position);
 
-            return false;
+                hitPoint = dir * dist;
+                hitTarget = target;
+
+                Projectile.velocity = Vector2.Zero;
+                applyGravity = false;
+            }
         }
 
-        protected float gravity = 0.004f;
+        protected float gravity = 0.005f;
+        protected bool applyGravity = true;
         public override void AI()
         {
-            Projectile.scale = 1.6f;
-            gravity += 0.005f;
-            Projectile.velocity.Y += gravity;
+            if (applyGravity)
+            {
+                gravity += 0.005f;
+                Projectile.velocity.Y += gravity;
+            }
 
             if (Projectile.velocity.X > 0)
             {
                 Projectile.rotation += 0.16f;
             }
-            else
+            else if (Projectile.velocity.X < 0)
             {
                 Projectile.rotation -= 0.16f;
+            }
+
+            if (hitTarget != null)
+            {
+                Projectile.position = hitTarget.position - hitPoint;
+
+                if (hitTarget.GetLifePercent() == 0f)
+                {
+
+                    Projectile.Kill();
+                }
             }
             base.AI();
         }

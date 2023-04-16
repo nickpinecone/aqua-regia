@@ -11,7 +11,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Sea Splasher");
-            Tooltip.SetDefault("Spawns additional bubbles\nFull Pump: Shoots three starfish that bounce and pierce");
+            Tooltip.SetDefault("Spawns additional bubbles\nFull Pump: Shoots three starfish that cling onto enemies");
         }
 
         public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace WaterGuns.Items.PreHardmode
                     var modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(Main.rand.Next(5, 10) * i));
                     // Slow down the starfish
                     modifiedVelocity /= Main.rand.NextFloat(1f, 1.5f);
-                    base.SpawnProjectile(player, source, position, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.StarfishProjectile>(), damage, knockback);
+                    base.SpawnProjectile(player, source, position, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.StarfishProjectile>(), damage / 4, knockback);
                     pumpLevel = _pumpLevel;
                 }
             }

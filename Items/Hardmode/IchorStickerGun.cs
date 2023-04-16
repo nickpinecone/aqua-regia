@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace WaterGuns.Items.Hardmode
@@ -11,7 +12,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ichor Sticker Blaster");
-            Tooltip.SetDefault("Inflicts the ichor debuff");
+            Tooltip.SetDefault("Inflicts the ichor debuff\nDrops from Ichor Sticker");
         }
 
         public override void SetDefaults()
@@ -28,5 +29,13 @@ namespace WaterGuns.Items.Hardmode
         {
             return new Vector2(-8, 0);
         }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.Register();
+        }
+
     }
 }

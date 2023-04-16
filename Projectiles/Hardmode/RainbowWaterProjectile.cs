@@ -43,6 +43,7 @@ namespace WaterGuns.Projectiles.Hardmode
             }
 
             base.CreateDust(default, data.dustScale, 3, 1, 0);
+            Lighting.AddLight(Projectile.position, new Vector3(1f, 0.5f, 1f));
         }
     }
 }

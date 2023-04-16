@@ -123,7 +123,7 @@ namespace WaterGuns.Projectiles
             }
         }
 
-        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 4, float fadeIn = 1, int alpha = 75)
+        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 3, float fadeIn = 1, int alpha = 75)
         {
             if (data.color != default)
             {
@@ -141,7 +141,7 @@ namespace WaterGuns.Projectiles
             {
                 scale = data.dustScale;
             }
-            else if (data.dustAmount != 4)
+            else if (data.dustAmount != 3)
             {
                 amount = data.dustAmount;
             }
@@ -149,23 +149,39 @@ namespace WaterGuns.Projectiles
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
             offset.Normalize();
-            offset *= 3;
+            offset *= 3.4f;
 
             for (int i = 0; i < amount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
                 var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), alpha, color, scale);
                 dust.noGravity = true;
-                dust.fadeIn = fadeIn;
+                dust.fadeIn = 0f;
+            }
+
+            // Spawn little water drops along projectile path
+            if (Main.rand.Next(4) == 0)
+            {
+                int num520 = 6;
+                int num521 = Dust.NewDust(new Vector2(Projectile.position.X + (float)num520, Projectile.position.Y + (float)num520), Projectile.width - num520 * 2, Projectile.height - num520 * 2, 211, 0f, 0f, 75, color, 0.65f);
+                Dust dust2 = Main.dust[num521];
+                dust2.velocity *= 0.5f;
+                dust2 = Main.dust[num521];
+                dust2.velocity += Projectile.velocity * 0.5f;
             }
         }
 
-        public override void AI()
+        public void UpdateImmunityFrames()
         {
             foreach (var item in immunityFrames)
             {
                 immunityFrames[item.Key] = Math.Max(0, item.Value - 1);
             }
+        }
+
+        public override void AI()
+        {
+            UpdateImmunityFrames();
             base.AI();
         }
 

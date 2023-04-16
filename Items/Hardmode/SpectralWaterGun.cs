@@ -15,7 +15,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Water Wisperer");
-            Tooltip.SetDefault("Hitting enemies increases the weapon power. Right click to release it");
+            Tooltip.SetDefault("Hitting enemies spawns lost souls");
         }
 
         public override void SetDefaults()

@@ -13,7 +13,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ice Glacier");
-            Tooltip.SetDefault("Consolidates a couple of ice shard\nFull Pump: Releases the ice shards\nDrops from Deerclops");
+            Tooltip.SetDefault("Consolidates ice shards that form a shield around the player\nFull Pump: Releases the ice shards\nDrops from Deerclops");
         }
 
         public override void SetDefaults()
@@ -37,7 +37,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             if ((projs.Count + 1) * 2 < pumpLevel)
             {
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), (int)(Item.damage * 1.2f), 4, player.whoAmI);
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, new Vector2(0, 0), ModContent.ProjectileType<Projectiles.PreHardmode.IceWaterProjectile>(), (int)(Item.damage * 1.2f), 0, player.whoAmI);
                 projs.Add(proj);
             }
             base.HoldItem(player);
@@ -56,6 +56,8 @@ namespace WaterGuns.Items.PreHardmode
 
                     projs[i].friendly = true;
                     projs[i].velocity = velocity;
+                    projs[i].penetrate = 1;
+                    projs[i].knockBack = 3;
                 }
                 projs.Clear();
             }

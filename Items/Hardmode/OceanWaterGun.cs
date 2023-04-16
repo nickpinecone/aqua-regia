@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace WaterGuns.Items.Hardmode
@@ -11,7 +12,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ocean Overlord");
-            Tooltip.SetDefault("Puts enemies in a bubble whirl");
+            Tooltip.SetDefault("Puts enemies in a bubble whirl\nDrops from Duke Fishron");
         }
 
         public override Vector2? HoldoutOffset()
@@ -38,6 +39,13 @@ namespace WaterGuns.Items.Hardmode
             }
 
             return false;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.Register();
         }
     }
 }

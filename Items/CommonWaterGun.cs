@@ -87,8 +87,8 @@ namespace WaterGuns.Items
 
             if (pumpLevel >= maxPumpLevel)
             {
-                inaccuracy -= (inaccuracy) * (pumpLevel / 10f);
-                modifiedVelocity += ((modifiedVelocity / 4) * (pumpLevel / 10f));
+                inaccuracy = 0;
+                modifiedVelocity *= 1.25f;
             }
 
             // Offset if need be
@@ -98,18 +98,18 @@ namespace WaterGuns.Items
             {
                 data.fullCharge = true;
 
-                damage += (int)((damage) * (pumpLevel / 10f));
-                knockback += (knockback / 2) * (pumpLevel / 10f);
-                data.dustScale += (data.dustScale) * (pumpLevel / 10f);
-                data.dustAmount -= (data.dustAmount / 4) * (pumpLevel / 10);
+                damage *= 2;
+                knockback *= 1.5f;
+                data.dustScale *= 1.75f;
+                data.dustAmount -= 1;
             }
 
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
             if (pumpLevel >= maxPumpLevel)
             {
-                proj.scale += (proj.scale) * (pumpLevel / 10f);
-                proj.timeLeft += (int)((proj.timeLeft / 2) * (pumpLevel / 10f));
+                proj.scale *= 1.75f;
+                proj.timeLeft = (int)(proj.timeLeft * 1.5f);
             }
 
             if (pumpLevel > 0 && increasePumpLevel)

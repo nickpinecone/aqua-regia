@@ -30,16 +30,16 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 data = new WaterGuns.ProjectileData(source);
             }
-            data.dustAmount -= 1;
 
             Projectile.rotation = Main.rand.NextFloat(0, MathHelper.TwoPi);
             base.OnSpawn(source);
         }
 
-        int delay = 6;
+        public int delay = 0;
+        public int maxDelay = 20;
         public override void AI()
         {
-            if (delay > 12)
+            if (delay > maxDelay)
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -100,8 +100,11 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             base.AI();
 
+            var modWaterGun = (waterGun.ModProjectile as WaterGunProjectile);
+
             if (data.fullCharge)
             {
+                modWaterGun.maxDelay = 12;
                 data.dustScale = 2.4f;
                 data.dustAmount = 1;
 
@@ -118,6 +121,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             }
             else
             {
+                modWaterGun.maxDelay = 20;
                 waterGun.position = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
             }
 

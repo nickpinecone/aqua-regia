@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace WaterGuns.Items.Hardmode
@@ -12,7 +13,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Water Ballon Bomber");
-            Tooltip.SetDefault("Shoots ballons filled with water");
+            Tooltip.SetDefault("Shoots ballons filled with water\nBought from Swimmer after entering Hardmode");
         }
 
         public override void SetDefaults()
@@ -33,6 +34,13 @@ namespace WaterGuns.Items.Hardmode
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(0, 0);
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.Register();
         }
     }
 }

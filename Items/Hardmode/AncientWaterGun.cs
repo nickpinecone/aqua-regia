@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
+using Terraria.Localization;
 
 namespace WaterGuns.Items.Hardmode
 {
@@ -12,7 +13,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Ancient Geyser");
-            Tooltip.SetDefault("Unleashes a geyser on your enemies");
+            Tooltip.SetDefault("Unleashes a geyser on your enemies\nDrops from Golem");
         }
 
         public override void SetDefaults()
@@ -30,6 +31,13 @@ namespace WaterGuns.Items.Hardmode
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(4, -2);
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.Register();
         }
     }
 }

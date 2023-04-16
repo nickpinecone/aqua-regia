@@ -72,7 +72,6 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void OnSpawn(IEntitySource source)
         {
             base.OnSpawn(source);
-            data.dustAmount -= 1;
         }
 
         public override void AI()
