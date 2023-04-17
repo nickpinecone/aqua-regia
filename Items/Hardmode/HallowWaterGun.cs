@@ -11,7 +11,7 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Hallowed Fisher");
-            Tooltip.SetDefault("Shoots copies of itself");
+            Tooltip.SetDefault("Spawns clones of itself");
         }
 
         public override void SetDefaults()
@@ -21,12 +21,9 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 30;
             Item.knockBack = 5;
 
-            Item.shootSpeed -= 6;
-
-            Item.useTime += 50;
-
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.HallowWaterProjectile>();
-            base.defaultInaccuracy = 5;
+            base.defaultInaccuracy = 2;
+            base.offsetAmount = new Vector2(6, 6);
         }
 
         public override Vector2? HoldoutOffset()
@@ -34,21 +31,45 @@ namespace WaterGuns.Items.Hardmode
             return new Vector2(-28, -4);
         }
 
+        public override void HoldItem(Player player)
+        {
+            base.HoldItem(player);
+
+            if (!Main.mouseLeft && spaz != null && ret != null)
+            {
+                spaz.Projectile.Kill();
+                spaz = null;
+
+                ret.Projectile.Kill();
+                ret = null;
+            }
+        }
+
+
+        Projectiles.Hardmode.MechanicalWaterProjectiles.SpazmatismProjectile spaz = null;
+        Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile ret = null;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            for (int i = -1; i < 2; i += 2)
+            if (spaz == null || ret == null)
             {
-                var offset = position + (velocity * 32).RotatedBy(MathHelper.ToRadians(90 * i));
-                if (i == -1)
+                for (int i = -1; i < 2; i += 2)
                 {
-                    base.SpawnProjectile(player, source, offset, velocity * 1.5f, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile>(), damage, knockback);
-                }
-                else
-                {
-                    base.SpawnProjectile(player, source, offset, velocity * 1.5f, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.SpazmatismProjectile>(), damage, knockback);
+                    var offset = player.Top + new Vector2(player.width * 4 * i, -64);
+
+                    if (i == player.direction)
+                    {
+                        var proj = base.SpawnProjectile(player, source, offset, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.SpazmatismProjectile>(), damage, knockback);
+                        spaz = proj.ModProjectile as Projectiles.Hardmode.MechanicalWaterProjectiles.SpazmatismProjectile;
+                    }
+                    else
+                    {
+                        var proj = base.SpawnProjectile(player, source, offset, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile>(), damage, knockback);
+                        ret = proj.ModProjectile as Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile;
+                    }
                 }
             }
-            return false;
+
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override void AddRecipes()

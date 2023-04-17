@@ -1,7 +1,7 @@
 A Terraria mod that brings more water guns to the game that actually do damage
 
 Adds:
-26 water guns each with their uniqueness
+27 water guns each with their uniqueness
 11 new ammo types for water guns
 1 town npc
 

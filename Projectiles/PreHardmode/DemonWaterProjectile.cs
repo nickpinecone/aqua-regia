@@ -20,6 +20,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.extraUpdates = 0;
             Projectile.width = 32;
             Projectile.height = 32;
+            Projectile.alpha = 75;
         }
 
         public override void OnSpawn(IEntitySource source)

@@ -36,6 +36,7 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
+            target.AddBuff(BuffID.OnFire3, 60 * 2);
 
             var position = new Vector2();
 

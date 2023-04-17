@@ -135,7 +135,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 Projectile.position = hitTarget.position - hitPoint;
 
-                if (hitTarget.GetLifePercent() == 0f)
+                if (hitTarget.GetLifePercent() < 0f)
                 {
 
                     Projectile.Kill();
