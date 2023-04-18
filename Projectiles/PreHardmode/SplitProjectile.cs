@@ -11,7 +11,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
-            Projectile.timeLeft = 24;
+            Projectile.timeLeft = 16;
         }
 
         public override void Kill(int timeLeft)
@@ -39,7 +39,8 @@ namespace WaterGuns.Projectiles.PreHardmode
                 {
                     int distanceBetween = 8;
                     Vector2 modifiedVelocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i));
-                    Projectile.NewProjectile(data, Projectile.Center, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(data, Projectile.Center, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    proj.timeLeft += 4;
                 }
             }
             base.Kill(timeLeft);
