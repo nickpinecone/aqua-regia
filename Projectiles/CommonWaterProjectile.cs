@@ -59,6 +59,23 @@ namespace WaterGuns.Projectiles
             base.OnSpawn(source);
         }
 
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+
+            // Venom ammo effect
+            if (data.buffType == BuffID.Venom)
+            {
+                for (int i = 0; i < Main.rand.Next(2, 4); i++)
+                {
+                    var velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(0.5f, 1f);
+                    velocity *= 14;
+
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.Ammo.VenomAmmoProjectile>(), Projectile.damage / 6, 0, Projectile.owner);
+                }
+            }
+        }
+
         int counter = 0;
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -69,9 +86,6 @@ namespace WaterGuns.Projectiles
                     counter += 1;
 
                     // Bounce off the wall without creating a new projectile
-                    // var velocity = -oldVelocity.RotatedByRandom(MathHelper.ToRadians(45));
-                    // Projectile.velocity = velocity;
-
                     if (oldVelocity.X != Projectile.velocity.X) Projectile.velocity.X = -oldVelocity.X;
                     if (oldVelocity.Y != Projectile.velocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 

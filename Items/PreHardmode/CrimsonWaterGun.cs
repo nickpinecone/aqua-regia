@@ -21,6 +21,7 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.damage = 13;
             Item.knockBack = 2;
+            base.maxPumpLevel = 18;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)

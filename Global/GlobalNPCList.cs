@@ -26,9 +26,9 @@ namespace WaterGuns.Global
             {
                 npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.IchorStickerGun>(), 4));
             }
-            else if (npc.type == NPCID.Clinger)
+            else if (npc.type == NPCID.CorruptGoldfish)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Hardmode.CursedBubbleGun>(), 4));
+                npcLoot.Add(ItemDropRule.ByCondition(new Conditions.IsHardmode(), ModContent.ItemType<Items.Hardmode.CorruptBubbleGun>(), 4));
             }
             else if (npc.type == NPCID.Deerclops)
             {

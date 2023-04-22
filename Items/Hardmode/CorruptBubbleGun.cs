@@ -7,12 +7,12 @@ using Terraria.Localization;
 
 namespace WaterGuns.Items.Hardmode
 {
-    public class CursedBubbleGun : BaseWaterGun
+    public class CorruptBubbleGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cursed Bubble Popper");
-            Tooltip.SetDefault("Shoots cursed bubbles that inflict Cursed Inferno\nDrops from Clinger");
+            DisplayName.SetDefault("Corrupt Bubble Popper");
+            Tooltip.SetDefault("Shoots corrupt bubbles that inflict Cursed Inferno\nFull Pump: Next three bubbles will have a clinging goldfish\nDrops from Corrupt Goldfish in Hardmode");
         }
 
         public override void SetDefaults()
@@ -26,9 +26,9 @@ namespace WaterGuns.Items.Hardmode
             Item.useTime -= 8;
             Item.useAnimation -= 8;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.CursedBubbleProjectile>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.CorruptBubbleProjectile>();
 
-            // base.increasePumpLevel = true;
+            base.increasePumpLevel = true;
             // base.maxPumpLevel = 16;
         }
 
@@ -37,8 +37,14 @@ namespace WaterGuns.Items.Hardmode
             base.HoldItem(player);
         }
 
+        public int pumpShots = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if (pumpLevel >= maxPumpLevel)
+            {
+                pumpShots = 3;
+            }
+
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 

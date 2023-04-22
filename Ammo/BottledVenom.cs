@@ -18,7 +18,7 @@ namespace WaterGuns.Ammo
             base.buffTime = 240;
             base.color = new Color(173, 103, 230);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Venom");
+            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Venom and explodes into litlle venom clouds");
         }
         public override void AddRecipes()
         {
