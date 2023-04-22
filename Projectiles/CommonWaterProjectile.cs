@@ -160,15 +160,15 @@ namespace WaterGuns.Projectiles
             }
 
             // Spawn little water drops along projectile path
-            if (Main.rand.Next(6) == 0)
-            {
-                int num520 = 6;
-                int num521 = Dust.NewDust(new Vector2(Projectile.position.X + (float)num520, Projectile.position.Y + (float)num520), Projectile.width - num520 * 2, Projectile.height - num520 * 2, 211, 0f, 0f, 75, color, 0.65f);
-                Dust dust2 = Main.dust[num521];
-                dust2.velocity *= 0.5f;
-                dust2 = Main.dust[num521];
-                dust2.velocity += Projectile.velocity * 0.5f;
-            }
+            // if (Main.rand.Next(6) == 0)
+            // {
+            //     int num520 = 6;
+            //     int num521 = Dust.NewDust(new Vector2(Projectile.position.X + (float)num520, Projectile.position.Y + (float)num520), Projectile.width - num520 * 2, Projectile.height - num520 * 2, 211, 0f, 0f, 75, color, 0.65f);
+            //     Dust dust2 = Main.dust[num521];
+            //     dust2.velocity *= 0.5f;
+            //     dust2 = Main.dust[num521];
+            //     dust2.velocity += Projectile.velocity * 0.5f;
+            // }
         }
 
         public void UpdateImmunityFrames()

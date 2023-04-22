@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
@@ -25,10 +26,12 @@ namespace WaterGuns.Projectiles.Hardmode
             base.affectedByAmmoBuff = false;
         }
 
+
         public override void OnSpawn(IEntitySource source)
         {
             base.OnSpawn(source);
-            Projectile.scale *= Main.rand.NextFloat(0.5f, 1f) + 1f;
+            Projectile.scale *= Main.rand.NextFloat(0.6f, 1f) + 1f;
+            Projectile.velocity *= Main.rand.NextFloat(0.8f, 1.2f);
         }
 
         public override void Kill(int timeLeft)
@@ -44,7 +47,6 @@ namespace WaterGuns.Projectiles.Hardmode
                 dust.noGravity = true;
                 dust.velocity = speed * 6;
             }
-
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -53,10 +55,12 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
+
         public override void AI()
         {
             base.AI();
-            Projectile.velocity *= 0.98f;
+
+            Projectile.velocity *= 0.984f;
         }
     }
 }

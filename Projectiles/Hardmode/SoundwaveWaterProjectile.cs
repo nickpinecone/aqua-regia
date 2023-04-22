@@ -52,6 +52,12 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft -= 10;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+            data.dustAmount -= 1;
+        }
+
         int delay = 10;
         int count = 0;
         public override void AI()

@@ -117,7 +117,7 @@ namespace WaterGuns.NPCs
 
             if (Main.hardMode)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBallonGun>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBalloonGun>());
                 nextSlot++;
             }
 

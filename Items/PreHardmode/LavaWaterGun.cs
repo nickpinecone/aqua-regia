@@ -34,6 +34,11 @@ namespace WaterGuns.Items.PreHardmode
         int count = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if (pumpLevel >= maxPumpLevel)
+            {
+                count = 0;
+            }
+
             if (fireBreath)
             {
                 damage *= 2;

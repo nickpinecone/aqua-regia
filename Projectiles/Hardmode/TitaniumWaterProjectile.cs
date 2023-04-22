@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -20,7 +21,6 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 60;
-
         }
     }
 

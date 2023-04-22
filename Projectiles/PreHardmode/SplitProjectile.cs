@@ -40,7 +40,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                     int distanceBetween = 8;
                     Vector2 modifiedVelocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i));
                     var proj = Projectile.NewProjectileDirect(data, Projectile.Center, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    proj.timeLeft += 4;
+                    proj.timeLeft += 16;
                 }
             }
             base.Kill(timeLeft);

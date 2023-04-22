@@ -21,6 +21,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.damage = 1;
             Projectile.timeLeft = 120;
             Projectile.tileCollide = true;
+            Projectile.alpha = 30;
         }
 
         public override void Kill(int timeLeft)

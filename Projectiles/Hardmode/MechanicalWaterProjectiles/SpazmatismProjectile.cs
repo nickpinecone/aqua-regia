@@ -49,9 +49,9 @@ namespace WaterGuns.Projectiles.Hardmode.MechanicalWaterProjectiles
                 base.data.dustAmount = 2;
                 base.data.dustScale = 2;
                 base.data.fadeIn = 0;
-                var proj = Projectile.NewProjectileDirect(base.data, offset, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                var proj = Projectile.NewProjectileDirect(base.data, offset, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 // proj.tileCollide = false;
-                proj.timeLeft -= 25;
+                proj.timeLeft -= 30;
             }
             else if (!Main.mouseLeft)
             {

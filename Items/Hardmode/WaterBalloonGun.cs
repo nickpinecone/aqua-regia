@@ -8,12 +8,12 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Items.Hardmode
 {
-    public class WaterBallonGun : BaseWaterGun
+    public class WaterBalloonGun : BaseWaterGun
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Water Ballon Bomber");
-            Tooltip.SetDefault("Shoots ballons filled with water\nBought from Swimmer after entering Hardmode");
+            DisplayName.SetDefault("Water Balloon Bomber");
+            Tooltip.SetDefault("Shoots ballons filled with water\nFull Pump: Shoots a giant ballon that explodes into smaller ones\nBought from Swimmer after entering Hardmode");
         }
 
         public override void SetDefaults()
@@ -22,13 +22,15 @@ namespace WaterGuns.Items.Hardmode
 
             Item.damage = 36;
             Item.knockBack = 3;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterBallonProjectile>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterBalloonProjectile>();
             Item.shootSpeed -= 6;
             Item.value = Item.buyPrice(0, 20, 50, 0);
 
             base.isOffset = true;
             base.offsetAmount = new Vector2(8, 8);
             base.offsetIndependent = new Vector2(0, -6);
+
+            base.increasePumpLevel = true;
         }
 
         public override Vector2? HoldoutOffset()

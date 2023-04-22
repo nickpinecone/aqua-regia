@@ -18,7 +18,7 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 30;
+            Item.damage = 32;
             Item.knockBack = 5;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.HallowWaterProjectile>();
