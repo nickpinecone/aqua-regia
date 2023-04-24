@@ -26,14 +26,5 @@ namespace WaterGuns.Global
                 item.value = 6;
             }
         }
-
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-        {
-            if (item.type == ItemID.WaterGun)
-            {
-                tooltips[5].Text = "Squirts a harmful stream of water";
-            }
-            base.ModifyTooltips(item, tooltips);
-        }
     }
 }

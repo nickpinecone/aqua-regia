@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace WaterGuns.Items.PreHardmode
 {
@@ -10,7 +11,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Water Blunderbuss");
-            Tooltip.SetDefault("Shoots multiple streams of water\nFull Pump: Significantly increases knockback, but the holder is thrown back from strong recoil");
+            Tooltip.SetDefault("Shoots multiple streams of water\nFull Pump: Significantly increases knockback, but the holder is thrown back from strong recoil\nBought from Swimmer after defeating King Slime");
         }
 
         public override void SetDefaults()
@@ -24,6 +25,8 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.useAnimation += 12;
             Item.useTime += 12;
+
+            Item.value = Item.buyPrice(0, 5, 25, 0);
 
             base.defaultInaccuracy = 12;
         }
@@ -60,9 +63,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.GoldBar, 10);
-            recipe.AddIngredient(ItemID.SlimeGun, 1);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
             recipe.Register();
         }
     }

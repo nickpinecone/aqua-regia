@@ -15,7 +15,7 @@ namespace WaterGuns.Projectiles.Ammo
             Projectile.width = 8;
             Projectile.height = 8;
             Projectile.friendly = true;
-            Projectile.timeLeft = 20;
+            Projectile.timeLeft = 15;
             base.affectedByAmmoBuff = false;
             Projectile.extraUpdates = 0;
         }

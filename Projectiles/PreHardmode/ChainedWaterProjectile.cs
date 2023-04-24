@@ -35,22 +35,29 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnSpawn(source);
         }
 
+        public void Shoot()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
+
+                Projectile.NewProjectile(data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
+            }
+        }
+
         public int delay = 0;
         public int maxDelay = 20;
         public override void AI()
         {
-            if (delay > maxDelay)
+            if (delay > maxDelay && maxDelay != 0)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
-
-                    Projectile.NewProjectile(data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
-                }
+                Shoot();
                 delay = 0;
             }
-            Projectile.rotation = Projectile.rotation + 0.1f;
             delay += 1;
+
+            Projectile.rotation = Projectile.rotation + 0.1f;
+
             base.AI();
         }
     }
@@ -63,8 +70,9 @@ namespace WaterGuns.Projectiles.PreHardmode
             AIType = ProjectileID.ChainGuillotine;
         }
 
+        Vector2 initVel = Vector2.Zero;
         public WaterGuns.ProjectileData data = null;
-        Projectile waterGun = null;
+        WaterGunProjectile waterGun = null;
         public override void OnSpawn(IEntitySource source)
         {
             if (source is WaterGuns.ProjectileData newData)
@@ -76,7 +84,10 @@ namespace WaterGuns.Projectiles.PreHardmode
                 data = new WaterGuns.ProjectileData(source);
             }
 
-            waterGun = Projectile.NewProjectileDirect(data, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), 0, 0, Projectile.owner);
+            initVel = Projectile.velocity;
+
+            var proj = Projectile.NewProjectileDirect(data, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), 0, 0, Projectile.owner);
+            waterGun = proj.ModProjectile as WaterGunProjectile;
 
             if (data.fullCharge)
             {
@@ -89,22 +100,27 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void Kill(int timeLeft)
         {
-            waterGun.Kill();
+            waterGun.Projectile.Kill();
             base.Kill(timeLeft);
         }
 
         int delay = 0;
         Vector2 turn = new Vector2(0, -60);
         int degreeTurn = 20;
+        bool haveShot = false;
         public override void AI()
         {
             base.AI();
 
-            var modWaterGun = (waterGun.ModProjectile as WaterGunProjectile);
+            if (initVel != Projectile.velocity && !haveShot)
+            {
+                waterGun.Shoot();
+                haveShot = true;
+            }
 
             if (data.fullCharge)
             {
-                modWaterGun.maxDelay = 12;
+                waterGun.maxDelay = 12;
                 data.dustScale = 2.4f;
                 data.dustAmount = 1;
 
@@ -113,7 +129,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                     Kill(0);
                     Projectile.Kill();
                 }
-                waterGun.position = Projectile.position;
+                waterGun.Projectile.position = Projectile.position;
                 Projectile.velocity = Vector2.Zero;
                 turn = turn.RotatedBy(MathHelper.ToRadians(degreeTurn));
                 Projectile.position = Main.player[Main.myPlayer].position + turn;
@@ -121,8 +137,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             }
             else
             {
-                modWaterGun.maxDelay = 20;
-                waterGun.position = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
+                waterGun.maxDelay = 0;
+                waterGun.Projectile.position = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
             }
 
         }

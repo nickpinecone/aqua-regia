@@ -7,6 +7,12 @@ namespace WaterGuns.Projectiles.PreHardmode
 {
     public class RainCloud : BaseProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            Main.projFrames[Projectile.type] = 6;
+        }
+
         public override void SetDefaults()
         {
             base.SetDefaults();
@@ -27,6 +33,14 @@ namespace WaterGuns.Projectiles.PreHardmode
                 var modifiedVelocity = new Vector2(0, 14);
                 var position = Projectile.Bottom + new Vector2(Main.rand.Next(-42, 42), 12 - Main.rand.Next(0, 16));
                 Projectile.NewProjectile(data, position, modifiedVelocity, ModContent.ProjectileType<SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            }
+
+            if (++Projectile.frameCounter >= 6)
+            {
+                Projectile.frameCounter = 0;
+                // Or more compactly Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
+                if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                    Projectile.frame = 0;
             }
         }
     }

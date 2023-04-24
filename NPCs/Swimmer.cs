@@ -115,9 +115,9 @@ namespace WaterGuns.NPCs
             shop.item[nextSlot].SetDefaults(ItemID.BottledWater, false);
             nextSlot++;
 
-            if (Main.hardMode)
+            if (NPC.downedSlimeKing)
             {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBalloonGun>());
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.PreHardmode.ShotgunWaterGun>());
                 nextSlot++;
             }
 
@@ -126,6 +126,13 @@ namespace WaterGuns.NPCs
                 shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.PreHardmode.ChainedWaterGun>());
                 nextSlot++;
             }
+
+            if (Main.hardMode)
+            {
+                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBalloonGun>());
+                nextSlot++;
+            }
+
         }
 
         public override string GetChat()

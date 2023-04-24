@@ -27,7 +27,6 @@ namespace WaterGuns.Ammo
             Item.potion = false;
             Item.healLife = 0;
             Item.ammo = ItemID.BottledWater;
-
         }
 
         public override bool? UseItem(Player player)

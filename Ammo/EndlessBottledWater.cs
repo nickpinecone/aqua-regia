@@ -11,8 +11,9 @@ namespace WaterGuns.Ammo
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            damage = 1;
             Tooltip.SetDefault(damage + " ranged damage" + "\nMagical And Endless");
+
+            base.damage = 1;
         }
         public override void SetDefaults()
         {

@@ -21,7 +21,7 @@ namespace WaterGuns.Ammo
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.Star, 1);
+            recipe.AddIngredient(ItemID.FallenStar, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

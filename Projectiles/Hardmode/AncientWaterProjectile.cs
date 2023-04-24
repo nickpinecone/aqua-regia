@@ -35,6 +35,8 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            SoundEngine.PlaySound(SoundID.Item14);
+
             base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.OnFire3, 60 * 2);
 

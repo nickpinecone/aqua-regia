@@ -68,8 +68,8 @@ namespace WaterGuns.Projectiles
             {
                 for (int i = 0; i < Main.rand.Next(2, 4); i++)
                 {
-                    var velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(0.5f, 1f);
-                    velocity *= 14;
+                    var velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(0.8f, 1.2f);
+                    velocity *= 12;
 
                     var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.Ammo.VenomAmmoProjectile>(), Projectile.damage / 6, 0, Projectile.owner);
                 }
@@ -110,9 +110,10 @@ namespace WaterGuns.Projectiles
             }
             if (data.spawnsStar)
             {
-                var position = new Vector2(target.position.X, target.position.Y - Main.screenHeight) + new Vector2(Main.rand.Next(-18, 18), Main.rand.Next(-18, 18));
-                var velocity = (new Vector2(0, 20)).RotatedByRandom(MathHelper.ToRadians(7));
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, damage, knockback, Main.myPlayer);
+                int rotation = Main.rand.Next(-30, 0);
+                var position = target.Center + new Vector2(Main.screenHeight, 0).RotatedBy(MathHelper.ToRadians(-75)).RotatedBy(MathHelper.ToRadians(rotation));
+                var velocity = new Vector2(20, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 75));
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, damage / 4, knockback, Main.myPlayer);
             }
             base.OnHitNPC(target, damage, knockback, crit);
         }
@@ -172,17 +173,6 @@ namespace WaterGuns.Projectiles
                 dust.noGravity = true;
                 dust.fadeIn = 0f;
             }
-
-            // Spawn little water drops along projectile path
-            // if (Main.rand.Next(6) == 0)
-            // {
-            //     int num520 = 6;
-            //     int num521 = Dust.NewDust(new Vector2(Projectile.position.X + (float)num520, Projectile.position.Y + (float)num520), Projectile.width - num520 * 2, Projectile.height - num520 * 2, 211, 0f, 0f, 75, color, 0.65f);
-            //     Dust dust2 = Main.dust[num521];
-            //     dust2.velocity *= 0.5f;
-            //     dust2 = Main.dust[num521];
-            //     dust2.velocity += Projectile.velocity * 0.5f;
-            // }
         }
 
         public void UpdateImmunityFrames()

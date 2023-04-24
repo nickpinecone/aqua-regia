@@ -4,11 +4,18 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
+using Terraria.Audio;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
     public class BubbledFish : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            Main.projFrames[Projectile.type] = 4;
+        }
+
         public override void SetDefaults()
         {
             Projectile.timeLeft = 180;
@@ -77,9 +84,17 @@ namespace WaterGuns.Projectiles.Hardmode
                 {
                     Projectile.Kill();
                 }
+
+                if (++Projectile.frameCounter >= 4)
+                {
+                    Projectile.frameCounter = 0;
+                    // Or more compactly Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
+                    if (++Projectile.frame >= Main.projFrames[Projectile.type])
+                        Projectile.frame = 0;
+                }
+
             }
         }
-
     }
 
     public class CorruptBubbleProjectile : BaseProjectile
@@ -100,7 +115,6 @@ namespace WaterGuns.Projectiles.Hardmode
 
             base.affectedByAmmoBuff = false;
         }
-
 
         Projectile bubbledFish = null;
         public override void OnSpawn(IEntitySource source)
@@ -126,18 +140,10 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            if (bubbledFish != null)
-            {
-                bubbledFish.Kill();
-            }
-
-            return base.OnTileCollide(oldVelocity);
-        }
-
         public override void Kill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item54);
+
             base.Kill(timeLeft);
 
             if (bubbledFish != null && timeLeft <= 0)
@@ -174,6 +180,8 @@ namespace WaterGuns.Projectiles.Hardmode
             if (bubbledFish != null)
             {
                 bubbledFish.Center = Projectile.Center;
+                bubbledFish.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
+                bubbledFish.rotation = Projectile.velocity.ToRotation() - (bubbledFish.spriteDirection == 1 ? 0 : MathHelper.Pi);
             }
 
             Projectile.velocity *= 0.984f;
