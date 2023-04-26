@@ -23,17 +23,22 @@ namespace WaterGuns.Projectiles.Hardmode
         bool isUp = true;
         public override void OnSpawn(IEntitySource source)
         {
-            if (source is WaterGuns.ProjectileData data)
-            {
-                isUp = data.isUp;
-            }
+            // if (source is WaterGuns.ProjectileData data)
+            // {
+            // }
             base.OnSpawn(source);
+
+            isUp = data.isUp;
+
+            data.dustScale = 1.5f;
+            data.dustAmount = 1;
+            data.fadeIn = 1;
         }
 
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1.5f, 1, 1);
+            base.CreateDust();
 
             int direction = isUp ? 1 : -1;
             Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(0.5f * direction));

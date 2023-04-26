@@ -26,6 +26,14 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            data.color = new Color(255, 250, 41);
+            data.dustScale = 1.2f;
+        }
+
         protected float gravity = 0.001f;
         public override void AI()
         {
@@ -33,7 +41,7 @@ namespace WaterGuns.Projectiles.Hardmode
             gravity += 0.0012f;
             Projectile.velocity.Y += gravity;
 
-            base.CreateDust(new Color(255, 250, 41), 1.2f);
+            base.CreateDust();
 
             // Ichor dust that emits little light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Ichor, 0, 0, 0, default, 0.8f);

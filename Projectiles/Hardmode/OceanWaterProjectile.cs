@@ -19,10 +19,12 @@ namespace WaterGuns.Projectiles.Hardmode
         Vector2 dest = Vector2.Zero;
         public override void OnSpawn(IEntitySource source)
         {
+            base.OnSpawn(source);
             dest = new Vector2(0, 128).RotatedByRandom(MathHelper.ToRadians(360));
             Projectile.position = Main.player[Main.myPlayer].Center;
             Projectile.velocity = Vector2.Zero;
-            base.OnSpawn(source);
+
+            data.dustScale = 1;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -31,13 +33,14 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
+
         int inactiveTime = 60;
         int time = 0;
         bool launched = false;
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1);
+            base.CreateDust();
 
             time++;
             if (time < inactiveTime)

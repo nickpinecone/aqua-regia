@@ -84,10 +84,17 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            data.dustScale = 1;
+        }
+
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1f);
+            base.CreateDust();
         }
     }
 }

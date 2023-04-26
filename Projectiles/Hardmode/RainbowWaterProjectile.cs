@@ -22,6 +22,9 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.OnSpawn(source);
             base.data.alpha = 0;
+            data.dustAmount = 3;
+            data.fadeIn = 1;
+            data.alpha = 0;
         }
 
         float gravity = 0.1f;
@@ -42,7 +45,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 proj.width += 10;
             }
 
-            base.CreateDust(default, data.dustScale, 3, 1, 0);
+            base.CreateDust();
             Lighting.AddLight(Projectile.position, new Vector3(1f, 0.5f, 1f));
         }
     }

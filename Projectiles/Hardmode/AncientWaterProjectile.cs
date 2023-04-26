@@ -97,7 +97,7 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default);
+            base.CreateDust();
         }
     }
 }

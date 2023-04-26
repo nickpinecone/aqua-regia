@@ -64,7 +64,7 @@ namespace WaterGuns.Projectiles
             base.Kill(timeLeft);
 
             // Venom ammo effect
-            if (data.buffType == BuffID.Venom)
+            if (data.buffType == BuffID.Venom && affectedByAmmoBuff)
             {
                 for (int i = 0; i < Main.rand.Next(2, 4); i++)
                 {
@@ -138,38 +138,17 @@ namespace WaterGuns.Projectiles
             }
         }
 
-        public void CreateDust(Color color = default, float scale = 1.2f, int amount = 3, float fadeIn = 1, int alpha = 75)
+        public void CreateDust()
         {
-            if (data.color != default)
-            {
-                color = data.color;
-            }
-            else if (data.alpha != 75)
-            {
-                alpha = data.alpha;
-            }
-            else if (data.fadeIn != 1)
-            {
-                fadeIn = data.fadeIn;
-            }
-            else if (data.dustScale != 1.2f)
-            {
-                scale = data.dustScale;
-            }
-            else if (data.dustAmount != 3)
-            {
-                amount = data.dustAmount;
-            }
-
             // Dust creation resembling the in-game water gun projectile
             var offset = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
             offset.Normalize();
             offset *= 3.4f;
 
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < data.dustAmount; i++)
             {
                 var position = new Vector2(Projectile.Center.X + offset.X * i, Projectile.Center.Y + offset.Y * i);
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), alpha, color, scale);
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), data.alpha, data.color, data.dustScale);
                 dust.noGravity = true;
                 dust.fadeIn = 0f;
             }

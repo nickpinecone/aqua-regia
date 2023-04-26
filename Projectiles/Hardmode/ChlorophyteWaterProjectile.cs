@@ -16,10 +16,17 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 20;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            data.dustScale = 1;
+        }
+
         public override void AI()
         {
             base.AI();
-            base.CreateDust(default, 1);
+            base.CreateDust();
             base.AutoAim();
         }
     }

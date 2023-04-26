@@ -23,7 +23,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             // The dust should be created in the child class
             if (defaultDust)
-                CreateDust(data.color, data.dustScale, data.dustAmount, data.fadeIn, data.alpha);
+                CreateDust();
 
             if (data.homesIn)
                 AutoAim();

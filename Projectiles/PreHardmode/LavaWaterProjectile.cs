@@ -46,12 +46,19 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            data.color = new Color(255, 215, 50);
+        }
+
         public override void AI()
         {
             base.AI();
 
             // Creating some dust to see the projectile
-            base.CreateDust(new Color(255, 215, 50));
+            base.CreateDust();
 
             // Fire dust that emits light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Flare, 0, 0, 0, default, 3f);

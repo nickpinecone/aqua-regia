@@ -37,6 +37,15 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+
+            data.color = new Color(96, 248, 2);
+            data.dustScale = 1.4f;
+        }
+
         int delay = 0;
         int delayMax = 5;
         public override void AI()
@@ -44,7 +53,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.AI();
 
 
-            base.CreateDust(new Color(96, 248, 2), 1.4f);
+            base.CreateDust();
 
             // Cursed Flame dust that emits light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.CursedTorch, 0, 0, 0, default, 1.6f);
