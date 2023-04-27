@@ -11,6 +11,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Ichor Rainer");
             Tooltip.SetDefault("Inflicts the ichor debuff");
         }

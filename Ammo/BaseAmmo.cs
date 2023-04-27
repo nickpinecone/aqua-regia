@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Collections.Generic;
+using Terraria.GameContent.Creative;
 
 namespace WaterGuns.Ammo
 {
@@ -20,6 +21,13 @@ namespace WaterGuns.Ammo
         public bool bounces = false;
         public bool spawnsStar = false;
         public bool penetrates = false;
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 999;
+        }
 
         public override void SetDefaults()
         {

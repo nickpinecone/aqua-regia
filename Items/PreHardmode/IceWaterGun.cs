@@ -12,6 +12,8 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Ice Glacier");
             Tooltip.SetDefault("Consolidates ice shards that form a shield around the player\nFull Pump: Releases the ice shards\nDrops from Deerclops");
         }

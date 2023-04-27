@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,9 +12,12 @@ namespace WaterGuns.Ammo
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            Tooltip.SetDefault(damage + " ranged damage" + "\nMagical And Endless");
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
             base.damage = 1;
+
+            Tooltip.SetDefault(damage + " ranged damage" + "\nMagical And Endless");
         }
         public override void SetDefaults()
         {

@@ -10,6 +10,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Titanium Riveria");
             Tooltip.SetDefault("Creates a damage zone on impact");
         }

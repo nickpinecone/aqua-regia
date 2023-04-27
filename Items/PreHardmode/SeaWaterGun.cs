@@ -10,6 +10,8 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Sea Splasher");
             Tooltip.SetDefault("Spawns additional bubbles\nFull Pump: Shoots three starfish that cling onto enemies");
         }

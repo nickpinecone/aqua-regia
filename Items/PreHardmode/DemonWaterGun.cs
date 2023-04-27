@@ -9,6 +9,8 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Demonic Flow");
             Tooltip.SetDefault("Spawns an additional stream of water upon impact\nFull Pump: Spawns two water swords");
         }

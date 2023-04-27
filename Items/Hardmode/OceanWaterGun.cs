@@ -11,6 +11,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Ocean Overlord");
             Tooltip.SetDefault("Puts enemies in a bubble whirl\nDrops from Duke Fishron");
         }

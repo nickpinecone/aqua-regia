@@ -12,6 +12,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Ancient Geyser");
             Tooltip.SetDefault("Unleashes a geyser on your enemies\nDrops from Golem");
         }

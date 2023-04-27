@@ -11,6 +11,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Rainbow Waterfall");
             Tooltip.SetDefault("Spawns water streams downwards\nDrops from Queen Slime");
         }

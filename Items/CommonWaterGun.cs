@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using Terraria.GameContent.Creative;
 
 namespace WaterGuns.Items
 {
@@ -13,6 +14,13 @@ namespace WaterGuns.Items
         public int pumpLevel = 0;
         public int maxPumpLevel = 10;
         public bool increasePumpLevel = true;
+
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+        }
 
         public override void SetDefaults()
         {

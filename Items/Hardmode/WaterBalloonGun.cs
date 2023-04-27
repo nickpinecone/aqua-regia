@@ -12,6 +12,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Water Balloon Bomber");
             Tooltip.SetDefault("Shoots ballons filled with water\nFull Pump: Shoots a giant ballon that explodes into smaller ones\nBought from Swimmer after entering Hardmode");
         }

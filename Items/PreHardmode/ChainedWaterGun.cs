@@ -11,14 +11,14 @@ namespace WaterGuns.Items.PreHardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Quickly spins around the player\nBought from Swimmer after defeating Queen Bee");
         }
 
         public override void SetDefaults()
         {
             Item.CloneDefaults(ItemID.ChainGuillotines);
-            // Item.useTime *= 2;
-            // Item.useAnimation *= 2;
             Item.useAmmo = ItemID.BottledWater;
 
             Item.DamageType = DamageClass.Ranged;
@@ -26,6 +26,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.damage = 25;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.ChainedWaterProjectile>();
+            Item.rare = ItemRarityID.White;
 
             Item.value = Item.buyPrice(0, 10, 30, 0);
         }

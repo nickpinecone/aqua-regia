@@ -11,6 +11,8 @@ namespace WaterGuns.Items.Hardmode
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Mini Water Gun");
             Tooltip.SetDefault("Rapid but inaccurate\nDrops from SantaNK1");
         }
