@@ -49,7 +49,7 @@ namespace WaterGuns.Items.Hardmode
                 shot = 0;
             }
 
-            base.defaultInaccuracy = 4;
+            base.defaultInaccuracy = 2;
             var proj = base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             proj.timeLeft += 20;
             proj.penetrate = 2;

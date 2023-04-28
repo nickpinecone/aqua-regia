@@ -13,7 +13,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Titanium Riveria");
-            Tooltip.SetDefault("Creates a damage zone on impact");
+            Tooltip.SetDefault("Creates a damage zone on impact\nFull Pump: Unleashes a barrage of harpy feathers");
         }
 
         public override Vector2? HoldoutOffset()
@@ -31,17 +31,20 @@ namespace WaterGuns.Items.Hardmode
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.TitaniumWaterProjectile>();
             base.defaultInaccuracy = 1;
+            base.increasePumpLevel = true;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.TitaniumBar, 18);
+            recipe.AddIngredient(ItemID.Feather, 4);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
 
             Recipe recipe2 = CreateRecipe();
             recipe2.AddIngredient(ItemID.AdamantiteBar, 18);
+            recipe2.AddIngredient(ItemID.Feather, 4);
             recipe2.AddTile(TileID.MythrilAnvil);
             recipe2.Register();
         }

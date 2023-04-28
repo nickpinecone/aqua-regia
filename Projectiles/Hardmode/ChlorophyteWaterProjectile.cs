@@ -23,11 +23,24 @@ namespace WaterGuns.Projectiles.Hardmode
             data.dustScale = 1;
         }
 
+        int delay = 0;
+        int delayMax = Main.rand.Next(0, 40);
         public override void AI()
         {
             base.AI();
             base.CreateDust();
             base.AutoAim();
+
+            delay += 1;
+            if (delay >= delayMax)
+            {
+                delay = 0;
+                delayMax = Main.rand.Next(30, 80);
+
+                var position = Projectile.Center + new Vector2(Main.rand.Next(-30, 30), Main.rand.Next(-30, 30));
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, Vector2.Zero, ProjectileID.SporeTrap, Projectile.damage, Projectile.knockBack, Projectile.owner);
+            }
+
         }
     }
 }

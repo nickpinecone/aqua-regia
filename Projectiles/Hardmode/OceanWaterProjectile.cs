@@ -29,6 +29,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.buffImmune[ModContent.BuffType<Buffs.BubbleWhirlDebuff>()] = false;
             target.AddBuff(ModContent.BuffType<Buffs.BubbleWhirlDebuff>(), 60 * 3);
             base.OnHitNPC(target, damage, knockback, crit);
         }

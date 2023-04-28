@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -6,6 +7,28 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
+    public class HarpyFeather : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+
+            Projectile.width = 24;
+            Projectile.height = 24;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = 1;
+        }
+
+        public override void AI()
+        {
+            base.AI();
+
+            Projectile.rotation = Projectile.velocity.ToRotation();
+        }
+    }
+
+
     public class DamageZone : ModProjectile
     {
         public override void SetDefaults()
@@ -35,6 +58,18 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
+
+            if (data.fullCharge)
+            {
+                for (int i = -4; i < 4; i++)
+                {
+                    int rotation = Main.rand.Next(-60, 0);
+                    var position = target.Center + new Vector2(Main.screenHeight + Main.rand.Next(-250, 250), i * 5).RotatedBy(MathHelper.ToRadians(-60)).RotatedBy(MathHelper.ToRadians(rotation));
+                    var velocity = new Vector2(12, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 60)) * (Main.rand.NextFloat(0.5f, 1f) + 1f);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<HarpyFeather>(), damage / 2, knockback, Main.myPlayer);
+                }
+
+            }
 
             Projectile.NewProjectile(data, target.Center, new Vector2(0, 0), ModContent.ProjectileType<DamageZone>(), Projectile.damage / 2, 0, Projectile.owner);
 

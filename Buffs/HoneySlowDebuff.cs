@@ -13,8 +13,11 @@ namespace WaterGuns.Buffs
         public override void Update(NPC npc, ref int buffIndex)
         {
             base.Update(npc, ref buffIndex);
+
             if (!npc.boss)
+            {
                 npc.velocity -= npc.velocity / 12;
+            }
         }
     }
 }

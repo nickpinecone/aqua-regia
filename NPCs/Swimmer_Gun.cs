@@ -9,6 +9,8 @@ namespace WaterGuns.NPCs
     {
         public override void SetStaticDefaults()
         {
+            base.SetStaticDefaults();
+
             DisplayName.SetDefault("Swimmer Gun");
         }
 
@@ -17,6 +19,7 @@ namespace WaterGuns.NPCs
             base.SetDefaults();
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>();
 
+            Item.damage = 1;
             base.isOffset = true;
             base.offsetAmount = new Vector2(3f, 3f);
             base.offsetIndependent = new Vector2(0, -4f);

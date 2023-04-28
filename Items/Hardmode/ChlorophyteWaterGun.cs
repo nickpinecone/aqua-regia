@@ -13,7 +13,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Chlorophyte Water Sprayer");
-            Tooltip.SetDefault("Chases after your foes");
+            Tooltip.SetDefault("Chases after your foes and releases deadly spores");
         }
 
         public override Vector2? HoldoutOffset()
@@ -29,8 +29,8 @@ namespace WaterGuns.Items.Hardmode
 
             Item.damage = 54;
             Item.knockBack = 5;
-            Item.useTime -= 10;
-            Item.useAnimation -= 10;
+            Item.useTime -= 8;
+            Item.useAnimation -= 8;
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.ChlorophyteWaterProjectile>();
         }
