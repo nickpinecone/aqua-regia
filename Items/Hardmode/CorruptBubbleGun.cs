@@ -22,7 +22,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetDefaults();
             base.defaultInaccuracy = 16f;
 
-            Item.scale *= 1.5f;
+            Item.scale *= 1.2f;
             Item.damage = 38;
             Item.knockBack = 2;
             Item.useTime -= 8;
@@ -30,8 +30,13 @@ namespace WaterGuns.Items.Hardmode
 
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.CorruptBubbleProjectile>();
 
+            base.offsetIndependent = new Vector2(0, -4);
             base.increasePumpLevel = true;
-            // base.maxPumpLevel = 16;
+        }
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-2, -4);
         }
 
         public override void HoldItem(Player player)
