@@ -17,14 +17,15 @@ namespace WaterGuns.Items.Hardmode
             Tooltip.SetDefault("Killed enemies release a soul that comes to the player, boosting weapon damage");
         }
 
-        public const int DELAY_MAX = 80;
+        public const int DELAY_MAX = 70;
 
         public int delay = 0;
         public int delayMax = DELAY_MAX;
 
-        public override void HoldItem(Player player)
+        public override void UpdateInventory(Player player)
         {
-            base.HoldItem(player);
+            base.UpdateInventory(player);
+
             if (Item.damage > damage)
             {
                 delay += 1;
@@ -37,7 +38,6 @@ namespace WaterGuns.Items.Hardmode
                 }
             }
         }
-
 
         public int damage = 60;
         public override void SetDefaults()

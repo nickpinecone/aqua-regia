@@ -159,7 +159,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 // Offset randomly
                 var offset = new Vector2();
                 offset.X = target.Bottom.X + Main.rand.Next(-60, 60);
-                offset.Y = target.Bottom.Y - Main.rand.Next(5, 40);
+                offset.Y = target.Bottom.Y - Main.rand.Next(5, 10);
 
                 // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

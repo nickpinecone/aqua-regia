@@ -21,14 +21,14 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 73;
+            Item.damage = 87;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>();
             Item.useTime -= 8;
             Item.useAnimation -= 8;
 
             base.offsetAmount = new Vector2(6, 6);
-            base.offsetIndependent = new Vector2(0, -8);
+            base.offsetIndependent = new Vector2(0, -6);
         }
 
         int shot = 0;
@@ -49,7 +49,7 @@ namespace WaterGuns.Items.Hardmode
                 shot = 0;
             }
 
-            base.defaultInaccuracy = 2;
+            base.defaultInaccuracy = 1;
             var proj = base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             proj.timeLeft += 20;
             proj.penetrate = 2;

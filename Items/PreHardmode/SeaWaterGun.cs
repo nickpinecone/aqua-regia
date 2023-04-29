@@ -25,6 +25,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SeaWaterProjectile>();
 
             base.maxPumpLevel = 7;
+            base.offsetIndependent = new Vector2(0, -2);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -37,7 +38,7 @@ namespace WaterGuns.Items.PreHardmode
                     var modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(Main.rand.Next(5, 10) * i));
                     // Slow down the starfish
                     modifiedVelocity /= Main.rand.NextFloat(1f, 1.5f);
-                    base.SpawnProjectile(player, source, position, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.StarfishProjectile>(), damage / 4, knockback);
+                    base.SpawnProjectile(player, source, position, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.StarfishProjectile>(), damage / 5, knockback);
                     pumpLevel = _pumpLevel;
                 }
             }

@@ -14,7 +14,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Mini Water Gun");
-            Tooltip.SetDefault("Rapid but inaccurate\nDrops from SantaNK1");
+            Tooltip.SetDefault("Rapid but inaccurate\nRight click to place a turret\nDrops from SantaNK1");
         }
 
         public override void SetDefaults()
@@ -24,13 +24,28 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 45;
             Item.knockBack = 4;
 
-            Item.useTime = 5;
-            Item.useAnimation = 5;
+            Item.useTime = 6;
+            Item.useAnimation = 6;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.MiniWaterProjectile>();
             base.defaultInaccuracy = 8;
 
             base.offsetAmount = new Vector2(6, 6);
             base.offsetIndependent = new Vector2(0, 14);
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            if (player.HasBuff<Buffs.TurretSummonBuff>())
+            {
+                turret.Center = player.Center;
+            }
+            else
+            {
+                player.AddBuff(ModContent.BuffType<Buffs.TurretSummonBuff>(), 60);
+                turret = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>(), 0, 0, player.whoAmI);
+            }
+
+            return base.AltFunctionUse(player);
         }
 
         public override Vector2? HoldoutOffset()
@@ -41,14 +56,6 @@ namespace WaterGuns.Items.Hardmode
         Projectile turret = null;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (!player.HasBuff<Buffs.TurretSummonBuff>())
-            {
-                if (pumpLevel >= maxPumpLevel)
-                {
-                    player.AddBuff(ModContent.BuffType<Buffs.TurretSummonBuff>(), 60 * 100);
-                    turret = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.position, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.TurretWaterProjectile>(), 0, 0, player.whoAmI);
-                }
-            }
             base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
             return false;
         }

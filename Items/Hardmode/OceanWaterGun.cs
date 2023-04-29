@@ -14,7 +14,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Ocean Overlord");
-            Tooltip.SetDefault("Puts enemies in a bubble whirl\nDrops from Duke Fishron");
+            Tooltip.SetDefault("Every third shot releases a waternado that chases enemies\nDrops from Duke Fishron");
         }
 
         public override Vector2? HoldoutOffset()
@@ -31,6 +31,7 @@ namespace WaterGuns.Items.Hardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.OceanWaterProjectile>();
         }
 
+        int shot = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             for (int i = -1; i < 2; i += 2)
@@ -39,6 +40,15 @@ namespace WaterGuns.Items.Hardmode
                 Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
                 base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);
             }
+
+            shot += 1;
+            if (shot >= 3)
+            {
+                shot = 0;
+                position = new Vector2(position.X + velocity.X * 3, position.Y + velocity.Y * 3);
+                Projectile.NewProjectile(source, position, velocity * 1.4f, ModContent.ProjectileType<Projectiles.Hardmode.Waternado>(), damage, knockback, player.whoAmI);
+            }
+
 
             return false;
         }

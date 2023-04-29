@@ -41,6 +41,7 @@ namespace WaterGuns.Projectiles.Hardmode
             for (int i = 0; i < 3; i++)
             {
                 var velocity = new Vector2(10, 0).RotatedByRandom(MathHelper.ToRadians(180));
+                data.homesIn = false;
                 var proj = Projectile.NewProjectileDirect(base.data, Projectile.Center, velocity, ModContent.ProjectileType<WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 proj.tileCollide = false;
                 proj.penetrate = -1;
@@ -69,10 +70,13 @@ namespace WaterGuns.Projectiles.Hardmode
                         num1 = (float)(Projectile.velocity.X * 0.5);
                         num2 = (float)(Projectile.velocity.Y * 0.5);
                     }
-                    int index3 = Dust.NewDust(Vector2.Subtract(new Vector2((float)(Projectile.position.X + 3.0) + num1, (float)(Projectile.position.Y + 3.0) + num2), Vector2.Multiply(Projectile.velocity, 0.5f)), Projectile.width - 8, Projectile.height - 8, 31, 0.0f, 0.0f, 100, new Color(107, 203, 255), 0.5f);
-                    Main.dust[index3].fadeIn = (float)(1.0 + (double)Main.rand.Next(5) * 0.100000001490116);
-                    Dust dust3 = Main.dust[index3];
-                    dust3.velocity = Vector2.Multiply(dust3.velocity, 0.05f);
+                    if (Main.rand.Next(4) == 0)
+                    {
+                        int index3 = Dust.NewDust(Vector2.Subtract(new Vector2((float)(Projectile.position.X + 3.0) + num1, (float)(Projectile.position.Y + 3.0) + num2), Vector2.Multiply(Projectile.velocity, 0.5f)), Projectile.width - 8, Projectile.height - 8, 31, 0.0f, 0.0f, 100, new Color(107, 203, 255), 0.5f);
+                        Main.dust[index3].fadeIn = (float)(1.0 + (double)Main.rand.Next(5) * 0.100000001490116);
+                        Dust dust3 = Main.dust[index3];
+                        dust3.velocity = Vector2.Multiply(dust3.velocity, 0.05f);
+                    }
                 }
             }
             if ((double)Math.Abs((float)Projectile.velocity.X) < 15.0 && (double)Math.Abs((float)Projectile.velocity.Y) < 15.0)

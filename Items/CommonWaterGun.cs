@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
+using System;
 
 namespace WaterGuns.Items
 {
@@ -111,6 +112,10 @@ namespace WaterGuns.Items
                 data.dustScale *= 1.75f;
                 data.dustAmount -= 1;
             }
+
+            // offsetIndependent changes projectile offset making them fire slighltly above the cursor
+            // This rotates the velocity with a completly made up number
+            modifiedVelocity = modifiedVelocity - offsetIndependent / 82;
 
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
 

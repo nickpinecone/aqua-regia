@@ -75,6 +75,12 @@ namespace WaterGuns.Projectiles.PreHardmode
         WaterGunProjectile waterGun = null;
         public override void OnSpawn(IEntitySource source)
         {
+            if (spinning)
+            {
+                Projectile.Kill();
+                return;
+            }
+
             if (source is WaterGuns.ProjectileData newData)
             {
                 data = newData;
@@ -100,7 +106,10 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void Kill(int timeLeft)
         {
-            waterGun.Projectile.Kill();
+            if (waterGun != null)
+            {
+                waterGun.Projectile.Kill();
+            }
             base.Kill(timeLeft);
         }
 
@@ -108,11 +117,12 @@ namespace WaterGuns.Projectiles.PreHardmode
         Vector2 turn = new Vector2(0, -60);
         int degreeTurn = 20;
         bool haveShot = false;
+        static bool spinning = false;
         public override void AI()
         {
             base.AI();
 
-            if (initVel != Projectile.velocity && !haveShot)
+            if (initVel != Projectile.velocity && !haveShot && !spinning)
             {
                 waterGun.Shoot();
                 haveShot = true;
@@ -120,12 +130,14 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             if (data.fullCharge)
             {
+                spinning = true;
                 waterGun.maxDelay = 12;
                 data.dustScale = 2.4f;
                 data.dustAmount = 1;
 
                 if (delay >= 80)
                 {
+                    spinning = false;
                     Kill(0);
                     Projectile.Kill();
                 }

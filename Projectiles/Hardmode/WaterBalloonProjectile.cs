@@ -58,7 +58,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.Kill(timeLeft);
         }
 
-        protected float gravity = 0.04f;
+        protected float gravity = 0.036f;
         public override void AI()
         {
             Projectile.velocity.Y += gravity;

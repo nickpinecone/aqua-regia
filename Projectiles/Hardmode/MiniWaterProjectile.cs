@@ -26,8 +26,36 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnSpawn(source);
         }
 
-        int delayMax = 10;
-        int delay = 10;
+        public NPC FindNearestNPC()
+        {
+            float nearestDist = -1;
+            NPC nearestNpc = null;
+            float detectRange = MathF.Pow(600f, 2);
+
+            for (int i = 0; i < Main.npc.Length; i++)
+            {
+                NPC target = Main.npc[i];
+
+                if (!target.CanBeChasedBy())
+                {
+                    continue;
+                }
+
+                var dist = Projectile.Center.DistanceSQ(target.Center);
+
+                if (dist < detectRange && (dist < nearestDist || nearestDist == -1))
+                {
+                    nearestDist = dist;
+                    nearestNpc = target;
+                }
+            }
+
+            return nearestNpc;
+        }
+
+        int delayMax = 12;
+        int delay = 12;
+        NPC target = null;
         public override void AI()
         {
             base.AI();
@@ -39,23 +67,29 @@ namespace WaterGuns.Projectiles.Hardmode
             }
             if (player.HasBuff(ModContent.BuffType<Buffs.TurretSummonBuff>()))
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 10;
             }
 
-            var distanceToMouse = new Vector2(Main.MouseWorld.X - Projectile.Center.X, Main.MouseWorld.Y - Projectile.Center.Y);
-            distanceToMouse.Normalize();
-            Projectile.spriteDirection = (Main.MouseWorld.X - Projectile.Center.X > 0) ? 1 : -1;
-            Projectile.rotation = Projectile.Center.AngleTo(Main.MouseWorld) - (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
+            target = FindNearestNPC();
 
-            if (Main.mouseLeft && delay >= delayMax)
+            if (target != null)
             {
-                delay = 0;
-                var velocity = distanceToMouse * 10;
-                var offset = Projectile.Center + new Vector2(velocity.X * 3.3f, velocity.Y * 3.3f);
-                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<WaterProjectile>(), 40, 3, Projectile.owner);
+                var distanceToMouse = new Vector2(target.Center.X - Projectile.Center.X, target.Center.Y - Projectile.Center.Y);
+                distanceToMouse.Normalize();
+                Projectile.spriteDirection = (target.Center.X - Projectile.Center.X > 0) ? 1 : -1;
+                Projectile.rotation = Projectile.Center.AngleTo(target.Center) - (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
+
+                if (delay >= delayMax)
+                {
+                    delay = 0;
+                    var velocity = distanceToMouse * 10;
+                    var offset = Projectile.Center + new Vector2(velocity.X * 3.3f, velocity.Y * 3.3f);
+                    velocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, velocity, ModContent.ProjectileType<WaterProjectile>(), 40, 3, Projectile.owner);
+                }
+                delay += 1;
             }
-            delay += 1;
+
         }
     }
 

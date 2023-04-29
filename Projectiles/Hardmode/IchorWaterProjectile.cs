@@ -39,6 +39,11 @@ namespace WaterGuns.Projectiles.Hardmode
             base.AI();
             base.CreateDust();
 
+            if (!Projectile.tileCollide && Projectile.Center.Y >= Main.player[Main.myPlayer].Center.Y)
+            {
+                Projectile.tileCollide = true;
+            }
+
             // Ichor dust that emits little light
             var dust2 = Dust.NewDust(Projectile.position, 5, 5, DustID.Ichor, 0, 0, 0, default, 0.8f);
             Main.dust[dust2].noGravity = true;

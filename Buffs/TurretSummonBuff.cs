@@ -14,6 +14,12 @@ namespace WaterGuns.Buffs
             base.SetStaticDefaults();
             Description.SetDefault("Turret Sentury");
             Main.buffNoSave[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.buffTime[buffIndex] = 60;
         }
     }
 }
