@@ -27,7 +27,7 @@ namespace WaterGuns.Items.Hardmode
             base.offsetAmount = new Vector2(5, 5);
             base.offsetIndependent = new Vector2(0, -5);
 
-            Item.damage = 54;
+            Item.damage = 49;
             Item.knockBack = 5;
             Item.useTime -= 8;
             Item.useAnimation -= 8;

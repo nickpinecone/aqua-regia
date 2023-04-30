@@ -28,6 +28,8 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void OnSpawn(IEntitySource source)
         {
             CreateDustLaser();
+
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12);
         }
 
         List<Dust> dusts = new List<Dust>();
@@ -53,6 +55,13 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 dusts[i].position += new Vector2(-5, 0);
             }
+
+
+            var rotation = Main.rand.Next(-75, 75);
+            var velocity = new Vector2(0, -1.4f).RotatedBy(MathHelper.ToRadians(rotation));
+            velocity *= 8f;
+            var dust = Dust.NewDust(Projectile.Bottom + new Vector2(-8, -10), 24, 24, DustID.Wet, velocity.X, velocity.Y, 75, default, 1.4f);
+            Main.dust[dust].noGravity = true;
         }
     }
 

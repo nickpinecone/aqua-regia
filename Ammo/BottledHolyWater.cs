@@ -13,7 +13,7 @@ namespace WaterGuns.Ammo
             base.SetStaticDefaults();
 
             base.spawnsStar = true;
-            base.damage = 2;
+            base.damage = 6;
 
             Tooltip.SetDefault(damage + " ranged damage" + "\nMakes a star fall on the enemy");
         }
@@ -21,7 +21,7 @@ namespace WaterGuns.Ammo
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BottledWater, 50);
-            recipe.AddIngredient(ItemID.FallenStar, 1);
+            recipe.AddIngredient(ItemID.PixieDust, 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.ReplaceResult(Item.type, 50);
             recipe.Register();

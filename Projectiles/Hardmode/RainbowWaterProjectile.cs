@@ -16,6 +16,7 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
             Projectile.penetrate = -1;
             Projectile.timeLeft += 30;
+            Projectile.light = 1;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -42,11 +43,12 @@ namespace WaterGuns.Projectiles.Hardmode
             {
                 delay = 0;
                 var proj = Projectile.NewProjectileDirect(base.data, Projectile.Center, new Vector2(0, 10), ModContent.ProjectileType<Projectiles.Hardmode.WaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                proj.light = 1f;
                 proj.width += 10;
             }
 
             base.CreateDust();
-            Lighting.AddLight(Projectile.position, new Vector3(1f, 0.5f, 1f));
+            // Lighting.AddLight(Projectile.position, new Vector3(1f, 0.5f, 1f));
         }
     }
 }

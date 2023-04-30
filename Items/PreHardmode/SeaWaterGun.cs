@@ -20,11 +20,11 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetDefaults();
 
-            Item.damage = 10;
+            Item.damage = 8;
             Item.knockBack = 2;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SeaWaterProjectile>();
 
-            base.maxPumpLevel = 7;
+            base.maxPumpLevel = 11;
             base.offsetIndependent = new Vector2(0, -2);
         }
 

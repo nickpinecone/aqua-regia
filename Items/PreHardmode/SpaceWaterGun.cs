@@ -22,7 +22,7 @@ namespace WaterGuns.Items.PreHardmode
             base.offsetAmount = new Vector2(5, 5);
             base.offsetIndependent = new Vector2(0, -5);
 
-            Item.damage = 17;
+            Item.damage = 18;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.SpaceWaterProjectile>();
         }

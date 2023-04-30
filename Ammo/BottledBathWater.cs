@@ -13,7 +13,7 @@ namespace WaterGuns.Ammo
         {
             base.SetStaticDefaults();
 
-            base.damage = 5;
+            base.damage = 7;
             base.hasBuff = true;
             base.buffType = BuffID.Confused;
             base.buffTime = 240;

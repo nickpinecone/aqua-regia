@@ -29,6 +29,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.rare = ItemRarityID.White;
 
             Item.value = Item.buyPrice(0, 10, 30, 0);
+            base.maxPumpLevel = 14;
         }
 
         public override void AddRecipes()

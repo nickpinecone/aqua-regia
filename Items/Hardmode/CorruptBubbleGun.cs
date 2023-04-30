@@ -23,7 +23,7 @@ namespace WaterGuns.Items.Hardmode
             base.defaultInaccuracy = 16f;
 
             Item.scale *= 1.2f;
-            Item.damage = 38;
+            Item.damage = 36;
             Item.knockBack = 2;
             Item.useTime -= 8;
             Item.useAnimation -= 8;

@@ -66,7 +66,7 @@ namespace WaterGuns.Projectiles.Hardmode
                     int rotation = Main.rand.Next(-60, 0);
                     var position = target.Center + new Vector2(Main.screenHeight + Main.rand.Next(-250, 250), i * 5).RotatedBy(MathHelper.ToRadians(-60)).RotatedBy(MathHelper.ToRadians(rotation));
                     var velocity = new Vector2(12, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 60)) * (Main.rand.NextFloat(0.5f, 1f) + 1f);
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<HarpyFeather>(), damage / 2, knockback, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<HarpyFeather>(), damage / 3, knockback, Main.myPlayer);
                 }
 
             }

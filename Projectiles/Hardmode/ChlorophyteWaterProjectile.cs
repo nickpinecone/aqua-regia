@@ -38,7 +38,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 delayMax = Main.rand.Next(30, 80);
 
                 var position = Projectile.Center + new Vector2(Main.rand.Next(-30, 30), Main.rand.Next(-30, 30));
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, Vector2.Zero, ProjectileID.SporeTrap, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, Vector2.Zero, ProjectileID.SporeTrap, Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             }
 
         }

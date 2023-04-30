@@ -12,7 +12,7 @@ namespace WaterGuns.Ammo
         {
             base.SetStaticDefaults();
 
-            base.damage = 2;
+            base.damage = 3;
             base.hasBuff = true;
             base.buffType = BuffID.Frostburn;
             base.buffTime = 240;

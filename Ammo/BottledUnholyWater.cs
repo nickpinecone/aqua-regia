@@ -13,7 +13,7 @@ namespace WaterGuns.Ammo
         {
             base.SetStaticDefaults();
 
-            base.damage = 1;
+            base.damage = 2;
             base.penetrates = true;
             base.color = new Color(0, 194, 129);
 

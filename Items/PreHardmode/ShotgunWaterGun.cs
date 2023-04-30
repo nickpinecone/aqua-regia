@@ -31,6 +31,7 @@ namespace WaterGuns.Items.PreHardmode
             Item.value = Item.buyPrice(0, 5, 25, 0);
 
             base.defaultInaccuracy = 12;
+            base.maxPumpLevel = 9;
         }
 
         public override Vector2? HoldoutOffset()
@@ -53,10 +54,10 @@ namespace WaterGuns.Items.PreHardmode
             for (int i = -1; i < 3; i++)
             {
                 pumpLevel = _pumpLevel;
-                int distanceBetween = Main.rand.Next(6, 10);
+                int distanceBetween = Main.rand.Next(4, 8);
                 Vector2 modifiedVelocity = velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i * player.direction));
                 var proj = base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);
-                proj.timeLeft -= Main.rand.Next(10, 30);
+                proj.timeLeft -= Main.rand.Next(10, 20);
             }
 
             return false;

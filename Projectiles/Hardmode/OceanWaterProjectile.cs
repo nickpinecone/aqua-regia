@@ -7,8 +7,17 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
+
     public class Waternado : ModProjectile
     {
+        public float GetAngle(Vector2 u, Vector2 v)
+        {
+            var dot = u.X * v.X + u.Y * v.Y;
+            var det = u.X * v.Y - u.Y * v.X;
+
+            return MathF.Atan2(det, dot);
+        }
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
@@ -20,9 +29,12 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.SetDefaults();
 
+            AIType = ProjectileID.WeatherPainShot;
+
             Projectile.width = 58;
             Projectile.height = 62;
             Projectile.timeLeft = 140;
+            Projectile.light = 1f;
 
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
@@ -31,11 +43,26 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.hostile = false;
         }
 
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+
+            for (int i = 0; i < 10; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Unit();
+
+                var position = Projectile.Center;
+                var dust = Dust.NewDustDirect(position, 16, 16, DustID.Wet, 0, 0, 0, new Color(79, 116, 199), 1f);
+                dust.noGravity = true;
+                dust.velocity = speed * 8;
+            }
+        }
+
         public NPC FindNearestNPC()
         {
             float nearestDist = -1;
             NPC nearestNpc = null;
-            float detectRange = MathF.Pow(340f, 2);
+            float detectRange = MathF.Pow(380f, 2);
 
             for (int i = 0; i < Main.npc.Length; i++)
             {
@@ -58,44 +85,50 @@ namespace WaterGuns.Projectiles.Hardmode
             return nearestNpc;
         }
 
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(target, damage, knockback, crit);
+
+            Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.Pi / 6);
+        }
+
         NPC target = null;
         int delay = 10;
         float speed = 1f;
+        float curve = 0.1f;
         public override void AI()
         {
             base.AI();
 
-            if (target == null)
-            {
-                target = FindNearestNPC();
-            }
+            var dust = Dust.NewDust(Projectile.Center, 16, 16, DustID.Wet, 0, 0, 75, new Color(79, 116, 199), 1.1f);
+            Main.dust[dust].position = Projectile.Center;
+            Main.dust[dust].noGravity = true;
+
+
+            target = FindNearestNPC();
 
             if (target != null)
             {
-                delay += 1;
+                var dir = target.Center - Projectile.Center;
+                var vel = Projectile.velocity;
+
+                var ang = GetAngle(vel, dir);
+
+                Projectile.velocity = Projectile.velocity.RotatedBy(MathF.Sign(ang) * MathF.Min(curve, MathF.Abs(ang)));
+                Projectile.velocity.Normalize();
+                Projectile.velocity *= speed * 12;
+
                 if (Projectile.Center.DistanceSQ(target.Center) < 32 * 32)
                 {
-                    if (delay >= 24 || speed != 1f)
-                    {
-                        delay = 0;
-                        Projectile.velocity = Projectile.DirectionTo(target.Center).SafeNormalize(Vector2.Zero) * 4;
-                    }
-
                     speed = 1f;
+                    curve = 0.3f;
                 }
+
                 else
                 {
-                    if (delay >= 5)
-                    {
-                        delay = 0;
-                        speed *= 1.05f;
-                        Projectile.velocity = Projectile.DirectionTo(target.Center).SafeNormalize(Vector2.Zero) * 12 * speed;
-                    }
-                }
-
-                if (target.GetLifePercent() <= 0f)
-                {
-                    target = null;
+                    speed *= 1.01f;
+                    curve *= 1.01f;
                 }
             }
 

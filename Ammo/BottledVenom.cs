@@ -12,7 +12,7 @@ namespace WaterGuns.Ammo
         {
             base.SetStaticDefaults();
 
-            base.damage = 6;
+            base.damage = 12;
             base.hasBuff = true;
             base.buffType = BuffID.Venom;
             base.buffTime = 240;

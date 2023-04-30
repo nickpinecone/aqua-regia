@@ -26,6 +26,7 @@ namespace WaterGuns.Items.PreHardmode
 
             // base.offsetAmount = new Vector2(0, 0);
             base.offsetIndependent = new Vector2(0, -4);
+            base.maxPumpLevel = 12;
         }
 
         public override Vector2? HoldoutOffset()
@@ -42,7 +43,12 @@ namespace WaterGuns.Items.PreHardmode
             if (delay >= 2)
             {
                 delay = 0;
-                base.SpawnProjectile(player, source, position, velocity, ProjectileID.Bee, 8, knockback);
+                int locDamage = 8;
+                if (player.strongBees)
+                {
+                    locDamage = 12;
+                }
+                base.SpawnProjectile(player, source, position, velocity, ProjectileID.Bee, locDamage, knockback);
             }
             return false;
         }

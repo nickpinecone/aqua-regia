@@ -23,12 +23,19 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.alpha = 75;
         }
 
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+        }
+
         public override void OnSpawn(IEntitySource source)
         {
             Projectile.rotation = MathHelper.PiOver4;
             direction = Main.rand.NextBool() ? -1 : 1;
             rotateAmount = Main.rand.NextFloat(-0.03f, 0.03f);
             delayRandomness = Main.rand.Next(-2, 2);
+            Projectile.ai[0] = 17f;
+            Projectile.alpha = 255;
 
             base.OnSpawn(source);
         }
@@ -42,9 +49,16 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void AI()
         {
             delay += 1;
+            if (Projectile.ai[0] > 0f)
+            {
+                Projectile.ai[0] -= 1;
+                Projectile.alpha -= 255 / 10;
+            }
+
             if (pastTarget)
             {
                 Projectile.rotation += (0.26f + rotateAmount) * direction;
+                Projectile.alpha += 255 / 15;
             }
             else if (delay > 46 + delayRandomness)
             {
@@ -79,7 +93,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 randomPosition = target.Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(-45)).RotatedBy(MathHelper.ToRadians(rotation));
                 modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));
 
-                var proj2 = Projectile.NewProjectileDirect(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SwordSlash>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                var proj2 = Projectile.NewProjectileDirect(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SwordSlash>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
                 proj2.rotation = MathHelper.ToRadians(rotation - 180);
                 proj2.scale = 2;
             }
@@ -91,7 +105,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));
 
                 // Spawn default water projectile
-                Projectile.NewProjectile(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(base.data, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             }
             base.OnHitNPC(target, damage, knockback, crit);
         }

@@ -74,10 +74,12 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
+
             delay += 1;
 
             if (hitTarget != null)
             {
+                Projectile.tileCollide = false;
                 Projectile.position = hitTarget.position - hitPoint;
 
                 if (hitTarget.GetLifePercent() <= 0f)
@@ -160,7 +162,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 Vector2 speed = Main.rand.NextVector2Unit();
 
                 var position = Projectile.Center;
-                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 75, new Color(179, 252, 0), 0.8f);
+                var dust = Dust.NewDustPerfect(position, DustID.CursedTorch, new Vector2(0, 0), 75, new Color(179, 252, 0), 0.8f);
                 dust.noGravity = true;
                 dust.velocity = speed * 6;
             }
@@ -176,6 +178,10 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
+
+            // var dust2 = Dust.NewDust(Projectile.position, 24, 24, DustID.CursedTorch, 0, 0, 0, default, 1f);
+            // Main.dust[dust2].velocity = Projectile.velocity * 1.2f;
+            // Main.dust[dust2].noGravity = true;
 
             if (bubbledFish != null)
             {

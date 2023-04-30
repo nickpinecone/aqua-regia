@@ -12,7 +12,7 @@ namespace WaterGuns.Ammo
         {
             base.SetStaticDefaults();
 
-            base.damage = 7;
+            base.damage = 8;
             base.hasBuff = true;
             base.buffType = BuffID.CursedInferno;
             base.buffTime = 240;

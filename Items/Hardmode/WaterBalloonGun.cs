@@ -22,7 +22,7 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 36;
+            Item.damage = 31;
             Item.knockBack = 3;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.WaterBalloonProjectile>();
             Item.shootSpeed -= 6;

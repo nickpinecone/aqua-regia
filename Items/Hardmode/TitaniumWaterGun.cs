@@ -27,7 +27,7 @@ namespace WaterGuns.Items.Hardmode
             base.offsetIndependent = new Vector2(0, -3);
             base.offsetAmount = new Vector2(4, 4);
 
-            Item.damage = 40;
+            Item.damage = 33;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.TitaniumWaterProjectile>();
             base.defaultInaccuracy = 1;

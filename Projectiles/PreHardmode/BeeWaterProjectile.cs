@@ -26,7 +26,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 delay = 0;
                 var direction = Main.rand.NextBool() ? -1 : 1;
                 var modifiedVelocity = new Vector2(10 * -direction, 0);
-                var position = Projectile.Center + new Vector2(180 * direction, Main.rand.Next(-32, 32));
+                var position = Projectile.Center + new Vector2(180 * direction, Main.rand.Next(-24, 24));
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, modifiedVelocity, ProjectileID.GiantBee, Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
@@ -44,7 +44,12 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (data.fullCharge)
             {
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<BeeSwarm>(), 14, Projectile.knockBack, Projectile.owner);
+                int locDamage = 12;
+                if (Main.player[Main.myPlayer].strongBees)
+                {
+                    locDamage = 16;
+                }
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<BeeSwarm>(), locDamage, Projectile.knockBack, Projectile.owner);
             }
             target.AddBuff(ModContent.BuffType<Buffs.HoneySlowDebuff>(), 60 * 2);
             base.OnHitNPC(target, damage, knockback, crit);

@@ -63,6 +63,19 @@ namespace WaterGuns.Projectiles
         {
             base.Kill(timeLeft);
 
+            // Lava ammo effect
+            if (data.buffType == BuffID.OnFire && affectedByAmmoBuff)
+            {
+
+                for (int i = 0; i < Main.rand.Next(1, 3); i++)
+                {
+                    var velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(0.8f, 1.2f);
+                    velocity *= 8;
+
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.Ammo.LavaAmmoProjectile>(), Projectile.damage / 8, 0, Projectile.owner);
+                }
+            }
+
             // Venom ammo effect
             if (data.buffType == BuffID.Venom && affectedByAmmoBuff)
             {
@@ -71,7 +84,7 @@ namespace WaterGuns.Projectiles
                     var velocity = Main.rand.NextVector2Unit() * Main.rand.NextFloat(0.8f, 1.2f);
                     velocity *= 12;
 
-                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.Ammo.VenomAmmoProjectile>(), Projectile.damage / 6, 0, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.Ammo.VenomAmmoProjectile>(), Projectile.damage / 4, 0, Projectile.owner);
                 }
             }
         }
@@ -113,7 +126,7 @@ namespace WaterGuns.Projectiles
                 int rotation = Main.rand.Next(-30, 0);
                 var position = target.Center + new Vector2(Main.screenHeight, 0).RotatedBy(MathHelper.ToRadians(-75)).RotatedBy(MathHelper.ToRadians(rotation));
                 var velocity = new Vector2(20, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 75));
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, damage / 4, knockback, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, damage / 3, knockback, Main.myPlayer);
             }
             base.OnHitNPC(target, damage, knockback, crit);
         }

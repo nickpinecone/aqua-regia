@@ -39,21 +39,19 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         public override void Kill(int timeLeft)
         {
-            if (Projectile.scale == 4)
-            {
-                for (int i = 0; i < Main.rand.Next(2, 4); i++)
-                {
-                    // Offset randomly
-                    var offset = new Vector2();
-                    offset.X = Projectile.Center.X + Main.rand.Next(-50, 50);
-                    offset.Y = Projectile.Center.Y + Main.rand.Next(-50, 50);
+            base.Kill(timeLeft);
 
-                    // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                }
+            for (int i = 0; i < 10; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Unit();
+
+                var position = Projectile.Center;
+                var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), 75, default, 1f);
+                dust.noGravity = true;
+                dust.velocity = speed * 4;
             }
 
-            base.Kill(timeLeft);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item54);
         }
 
         int delay = 0;
@@ -109,6 +107,21 @@ namespace WaterGuns.Projectiles.PreHardmode
 
                 Projectile.velocity = Vector2.Zero;
                 applyGravity = false;
+            }
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+
+            for (int i = 0; i < 5; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Unit();
+
+                var position = Projectile.Center;
+                var dust = Dust.NewDustDirect(position, 8, 8, DustID.Coralstone, 0, 0, 0, default, 0.9f);
+                dust.noGravity = true;
+                dust.velocity = speed * 4;
             }
         }
 

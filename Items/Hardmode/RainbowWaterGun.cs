@@ -27,7 +27,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetDefaults();
             base.offsetIndependent = new Vector2(0, -2);
 
-            Item.damage = 46;
+            Item.damage = 41;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.RainbowWaterProjectile>();
         }

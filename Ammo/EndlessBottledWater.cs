@@ -15,7 +15,7 @@ namespace WaterGuns.Ammo
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-            base.damage = 1;
+            base.damage = 5;
 
             Tooltip.SetDefault(damage + " ranged damage" + "\nMagical And Endless");
         }

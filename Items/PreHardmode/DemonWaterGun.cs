@@ -19,7 +19,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetDefaults();
 
-            Item.damage = 16;
+            Item.damage = 14;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.DemonWaterProjectile>();
 

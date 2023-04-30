@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,16 +17,30 @@ namespace WaterGuns.Projectiles.PreHardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.timeLeft = 160;
+            Projectile.timeLeft = 120;
             Projectile.friendly = false;
             Projectile.width = 54;
             Projectile.height = 24;
             Projectile.extraUpdates = 0;
         }
 
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            Projectile.ai[0] = 10f;
+            Projectile.alpha = 255;
+        }
+
         int delay = 0;
         public override void AI()
         {
+            if (Projectile.ai[0] > 0f)
+            {
+                Projectile.ai[0] -= 1f;
+                Projectile.alpha -= 255 / 5;
+            }
+
             delay += 1;
             if (delay > 10)
             {
@@ -41,6 +56,11 @@ namespace WaterGuns.Projectiles.PreHardmode
                 // Or more compactly Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
                 if (++Projectile.frame >= Main.projFrames[Projectile.type])
                     Projectile.frame = 0;
+            }
+
+            if (Projectile.timeLeft <= 10)
+            {
+                Projectile.alpha += 255 / 20;
             }
         }
     }

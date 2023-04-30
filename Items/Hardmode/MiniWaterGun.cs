@@ -21,7 +21,7 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetDefaults();
 
-            Item.damage = 45;
+            Item.damage = 51;
             Item.knockBack = 4;
 
             Item.useTime = 6;

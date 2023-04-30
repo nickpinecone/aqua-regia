@@ -21,7 +21,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetDefaults();
 
-            Item.damage = 13;
+            Item.damage = 12;
             Item.knockBack = 2;
             base.maxPumpLevel = 18;
         }

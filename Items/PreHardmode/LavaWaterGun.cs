@@ -22,9 +22,9 @@ namespace WaterGuns.Items.PreHardmode
             base.isOffset = true;
             base.defaultInaccuracy = 3f;
             base.offsetAmount = new Vector2(6, 6);
-            base.maxPumpLevel = 16;
+            base.maxPumpLevel = 18;
 
-            Item.damage = 31;
+            Item.damage = 25;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.LavaWaterProjectile>();
             Item.useTime -= 8;
@@ -43,7 +43,7 @@ namespace WaterGuns.Items.PreHardmode
 
             if (fireBreath)
             {
-                damage *= 2;
+                damage = (int)(damage * 1.5f);
                 base.SpawnProjectile(player, source, position, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.FireBreath>(), damage, knockback);
                 count += 1;
                 if (count >= 25)

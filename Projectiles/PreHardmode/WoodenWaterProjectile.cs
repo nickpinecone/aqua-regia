@@ -17,11 +17,19 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.penetrate = 1;
             Projectile.timeLeft = 240;
 
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 28;
+            Projectile.height = 28;
 
             Projectile.friendly = true;
             Projectile.hostile = false;
+        }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+
+            var dust = Dust.NewDust(Projectile.Center, 16, 16, 7, 0, 0, 0, default, 1);
+            Main.dust[dust].noGravity = true;
         }
     }
 
