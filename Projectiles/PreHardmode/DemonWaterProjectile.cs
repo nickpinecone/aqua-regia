@@ -81,6 +81,8 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (data.fullCharge)
             {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8);
+
                 int rotation = Main.rand.Next(0, 360);
                 var randomPosition = target.Center + new Vector2(256, 0).RotatedBy(MathHelper.ToRadians(-45)).RotatedBy(MathHelper.ToRadians(rotation));
                 var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));

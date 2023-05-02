@@ -89,8 +89,6 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
-
-            Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.Pi / 6);
         }
 
         NPC target = null;
@@ -117,20 +115,20 @@ namespace WaterGuns.Projectiles.Hardmode
 
                 Projectile.velocity = Projectile.velocity.RotatedBy(MathF.Sign(ang) * MathF.Min(curve, MathF.Abs(ang)));
                 Projectile.velocity.Normalize();
-                Projectile.velocity *= speed * 12;
+                Projectile.velocity *= speed * 16;
 
                 if (Projectile.Center.DistanceSQ(target.Center) < 32 * 32)
                 {
-                    speed = 1f;
                     curve = 0.3f;
                 }
 
                 else
                 {
-                    speed *= 1.01f;
                     curve *= 1.01f;
                 }
             }
+
+            speed = 1f;
 
 
             if (++Projectile.frameCounter >= 6)

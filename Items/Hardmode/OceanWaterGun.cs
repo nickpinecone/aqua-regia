@@ -44,6 +44,7 @@ namespace WaterGuns.Items.Hardmode
             shot += 1;
             if (shot >= 3)
             {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21);
                 shot = 0;
                 position = new Vector2(position.X + velocity.X * 3, position.Y + velocity.Y * 3);
                 Projectile.NewProjectile(source, position, velocity * 1.4f, ModContent.ProjectileType<Projectiles.Hardmode.Waternado>(), damage, knockback, player.whoAmI);

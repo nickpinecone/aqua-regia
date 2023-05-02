@@ -31,6 +31,8 @@ namespace WaterGuns.Projectiles.Hardmode
 
             if (Projectile.Center.Distance(player.Center) < 16f)
             {
+                var sound = Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath6);
+
                 Projectile.Kill();
                 if (player.HeldItem.ModItem is Items.Hardmode.SpectralWaterGun gun)
                 {

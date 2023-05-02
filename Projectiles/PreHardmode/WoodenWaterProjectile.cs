@@ -106,7 +106,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.Trees) || Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.PalmTree))
             {
-                damage += damage;
+                damage += damage / 2;
             }
 
             Vector2 position;

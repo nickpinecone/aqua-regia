@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -33,6 +34,18 @@ namespace WaterGuns.Items.Hardmode
             base.offsetIndependent = new Vector2(0, 14);
         }
 
+        public override void HoldItem(Player player)
+        {
+            base.HoldItem(player);
+
+            if (!Main.mouseLeft)
+            {
+                Item.useTime = 18;
+                Item.useAnimation = 18;
+                base.defaultInaccuracy = 0;
+            }
+        }
+
         public override bool AltFunctionUse(Player player)
         {
             if (player.HasBuff<Buffs.TurretSummonBuff>())
@@ -56,7 +69,17 @@ namespace WaterGuns.Items.Hardmode
         Projectile turret = null;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
+            if (Item.useTime > 6)
+            {
+                Item.useTime -= 1;
+                Item.useAnimation -= 1;
+                base.defaultInaccuracy += 8f / 12f;
+            }
+
+            var proj = base.SpawnProjectile(player, source, position, velocity, type, damage, knockback);
+
+            player.itemRotation = proj.velocity.ToRotation() - (player.direction == -1 ? MathHelper.Pi : 0);
+
             return false;
         }
 
