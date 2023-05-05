@@ -49,9 +49,18 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.hostile = false;
         }
 
+        int direction;
         public override void OnSpawn(IEntitySource source)
         {
             base.OnSpawn(source);
+
+            Projectile.ai[0] = 5f;
+            Projectile.alpha = 255;
+
+            direction = Main.rand.NextFromList(new int[] { -1, 1 });
+
+            Projectile.position.X += 80 * direction;
+            Projectile.position.Y -= 100;
         }
 
         public override void Kill(int timeLeft)
@@ -74,6 +83,12 @@ namespace WaterGuns.Projectiles.PreHardmode
         int delay2 = 0;
         public override void AI()
         {
+            if (Projectile.ai[0] > 0f)
+            {
+                Projectile.ai[0] -= 1f;
+                Projectile.alpha -= 255 / 5;
+            }
+
             if (delay < 4)
                 delay += 1;
             else
@@ -81,12 +96,12 @@ namespace WaterGuns.Projectiles.PreHardmode
                 if (delay2 < 12)
                 {
                     delay2 += 1;
-                    Projectile.rotation -= 0.14f;
+                    Projectile.rotation += 0.14f * direction;
                 }
                 else
                 {
-                    Projectile.rotation += 0.26f;
-                    Projectile.velocity = new Vector2(4f, 5f);
+                    Projectile.rotation -= 0.26f * direction;
+                    Projectile.velocity = new Vector2(-4f * direction, 5f);
                 }
             }
 
@@ -109,20 +124,12 @@ namespace WaterGuns.Projectiles.PreHardmode
                 damage += damage / 2;
             }
 
-            Vector2 position;
+            Vector2 position = target.Center;
 
-            if (data.fullCharge)
+            if (!data.fullCharge)
             {
-                position = target.Center;
-                position.X -= 80;
-                position.Y -= 100;
-            }
-            else
-            {
-                position = target.Center;
                 position.X += Main.rand.Next(-10, 10);
                 position.Y -= 320 + Main.rand.Next(-20, 20);
-
             }
 
             var attackType = data.fullCharge ? ModContent.ProjectileType<TreeSlam>() : ModContent.ProjectileType<AcornProjectile>();

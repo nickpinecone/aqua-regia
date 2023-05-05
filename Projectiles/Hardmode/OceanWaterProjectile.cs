@@ -99,9 +99,15 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.AI();
 
-            var dust = Dust.NewDust(Projectile.Center, 16, 16, DustID.Wet, 0, 0, 75, new Color(79, 116, 199), 1.1f);
-            Main.dust[dust].position = Projectile.Center;
-            Main.dust[dust].noGravity = true;
+            // Cool dust trail effect
+            for (int i = -2; i < 2; i++)
+            {
+                var vel = Projectile.velocity.SafeNormalize(Vector2.Zero);
+
+                var dust = Dust.NewDust(Projectile.Center, 12, 12, DustID.Wet, -vel.X * 5, -vel.Y * 5, Main.rand.Next(125, 175), new Color(79, 116, 199), 1.1f);
+                Main.dust[dust].position = Projectile.Center + vel.RotatedBy(MathHelper.PiOver2 * MathF.Sign(i)) * MathF.Abs(i) * 12;
+                Main.dust[dust].noGravity = true;
+            }
 
 
             target = FindNearestNPC();

@@ -38,7 +38,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             if (Projectile.ai[0] > 0f)
             {
                 Projectile.ai[0] -= 1f;
-                Projectile.alpha -= 255 / 5;
+                Projectile.alpha -= 255 / 10;
             }
 
             delay += 1;
@@ -50,7 +50,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 Projectile.NewProjectile(data, position, modifiedVelocity, ModContent.ProjectileType<SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
 
-            if (++Projectile.frameCounter >= 6)
+            if (++Projectile.frameCounter >= 8)
             {
                 Projectile.frameCounter = 0;
                 // Or more compactly Projectile.frame = ++Projectile.frame % Main.projFrames[Projectile.type];
@@ -60,7 +60,7 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             if (Projectile.timeLeft <= 10)
             {
-                Projectile.alpha += 255 / 20;
+                Projectile.alpha += 255 / 10;
             }
         }
     }

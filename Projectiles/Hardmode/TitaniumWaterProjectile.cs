@@ -26,6 +26,21 @@ namespace WaterGuns.Projectiles.Hardmode
 
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
+
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Unit();
+
+                var position = Projectile.Center;
+                var dust = Dust.NewDustDirect(position, 8, 8, DustID.Harpy, 0, 0, 0, default, 0.9f);
+                dust.noGravity = true;
+                dust.velocity = speed * 4;
+            }
+        }
     }
 
 
@@ -64,7 +79,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 for (int i = -4; i < 4; i++)
                 {
                     int rotation = Main.rand.Next(-60, 0);
-                    var position = target.Center + new Vector2(Main.screenHeight + Main.rand.Next(-250, 250), i * 5).RotatedBy(MathHelper.ToRadians(-60)).RotatedBy(MathHelper.ToRadians(rotation));
+                    var position = target.Center + new Vector2(Main.screenHeight + i * 50 + Main.rand.Next(-10, 10), i * 5).RotatedBy(MathHelper.ToRadians(-60)).RotatedBy(MathHelper.ToRadians(rotation));
                     var velocity = new Vector2(12, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 60)) * (Main.rand.NextFloat(0.5f, 1f) + 1f);
                     Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<HarpyFeather>(), damage / 3, knockback, Main.myPlayer);
                 }

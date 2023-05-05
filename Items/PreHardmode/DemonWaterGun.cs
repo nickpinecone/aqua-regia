@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace WaterGuns.Items.PreHardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Demonic Flow");
-            Tooltip.SetDefault("Spawns an additional stream of water upon impact\nFull Pump: Spawns two water swords");
+            Tooltip.SetDefault("Spawns an additional stream of water upon impact\nFull Pump: Spawns two water swords at your cursor");
         }
 
         public override void SetDefaults()
@@ -27,10 +28,37 @@ namespace WaterGuns.Items.PreHardmode
             Item.useTime += 4;
             Item.shootSpeed += 4;
             base.defaultInaccuracy = 2f;
+            base.maxPumpLevel = 8;
 
 
             base.offsetIndependent = new Vector2(0, -3);
             base.offsetAmount = new Vector2(4, 4);
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (pumpLevel >= maxPumpLevel)
+            {
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8);
+
+                int rotation = Main.rand.Next(0, 360);
+                var randomPosition = Main.MouseWorld + new Vector2(196 + Main.rand.Next(-32, 32), 0).RotatedBy(MathHelper.ToRadians(-45)).RotatedBy(MathHelper.ToRadians(rotation));
+                var modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));
+
+                var proj = Projectile.NewProjectileDirect(source, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SwordSlash>(), damage * 3, knockback, player.whoAmI);
+                proj.rotation = MathHelper.ToRadians(rotation - 180);
+                proj.scale = 2;
+
+                rotation = rotation - 180 + Main.rand.Next(-45, 45);
+                randomPosition = Main.MouseWorld + new Vector2(196 + Main.rand.Next(-32, 32), 0).RotatedBy(MathHelper.ToRadians(-45)).RotatedBy(MathHelper.ToRadians(rotation));
+                modifiedVelocity = new Vector2(10, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 45));
+
+                var proj2 = Projectile.NewProjectileDirect(source, randomPosition, modifiedVelocity, ModContent.ProjectileType<Projectiles.PreHardmode.SwordSlash>(), damage * 3, knockback, player.whoAmI);
+                proj2.rotation = MathHelper.ToRadians(rotation - 180);
+                proj2.scale = 2;
+            }
+
+            return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
 
         public override Vector2? HoldoutOffset()

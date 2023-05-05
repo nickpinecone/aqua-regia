@@ -25,8 +25,13 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.hostile = false;
         }
 
+        int direction;
         public override void OnSpawn(IEntitySource source)
         {
+            direction = Main.rand.NextFromList(new int[] { -1, 1 });
+
+            Projectile.position += new Vector2(200 * direction, -160);
+
             CreateDustLaser();
 
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item12);
@@ -50,10 +55,10 @@ namespace WaterGuns.Projectiles.PreHardmode
         int delay = 0;
         public override void AI()
         {
-            Projectile.position += new Vector2(-5, 0);
+            Projectile.position += new Vector2(-5 * direction, 0);
             for (int i = 0; i < dusts.Count; i++)
             {
-                dusts[i].position += new Vector2(-5, 0);
+                dusts[i].position += new Vector2(-5 * direction, 0);
             }
 
 
@@ -103,7 +108,7 @@ namespace WaterGuns.Projectiles.PreHardmode
         {
             if (data.fullCharge)
             {
-                var offset = target.Bottom + new Vector2(200, -160);
+                var offset = target.Bottom;
                 Projectile.NewProjectile(data, offset, new Vector2(0, 0), ModContent.ProjectileType<WaterLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             base.OnHitNPC(target, damage, knockback, crit);
