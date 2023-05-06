@@ -13,7 +13,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Quickly spins around the player\nBought from Swimmer after defeating Queen Bee");
+            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Hooks to the target and spawns a Water Fist\nBought from Swimmer after defeating Queen Bee");
         }
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.DamageType = DamageClass.Ranged;
             Item.autoReuse = true;
-            Item.damage = 25;
+            Item.damage = 21;
             Item.knockBack = 4;
             Item.shoot = ModContent.ProjectileType<Projectiles.PreHardmode.ChainedWaterProjectile>();
             Item.rare = ItemRarityID.White;

@@ -7,6 +7,48 @@ using System;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
+    public class WaterFistPunch : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.width = 38;
+            Projectile.height = 30;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 48;
+
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.hostile = false;
+            Projectile.scale = 1.0f;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(target, damage, knockback, crit);
+
+            Main.player[Main.myPlayer].velocity = Main.player[Main.myPlayer].velocity * -0.6f;
+            Projectile.Kill();
+
+            for (int i = 0; i < 6; i++)
+            {
+                var speed = Main.rand.NextVector2Unit();
+                var dust = Dust.NewDust(Projectile.Center, 16, 16, DustID.Cloud, 0, 0, 75, default, 3f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity = speed * 5;
+            }
+
+        }
+
+        public override void AI()
+        {
+            base.AI();
+
+            var player = Main.player[Main.myPlayer];
+            Projectile.Center = Main.player[Main.myPlayer].Center + player.velocity.SafeNormalize(Vector2.Zero) * 32;
+            Projectile.rotation = Main.player[Main.myPlayer].velocity.ToRotation();
+        }
+    }
+
     public class WaterGunProjectile : ModProjectile
     {
         public override void SetDefaults()
@@ -41,21 +83,12 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
 
-                Projectile.NewProjectile(data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), 20, 3, Projectile.owner);
+                Projectile.NewProjectile(data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
 
-        public int delay = 0;
-        public int maxDelay = 20;
         public override void AI()
         {
-            if (delay > maxDelay && maxDelay != 0)
-            {
-                Shoot();
-                delay = 0;
-            }
-            delay += 1;
-
             Projectile.rotation = Projectile.rotation + 0.1f;
 
             base.AI();
@@ -75,12 +108,6 @@ namespace WaterGuns.Projectiles.PreHardmode
         WaterGunProjectile waterGun = null;
         public override void OnSpawn(IEntitySource source)
         {
-            if (spinning)
-            {
-                Projectile.Kill();
-                return;
-            }
-
             if (source is WaterGuns.ProjectileData newData)
             {
                 data = newData;
@@ -92,16 +119,32 @@ namespace WaterGuns.Projectiles.PreHardmode
 
             initVel = Projectile.velocity;
 
-            var proj = Projectile.NewProjectileDirect(data, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), 0, 0, Projectile.owner);
+
+            var proj = Projectile.NewProjectileDirect(data, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             waterGun = proj.ModProjectile as WaterGunProjectile;
 
             if (data.fullCharge)
             {
-                degreeTurn *= Main.player[Main.myPlayer].direction;
-                Projectile.position = Main.player[Main.myPlayer].position + turn;
+                Projectile.knockBack = 0;
+                waterGun.Projectile.knockBack = 0;
             }
 
             base.OnSpawn(source);
+        }
+
+        Projectile waterFist = null;
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            if (data.fullCharge && waterFist == null)
+            {
+                waterFist = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Main.player[Main.myPlayer].Center, Vector2.Zero, ModContent.ProjectileType<WaterFistPunch>(), Projectile.damage, 6, Projectile.owner);
+
+                var dir = Main.player[Main.myPlayer].Center.DirectionTo(target.Center);
+                dir.Normalize();
+                Main.player[Main.myPlayer].velocity = dir * 20;
+            }
+
+            base.OnHitNPC(target, damage, knockback, crit);
         }
 
         public override void Kill(int timeLeft)
@@ -113,46 +156,18 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.Kill(timeLeft);
         }
 
-        int delay = 0;
-        Vector2 turn = new Vector2(0, -60);
-        int degreeTurn = 20;
         bool haveShot = false;
-        static bool spinning = false;
         public override void AI()
         {
             base.AI();
 
-            if (initVel != Projectile.velocity && !haveShot && !spinning)
+            if (initVel != Projectile.velocity && !haveShot)
             {
                 waterGun.Shoot();
                 haveShot = true;
             }
 
-            if (data.fullCharge)
-            {
-                spinning = true;
-                waterGun.maxDelay = 12;
-                data.dustScale = 2.4f;
-                data.dustAmount = 1;
-
-                if (delay >= 80)
-                {
-                    spinning = false;
-                    Kill(0);
-                    Projectile.Kill();
-                }
-                waterGun.Projectile.position = Projectile.position;
-                Projectile.velocity = Vector2.Zero;
-                turn = turn.RotatedBy(MathHelper.ToRadians(degreeTurn));
-                Projectile.position = Main.player[Main.myPlayer].position + turn;
-                delay += 1;
-            }
-            else
-            {
-                waterGun.maxDelay = 0;
-                waterGun.Projectile.position = new Vector2(Projectile.position.X - MathF.Abs(Projectile.velocity.X), Projectile.position.Y - MathF.Abs(Projectile.velocity.Y));
-            }
-
+            waterGun.Projectile.position = new Vector2(Projectile.position.X, Projectile.position.Y);
         }
     }
 }
