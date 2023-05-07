@@ -81,15 +81,15 @@ namespace WaterGuns.Projectiles.PreHardmode
     {
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 20;
+            Projectile.height = 18;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = true;
             Projectile.damage = 1;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 80;
-            Projectile.scale = 1f;
+            Projectile.scale = 0.8f;
         }
 
         Vector2 hitPoint = Vector2.Zero;

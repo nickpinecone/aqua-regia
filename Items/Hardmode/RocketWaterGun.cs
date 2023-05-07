@@ -14,7 +14,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Rocket Water Launcher");
-            Tooltip.SetDefault("Shoots rockets that explode into water projctiles");
+            Tooltip.SetDefault("Shoots rockets that explode into water projectiles");
         }
 
         public override void SetDefaults()

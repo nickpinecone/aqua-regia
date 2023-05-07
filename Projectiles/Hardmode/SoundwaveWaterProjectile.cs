@@ -20,18 +20,13 @@ namespace WaterGuns.Projectiles.Hardmode
             base.affectedByBounce = false;
         }
 
-        bool isUp = true;
         public override void OnSpawn(IEntitySource source)
         {
-            // if (source is WaterGuns.ProjectileData data)
-            // {
-            // }
             base.OnSpawn(source);
 
-            isUp = data.isUp;
 
             data.dustScale = 1.5f;
-            data.dustAmount = 1;
+            data.dustAmount = 2;
             data.fadeIn = 1;
         }
 
@@ -40,7 +35,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.AI();
             base.CreateDust();
 
-            int direction = isUp ? 1 : -1;
+            int direction = (int)Projectile.ai[0];
             Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(0.5f * direction));
         }
     }
@@ -60,7 +55,6 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void OnSpawn(IEntitySource source)
         {
             base.OnSpawn(source);
-            data.dustAmount -= 1;
         }
 
         int delay = 10;
@@ -75,14 +69,12 @@ namespace WaterGuns.Projectiles.Hardmode
 
                 var velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(90));
 
-                data.isUp = true;
-                var projUp = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                var projUp = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 1);
                 projUp.timeLeft += count * 2;
 
                 velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(-90));
 
-                data.isUp = false;
-                var projDown = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                var projDown = Projectile.NewProjectileDirect(data, Projectile.position, velocity, ModContent.ProjectileType<SoundwaveProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner, -1);
                 projDown.timeLeft += count * 2;
 
                 count += 1;

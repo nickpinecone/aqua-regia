@@ -28,13 +28,13 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             SoundEngine.PlaySound(SoundID.Item14);
 
-            for (int i = 0; i < 12; i++)
+            for (int i = 0; i < 6; i++)
             {
                 var rotation = Main.rand.Next(0, 360);
                 var velocity = new Vector2(1, 0).RotatedBy(MathHelper.ToRadians(rotation));
-                velocity *= 8f;
+                velocity *= 6f;
                 var dust = Dust.NewDustDirect(Projectile.Center, 8, 8, DustID.Cloud, velocity.X, velocity.Y, 75, default);
-                dust.scale = 4;
+                dust.scale = 3;
                 dust.noGravity = true;
             }
 

@@ -30,6 +30,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
             data.color = new Color(255, 250, 41);
             data.dustScale = 1.2f;
+            data.dustAmount = 4;
         }
 
         int delay = 0;

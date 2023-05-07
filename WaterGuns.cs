@@ -18,7 +18,7 @@ namespace WaterGuns
             }
 
             public Color color = default;
-            public int dustAmount = 4;
+            public int dustAmount = 3;
             public float dustScale = 1.2f;
             public float fadeIn = 1;
             public int alpha = 75;
@@ -35,12 +35,6 @@ namespace WaterGuns
 
             // Full charge
             public bool fullCharge = false;
-
-            // Soundwave Water Gun
-            public bool isUp = true;
-
-            // Golden Water Gun
-            public int splitCount = 0;
         }
     }
 }

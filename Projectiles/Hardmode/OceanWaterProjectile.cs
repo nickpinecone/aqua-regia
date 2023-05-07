@@ -207,7 +207,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 Projectile.friendly = true;
                 var velocity = Main.MouseWorld - Projectile.Center;
                 velocity.Normalize();
-                velocity *= 14;
+                velocity *= 12;
                 Projectile.velocity = velocity;
             }
 

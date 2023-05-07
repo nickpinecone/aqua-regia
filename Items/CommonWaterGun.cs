@@ -87,6 +87,7 @@ namespace WaterGuns.Items
             if (source.Item.Name == "Crimson Rainer")
             {
                 data.color = new Color(255, 88, 61);
+                data.dustAmount = 4;
             }
 
             // All of them use custom projectiles that shoot straight 
@@ -97,7 +98,6 @@ namespace WaterGuns.Items
             if (pumpLevel >= maxPumpLevel)
             {
                 inaccuracy = 0;
-                modifiedVelocity *= 1.25f;
             }
 
             // Offset if need be
@@ -110,7 +110,6 @@ namespace WaterGuns.Items
                 damage *= 2;
                 knockback *= 1.5f;
                 data.dustScale *= 1.75f;
-                data.dustAmount -= 1;
             }
 
             // offsetIndependent changes projectile offset making them fire slighltly above the cursor
@@ -122,7 +121,7 @@ namespace WaterGuns.Items
             if (pumpLevel >= maxPumpLevel)
             {
                 proj.scale *= 1.75f;
-                proj.timeLeft = (int)(proj.timeLeft * 1.5f);
+                proj.timeLeft = (int)(proj.timeLeft * 1.25f);
             }
 
             if (pumpLevel > 0 && increasePumpLevel)

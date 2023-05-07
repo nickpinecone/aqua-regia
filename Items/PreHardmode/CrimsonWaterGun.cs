@@ -63,7 +63,7 @@ namespace WaterGuns.Items.PreHardmode
                 {
                     pumpLevel = _pumpLevel;
 
-                    var modifiedVelocity = new Vector2(0, 14);
+                    var modifiedVelocity = new Vector2(0, 12);
                     position.X = position.RotatedByRandom(MathHelper.ToRadians(offsetInaccuracy)).X;
 
                     base.SpawnProjectile(player, source, position, modifiedVelocity, type, damage, knockback);

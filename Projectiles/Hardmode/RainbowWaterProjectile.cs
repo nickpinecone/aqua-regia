@@ -23,7 +23,6 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.OnSpawn(source);
             base.data.alpha = 0;
-            data.dustAmount = 3;
             data.fadeIn = 1;
             data.alpha = 0;
         }

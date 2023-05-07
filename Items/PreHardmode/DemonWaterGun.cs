@@ -26,7 +26,7 @@ namespace WaterGuns.Items.PreHardmode
 
             Item.useAnimation += 4;
             Item.useTime += 4;
-            Item.shootSpeed += 4;
+            Item.shootSpeed += 2;
             base.defaultInaccuracy = 2f;
             base.maxPumpLevel = 8;
 

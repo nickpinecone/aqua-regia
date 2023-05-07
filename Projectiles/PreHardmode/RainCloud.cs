@@ -22,6 +22,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.width = 54;
             Projectile.height = 24;
             Projectile.extraUpdates = 0;
+            Projectile.scale = 0.9f;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -46,7 +47,10 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 delay = 0;
                 var modifiedVelocity = new Vector2(0, 14);
-                var position = Projectile.Bottom + new Vector2(Main.rand.Next(-42, 42), 12 - Main.rand.Next(0, 16));
+                var position = Projectile.Bottom + new Vector2(Main.rand.Next(-34, 34), 10 - Main.rand.Next(0, 16));
+                data.fullCharge = false;
+                data.dustAmount = 3;
+                data.dustScale = 1.6f;
                 Projectile.NewProjectile(data, position, modifiedVelocity, ModContent.ProjectileType<SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
 

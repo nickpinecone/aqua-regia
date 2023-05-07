@@ -12,6 +12,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.SetDefaults();
             AIType = ProjectileID.WaterGun;
             Projectile.timeLeft = 16;
+
+            Projectile.ai[0] = 0;
         }
 
         public override void Kill(int timeLeft)
@@ -21,9 +23,9 @@ namespace WaterGuns.Projectiles.PreHardmode
                 return;
             }
 
-            if (data.splitCount < 3)
+            if ((int)Projectile.ai[0] < 2)
             {
-                data.splitCount += 1;
+                Projectile.ai[0] += 1;
 
                 for (int i = 0; i < 12; i++)
                 {
@@ -39,8 +41,8 @@ namespace WaterGuns.Projectiles.PreHardmode
                 {
                     int distanceBetween = 8;
                     Vector2 modifiedVelocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(distanceBetween * i));
-                    var proj = Projectile.NewProjectileDirect(data, Projectile.Center, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    proj.timeLeft += 16;
+                    var proj = Projectile.NewProjectileDirect(data, Projectile.Center, modifiedVelocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
+                    proj.timeLeft += 20;
                 }
             }
             base.Kill(timeLeft);

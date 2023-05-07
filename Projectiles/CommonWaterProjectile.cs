@@ -164,6 +164,7 @@ namespace WaterGuns.Projectiles
                 var dust = Dust.NewDustPerfect(position, DustID.Wet, new Vector2(0, 0), data.alpha, data.color, data.dustScale);
                 dust.noGravity = true;
                 dust.fadeIn = 0f;
+                dust.velocity = Projectile.velocity.SafeNormalize(Vector2.Zero);
             }
         }
 
