@@ -25,6 +25,8 @@ namespace WaterGuns.Items.Hardmode
             Item.knockBack = 3;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.IchorStickerProjectile>();
             Item.shootSpeed -= 4;
+
+            base.increasePumpLevel = true;
         }
 
         public override Vector2? HoldoutOffset()

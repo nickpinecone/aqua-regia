@@ -37,7 +37,7 @@ namespace WaterGuns.Items.PreHardmode
             {
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item66);
 
-                position.Y -= Main.ViewSize.Y / 3f;
+                position.Y = Main.MouseWorld.Y - 320;
                 position.X = Main.MouseWorld.X;
                 base.SpawnProjectile(player, source, position, Vector2.Zero, ModContent.ProjectileType<Projectiles.PreHardmode.RainCloud>(), damage, knockback);
             }
