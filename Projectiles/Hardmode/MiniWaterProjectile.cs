@@ -7,7 +7,7 @@ using System;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
-    public class TurretWaterProjectile : ModProjectile
+    public class TurretWaterProjectile : BaseProjectile
     {
         public override void SetDefaults()
         {
@@ -26,40 +26,11 @@ namespace WaterGuns.Projectiles.Hardmode
             base.OnSpawn(source);
         }
 
-        public NPC FindNearestNPC()
-        {
-            float nearestDist = -1;
-            NPC nearestNpc = null;
-            float detectRange = MathF.Pow(600f, 2);
-
-            for (int i = 0; i < Main.npc.Length; i++)
-            {
-                NPC target = Main.npc[i];
-
-                if (!target.CanBeChasedBy())
-                {
-                    continue;
-                }
-
-                var dist = Projectile.Center.DistanceSQ(target.Center);
-
-                if (dist < detectRange && (dist < nearestDist || nearestDist == -1))
-                {
-                    nearestDist = dist;
-                    nearestNpc = target;
-                }
-            }
-
-            return nearestNpc;
-        }
-
         int delayMax = 12;
         int delay = 12;
         NPC target = null;
         public override void AI()
         {
-            base.AI();
-
             Player player = Main.player[Main.myPlayer];
             if (player.dead || !player.active)
             {
@@ -70,7 +41,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 Projectile.timeLeft = 10;
             }
 
-            target = FindNearestNPC();
+            target = FindNearestNPC(600f);
 
             if (target != null)
             {

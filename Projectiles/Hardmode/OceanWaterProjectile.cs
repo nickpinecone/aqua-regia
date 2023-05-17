@@ -8,27 +8,16 @@ using Terraria.ModLoader;
 namespace WaterGuns.Projectiles.Hardmode
 {
 
-    public class Waternado : ModProjectile
+    public class Waternado : BaseProjectile
     {
-        public float GetAngle(Vector2 u, Vector2 v)
-        {
-            var dot = u.X * v.X + u.Y * v.Y;
-            var det = u.X * v.Y - u.Y * v.X;
-
-            return MathF.Atan2(det, dot);
-        }
 
         public override void SetStaticDefaults()
         {
-            base.SetStaticDefaults();
-
             Main.projFrames[Projectile.type] = 8;
         }
 
         public override void SetDefaults()
         {
-            base.SetDefaults();
-
             AIType = ProjectileID.WeatherPainShot;
 
             Projectile.width = 58;
@@ -58,39 +47,6 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
-        public NPC FindNearestNPC()
-        {
-            float nearestDist = -1;
-            NPC nearestNpc = null;
-            float detectRange = MathF.Pow(380f, 2);
-
-            for (int i = 0; i < Main.npc.Length; i++)
-            {
-                NPC target = Main.npc[i];
-
-                if (!target.CanBeChasedBy())
-                {
-                    continue;
-                }
-
-                var dist = Projectile.Center.DistanceSQ(target.Center);
-
-                if (dist <= detectRange && (dist < nearestDist || nearestDist == -1))
-                {
-                    nearestDist = dist;
-                    nearestNpc = target;
-                }
-            }
-
-            return nearestNpc;
-        }
-
-
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            base.OnHitNPC(target, damage, knockback, crit);
-        }
-
         NPC target = null;
         int delay = 10;
         float speed = 1f;
@@ -110,7 +66,7 @@ namespace WaterGuns.Projectiles.Hardmode
             }
 
 
-            target = FindNearestNPC();
+            target = FindNearestNPC(380f);
 
             if (target != null)
             {

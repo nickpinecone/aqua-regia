@@ -17,6 +17,41 @@ namespace WaterGuns.Projectiles
         public float defaultGravity = 0;
         protected float gravity = 0.001f;
 
+        public float GetAngle(Vector2 u, Vector2 v)
+        {
+            var dot = u.X * v.X + u.Y * v.Y;
+            var det = u.X * v.Y - u.Y * v.X;
+
+            return MathF.Atan2(det, dot);
+        }
+
+        public NPC FindNearestNPC(float radius)
+        {
+            float nearestDist = -1;
+            NPC nearestNpc = null;
+            float detectRange = MathF.Pow(radius, 2);
+
+            for (int i = 0; i < Main.npc.Length; i++)
+            {
+                NPC target = Main.npc[i];
+
+                if (!target.CanBeChasedBy())
+                {
+                    continue;
+                }
+
+                var dist = Projectile.Center.DistanceSQ(target.Center);
+
+                if (dist <= detectRange && (dist < nearestDist || nearestDist == -1))
+                {
+                    nearestDist = dist;
+                    nearestNpc = target;
+                }
+            }
+
+            return nearestNpc;
+        }
+
         public override void SetDefaults()
         {
             // If derivatives dont call base.SetDefaults() they use Projectile.CloneDefaults(ProjectileID.WaterGun);

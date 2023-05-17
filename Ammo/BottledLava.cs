@@ -18,7 +18,7 @@ namespace WaterGuns.Ammo
             base.buffTime = 240;
             base.color = new Color(255, 215, 50);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Fire and explodes into small fire");
+            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Fire and explodes into small sparks");
         }
         public override void AddRecipes()
         {
