@@ -68,6 +68,11 @@ namespace WaterGuns.NPCs
             });
         }
 
+        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+        {
+            return true;
+        }
+
         public override void HitEffect(int hitDirection, double damage)
         {
             if (NPC.life <= 0)
@@ -134,11 +139,6 @@ namespace WaterGuns.NPCs
                 nextSlot++;
             }
 
-        }
-
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-        {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Swimmer_Gun>()));
         }
 
         public override string GetChat()

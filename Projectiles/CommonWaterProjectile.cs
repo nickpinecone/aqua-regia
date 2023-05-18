@@ -217,7 +217,7 @@ namespace WaterGuns.Projectiles
             base.AI();
         }
 
-        public void AutoAim()
+        public void AutoAim(float radius = 300f)
         {
             // Homing code, I don't know how it works, just took it from the internet
             float num132 = (float)Math.Sqrt((double)(Projectile.velocity.X * Projectile.velocity.X + Projectile.velocity.Y * Projectile.velocity.Y));
@@ -229,7 +229,7 @@ namespace WaterGuns.Projectiles
             }
             float num134 = Projectile.position.X;
             float num135 = Projectile.position.Y;
-            float num136 = 300f;
+            float num136 = radius;
             bool flag3 = false;
             int num137 = 0;
             if (Projectile.ai[1] == 0f)

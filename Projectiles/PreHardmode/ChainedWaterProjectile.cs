@@ -53,12 +53,11 @@ namespace WaterGuns.Projectiles.PreHardmode
     {
         public override void SetDefaults()
         {
-            Projectile.width = 16;
-            Projectile.height = 16;
+            Projectile.width = 34;
+            Projectile.height = 34;
 
             Projectile.friendly = false;
             Projectile.hostile = false;
-            Projectile.scale = 1.0f;
         }
 
         public WaterGuns.ProjectileData data = null;
@@ -123,12 +122,6 @@ namespace WaterGuns.Projectiles.PreHardmode
             var proj = Projectile.NewProjectileDirect(data, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterGunProjectile>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
             waterGun = proj.ModProjectile as WaterGunProjectile;
 
-            if (data.fullCharge)
-            {
-                Projectile.knockBack = 0;
-                waterGun.Projectile.knockBack = 0;
-            }
-
             base.OnSpawn(source);
         }
 
@@ -167,7 +160,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 haveShot = true;
             }
 
-            waterGun.Projectile.position = new Vector2(Projectile.position.X, Projectile.position.Y);
+            waterGun.Projectile.Center = new Vector2(Projectile.Center.X, Projectile.Center.Y - 4);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace WaterGuns.Items.Hardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.ChlorophyteWaterProjectile>();
 
             base.increasePumpLevel = true;
-            base.maxPumpLevel = 12;
+            base.maxPumpLevel = 15;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -74,10 +74,13 @@ namespace WaterGuns.Items.Hardmode
                 // Release three man eaters always
                 if (count != 0)
                 {
+                    // Projectile offset up or down
+                    var dir = -1;
                     for (int i = 0; i < 3 - count; i++)
                     {
-                        Vector2 newVel = vel.RotatedByRandom(MathHelper.ToRadians(10f));
+                        Vector2 newVel = vel.RotatedBy(MathHelper.ToRadians(8f * dir)).RotatedByRandom(MathHelper.ToRadians(4f));
                         Projectile.NewProjectile(source, position, newVel, ModContent.ProjectileType<Projectiles.Hardmode.PlantClinger>(), (int)(damage / 1.6f), 0, player.whoAmI);
+                        dir = -dir;
                     }
                 }
             }

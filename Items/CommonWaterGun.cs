@@ -61,7 +61,7 @@ namespace WaterGuns.Items
         protected float defaultInaccuracy = 1f;
         protected Vector2 offsetAmount = new Vector2(4, 4);
         protected Vector2 offsetIndependent = new Vector2(0, 0);
-        public Projectile SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public Projectile SpawnProjectile(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool applyAffects = true)
         {
             WaterGuns.ProjectileData data = new WaterGuns.ProjectileData(source);
 
@@ -95,7 +95,7 @@ namespace WaterGuns.Items
             float inaccuracy = defaultInaccuracy;
             Vector2 modifiedVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(inaccuracy));
 
-            if (pumpLevel >= maxPumpLevel)
+            if (pumpLevel >= maxPumpLevel && applyAffects)
             {
                 inaccuracy = 0;
             }
@@ -107,9 +107,12 @@ namespace WaterGuns.Items
             {
                 data.fullCharge = true;
 
-                damage *= 2;
-                knockback *= 1.5f;
-                data.dustScale *= 1.75f;
+                if (applyAffects)
+                {
+                    damage *= 2;
+                    knockback *= 1.5f;
+                    data.dustScale *= 1.75f;
+                }
             }
 
             // offsetIndependent changes projectile offset making them fire slighltly above the cursor
@@ -118,7 +121,7 @@ namespace WaterGuns.Items
 
             var proj = Projectile.NewProjectileDirect(data, offset + offsetIndependent, modifiedVelocity, type, damage, knockback, player.whoAmI);
 
-            if (pumpLevel >= maxPumpLevel)
+            if (pumpLevel >= maxPumpLevel && applyAffects)
             {
                 proj.scale *= 1.75f;
                 proj.timeLeft = (int)(proj.timeLeft * 1.25f);

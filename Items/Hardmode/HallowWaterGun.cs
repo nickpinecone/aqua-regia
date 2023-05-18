@@ -26,6 +26,8 @@ namespace WaterGuns.Items.Hardmode
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.HallowWaterProjectile>();
             base.defaultInaccuracy = 2;
             base.offsetAmount = new Vector2(6, 6);
+
+            base.increasePumpLevel = true;
         }
 
         public override Vector2? HoldoutOffset()
@@ -52,6 +54,12 @@ namespace WaterGuns.Items.Hardmode
         Projectiles.Hardmode.MechanicalWaterProjectiles.RetinazerProjectile ret = null;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+            if (pumpLevel >= maxPumpLevel)
+            {
+                var offset = player.Top + new Vector2(player.width * 4 * 1, -64);
+                var proj = base.SpawnProjectile(player, source, offset, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.LauncherProjectile>(), damage, knockback, false);
+            }
+
             if (spaz == null || ret == null)
             {
                 for (int i = -1; i < 2; i += 2)

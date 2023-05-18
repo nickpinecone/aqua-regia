@@ -51,6 +51,8 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             base.OnHitNPC(target, damage, knockback, crit);
 
+            target.AddBuff(BuffID.Poisoned, 120);
+
             if (_target == null)
             {
                 _target = target;
@@ -59,23 +61,63 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
+        public override void Kill(int timeLeft)
+        {
+            base.Kill(timeLeft);
+
+            for (int i = 0; i < 6; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Unit();
+
+                var position = Projectile.Center;
+                var dust = Dust.NewDustDirect(position, 8, 8, DustID.JungleGrass, 0, 0, 0, default, 1f);
+                dust.noGravity = true;
+                dust.velocity = speed * 2;
+            }
+        }
+
+
         public override void AI()
         {
             base.AI();
 
-            if (_target != null)
+            if (Projectile.timeLeft <= 3)
             {
-                Projectile.Center = _target.Center + hitPoint;
-
-                if (_target.GetLifePercent() <= 0f)
+                if (Projectile.Center.Distance(Main.player[Main.myPlayer].Center) < 16f)
                 {
-                    _target = null;
+                    Projectile.timeLeft = 0;
+                    Projectile.Kill();
                 }
+                else
+                {
+                    var dir = Projectile.Center.DirectionTo(Main.player[Main.myPlayer].Center);
+
+                    Projectile.velocity = dir * 24;
+                    Projectile.timeLeft = 3;
+                }
+
+                Projectile.rotation = Projectile.velocity.ToRotation();
             }
+
             else
             {
-                AutoAim();
+                if (_target != null)
+                {
+                    Projectile.Center = _target.Center + hitPoint;
+
+                    if (_target.GetLifePercent() <= 0f)
+                    {
+                        _target = null;
+                    }
+                }
+                else
+                {
+                    AutoAim();
+                }
+
+                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
             }
+
 
             if (++Projectile.frameCounter >= 6)
             {
@@ -84,8 +126,6 @@ namespace WaterGuns.Projectiles.Hardmode
                 if (++Projectile.frame >= Main.projFrames[Projectile.type])
                     Projectile.frame = 0;
             }
-
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
         }
 
         // PreDraw is used to draw a chain and trail before the projectile is drawn normally.
@@ -114,6 +154,11 @@ namespace WaterGuns.Projectiles.Hardmode
             float chainRotation = unitVectorFromProjectileToPlayerArms.ToRotation() + MathHelper.PiOver2;
             int chainCount = 0;
             float chainLengthRemainingToDraw = vectorFromProjectileToPlayerArms.Length() + chainSegmentLength / 2f;
+
+            if (chainLengthRemainingToDraw > 1400f)
+            {
+                Projectile.Kill();
+            }
 
             // This while loop draws the chain texture from the projectile to the player, looping to draw the chain texture along the path
             while (chainLengthRemainingToDraw > 0f)
