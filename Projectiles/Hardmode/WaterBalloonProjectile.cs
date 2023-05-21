@@ -35,7 +35,7 @@ namespace WaterGuns.Projectiles.Hardmode
         {
             SoundEngine.PlaySound(SoundID.Item85);
 
-            Projectile.NewProjectileDirect(data, Projectile.position, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectileDirect(data, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<WaterExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
             for (int i = 0; i < 10; i++)
             {
@@ -62,7 +62,16 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             Projectile.velocity.Y += gravity;
-            Projectile.rotation += MathHelper.ToRadians(10);
+
+            if (Projectile.velocity.X > 0)
+            {
+                Projectile.rotation += MathHelper.ToRadians(10);
+            }
+            else if (Projectile.velocity.X < 0)
+            {
+                Projectile.rotation -= MathHelper.ToRadians(10);
+            }
+
             Projectile.velocity *= 0.9985f;
 
             base.AI();

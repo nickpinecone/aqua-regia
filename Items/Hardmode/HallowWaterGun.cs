@@ -13,7 +13,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Hallowed Fisher");
-            Tooltip.SetDefault("Spawns clones of itself");
+            Tooltip.SetDefault("Spawns clones of itself\nFull Pump: Turn full skeletron prime mode");
         }
 
         public override void SetDefaults()
@@ -28,6 +28,7 @@ namespace WaterGuns.Items.Hardmode
             base.offsetAmount = new Vector2(6, 6);
 
             base.increasePumpLevel = true;
+            base.maxPumpLevel = 24;
         }
 
         public override Vector2? HoldoutOffset()
@@ -58,6 +59,10 @@ namespace WaterGuns.Items.Hardmode
             {
                 var offset = player.Top + new Vector2(player.width * 4 * 1, -64);
                 var proj = base.SpawnProjectile(player, source, offset, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.LauncherProjectile>(), damage, knockback, false);
+
+                offset = player.Top + new Vector2(player.width * 4 * -1, -64);
+                // proj = base.SpawnProjectile(player, source, offset, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.SpearProjectile>(), damage, knockback, false);
+                Projectile.NewProjectileDirect(source, offset, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.MechanicalWaterProjectiles.SpearProjectile>(), damage, knockback, player.whoAmI);
             }
 
             if (spaz == null || ret == null)
