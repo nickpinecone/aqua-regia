@@ -56,6 +56,7 @@ namespace WaterGuns.Projectiles.Hardmode
         int offset = 0;
         float gravity = 0.1f;
         float speed = 0.3f;
+        public Projectile sandstorm = null;
         public override void AI()
         {
             if (Projectile.timeLeft >= 100)
@@ -73,6 +74,11 @@ namespace WaterGuns.Projectiles.Hardmode
                 if (Main.rand.Next(0, 10) == 1)
                 {
                     dir2 = Main.rand.NextFromList(new float[] { -0.2f, 0.2f });
+                }
+
+                if (Projectile.Center.Y < sandstorm.Top.Y || Projectile.Center.Y > sandstorm.Bottom.Y)
+                {
+                    dir2 = -dir2;
                 }
 
                 speed *= 1.01f;
@@ -119,7 +125,8 @@ namespace WaterGuns.Projectiles.Hardmode
                 var start = sandstorm.Top + new Vector2(0, sandstorm.height / 8);
                 for (int i = 0; i < 6; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), start, Vector2.Zero, ModContent.ProjectileType<EarthBoulder>(), Projectile.damage, 0, Projectile.owner);
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), start, Vector2.Zero, ModContent.ProjectileType<EarthBoulder>(), Projectile.damage, 0, Projectile.owner);
+                    (proj.ModProjectile as EarthBoulder).sandstorm = sandstorm;
                     start += new Vector2(0, sandstorm.height / 6);
                 }
             }

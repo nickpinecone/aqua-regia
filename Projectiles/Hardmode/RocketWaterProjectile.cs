@@ -22,6 +22,8 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft = 120;
             Projectile.tileCollide = true;
             Projectile.alpha = 30;
+
+            base.affectedByHoming = false;
         }
 
         public override void Kill(int timeLeft)
@@ -54,7 +56,7 @@ namespace WaterGuns.Projectiles.Hardmode
         public override void AI()
         {
             base.AI();
-            base.AutoAim();
+            base.AutoAim(400f);
 
             Projectile.rotation = Projectile.velocity.ToRotation();
 
