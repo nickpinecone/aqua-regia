@@ -7,6 +7,20 @@ using System;
 
 namespace WaterGuns.Projectiles.PreHardmode
 {
+    public class SimpleWaterProjectileWaterPunch : SimpleWaterProjectile
+    {
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(target, damage, knockback, crit);
+
+            if (data.fullCharge)
+            {
+                Projectile waterFist = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Main.player[Main.myPlayer].Center, Vector2.Zero, ModContent.ProjectileType<WaterFistPunch>(), Projectile.damage * 2, 6, Projectile.owner);
+                (waterFist.ModProjectile as WaterFistPunch).target = target;
+            }
+        }
+    }
+
     public class WaterFistPunch : ModProjectile
     {
         public override void SetDefaults()
@@ -14,19 +28,34 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.width = 38;
             Projectile.height = 30;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 48;
+            Projectile.timeLeft = 80;
 
             Projectile.friendly = true;
             Projectile.tileCollide = false;
             Projectile.hostile = false;
-            Projectile.scale = 1.0f;
+            Projectile.scale = 1.3f;
+        }
+
+        int direction = -1;
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+
+            Projectile.ai[0] = 10f;
+            Projectile.alpha = 255;
+
+            if (Main.rand.Next(0, 2) == 0)
+            {
+                direction = -direction;
+            }
+
+            Projectile.spriteDirection = direction;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             base.OnHitNPC(target, damage, knockback, crit);
 
-            Main.player[Main.myPlayer].velocity = Main.player[Main.myPlayer].velocity * -0.6f;
             Projectile.Kill();
 
             for (int i = 0; i < 6; i++)
@@ -39,13 +68,37 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         }
 
+        public NPC target = null;
+        bool active = false;
+        Vector2 animPosition = Vector2.Zero;
+        int delay = -20;
+
         public override void AI()
         {
             base.AI();
 
-            var player = Main.player[Main.myPlayer];
-            Projectile.Center = Main.player[Main.myPlayer].Center + player.velocity.SafeNormalize(Vector2.Zero) * 32;
-            Projectile.rotation = Main.player[Main.myPlayer].velocity.ToRotation();
+            if (Projectile.ai[0] > 0f)
+            {
+                Projectile.ai[0] -= 1f;
+                Projectile.alpha -= 255 / 10;
+            }
+
+            if (target != null && !active)
+            {
+                Projectile.Center = target.Center + new Vector2(0, -target.height) + animPosition;
+
+                animPosition += new Vector2(0, (delay > 0) ? 8 : -4);
+                if (direction == 1 && Projectile.rotation <= 0)
+                {
+                    Projectile.rotation += (delay > 0) ? 0.08f * direction : -0.04f * direction;
+                }
+                else if (direction == -1 && Projectile.rotation >= 0)
+                {
+                    Projectile.rotation += (delay > 0) ? 0.08f * direction : -0.04f * direction;
+                }
+
+                delay += 1;
+            }
         }
     }
 
@@ -82,7 +135,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             {
                 var velocity = new Vector2(10, 0).RotatedBy(Projectile.rotation + i * MathHelper.PiOver2);
 
-                Projectile.NewProjectile(data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(data, Projectile.Center, velocity, ModContent.ProjectileType<Projectiles.PreHardmode.SimpleWaterProjectileWaterPunch>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
 
@@ -125,16 +178,12 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnSpawn(source);
         }
 
-        Projectile waterFist = null;
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            if (data.fullCharge && waterFist == null)
+            if (data.fullCharge)
             {
-                waterFist = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Main.player[Main.myPlayer].Center, Vector2.Zero, ModContent.ProjectileType<WaterFistPunch>(), Projectile.damage, 6, Projectile.owner);
-
-                var dir = Main.player[Main.myPlayer].Center.DirectionTo(target.Center);
-                dir.Normalize();
-                Main.player[Main.myPlayer].velocity = dir * 20;
+                Projectile waterFist = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Main.player[Main.myPlayer].Center, Vector2.Zero, ModContent.ProjectileType<WaterFistPunch>(), Projectile.damage * 2, 6, Projectile.owner);
+                (waterFist.ModProjectile as WaterFistPunch).target = target;
             }
 
             base.OnHitNPC(target, damage, knockback, crit);

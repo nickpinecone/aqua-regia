@@ -13,7 +13,7 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Hooks to the target and spawns a Water Fist\nBought from Swimmer after defeating Queen Bee");
+            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Spawns a Water Fist\nBought from Swimmer after defeating Queen Bee");
         }
 
         public override void SetDefaults()

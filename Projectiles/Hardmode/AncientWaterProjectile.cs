@@ -57,6 +57,9 @@ namespace WaterGuns.Projectiles.Hardmode
         float gravity = 0.1f;
         float speed = 0.3f;
         public Projectile sandstorm = null;
+        bool aroundAnim = Main.rand.NextBool();
+        bool inSandstorm = false;
+
         public override void AI()
         {
             if (Projectile.timeLeft >= 100)
@@ -81,12 +84,32 @@ namespace WaterGuns.Projectiles.Hardmode
                     dir2 = -dir2;
                 }
 
+                if (Projectile.Center.X > sandstorm.Left.X && Projectile.Center.X < sandstorm.Right.X)
+                {
+                    inSandstorm = true;
+
+                    if (aroundAnim)
+                    {
+                        Projectile.alpha = 55;
+                    }
+                }
+                else
+                {
+                    if (inSandstorm)
+                    {
+                        inSandstorm = false;
+                        aroundAnim = !aroundAnim;
+                        Projectile.alpha = 0;
+                    }
+                }
+
                 speed *= 1.01f;
 
                 Projectile.velocity = new Vector2(dir, dir2) * Main.rand.Next(4, 10) * speed;
             }
             else
             {
+                Projectile.alpha = 0;
                 Projectile.velocity.Y += gravity;
                 gravity += 0.05f;
             }
