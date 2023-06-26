@@ -14,7 +14,7 @@ namespace WaterGuns.Items.Hardmode
             base.SetStaticDefaults();
 
             DisplayName.SetDefault("Rainbow Waterfall");
-            Tooltip.SetDefault("Spawns water streams downwards\nDrops from Queen Slime");
+            Tooltip.SetDefault("Spawns water streams downwards\nFull Pump: Curving projectiles spawn along projectile's path\nDrops from Queen Slime");
         }
 
         public override Vector2? HoldoutOffset()
@@ -30,6 +30,7 @@ namespace WaterGuns.Items.Hardmode
             Item.damage = 41;
             Item.knockBack = 5;
             Item.shoot = ModContent.ProjectileType<Projectiles.Hardmode.RainbowWaterProjectile>();
+            base.increasePumpLevel = true;
         }
 
         public override void AddRecipes()
