@@ -31,6 +31,7 @@ namespace WaterGuns.Items.Hardmode
             Item.useAnimation += 24;
 
             base.increasePumpLevel = true;
+            base.maxPumpLevel = 18;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
