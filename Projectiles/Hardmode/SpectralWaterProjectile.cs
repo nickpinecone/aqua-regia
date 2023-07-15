@@ -56,10 +56,9 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.friendly = true;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-
+            base.OnHitNPC(target, hit, damageDone);
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);
@@ -76,10 +75,9 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 10;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-
+            base.OnHitNPC(target, hit, damageDone);
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);

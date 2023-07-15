@@ -74,9 +74,11 @@ namespace WaterGuns.Items.Hardmode
             return base.PreDraw(ref lightColor);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
+
             target.AddBuff(BuffID.OnFire, 60 * 2);
 
             if (!returnToPlayer)
@@ -84,7 +86,7 @@ namespace WaterGuns.Items.Hardmode
                 returnToPlayer = true;
             }
 
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.WaterExplosion>(), damage, knockback, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.WaterExplosion>(), hit.Damage, hit.Knockback, Projectile.owner);
 
             for (int i = 0; i < 8; i++)
             {
@@ -101,7 +103,6 @@ namespace WaterGuns.Items.Hardmode
                 Main.dust[dust].velocity = speed * Main.rand.Next(2, 7);
             }
         }
-
     }
 
     public class MiniWaterGun : BaseWaterGun
@@ -110,8 +111,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Mini Water Gun");
-            Tooltip.SetDefault("Rapid but inaccurate\nRight click to place a turret\nFull Pump: Throws the weapon from overheat which creates a small explosion on contact\nDrops from SantaNK1");
         }
 
         public override void SetDefaults()
@@ -220,7 +219,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

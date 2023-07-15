@@ -13,8 +13,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ichor Rainer");
-            Tooltip.SetDefault("Inflicts the ichor debuff");
         }
 
         public override Vector2? HoldoutOffset()

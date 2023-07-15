@@ -13,8 +13,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Crimson Rainer");
-            Tooltip.SetDefault("Rains from the sky\nFull Pump: Summons a cloud");
         }
 
         public override void SetDefaults()

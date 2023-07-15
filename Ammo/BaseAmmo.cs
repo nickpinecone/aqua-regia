@@ -26,7 +26,8 @@ namespace WaterGuns.Ammo
         {
             base.SetStaticDefaults();
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 999;
+            // CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 999;
+            Item.ResearchUnlockCount = 999;
         }
 
         public override void SetDefaults()

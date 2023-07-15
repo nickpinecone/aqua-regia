@@ -13,8 +13,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ichor Sticker Blaster");
-            Tooltip.SetDefault("Inflicts the ichor debuff\nFull Pump: Spawns a friendly Ichor Sticker\nDrops from Ichor Sticker");
         }
 
         public override void SetDefaults()
@@ -37,7 +35,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
 

@@ -12,8 +12,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Hallowed Fisher");
-            Tooltip.SetDefault("Spawns clones of itself\nFull Pump: Turn full skeletron prime mode");
         }
 
         public override void SetDefaults()

@@ -94,9 +94,9 @@ namespace WaterGuns.Projectiles.PreHardmode
 
         Vector2 hitPoint = Vector2.Zero;
         NPC hitTarget = null;
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
             if (hitPoint == Vector2.Zero)
             {
                 var dir = Projectile.position.DirectionTo(target.position);
@@ -166,18 +166,16 @@ namespace WaterGuns.Projectiles.PreHardmode
             AIType = ProjectileID.WaterGun;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            {
-                // Offset randomly
-                var offset = new Vector2();
-                offset.X = target.Bottom.X + Main.rand.Next(-60, 60);
-                offset.Y = target.Bottom.Y - Main.rand.Next(5, 10);
+            // Offset randomly
+            var offset = new Vector2();
+            offset.X = target.Bottom.X + Main.rand.Next(-60, 60);
+            offset.Y = target.Bottom.Y - Main.rand.Next(5, 10);
 
-                // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            }
-            base.OnHitNPC(target, damage, knockback, crit);
+            // Dont know how to extract IEventSource from BubbleProjectile so using OceanWaterProjectile source
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), offset, new Vector2(0, -4), ModContent.ProjectileType<BubbleProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            base.OnHitNPC(target, hit, damageDone);
         }
     }
 }

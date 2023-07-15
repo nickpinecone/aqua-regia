@@ -15,7 +15,6 @@ namespace WaterGuns.Ammo
             base.spawnsStar = true;
             base.damage = 6;
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nMakes a star fall on the enemy");
         }
         public override void AddRecipes()
         {

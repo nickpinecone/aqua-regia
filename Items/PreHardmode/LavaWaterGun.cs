@@ -12,8 +12,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Lavashark");
-            Tooltip.SetDefault("Sets your enemies ablaze\nFull Pump: Enters fire breathing mode for a few seconds");
         }
 
         public override void SetDefaults()

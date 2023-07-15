@@ -11,8 +11,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Wooden Sprinkler");
-            Tooltip.SetDefault("Additional acorn falls on an enemy, more damage when near a tree\nFull Pump: The enemy is slammed with a tree");
         }
 
         public override void SetDefaults()

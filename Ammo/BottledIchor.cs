@@ -18,7 +18,6 @@ namespace WaterGuns.Ammo
             base.buffTime = 240;
             base.color = new Color(255, 250, 41);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Ichor");
         }
         public override void AddRecipes()
         {

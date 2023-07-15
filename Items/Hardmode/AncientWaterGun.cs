@@ -15,8 +15,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ancient Geyser");
-            Tooltip.SetDefault("Unleashes a geyser under your cursor\nFull Pump: Spawns a boulder sandstorm\nDrops from Golem");
         }
 
         public override void SetDefaults()
@@ -116,7 +114,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

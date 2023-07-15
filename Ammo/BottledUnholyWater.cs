@@ -17,7 +17,6 @@ namespace WaterGuns.Ammo
             base.penetrates = true;
             base.color = new Color(0, 194, 129);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nAllows to penetrate up to 3 enemies");
         }
         public override void AddRecipes()
         {

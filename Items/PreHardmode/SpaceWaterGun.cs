@@ -11,8 +11,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Aqua Zapper");
-            Tooltip.SetDefault("Water bounces off the walls and pierces enemies\nFull Pump: Spawns a water laser from space upon your enemies");
         }
 
         public override void SetDefaults()

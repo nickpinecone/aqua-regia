@@ -18,7 +18,6 @@ namespace WaterGuns.Ammo
             base.buffTime = 240;
             base.color = new Color(96, 248, 2);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Cursed Inferno");
         }
         public override void AddRecipes()
         {

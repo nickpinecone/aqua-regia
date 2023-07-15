@@ -16,8 +16,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("-WIP- Mysterious Hydropump");
-            Tooltip.SetDefault("\"Power, Unlimited Power!\"");
         }
 
         public override Vector2? HoldoutOffset()

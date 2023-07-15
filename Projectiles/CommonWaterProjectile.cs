@@ -148,7 +148,7 @@ namespace WaterGuns.Projectiles
 
         Dictionary<NPC, int> immunityFrames = new Dictionary<NPC, int>();
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             immunityFrames[target] = 10;
 
@@ -161,9 +161,10 @@ namespace WaterGuns.Projectiles
                 int rotation = Main.rand.Next(-30, 0);
                 var position = target.Center + new Vector2(Main.screenHeight, 0).RotatedBy(MathHelper.ToRadians(-75)).RotatedBy(MathHelper.ToRadians(rotation));
                 var velocity = new Vector2(20, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 75));
-                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, damage / 3, knockback, Main.myPlayer);
+                Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ProjectileID.HallowStar, hit.Damage / 3, hit.Knockback, Main.myPlayer);
             }
-            base.OnHitNPC(target, damage, knockback, crit);
+
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         public override bool? CanHitNPC(NPC target)

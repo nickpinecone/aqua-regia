@@ -104,14 +104,14 @@ namespace WaterGuns.Projectiles.PreHardmode
             return base.OnTileCollide(oldVelocity);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (data.fullCharge)
             {
                 var offset = target.Bottom;
                 Projectile.NewProjectile(data, offset, new Vector2(0, 0), ModContent.ProjectileType<WaterLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
     }
 }

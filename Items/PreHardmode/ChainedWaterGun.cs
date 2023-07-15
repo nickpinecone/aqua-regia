@@ -13,7 +13,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            Tooltip.SetDefault("Literally a gun on a chain\nFull Pump: Spawns a Water Fist\nBought from Swimmer after defeating Queen Bee");
         }
 
         public override void SetDefaults()
@@ -35,7 +34,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

@@ -16,7 +16,6 @@ namespace WaterGuns.Ammo
             base.homesIn = true;
             base.color = new Color(17, 143, 36);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nHomes in on enemies");
         }
         public override void AddRecipes()
         {

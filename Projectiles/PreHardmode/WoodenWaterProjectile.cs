@@ -117,11 +117,11 @@ namespace WaterGuns.Projectiles.PreHardmode
             AIType = ProjectileID.WaterGun;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.Trees) || Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.PalmTree))
+            if (Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.Trees, TileReachCheckSettings.Simple) || Main.player[Main.myPlayer].IsTileTypeInInteractionRange(TileID.PalmTree, TileReachCheckSettings.Simple))
             {
-                damage += damage / 2;
+                hit.Damage += hit.Damage / 2;
             }
 
             Vector2 position = target.Center;
@@ -135,9 +135,8 @@ namespace WaterGuns.Projectiles.PreHardmode
             var attackType = data.fullCharge ? ModContent.ProjectileType<TreeSlam>() : ModContent.ProjectileType<AcornProjectile>();
             var velocity = data.fullCharge ? Vector2.Zero : new Vector2(0, 10);
 
-            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity, attackType, damage, Projectile.knockBack, Projectile.owner);
-
-            base.OnHitNPC(target, damage, knockback, crit);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), position, velocity, attackType, hit.Damage, Projectile.knockBack, Projectile.owner);
+            base.OnHitNPC(target, hit, damageDone);
         }
     }
 }

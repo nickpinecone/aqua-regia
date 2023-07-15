@@ -11,8 +11,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Cursed Flow");
-            Tooltip.SetDefault("Inflicts the cursed flames debuff");
         }
 
         public override Vector2? HoldoutOffset()

@@ -16,7 +16,6 @@ namespace WaterGuns.Ammo
             base.bounces = true;
             base.color = new Color(150, 56, 147);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nMakes projectiles bounce");
         }
         public override void AddRecipes()
         {

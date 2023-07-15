@@ -40,7 +40,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             AIType = ProjectileID.WaterGun;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (data.fullCharge)
             {
@@ -52,7 +52,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<BeeSwarm>(), locDamage, Projectile.knockBack, Projectile.owner);
             }
             target.AddBuff(ModContent.BuffType<Buffs.HoneySlowDebuff>(), 60 * 2);
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
     }
 }

@@ -47,10 +47,9 @@ namespace WaterGuns.Projectiles.Hardmode
 
         NPC _target = null;
         Vector2 hitPoint;
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-
+            base.OnHitNPC(target, hit, damageDone);
             target.AddBuff(BuffID.Poisoned, 120);
 
             if (_target == null)

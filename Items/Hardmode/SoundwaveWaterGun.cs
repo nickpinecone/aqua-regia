@@ -11,8 +11,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Fluid Soundwave");
-            Tooltip.SetDefault("Shoots a powerful sound wave fused with water");
         }
 
         public override Vector2? HoldoutOffset()

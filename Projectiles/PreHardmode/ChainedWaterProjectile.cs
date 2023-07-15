@@ -9,10 +9,9 @@ namespace WaterGuns.Projectiles.PreHardmode
 {
     public class SimpleWaterProjectileWaterPunch : SimpleWaterProjectile
     {
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-
+            base.OnHitNPC(target, hit, damageDone);
             if (data.fullCharge)
             {
                 Projectile waterFist = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Main.player[Main.myPlayer].Center, Vector2.Zero, ModContent.ProjectileType<WaterFistPunch>(), Projectile.damage * 2, 6, Projectile.owner);
@@ -52,10 +51,9 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.spriteDirection = direction;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-
+            base.OnHitNPC(target, hit, damageDone);
             Projectile.Kill();
 
             for (int i = 0; i < 6; i++)
@@ -65,7 +63,6 @@ namespace WaterGuns.Projectiles.PreHardmode
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity = speed * 5;
             }
-
         }
 
         public NPC target = null;
@@ -178,15 +175,14 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnSpawn(source);
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (data.fullCharge)
             {
                 Projectile waterFist = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Main.player[Main.myPlayer].Center, Vector2.Zero, ModContent.ProjectileType<WaterFistPunch>(), Projectile.damage * 2, 6, Projectile.owner);
                 (waterFist.ModProjectile as WaterFistPunch).target = target;
             }
-
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         public override void Kill(int timeLeft)

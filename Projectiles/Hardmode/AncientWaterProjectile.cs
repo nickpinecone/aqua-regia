@@ -190,10 +190,10 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft = 60;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
             target.AddBuff(BuffID.OnFire3, 60);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         public override void AI()

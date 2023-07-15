@@ -13,8 +13,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Water Wisperer");
-            Tooltip.SetDefault("Killed enemies release a soul that comes to the player, boosting weapon damage");
         }
 
         public const int DELAY_MAX = 70;
