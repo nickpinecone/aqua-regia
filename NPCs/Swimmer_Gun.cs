@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,7 @@ namespace WaterGuns.NPCs
 {
     public class Swimmer_Gun : Items.PreHardmode.BaseWaterGun
     {
+
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();

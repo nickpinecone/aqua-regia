@@ -4,9 +4,46 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
+    public class FriendlyGhost : BaseProjectile
+    {
+        public override string Texture => "WaterGuns/Projectiles/Hardmode/WaterProjectile";
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 200;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+        }
+
+        public int ghostId = -1;
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (ghostId != -1)
+            {
+                // Get texture of projectile
+                Asset<Texture2D> texture = ModContent.Request<Texture2D>($"Terraria/Images/NPC_{ghostId}");
+
+                Main.spriteBatch.Draw(texture.Value, Projectile.Center - Main.screenPosition, texture.Frame(1, Main.npcFrameCount[ghostId]), new Color(55, 105, 255, 155));
+            }
+
+            return base.PreDraw(ref lightColor);
+        }
+
+        public override void AI()
+        {
+            AutoAim();
+        }
+    }
+
     public class StrengthSoul : ModProjectile
     {
         public override void SetDefaults()
@@ -63,6 +100,8 @@ namespace WaterGuns.Projectiles.Hardmode
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.One, ModContent.ProjectileType<FriendlyGhost>(), 0, 0, Projectile.owner);
+                (proj.ModProjectile as FriendlyGhost).ghostId = target.type;
             }
         }
     }
