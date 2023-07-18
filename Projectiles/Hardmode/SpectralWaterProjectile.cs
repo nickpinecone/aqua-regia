@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using ReLogic.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
@@ -21,9 +22,18 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft = 200;
             Projectile.friendly = true;
             Projectile.hostile = false;
+            Projectile.penetrate = 4;
+            Projectile.usesIDStaticNPCImmunity = true;
         }
 
         public int ghostId = -1;
+
+        Vector2 baseVelocity;
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+            baseVelocity = Projectile.velocity;
+        }
 
         public override bool PreDraw(ref Color lightColor)
         {
@@ -32,15 +42,22 @@ namespace WaterGuns.Projectiles.Hardmode
                 // Get texture of projectile
                 Asset<Texture2D> texture = ModContent.Request<Texture2D>($"Terraria/Images/NPC_{ghostId}");
 
-                Main.spriteBatch.Draw(texture.Value, Projectile.Center - Main.screenPosition, texture.Frame(1, Main.npcFrameCount[ghostId]), new Color(55, 105, 255, 155));
+                Main.spriteBatch.Draw(texture.Value, Projectile.Center - Main.screenPosition - new Vector2(texture.Value.Bounds.Width / 2, texture.Value.Bounds.Height / Main.npcFrameCount[ghostId] / 2), texture.Frame(1, Main.npcFrameCount[ghostId]), new Color(55, 105, 255, 155), 0, Vector2.Zero, 1f, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
 
             return base.PreDraw(ref lightColor);
         }
 
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(target, damage, knockback, crit);
+        }
+
         public override void AI()
         {
-            AutoAim();
+            base.AI();
+            AutoAim(600);
+            Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
         }
     }
 
@@ -100,8 +117,10 @@ namespace WaterGuns.Projectiles.Hardmode
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);
-                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), target.Center, Vector2.One, ModContent.ProjectileType<FriendlyGhost>(), 0, 0, Projectile.owner);
-                (proj.ModProjectile as FriendlyGhost).ghostId = target.type;
+                if (Main.player[Main.myPlayer].HeldItem.ModItem is Items.Hardmode.SpectralWaterGun spectralGun)
+                {
+                    spectralGun.AddEnemy(target);
+                }
             }
         }
     }
@@ -122,6 +141,10 @@ namespace WaterGuns.Projectiles.Hardmode
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);
+                if (Main.player[Main.myPlayer].HeldItem.ModItem is Items.Hardmode.SpectralWaterGun spectralGun)
+                {
+                    spectralGun.AddEnemy(target);
+                }
             }
         }
 
