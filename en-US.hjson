@@ -1,4 +1,3 @@
-
 Mods: {
 	WaterGuns: {
 		Items: {
@@ -325,7 +324,10 @@ Mods: {
 					'''
 			}
 
-			Swimmer_Gun.DisplayName: Swimmer Gun
+			Swimmer_Gun: {
+				DisplayName: Swimmer Gun
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -334,7 +336,10 @@ Mods: {
 				Description: Mods.WaterGuns.BuffDescription.HoneySlowDebuff
 			}
 
-			TurretSummonBuff.DisplayName: Turret
+			TurretSummonBuff: {
+				DisplayName: Turret
+				Description: Mods.WaterGuns.Buffs.TurretSummonBuff.Description
+			}
 		}
 
 		Projectiles: {
@@ -403,6 +408,26 @@ Mods: {
 			WoodenWaterProjectile.DisplayName: Wooden Water Projectile
 		}
 
-		NPCs.Swimmer.DisplayName: Swimmer
+		NPCs: {
+			Swimmer: {
+				DisplayName: Swimmer
+
+				TownNPCMood: {
+					Content: I am content.
+					NoHome: I hate not having a home.
+					FarFromHome: I am too far from home.
+					LoveSpace: I love having so much space.
+					DislikeCrowded: I dislike how crowded I am.
+					HateCrowded: I hate how crowded I am.
+					LikeBiome: I like {BiomeName}.
+					DislikeBiome: I dislike {BiomeName}.
+					LoveNPC: I love {NPCName}.
+					LikeNPC: I like {NPCName}.
+					DislikeNPC: I dislike {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+			}
+		}
 	}
 }

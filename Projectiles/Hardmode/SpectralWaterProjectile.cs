@@ -4,9 +4,63 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using ReLogic.Content;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
+    public class FriendlyGhost : BaseProjectile
+    {
+        public override string Texture => "WaterGuns/Projectiles/Hardmode/WaterProjectile";
+
+        public override void SetDefaults()
+        {
+            Projectile.width = 32;
+            Projectile.height = 32;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 200;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = 4;
+            Projectile.usesIDStaticNPCImmunity = true;
+        }
+
+        public int ghostId = -1;
+
+        Vector2 baseVelocity;
+        public override void OnSpawn(IEntitySource source)
+        {
+            base.OnSpawn(source);
+            baseVelocity = Projectile.velocity;
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            if (ghostId != -1)
+            {
+                // Get texture of projectile
+                Asset<Texture2D> texture = ModContent.Request<Texture2D>($"Terraria/Images/NPC_{ghostId}");
+
+                Main.spriteBatch.Draw(texture.Value, Projectile.Center - Main.screenPosition - new Vector2(texture.Value.Bounds.Width / 2, texture.Value.Bounds.Height / Main.npcFrameCount[ghostId] / 2), texture.Frame(1, Main.npcFrameCount[ghostId]), new Color(55, 105, 255, 155), 0, Vector2.Zero, 1f, Projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+
+            return base.PreDraw(ref lightColor);
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            base.OnHitNPC(target, damage, knockback, crit);
+        }
+
+        public override void AI()
+        {
+            base.AI();
+            AutoAim(600);
+            Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
+        }
+    }
+
     public class StrengthSoul : ModProjectile
     {
         public override void SetDefaults()
@@ -56,12 +110,17 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.friendly = true;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            base.OnHitNPC(target, hit, damageDone);
+            base.OnHitNPC(target, damage, knockback, crit);
+
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);
+                if (Main.player[Main.myPlayer].HeldItem.ModItem is Items.Hardmode.SpectralWaterGun spectralGun)
+                {
+                    spectralGun.AddEnemy(target);
+                }
             }
         }
     }
@@ -75,12 +134,17 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.timeLeft += 10;
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            base.OnHitNPC(target, hit, damageDone);
+            base.OnHitNPC(target, damage, knockback, crit);
+
             if (target.GetLifePercent() < 0f)
             {
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero, ModContent.ProjectileType<Projectiles.Hardmode.StrengthSoul>(), 0, 0, Projectile.owner);
+                if (Main.player[Main.myPlayer].HeldItem.ModItem is Items.Hardmode.SpectralWaterGun spectralGun)
+                {
+                    spectralGun.AddEnemy(target);
+                }
             }
         }
 

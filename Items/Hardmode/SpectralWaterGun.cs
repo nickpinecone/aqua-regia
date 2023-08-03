@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System.Collections.Generic;
 
 namespace WaterGuns.Items.Hardmode
 {
@@ -12,6 +13,23 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
+
+            DisplayName.SetDefault("Water Wisperer");
+            Tooltip.SetDefault("Killed enemies release a soul that comes to the player, boosting weapon damage\nFull Pump: Resurrects the last 4 enemies killed with this weapon in form of ghosts");
+        }
+
+        LinkedList<int> lastEnemiesKilled = new LinkedList<int> { };
+
+        public void AddEnemy(NPC npc)
+        {
+            if (!npc.boss)
+            {
+                lastEnemiesKilled.AddLast(npc.type);
+                if (lastEnemiesKilled.Count > 4)
+                {
+                    lastEnemiesKilled.RemoveFirst();
+                }
+            }
 
         }
 
@@ -51,6 +69,9 @@ namespace WaterGuns.Items.Hardmode
 
             Item.useTime += 6;
             Item.useAnimation += 6;
+
+            base.increasePumpLevel = true;
+            base.maxPumpLevel = 24;
         }
 
         public override Vector2? HoldoutOffset()
@@ -60,12 +81,24 @@ namespace WaterGuns.Items.Hardmode
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            var dist = new Vector2(Main.rand.Next(0, 16), 0).RotatedBy(MathHelper.ToRadians(Main.rand.Next(0, 360))) + new Vector2(0, -4);
+            if (maxPumpLevel <= pumpLevel)
+            {
+                foreach (var enemy in lastEnemiesKilled)
+                {
+                    var ghostVelocity = velocity.RotatedByRandom(3.14f) / 1.5f;
+                    var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center, ghostVelocity, ModContent.ProjectileType<Projectiles.Hardmode.FriendlyGhost>(), damage, 0, player.whoAmI);
+                    (proj.ModProjectile as Projectiles.Hardmode.FriendlyGhost).ghostId = enemy;
+                }
+            }
+            else
+            {
+                var dist = new Vector2(Main.rand.Next(0, 16), 0).RotatedBy(MathHelper.ToRadians(Main.rand.Next(0, 360))) + new Vector2(0, -4);
 
-            var projVelocity = -Main.MouseWorld.DirectionTo(player.Center);
-            projVelocity.Normalize();
-            projVelocity *= 8;
-            var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center + dist, projVelocity, ModContent.ProjectileType<Projectiles.Hardmode.SoulProjectile>(), damage, 2, player.whoAmI);
+                var projVelocity = -Main.MouseWorld.DirectionTo(player.Center);
+                projVelocity.Normalize();
+                projVelocity *= 8;
+                var proj = Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center + dist, projVelocity, ModContent.ProjectileType<Projectiles.Hardmode.SoulProjectile>(), damage, 2, player.whoAmI);
+            }
 
             return base.Shoot(player, source, position, velocity, type, damage, knockback);
         }
