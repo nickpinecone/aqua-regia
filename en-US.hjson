@@ -200,7 +200,11 @@ Mods: {
 
 			SpectralWaterGun: {
 				DisplayName: Water Wisperer
-				Tooltip: Killed enemies release a soul that comes to the player, boosting weapon damage
+				Tooltip:
+					'''
+					Killed enemies release a soul that comes to the player, boosting weapon damage
+					Full Pump: Resurrects the last 4 enemies killed with this weapon in form of ghosts
+					'''
 			}
 
 			TitaniumWaterGun: {
@@ -406,6 +410,7 @@ Mods: {
 			WaterGunProjectile.DisplayName: Water Gun Projectile
 			WaterLaser.DisplayName: Water Laser
 			WoodenWaterProjectile.DisplayName: Wooden Water Projectile
+			FriendlyGhost.DisplayName: Friendly Ghost
 		}
 
 		NPCs: {

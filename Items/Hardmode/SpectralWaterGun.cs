@@ -13,9 +13,6 @@ namespace WaterGuns.Items.Hardmode
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-
-            DisplayName.SetDefault("Water Wisperer");
-            Tooltip.SetDefault("Killed enemies release a soul that comes to the player, boosting weapon damage\nFull Pump: Resurrects the last 4 enemies killed with this weapon in form of ghosts");
         }
 
         LinkedList<int> lastEnemiesKilled = new LinkedList<int> { };
