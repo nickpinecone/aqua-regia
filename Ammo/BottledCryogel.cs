@@ -18,7 +18,6 @@ namespace WaterGuns.Ammo
             base.buffTime = 240;
             base.color = new Color(67, 100, 176);
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nInflicts Frostburn");
         }
         public override void AddRecipes()
         {

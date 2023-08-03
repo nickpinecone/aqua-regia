@@ -124,14 +124,6 @@ namespace WaterGuns.Projectiles.Hardmode
             data.dustScale = 1;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            // target.buffImmune[ModContent.BuffType<Buffs.BubbleWhirlDebuff>()] = false;
-            // target.AddBuff(ModContent.BuffType<Buffs.BubbleWhirlDebuff>(), 60 * 3);
-            base.OnHitNPC(target, damage, knockback, crit);
-        }
-
-
         int inactiveTime = 60;
         int time = 0;
         bool launched = false;

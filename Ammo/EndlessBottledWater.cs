@@ -17,7 +17,6 @@ namespace WaterGuns.Ammo
 
             base.damage = 5;
 
-            Tooltip.SetDefault(damage + " ranged damage" + "\nMagical And Endless");
         }
         public override void SetDefaults()
         {

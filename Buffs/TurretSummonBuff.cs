@@ -12,8 +12,6 @@ namespace WaterGuns.Buffs
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            DisplayName.SetDefault("Turret");
-            Description.SetDefault("");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

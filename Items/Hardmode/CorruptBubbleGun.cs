@@ -13,8 +13,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Corrupt Bubble Popper");
-            Tooltip.SetDefault("Shoots corrupt bubbles that inflict Cursed Inferno\nFull Pump: Next three bubbles will have a clinging goldfish\nDrops from Corrupt Goldfish in Hardmode");
         }
 
         public override void SetDefaults()
@@ -58,7 +56,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

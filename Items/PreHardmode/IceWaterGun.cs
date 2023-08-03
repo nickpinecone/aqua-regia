@@ -14,8 +14,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Ice Glacier");
-            Tooltip.SetDefault("Consolidates ice shards that form a shield around the player\nFull Pump: Releases the ice shards\nDrops from Deerclops");
         }
 
         public override void SetDefaults()
@@ -70,7 +68,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

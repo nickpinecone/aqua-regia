@@ -68,12 +68,12 @@ namespace WaterGuns.NPCs
             });
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+        public override bool CanTownNPCSpawn(int numTownNPCs)
         {
             return true;
         }
 
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             if (NPC.life <= 0)
             {
@@ -81,7 +81,7 @@ namespace WaterGuns.NPCs
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore2>());
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Gores.Swimmer_Gore3>());
             }
-            base.HitEffect(hitDirection, damage);
+            base.HitEffect(hit);
         }
 
         public override List<string> SetNPCNameList()
@@ -107,39 +107,26 @@ namespace WaterGuns.NPCs
             button = "Shop";
         }
 
-        public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
+            base.OnChatButtonClicked(firstButton, ref shopName);
+
             if (firstButton)
             {
-                shop = true;
+                shopName = "Shop";
             }
-            base.OnChatButtonClicked(firstButton, ref shop);
         }
 
-        public override void SetupShop(Chest shop, ref int nextSlot)
+        public override void AddShops()
         {
-            shop.item[nextSlot].SetDefaults(ItemID.BottledWater, false);
-            nextSlot++;
-
-            if (NPC.downedSlimeKing)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.PreHardmode.ShotgunWaterGun>());
-                nextSlot++;
-            }
-
-            if (NPC.downedQueenBee)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.PreHardmode.ChainedWaterGun>());
-                nextSlot++;
-            }
-
-            if (Main.hardMode)
-            {
-                shop.item[nextSlot].SetDefaults(ModContent.ItemType<Items.Hardmode.WaterBalloonGun>());
-                nextSlot++;
-            }
-
+            new NPCShop(Type)
+                .Add(ItemID.BottledWater)
+                .Add<Items.PreHardmode.ShotgunWaterGun>(Condition.DownedKingSlime)
+                .Add<Items.PreHardmode.ChainedWaterGun>(Condition.DownedQueenBee)
+                .Add<Items.Hardmode.WaterBalloonGun>(Condition.Hardmode)
+                .Register();
         }
+
 
         public override string GetChat()
         {
@@ -166,12 +153,12 @@ namespace WaterGuns.NPCs
             randExtraCooldown = 30;
         }
 
-        public override void DrawTownAttackGun(ref float scale, ref int item, ref int closeness)
+        public override void DrawTownAttackGun(ref Texture2D item, ref Rectangle itemFrame, ref float scale, ref int horizontalHoldoutOffset)
         {
+            Main.GetItemDrawFrame(ModContent.ItemType<Swimmer_Gun>(), out item, out itemFrame);
             scale = 0.9f;
-            item = ModContent.ItemType<Swimmer_Gun>();
-            closeness = 12;
-            base.DrawTownAttackGun(ref scale, ref item, ref closeness);
+            horizontalHoldoutOffset = 12;
+            base.DrawTownAttackGun(ref item, ref itemFrame, ref scale, ref horizontalHoldoutOffset);
         }
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)

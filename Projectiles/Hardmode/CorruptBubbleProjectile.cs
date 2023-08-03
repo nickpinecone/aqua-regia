@@ -55,11 +55,12 @@ namespace WaterGuns.Projectiles.Hardmode
 
         NPC hitTarget = null;
         Vector2 hitPoint = Vector2.Zero;
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            base.OnHitNPC(target, hit, damageDone);
+
             delay = 0;
 
-            base.OnHitNPC(target, damage, knockback, crit);
             Projectile.velocity = Vector2.Zero;
 
             hitTarget = target;
@@ -168,10 +169,10 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.CursedInferno, 240);
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
 

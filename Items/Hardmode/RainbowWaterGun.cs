@@ -13,8 +13,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Rainbow Waterfall");
-            Tooltip.SetDefault("Spawns water streams downwards\nFull Pump: Curving projectiles spawn along projectile's path\nDrops from Queen Slime");
         }
 
         public override Vector2? HoldoutOffset()
@@ -36,7 +34,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

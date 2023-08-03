@@ -13,7 +13,6 @@ namespace WaterGuns.NPCs
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Swimmer Gun");
         }
 
         public override void SetDefaults()

@@ -14,8 +14,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Water Balloon Bomber");
-            Tooltip.SetDefault("Shoots ballons filled with water\nFull Pump: Shoots a giant ballon that explodes into smaller ones\nBought from Swimmer after entering Hardmode");
         }
 
         public override void SetDefaults()
@@ -43,7 +41,7 @@ namespace WaterGuns.Items.Hardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

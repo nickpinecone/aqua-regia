@@ -1,0 +1,438 @@
+Mods: {
+	WaterGuns: {
+		Items: {
+			BottledBathWater: {
+				DisplayName: Bottled Bath Water
+				Tooltip:
+					'''
+					7 ranged damage
+					Deals mental damage
+					'''
+			}
+
+			BottledChlorophyte: {
+				DisplayName: Bottled Chlorophyte
+				Tooltip:
+					'''
+					9 ranged damage
+					Homes in on enemies
+					'''
+			}
+
+			BottledCryogel: {
+				DisplayName: Bottled Cryogel
+				Tooltip:
+					'''
+					3 ranged damage
+					Inflicts Frostburn
+					'''
+			}
+
+			BottledCursedFire: {
+				DisplayName: Bottled Cursed Fire
+				Tooltip:
+					'''
+					8 ranged damage
+					Inflicts Cursed Inferno
+					'''
+			}
+
+			BottledHolyWater: {
+				DisplayName: Bottled Holy Water
+				Tooltip:
+					'''
+					6 ranged damage
+					Makes a star fall on the enemy
+					'''
+			}
+
+			BottledIchor: {
+				DisplayName: Bottled Ichor
+				Tooltip:
+					'''
+					5 ranged damage
+					Inflicts Ichor
+					'''
+			}
+
+			BottledLava: {
+				DisplayName: Bottled Lava
+				Tooltip:
+					'''
+					6 ranged damage
+					Inflicts Fire and explodes into small sparks
+					'''
+			}
+
+			BottledMeteorite: {
+				DisplayName: Bottled Meteorite
+				Tooltip:
+					'''
+					4 ranged damage
+					Makes projectiles bounce
+					'''
+			}
+
+			BottledUnholyWater: {
+				DisplayName: Bottled Unholy Water
+				Tooltip:
+					'''
+					2 ranged damage
+					Allows to penetrate up to 3 enemies
+					'''
+			}
+
+			BottledVenom: {
+				DisplayName: Bottled Venom
+				Tooltip:
+					'''
+					12 ranged damage
+					Inflicts Venom and explodes into litlle venom clouds
+					'''
+			}
+
+			EndlessBottledWater: {
+				DisplayName: Endless Bottled Water
+				Tooltip:
+					'''
+					5 ranged damage
+					Magical And Endless
+					'''
+			}
+
+			AncientWaterGun: {
+				DisplayName: Ancient Geyser
+				Tooltip:
+					'''
+					Unleashes a geyser under your cursor
+					Full Pump: Spawns a boulder sandstorm
+					Drops from Golem
+					'''
+			}
+
+			ChlorophyteWaterGun: {
+				DisplayName: Chlorophyte Water Sprayer
+				Tooltip:
+					'''
+					Chases after your foes
+					Full Pump: Releases Man Eaters that cling onto enemies
+					'''
+			}
+
+			CorruptBubbleGun: {
+				DisplayName: Corrupt Bubble Popper
+				Tooltip:
+					'''
+					Shoots corrupt bubbles that inflict Cursed Inferno
+					Full Pump: Next three bubbles will have a clinging goldfish
+					Drops from Corrupt Goldfish in Hardmode
+					'''
+			}
+
+			CursedWaterGun: {
+				DisplayName: Cursed Flow
+				Tooltip: Inflicts the cursed flames debuff
+			}
+
+			HallowWaterGun: {
+				DisplayName: Hallowed Fisher
+				Tooltip:
+					'''
+					Spawns clones of itself
+					Full Pump: Turn full skeletron prime mode
+					'''
+			}
+
+			IchorStickerGun: {
+				DisplayName: Ichor Sticker Blaster
+				Tooltip:
+					'''
+					Inflicts the ichor debuff
+					Full Pump: Spawns a friendly Ichor Sticker
+					Drops from Ichor Sticker
+					'''
+			}
+
+			IchorWaterGun: {
+				DisplayName: Ichor Rainer
+				Tooltip: Inflicts the ichor debuff
+			}
+
+			MiniWaterGun: {
+				DisplayName: Mini Water Gun
+				Tooltip:
+					'''
+					Rapid but inaccurate
+					Right click to place a turret
+					Full Pump: Throws the weapon from overheat which creates a small explosion on contact
+					Drops from SantaNK1
+					'''
+			}
+
+			OceanWaterGun: {
+				DisplayName: Ocean Overlord
+				Tooltip:
+					'''
+					Every third shot releases a waternado that chases enemies
+					Drops from Duke Fishron
+					'''
+			}
+
+			RainbowWaterGun: {
+				DisplayName: Rainbow Waterfall
+				Tooltip:
+					'''
+					Spawns water streams downwards
+					Full Pump: Curving projectiles spawn along projectile's path
+					Drops from Queen Slime
+					'''
+			}
+
+			RocketWaterGun: {
+				DisplayName: Rocket Water Launcher
+				Tooltip: Shoots rockets that explode into water projectiles
+			}
+
+			SoundwaveWaterGun: {
+				DisplayName: Fluid Soundwave
+				Tooltip: Shoots a powerful sound wave fused with water
+			}
+
+			SpectralWaterGun: {
+				DisplayName: Water Wisperer
+				Tooltip:
+					'''
+					Killed enemies release a soul that comes to the player, boosting weapon damage
+					Full Pump: Resurrects the last 4 enemies killed with this weapon in form of ghosts
+					'''
+			}
+
+			TitaniumWaterGun: {
+				DisplayName: Titanium Riveria
+				Tooltip:
+					'''
+					Creates a damage zone on impact
+					Full Pump: Unleashes a barrage of harpy feathers
+					'''
+			}
+
+			WaterBalloonGun: {
+				DisplayName: Water Balloon Bomber
+				Tooltip:
+					'''
+					Shoots ballons filled with water
+					Full Pump: Shoots a giant ballon that explodes into smaller ones
+					Bought from Swimmer after entering Hardmode
+					'''
+			}
+
+			BeeWaterGun: {
+				DisplayName: Bee Liquifier
+				Tooltip:
+					'''
+					Spawns bees and slows down enemies
+					Full Pump: Spawns a swarm of giant bees on the enemy
+					'''
+			}
+
+			ChainedWaterGun: {
+				DisplayName: Chained Water Gun
+				Tooltip:
+					'''
+					Literally a gun on a chain
+					Full Pump: Spawns a Water Fist
+					Bought from Swimmer after defeating Queen Bee
+					'''
+			}
+
+			CrimsonWaterGun: {
+				DisplayName: Crimson Rainer
+				Tooltip:
+					'''
+					Rains from the sky
+					Full Pump: Summons a cloud
+					'''
+			}
+
+			DemonWaterGun: {
+				DisplayName: Demonic Flow
+				Tooltip:
+					'''
+					Spawns an additional stream of water upon impact
+					Full Pump: Spawns two water swords at your cursor
+					'''
+			}
+
+			GoldWaterGun: {
+				DisplayName: Golden Water Splitter
+				Tooltip:
+					'''
+					Shoots two streams of water
+					Full Pump: Water streams split mid-air
+					'''
+			}
+
+			IceWaterGun: {
+				DisplayName: Ice Glacier
+				Tooltip:
+					'''
+					Consolidates ice shards that form a shield around the player
+					Full Pump: Releases the ice shards
+					Drops from Deerclops
+					'''
+			}
+
+			LavaWaterGun: {
+				DisplayName: Lavashark
+				Tooltip:
+					'''
+					Sets your enemies ablaze
+					Full Pump: Enters fire breathing mode for a few seconds
+					'''
+			}
+
+			SeaWaterGun: {
+				DisplayName: Sea Splasher
+				Tooltip:
+					'''
+					Spawns additional bubbles
+					Full Pump: Shoots three starfish that cling onto enemies
+					'''
+			}
+
+			ShotgunWaterGun: {
+				DisplayName: Water Blunderbuss
+				Tooltip:
+					'''
+					Shoots multiple streams of water
+					Full Pump: Significantly increases knockback, but the holder is thrown back from strong recoil
+					Bought from Swimmer after defeating King Slime
+					'''
+			}
+
+			SpaceWaterGun: {
+				DisplayName: Aqua Zapper
+				Tooltip:
+					'''
+					Water bounces off the walls and pierces enemies
+					Full Pump: Spawns a water laser from space upon your enemies
+					'''
+			}
+
+			WoodenWaterGun: {
+				DisplayName: Wooden Sprinkler
+				Tooltip:
+					'''
+					Additional acorn falls on an enemy, more damage when near a tree
+					Full Pump: The enemy is slammed with a tree
+					'''
+			}
+
+			Swimmer_Gun: {
+				DisplayName: Swimmer Gun
+				Tooltip: ""
+			}
+		}
+
+		Buffs: {
+			HoneySlowDebuff: {
+				DisplayName: Mods.WaterGuns.BuffName.HoneySlowDebuff
+				Description: Mods.WaterGuns.BuffDescription.HoneySlowDebuff
+			}
+
+			TurretSummonBuff: {
+				DisplayName: Turret
+				Description: Mods.WaterGuns.Buffs.TurretSummonBuff.Description
+			}
+		}
+
+		Projectiles: {
+			MiniWaterGunBoomerang.DisplayName: Mini Water Gun Boomerang
+			Swimmer_Projectile.DisplayName: Swimmer_ Projectile
+			LavaAmmoProjectile.DisplayName: Lava Ammo Projectile
+			VenomAmmoProjectile.DisplayName: Venom Ammo Projectile
+			AncientGeyser.DisplayName: Ancient Geyser
+			AncientWaterProjectile.DisplayName: Ancient Water Projectile
+			BoulderSandstorm.DisplayName: Boulder Sandstorm
+			BubbledFish.DisplayName: Bubbled Fish
+			ChlorophyteWaterProjectile.DisplayName: Chlorophyte Water Projectile
+			CorruptBubbleProjectile.DisplayName: Corrupt Bubble Projectile
+			CursedWaterProjectile.DisplayName: Cursed Water Projectile
+			CurveWaterProjectile.DisplayName: Curve Water Projectile
+			DamageZone.DisplayName: Damage Zone
+			EarthBoulder.DisplayName: Earth Boulder
+			GeyserPlatform.DisplayName: Geyser Platform
+			HallowWaterProjectile.DisplayName: Hallow Water Projectile
+			HarpyFeather.DisplayName: Harpy Feather
+			IchorStickerProjectile.DisplayName: Ichor Sticker Projectile
+			IchorWaterProjectile.DisplayName: Ichor Water Projectile
+			LauncherProjectile.DisplayName: Launcher Projectile
+			RetinazerProjectile.DisplayName: Retinazer Projectile
+			SpazmatismProjectile.DisplayName: Spazmatism Projectile
+			SpearProjectile.DisplayName: Spear Projectile
+			WaterGrenade.DisplayName: Water Grenade
+			MiniWaterProjectile.DisplayName: Mini Water Projectile
+			MobStickerFriendly.DisplayName: Mob Sticker Friendly
+			OceanWaterProjectile.DisplayName: Ocean Water Projectile
+			PlantClinger.DisplayName: Plant Clinger
+			RainbowWaterProjectile.DisplayName: Rainbow Water Projectile
+			RocketWaterProjectile.DisplayName: Rocket Water Projectile
+			SoulProjectile.DisplayName: Soul Projectile
+			SoundwaveProjectile.DisplayName: Soundwave Projectile
+			SoundwaveWaterProjectile.DisplayName: Soundwave Water Projectile
+			SpectralWaterProjectile.DisplayName: Spectral Water Projectile
+			StrengthSoul.DisplayName: Strength Soul
+			TitaniumWaterProjectile.DisplayName: Titanium Water Projectile
+			TurretWaterProjectile.DisplayName: Turret Water Projectile
+			WaterBalloonProjectile.DisplayName: Water Balloon Projectile
+			WaterExplosion.DisplayName: Water Explosion
+			Waternado.DisplayName: Waternado
+			WaterProjectile.DisplayName: Water Projectile
+			AcornProjectile.DisplayName: Acorn Projectile
+			BeeSwarm.DisplayName: Bee Swarm
+			BeeWaterProjectile.DisplayName: Bee Water Projectile
+			BubbleProjectile.DisplayName: Bubble Projectile
+			ChainedWaterProjectile.DisplayName: Chained Water Projectile
+			DemonWaterProjectile.DisplayName: Demon Water Projectile
+			FireBreath.DisplayName: Fire Breath
+			IceWaterProjectile.DisplayName: Ice Water Projectile
+			LavaWaterProjectile.DisplayName: Lava Water Projectile
+			RainCloud.DisplayName: Rain Cloud
+			SeaWaterProjectile.DisplayName: Sea Water Projectile
+			SimpleWaterProjectile.DisplayName: Simple Water Projectile
+			SimpleWaterProjectileWaterPunch.DisplayName: Simple Water Projectile Water Punch
+			SpaceWaterProjectile.DisplayName: Space Water Projectile
+			SplitProjectile.DisplayName: Split Projectile
+			StarfishProjectile.DisplayName: Starfish Projectile
+			SwordSlash.DisplayName: Sword Slash
+			TreeSlam.DisplayName: Tree Slam
+			WaterFistPunch.DisplayName: Water Fist Punch
+			WaterGunProjectile.DisplayName: Water Gun Projectile
+			WaterLaser.DisplayName: Water Laser
+			WoodenWaterProjectile.DisplayName: Wooden Water Projectile
+			FriendlyGhost.DisplayName: Friendly Ghost
+		}
+
+		NPCs: {
+			Swimmer: {
+				DisplayName: Swimmer
+
+				TownNPCMood: {
+					Content: I am content.
+					NoHome: I hate not having a home.
+					FarFromHome: I am too far from home.
+					LoveSpace: I love having so much space.
+					DislikeCrowded: I dislike how crowded I am.
+					HateCrowded: I hate how crowded I am.
+					LikeBiome: I like {BiomeName}.
+					DislikeBiome: I dislike {BiomeName}.
+					LoveNPC: I love {NPCName}.
+					LikeNPC: I like {NPCName}.
+					DislikeNPC: I dislike {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+			}
+		}
+	}
+}

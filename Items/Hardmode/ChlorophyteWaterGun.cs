@@ -13,8 +13,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Chlorophyte Water Sprayer");
-            Tooltip.SetDefault("Chases after your foes\nFull Pump: Releases Man Eaters that cling onto enemies");
         }
 
         public override Vector2? HoldoutOffset()

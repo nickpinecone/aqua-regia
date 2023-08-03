@@ -18,8 +18,6 @@ namespace WaterGuns.Ammo
             base.buffType = BuffID.Confused;
             base.buffTime = 240;
             base.color = new Color(247, 2, 248);
-
-            Tooltip.SetDefault(damage + " ranged damage" + "\nDeals mental damage");
         }
         public override void AddRecipes()
         {

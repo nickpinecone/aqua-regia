@@ -70,10 +70,9 @@ namespace WaterGuns.Projectiles.Hardmode
             AIType = ProjectileID.WaterGun;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(target, damage, knockback, crit);
-
+            base.OnHitNPC(target, hit, damageDone);
             if (data.fullCharge)
             {
                 for (int i = -4; i < 4; i++)
@@ -81,7 +80,7 @@ namespace WaterGuns.Projectiles.Hardmode
                     int rotation = Main.rand.Next(-60, 0);
                     var position = target.Center + new Vector2(Main.screenHeight + i * 50 + Main.rand.Next(-10, 10), i * 5).RotatedBy(MathHelper.ToRadians(-60)).RotatedBy(MathHelper.ToRadians(rotation));
                     var velocity = new Vector2(12, 0).RotatedBy(MathHelper.ToRadians(rotation - 180 - 60)) * (Main.rand.NextFloat(0.5f, 1f) + 1f);
-                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<HarpyFeather>(), damage / 3, knockback, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), position, velocity, ModContent.ProjectileType<HarpyFeather>(), hit.Damage / 3, hit.Knockback, Main.myPlayer);
                 }
 
             }
@@ -98,7 +97,6 @@ namespace WaterGuns.Projectiles.Hardmode
                 dust.velocity = speed * 7;
             }
         }
-
 
         public override void AI()
         {

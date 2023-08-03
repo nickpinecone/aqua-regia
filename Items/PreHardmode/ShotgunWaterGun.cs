@@ -12,8 +12,6 @@ namespace WaterGuns.Items.PreHardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Water Blunderbuss");
-            Tooltip.SetDefault("Shoots multiple streams of water\nFull Pump: Significantly increases knockback, but the holder is thrown back from strong recoil\nBought from Swimmer after defeating King Slime");
         }
 
         public override void SetDefaults()
@@ -66,7 +64,7 @@ namespace WaterGuns.Items.PreHardmode
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddCondition(NetworkText.FromLiteral("Mods.WaterGuns.Conditions.Never"), (_) => false);
+            recipe.AddCondition(LocalizedText.Empty, () => false);
             recipe.Register();
         }
     }

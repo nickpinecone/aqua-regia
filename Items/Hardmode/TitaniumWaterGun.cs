@@ -12,8 +12,6 @@ namespace WaterGuns.Items.Hardmode
         {
             base.SetStaticDefaults();
 
-            DisplayName.SetDefault("Titanium Riveria");
-            Tooltip.SetDefault("Creates a damage zone on impact\nFull Pump: Unleashes a barrage of harpy feathers");
         }
 
         public override Vector2? HoldoutOffset()

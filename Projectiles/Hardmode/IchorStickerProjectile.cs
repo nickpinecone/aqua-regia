@@ -106,7 +106,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.affectedByAmmoBuff = false;
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.tileCollide = true;
 
@@ -118,7 +118,7 @@ namespace WaterGuns.Projectiles.Hardmode
             }
 
             target.AddBuff(BuffID.Ichor, 240);
-            base.OnHitNPC(target, damage, knockback, crit);
+            base.OnHitNPC(target, hit, damageDone);
         }
 
         public override void OnSpawn(IEntitySource source)
