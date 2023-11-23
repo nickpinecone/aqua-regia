@@ -27,9 +27,9 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.rotation = Projectile.velocity.ToRotation();
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             for (int i = 0; i < 4; i++)
             {

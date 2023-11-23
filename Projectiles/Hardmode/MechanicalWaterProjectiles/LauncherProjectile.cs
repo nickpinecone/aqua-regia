@@ -21,9 +21,9 @@ namespace WaterGuns.Projectiles.Hardmode.MechanicalWaterProjectiles
             Projectile.tileCollide = true;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             SoundEngine.PlaySound(SoundID.Item14);
 

@@ -185,13 +185,13 @@ namespace WaterGuns.Projectiles.PreHardmode
             base.OnHitNPC(target, hit, damageDone);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (waterGun != null)
             {
                 waterGun.Projectile.Kill();
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
 
         bool haveShot = false;

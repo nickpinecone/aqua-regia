@@ -131,6 +131,24 @@ namespace WaterGuns.Items.Hardmode
             base.maxPumpLevel = 80;
         }
 
+        public void CheckBoomerang()
+        {
+            if (boomerang != null && boomerang.returnToPlayer && boomerang.Projectile.Center.Distance(Main.player[Main.myPlayer].Center) < 64f)
+            {
+                boomerang.Projectile.Kill();
+                boomerang = null;
+                Item.useStyle = 5;
+            }
+        }
+
+        public override void HoldItem(Player player)
+        {
+            base.HoldItem(player);
+            // While holding the item out of the inverntory and shooting
+            // otherwise would break the weapon when boomerang returns
+            CheckBoomerang();
+        }
+
         float timeSinceShot = 0;
         float coolScale = 1;
         public override void UpdateInventory(Player player)
@@ -154,12 +172,7 @@ namespace WaterGuns.Items.Hardmode
                 }
             }
 
-            if (boomerang != null && boomerang.returnToPlayer && boomerang.Projectile.Center.Distance(Main.player[Main.myPlayer].Center) < 64f)
-            {
-                boomerang.Projectile.Kill();
-                boomerang = null;
-                Item.useStyle = 5;
-            }
+            CheckBoomerang();
         }
 
         public override void OnSpawn(IEntitySource source)

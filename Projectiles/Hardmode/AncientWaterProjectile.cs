@@ -31,9 +31,9 @@ namespace WaterGuns.Projectiles.Hardmode
             offset = Main.rand.Next(-3, 3);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             SoundEngine.PlaySound(SoundID.Item14);
 

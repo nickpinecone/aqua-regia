@@ -24,9 +24,9 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.hostile = false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             var dust = Dust.NewDust(Projectile.Center, 16, 16, 7, 0, 0, 0, default, 1);
             Main.dust[dust].noGravity = true;
@@ -63,7 +63,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.position.Y -= 100;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14);
 
@@ -76,7 +76,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                 dust.scale = 4;
                 dust.noGravity = true;
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
 
         int delay = 0;

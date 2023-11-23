@@ -23,9 +23,9 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.alpha = 75;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
 
         Vector2 velocity;

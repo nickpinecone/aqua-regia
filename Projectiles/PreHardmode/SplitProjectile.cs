@@ -16,7 +16,7 @@ namespace WaterGuns.Projectiles.PreHardmode
             Projectile.ai[0] = 0;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (timeLeft > 0)
             {
@@ -45,7 +45,7 @@ namespace WaterGuns.Projectiles.PreHardmode
                     proj.timeLeft += 20;
                 }
             }
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
     }
 }

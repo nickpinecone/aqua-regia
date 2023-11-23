@@ -143,11 +143,11 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item54);
 
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             if (bubbledFish != null && timeLeft <= 0)
             {

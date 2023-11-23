@@ -26,7 +26,7 @@ namespace WaterGuns.Projectiles.Hardmode
             base.affectedByHoming = false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14);
 
@@ -50,7 +50,7 @@ namespace WaterGuns.Projectiles.Hardmode
                 proj.timeLeft -= 30;
             }
 
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
         }
 
         public override void AI()

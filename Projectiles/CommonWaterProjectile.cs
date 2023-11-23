@@ -94,9 +94,9 @@ namespace WaterGuns.Projectiles
             base.OnSpawn(source);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
-            base.Kill(timeLeft);
+            base.OnKill(timeLeft);
 
             // Lava ammo effect
             if (data.buffType == BuffID.OnFire && affectedByAmmoBuff)
