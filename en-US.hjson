@@ -332,6 +332,11 @@ Mods: {
 				DisplayName: Swimmer Gun
 				Tooltip: ""
 			}
+
+			DuckPetItem: {
+				DisplayName: Duck Pet Item
+				Tooltip: ""
+			}
 		}
 
 		Buffs: {
@@ -343,6 +348,11 @@ Mods: {
 			TurretSummonBuff: {
 				DisplayName: Turret
 				Description: Mods.WaterGuns.Buffs.TurretSummonBuff.Description
+			}
+
+			DuckPetBuff: {
+				DisplayName: Duck Pet Buff
+				Description: Mods.WaterGuns.Buffs.DuckPetBuff.Description
 			}
 		}
 
@@ -411,6 +421,7 @@ Mods: {
 			WaterLaser.DisplayName: Water Laser
 			WoodenWaterProjectile.DisplayName: Wooden Water Projectile
 			FriendlyGhost.DisplayName: Friendly Ghost
+			DuckPetProjectile.DisplayName: Duck Pet Projectile
 		}
 
 		NPCs: {
