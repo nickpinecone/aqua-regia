@@ -11,7 +11,7 @@ namespace WaterGuns.Pets
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Projectile.type] = 15;
+            Main.projFrames[Projectile.type] = 11;
             Main.projPet[Projectile.type] = true;
 
             // This code is needed to customize the vanity pet display in the player select screen. Quick explanation:
