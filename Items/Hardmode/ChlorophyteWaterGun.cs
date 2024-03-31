@@ -41,45 +41,52 @@ namespace WaterGuns.Items.Hardmode
         {
             if (pumpLevel >= maxPumpLevel)
             {
-                float detectRange = MathF.Pow(1200f, 2);
+                // float detectRange = MathF.Pow(1200f, 2);
 
-                Vector2 vel = Vector2.Zero;
-                int count = 0;
-                for (int i = 0; i < Main.npc.Length; i++)
+                // Vector2 vel = Vector2.Zero;
+                // int count = 0;
+                // for (int i = 0; i < Main.npc.Length; i++)
+                // {
+                //     if (count >= 3)
+                //     {
+                //         break;
+                //     }
+
+                //     NPC target = Main.npc[i];
+
+                //     if (!target.CanBeChasedBy() || target.Center.DistanceSQ(player.Center) > detectRange)
+                //     {
+                //         continue;
+                //     }
+
+
+                //     vel = player.Center.DirectionTo(target.Center);
+                //     vel.Normalize();
+                //     vel *= 14;
+
+                //     count += 1;
+
+                //     Projectile.NewProjectile(source, position, vel, ModContent.ProjectileType<Projectiles.Hardmode.PlantClinger>(), (int)(damage / 1.6f), 0, player.whoAmI);
+                // }
+
+                // // Release three man eaters always
+                // if (count != 0)
+                // {
+                //     // Projectile offset up or down
+                //     var dir = -1;
+                //     for (int i = 0; i < 3 - count; i++)
+                //     {
+                //         Vector2 newVel = vel.RotatedBy(MathHelper.ToRadians(8f * dir)).RotatedByRandom(MathHelper.ToRadians(4f));
+                //         Projectile.NewProjectile(source, position, newVel, ModContent.ProjectileType<Projectiles.Hardmode.PlantClinger>(), (int)(damage / 1.6f), 0, player.whoAmI);
+                //         dir = -dir;
+                //     }
+                // }
+
+                // Rework maneaters
+                for (int i = 0; i < 3; i++)
                 {
-                    if (count >= 3)
-                    {
-                        break;
-                    }
-
-                    NPC target = Main.npc[i];
-
-                    if (!target.CanBeChasedBy() || target.Center.DistanceSQ(player.Center) > detectRange)
-                    {
-                        continue;
-                    }
-
-
-                    vel = player.Center.DirectionTo(target.Center);
-                    vel.Normalize();
-                    vel *= 14;
-
-                    count += 1;
-
+                    Vector2 vel = new Vector2(8, 0).RotatedBy(MathHelper.ToRadians(120 * i)).RotatedByRandom(MathHelper.ToRadians(8f));
                     Projectile.NewProjectile(source, position, vel, ModContent.ProjectileType<Projectiles.Hardmode.PlantClinger>(), (int)(damage / 1.6f), 0, player.whoAmI);
-                }
-
-                // Release three man eaters always
-                if (count != 0)
-                {
-                    // Projectile offset up or down
-                    var dir = -1;
-                    for (int i = 0; i < 3 - count; i++)
-                    {
-                        Vector2 newVel = vel.RotatedBy(MathHelper.ToRadians(8f * dir)).RotatedByRandom(MathHelper.ToRadians(4f));
-                        Projectile.NewProjectile(source, position, newVel, ModContent.ProjectileType<Projectiles.Hardmode.PlantClinger>(), (int)(damage / 1.6f), 0, player.whoAmI);
-                        dir = -dir;
-                    }
                 }
             }
 

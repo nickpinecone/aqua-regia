@@ -13,6 +13,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.GameContent;
 using ReLogic.Content;
+using Microsoft.CodeAnalysis;
 
 namespace WaterGuns.Projectiles.Hardmode
 {
@@ -39,7 +40,7 @@ namespace WaterGuns.Projectiles.Hardmode
             Projectile.friendly = true; // Deals damage to enemies
             Projectile.penetrate = -1; // Infinite pierce
             Projectile.usesIDStaticNPCImmunity = true; // Used for hit cooldown changes in the ai hook
-            Projectile.timeLeft = 160;
+            Projectile.timeLeft = 180;
             Projectile.tileCollide = false;
 
             // Vanilla flails all use aiStyle 15, but the code isn't customizable so an adaption of that aiStyle is used in the AI method
@@ -60,6 +61,18 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
+        Vector2 stationPoint;
+        Vector2 activeVelocity;
+        Vector2 stationVelocity;
+        public override void OnSpawn(IEntitySource source)
+        {
+            stationPoint = Projectile.velocity * 12;
+            activeVelocity = new Vector2(1, 0) * Projectile.velocity.Length();
+            stationVelocity = new Vector2(0.5f, 0);
+
+            base.OnSpawn(source);
+        }
+
         public override void OnKill(int timeLeft)
         {
             base.OnKill(timeLeft);
@@ -75,11 +88,12 @@ namespace WaterGuns.Projectiles.Hardmode
             }
         }
 
-
+        float detectRadius = 1000f;
         public override void AI()
         {
             base.AI();
 
+            // Return to player and dissapear
             if (Projectile.timeLeft <= 3)
             {
                 if (Projectile.Center.Distance(Main.player[Main.myPlayer].Center) < 16f)
@@ -100,6 +114,7 @@ namespace WaterGuns.Projectiles.Hardmode
 
             else
             {
+                // Cling on hit enemy
                 if (_target != null)
                 {
                     Projectile.Center = _target.Center + hitPoint;
@@ -109,15 +124,54 @@ namespace WaterGuns.Projectiles.Hardmode
                         _target = null;
                     }
                 }
+                // Otherwise find a target or follow station point
                 else
                 {
-                    AutoAim();
+                    var target = FindNearestNPC(detectRadius);
+                    // could not find enemy, follow station point
+                    if (target == null)
+                    {
+                        var player = Main.player[Projectile.owner];
+                        var dir = (player.Center + stationPoint) - Projectile.Center;
+                        var vel = Projectile.velocity;
+                        if (dir.Length() > 32f)
+                        {
+                            var ang = GetAngle(vel, dir);
+
+                            Projectile.velocity = Projectile.velocity.RotatedBy(MathF.Sign(ang) * MathF.Min(0.7f, MathF.Abs(ang)));
+
+                            Projectile.velocity *= 1.04f;
+                            if (Projectile.velocity.Length() > activeVelocity.Length())
+                            {
+                                Projectile.velocity = (activeVelocity * 2).RotatedBy(Projectile.velocity.ToRotation());
+                            }
+                        }
+                        else
+                        {
+                            Projectile.velocity /= 1.2f;
+                            if (Projectile.velocity.Length() < stationVelocity.Length())
+                            {
+                                Projectile.velocity = stationVelocity.RotatedBy(Projectile.velocity.ToRotation());
+                            }
+                        }
+                    }
+                    // found enemy chase after it
+                    else
+                    {
+                        AutoAim(detectRadius);
+
+                        Projectile.velocity *= 1.04f;
+                        if (Projectile.velocity.Length() > activeVelocity.Length())
+                        {
+                            Projectile.velocity = activeVelocity.RotatedBy(Projectile.velocity.ToRotation());
+                        }
+                    }
                 }
 
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.Pi;
             }
 
-
+            // Animation
             if (++Projectile.frameCounter >= 6)
             {
                 Projectile.frameCounter = 0;
