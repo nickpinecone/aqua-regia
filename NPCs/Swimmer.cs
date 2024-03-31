@@ -121,6 +121,7 @@ namespace WaterGuns.NPCs
         {
             new NPCShop(Type)
                 .Add(ItemID.BottledWater)
+                .Add<Pets.DuckPetItem>()
                 .Add<Items.PreHardmode.ShotgunWaterGun>(Condition.DownedKingSlime)
                 .Add<Items.PreHardmode.ChainedWaterGun>(Condition.DownedQueenBee)
                 .Add<Items.Hardmode.WaterBalloonGun>(Condition.Hardmode)

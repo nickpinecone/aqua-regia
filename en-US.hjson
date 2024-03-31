@@ -334,8 +334,8 @@ Mods: {
 			}
 
 			DuckPetItem: {
-				DisplayName: Duck Pet Item
-				Tooltip: ""
+				DisplayName: Rubber Ducky
+				Tooltip: Quack?
 			}
 		}
 
@@ -351,8 +351,8 @@ Mods: {
 			}
 
 			DuckPetBuff: {
-				DisplayName: Duck Pet Buff
-				Description: Mods.WaterGuns.Buffs.DuckPetBuff.Description
+				DisplayName: Rubber Ducky
+				Description: Quack!
 			}
 		}
 

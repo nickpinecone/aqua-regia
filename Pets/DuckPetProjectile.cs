@@ -49,10 +49,16 @@ namespace WaterGuns.Pets
         int walkCounter = 0;
         public override void AI()
         {
-            var tilePosition = (Projectile.position + new Vector2(0, 24)).ToTileCoordinates();
+            var tilePosition = (Projectile.position + new Vector2(0, 12)).ToTileCoordinates();
+            var tilePositionBelow = (Projectile.Bottom + new Vector2(0, -12)).ToTileCoordinates();
             var tile = Main.tile[tilePosition.X, tilePosition.Y];
+            var tileBelow = Main.tile[tilePositionBelow.X, tilePositionBelow.Y];
 
             if (tile.LiquidAmount > 0 && tile.LiquidType == LiquidID.Water)
+            {
+                Projectile.velocity.Y = -8f;
+            }
+            else if (tileBelow.LiquidAmount > 0 && tileBelow.LiquidType == LiquidID.Water)
             {
                 if (Projectile.velocity.Y > 0)
                 {
