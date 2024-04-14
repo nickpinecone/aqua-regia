@@ -240,7 +240,7 @@ Mods: {
 				Tooltip:
 					'''
 					Literally a gun on a chain
-					Full Pump: Spawns a Water Fist
+					Full Pump: The razor part detaches and shoots chains at nearby enemies
 					Bought from Swimmer after defeating Queen Bee
 					'''
 			}
@@ -422,6 +422,7 @@ Mods: {
 			WoodenWaterProjectile.DisplayName: Wooden Water Projectile
 			FriendlyGhost.DisplayName: Friendly Ghost
 			DuckPetProjectile.DisplayName: Duck Pet Projectile
+			PullChainProjectile.DisplayName: Pull Chain Projectile
 		}
 
 		NPCs: {

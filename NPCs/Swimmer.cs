@@ -158,7 +158,7 @@ namespace WaterGuns.NPCs
         {
             Main.GetItemDrawFrame(ModContent.ItemType<Swimmer_Gun>(), out item, out itemFrame);
             scale = 0.9f;
-            horizontalHoldoutOffset = 12;
+            horizontalHoldoutOffset = -8;
             base.DrawTownAttackGun(ref item, ref itemFrame, ref scale, ref horizontalHoldoutOffset);
         }
 
