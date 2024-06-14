@@ -5,7 +5,7 @@ using Terraria;
 
 namespace WaterGuns.Weapons.Modules;
 
-class SpriteModule : BaseGunModule
+public class SpriteModule : BaseGunModule
 {
     public Vector2 Offset { get; set; }
     public Vector2 Shift { get; set; }

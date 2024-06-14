@@ -5,15 +5,24 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Modules;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles;
 
 public abstract class BaseProjectile : ModProjectile
 {
-    private WaterGuns.ProjectileSource _source = null;
+    private List<Timer> _timers = new();
+    protected WaterGuns.ProjectileSource _source = null;
 
-    private Dictionary<Type, BaseProjectileModule> _modules = new();
-    private List<BaseProjectileModule> _runtimeModules = new();
+    protected Dictionary<Type, BaseProjectileModule> _modules = new();
+    protected List<BaseProjectileModule> _runtimeModules = new();
+
+    protected ImmunityModule _immunity;
+
+    protected BaseProjectile()
+    {
+        _immunity = new ImmunityModule(this);
+    }
 
     public bool HasModule<T>()
     {
@@ -48,5 +57,36 @@ public abstract class BaseProjectile : ModProjectile
         base.OnSpawn(source);
 
         _source = (WaterGuns.ProjectileSource)source;
+    }
+
+    public override bool? CanHitNPC(NPC target)
+    {
+        if (_immunity.CanHit(target))
+        {
+            return base.CanHitNPC(target);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        base.OnHitNPC(target, hit, damageDone);
+
+        _immunity.Reset(target);
+    }
+
+    public override void AI()
+    {
+        base.AI();
+
+        _immunity.Update();
+
+        foreach (var timer in _timers)
+        {
+            timer.Update();
+        }
     }
 }

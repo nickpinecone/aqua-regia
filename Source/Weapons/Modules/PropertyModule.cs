@@ -7,7 +7,7 @@ using WaterGuns.Projectiles;
 
 namespace WaterGuns.Weapons.Modules;
 
-class PropertyModule : BaseGunModule
+public class PropertyModule : BaseGunModule
 {
     private float _inaccuracy;
     public float Inaccuracy

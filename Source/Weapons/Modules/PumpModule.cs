@@ -3,7 +3,7 @@ using WaterGuns.Utils;
 
 namespace WaterGuns.Weapons.Modules;
 
-class PumpModule : BaseGunModule
+public class PumpModule : BaseGunModule
 {
     private int _pumpLevel;
     public int PumpLevel

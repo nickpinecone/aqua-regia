@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace WaterGuns.Global;
 
-class GlobalItemList : GlobalItem
+public class GlobalItemList : GlobalItem
 {
     public override void SetDefaults(Item entity)
     {

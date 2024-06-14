@@ -1,6 +1,6 @@
 namespace WaterGuns.Utils;
 
-class Timer
+public class Timer
 {
     public bool Paused { get; set; }
     public bool Done { get; private set; }
