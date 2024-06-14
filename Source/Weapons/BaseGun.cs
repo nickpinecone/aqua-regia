@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Ammo;
 using WaterGuns.Projectiles;
+using WaterGuns.Utils;
 using WaterGuns.Weapons.Modules;
 
 namespace WaterGuns.Weapons;
@@ -14,6 +15,7 @@ public abstract class BaseGun : ModItem
 {
     private Dictionary<Type, BaseGunModule> _modules = new();
     private List<BaseGunModule> _runtimeModules = new();
+    private List<Timer> _timers = new();
 
     public bool HasModule<T>()
     {
@@ -47,5 +49,15 @@ public abstract class BaseGun : ModItem
 
         var proj = Projectile.NewProjectileDirect(projSource, position, velocity, type, damage, knockback, player.whoAmI);
         return (T)proj.ModProjectile;
+    }
+
+    public override void HoldItem(Player player)
+    {
+        base.HoldItem(player);
+
+        foreach (var timer in _timers)
+        {
+            timer.Update();
+        }
     }
 }

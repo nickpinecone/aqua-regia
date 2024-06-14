@@ -35,6 +35,8 @@ public abstract class BaseProjectile : ModProjectile
         Vector2 position, Vector2 velocity, int damage, int knockback
     ) where T : BaseProjectile
     {
+        if (Projectile.owner != Main.myPlayer) return null;
+
         var type = ModContent.ProjectileType<T>();
 
         var proj = Projectile.NewProjectileDirect(_source, position, velocity, type, damage, knockback, Projectile.owner);

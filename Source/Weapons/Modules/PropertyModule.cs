@@ -2,6 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using WaterGuns.Projectiles;
 
 namespace WaterGuns.Weapons.Modules;
 
@@ -18,13 +20,20 @@ class PropertyModule : BaseGunModule
     {
     }
 
-    public void DefaultAmmo()
+    public void SetDefaults()
     {
         _baseGun.Item.useAmmo = ItemID.BottledWater;
+        _baseGun.Item.DamageType = DamageClass.Ranged;
     }
 
-    public Vector2 ApplyInaccuracy(Vector2 vector)
+    public void SetProjectile<T>()
+        where T : BaseProjectile
     {
-        return vector.RotatedByRandom(MathHelper.ToRadians(Inaccuracy));
+        _baseGun.Item.shoot = ModContent.ProjectileType<T>();
+    }
+
+    public Vector2 ApplyInaccuracy(Vector2 velocity)
+    {
+        return velocity.RotatedByRandom(MathHelper.ToRadians(Inaccuracy));
     }
 }
