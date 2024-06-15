@@ -34,6 +34,15 @@ public abstract class BaseProjectile : ModProjectile
         _modules[module.GetType()] = module;
     }
 
+    public void AddRuntimeModule(BaseProjectileModule module)
+    {
+        if (!_modules.ContainsKey(module.GetType()))
+        {
+            _modules[module.GetType()] = module;
+            _runtimeModules.Add(module);
+        }
+    }
+
     public T GetModule<T>()
         where T : BaseProjectileModule
     {
@@ -59,6 +68,22 @@ public abstract class BaseProjectile : ModProjectile
         _source = (WaterGuns.ProjectileSource)source;
     }
 
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
+        bool isDefault = true;
+
+        foreach (var module in _runtimeModules)
+        {
+            var status = module.RuntimeTileCollide(oldVelocity);
+            if (status == false)
+            {
+                isDefault = false;
+            }
+        }
+
+        return isDefault;
+    }
+
     public override bool? CanHitNPC(NPC target)
     {
         if (_immunity.CanHit(target))
@@ -75,12 +100,22 @@ public abstract class BaseProjectile : ModProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
+        foreach (var module in _runtimeModules)
+        {
+            module.RuntimeHitNPC(target, hit);
+        }
+
         _immunity.Reset(target);
     }
 
     public override void AI()
     {
         base.AI();
+
+        foreach (var module in _runtimeModules)
+        {
+            module.RuntimeAI();
+        }
 
         _immunity.Update();
 

@@ -4,6 +4,9 @@ namespace WaterGuns.Projectiles.Modules;
 
 public class PropertyModule : BaseProjectileModule
 {
+    public float DefaultGravity { get; set; }
+    public int DefaultTime { get; set; }
+
     public float Gravity { get; set; }
     public float GravityChange { get; set; }
 
@@ -23,6 +26,8 @@ public class PropertyModule : BaseProjectileModule
         _baseProjectile.Projectile.width = 16;
         _baseProjectile.Projectile.height = 16;
 
+        DefaultTime = 60;
+        DefaultGravity = 0.001f;
         Gravity = 0.001f;
         GravityChange = 0.002f;
     }

@@ -16,8 +16,6 @@ public abstract class BaseGun : ModItem
     private List<Timer> _timers = new();
 
     protected Dictionary<Type, BaseGunModule> _modules = new();
-    protected List<BaseGunModule> _runtimeModules = new();
-
     protected SpriteModule _sprite;
 
     protected BaseGun()

@@ -45,4 +45,13 @@ public class ArtificialModule : BaseProjectileModule
 
         return velocity;
     }
+
+    public override void RuntimeAI()
+    {
+        base.RuntimeAI();
+
+        _baseProjectile.Projectile.velocity = AutoAim(
+            _baseProjectile.Projectile.Center, _baseProjectile.Projectile.velocity
+        );
+    }
 }
