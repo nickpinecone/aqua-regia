@@ -105,7 +105,16 @@ public abstract class BaseProjectile : ModProjectile
             module.RuntimeHitNPC(target, hit);
         }
 
+        _source.Ammo.RuntimeHitNPC(target, hit);
+
         _immunity.Reset(target);
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        _source.Ammo.RuntimeKill();
     }
 
     public override void AI()

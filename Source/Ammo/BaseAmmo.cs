@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles;
 
@@ -12,5 +13,13 @@ public abstract class BaseAmmo : ModItem
     public virtual void Apply(BaseProjectile baseProjectile)
     {
         baseProjectile.Projectile.damage += Damage;
+    }
+
+    public virtual void RuntimeHitNPC(NPC target, NPC.HitInfo hit)
+    {
+    }
+
+    public virtual void RuntimeKill()
+    {
     }
 }
