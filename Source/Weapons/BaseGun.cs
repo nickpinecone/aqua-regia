@@ -13,9 +13,17 @@ namespace WaterGuns.Weapons;
 
 public abstract class BaseGun : ModItem
 {
-    private Dictionary<Type, BaseGunModule> _modules = new();
-    private List<BaseGunModule> _runtimeModules = new();
     private List<Timer> _timers = new();
+
+    protected Dictionary<Type, BaseGunModule> _modules = new();
+    protected List<BaseGunModule> _runtimeModules = new();
+
+    protected SpriteModule _sprite;
+
+    protected BaseGun()
+    {
+        _sprite = new SpriteModule(this);
+    }
 
     public bool HasModule<T>()
     {
@@ -59,5 +67,10 @@ public abstract class BaseGun : ModItem
         {
             timer.Update();
         }
+    }
+
+    public override Vector2? HoldoutOffset()
+    {
+        return _sprite.HoldoutOffset;
     }
 }
