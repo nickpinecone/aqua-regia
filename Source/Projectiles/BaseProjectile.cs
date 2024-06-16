@@ -61,6 +61,13 @@ public abstract class BaseProjectile : ModProjectile
         return (T)proj.ModProjectile;
     }
 
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+
+        _immunity.SetDefaults();
+    }
+
     public override void OnSpawn(IEntitySource source)
     {
         base.OnSpawn(source);

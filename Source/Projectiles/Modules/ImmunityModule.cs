@@ -13,6 +13,10 @@ public class ImmunityModule : BaseProjectileModule
 
     public ImmunityModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
+    }
+
+    public void SetDefaults()
+    {
         ImmunityTime = 20;
     }
 

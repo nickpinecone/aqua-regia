@@ -1,4 +1,5 @@
 using System;
+using WaterGuns.Projectiles;
 using WaterGuns.Utils;
 
 namespace WaterGuns.Weapons.Modules;
@@ -25,6 +26,18 @@ public class PumpModule : BaseGunModule
     public PumpModule(BaseGun baseGun, int waitTime) : base(baseGun)
     {
         PumpTimer = new Timer(waitTime);
+    }
+
+    public void ApplyToProjectile(BaseProjectile baseProjectile)
+    {
+        baseProjectile.Projectile.scale *= 1.5f;
+    }
+
+    public void Reset()
+    {
+        _pumpLevel = 0;
+        PumpTimer.Restart();
+        Pumped = false;
     }
 
     public void DefaultUpdate()
