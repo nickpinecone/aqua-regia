@@ -10,7 +10,7 @@ public abstract class BaseAmmo : ModItem
     public int Damage { get; set; }
     public Color Color { get; set; }
 
-    public virtual void Apply(BaseProjectile baseProjectile)
+    public virtual void ApplyToProjectile(BaseProjectile baseProjectile)
     {
         baseProjectile.Projectile.damage += Damage;
     }
