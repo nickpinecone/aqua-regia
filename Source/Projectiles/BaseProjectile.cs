@@ -16,8 +16,9 @@ public abstract class BaseProjectile : ModProjectile
 
     protected Dictionary<Type, BaseProjectileModule> _modules = new();
     protected List<BaseProjectileModule> _runtimeModules = new();
-
     protected ImmunityModule _immunity;
+
+    public bool IsAmmoRuntime { get; set; }
 
     protected BaseProjectile()
     {
@@ -112,7 +113,10 @@ public abstract class BaseProjectile : ModProjectile
             module.RuntimeHitNPC(target, hit);
         }
 
-        _source.Ammo.RuntimeHitNPC(target, hit);
+        if (IsAmmoRuntime)
+        {
+            _source.Ammo.RuntimeHitNPC(target, hit);
+        }
 
         _immunity.Reset(target);
     }
@@ -121,7 +125,10 @@ public abstract class BaseProjectile : ModProjectile
     {
         base.OnKill(timeLeft);
 
-        _source.Ammo.RuntimeKill();
+        if (IsAmmoRuntime)
+        {
+            _source.Ammo.RuntimeKill();
+        }
     }
 
     public override void AI()
