@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using Terraria.UI;
 using WaterGuns.Weapons;
 using WaterGuns.Weapons.Modules;
@@ -16,7 +17,7 @@ class PumpBar : UIState
 
     public override void OnInitialize()
     {
-        var outlineTexture = Main.Assets.Request<Texture2D>("WaterGuns/Assets/UI/BarOutline");
+        var outlineTexture = ModContent.Request<Texture2D>("WaterGuns/Assets/UI/BarOutline");
         _outline = new UIImage(outlineTexture)
         {
             HAlign = 0.9f,
