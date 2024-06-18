@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace WaterGuns.Projectiles.AI;
 
-public enum AINames { AutoAim };
+public enum AINames { NoAI, AutoAim };
 
 public class AIData
 {

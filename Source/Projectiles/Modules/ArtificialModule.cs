@@ -8,6 +8,7 @@ public class ArtificialModule : BaseProjectileModule
 
     public ArtificialModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
+        CurrentAI = new NoAI(baseProjectile);
     }
 
     public void SetAI(BaseAI ai)
