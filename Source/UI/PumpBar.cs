@@ -17,7 +17,7 @@ class PumpBar : UIState
 
     public override void OnInitialize()
     {
-        var outlineTexture = ModContent.Request<Texture2D>("WaterGuns/Assets/UI/BarOutline");
+        var outlineTexture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/BarOutline");
         _outline = new UIImage(outlineTexture)
         {
             HAlign = 0.9f,
