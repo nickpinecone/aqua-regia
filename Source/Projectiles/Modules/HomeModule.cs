@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using WaterGuns.Utils;
 
-namespace WaterGuns.Projectiles.AI;
+namespace WaterGuns.Projectiles.Modules;
 
-public class AutoAim : BaseAI
+public class HomeModule : BaseProjectileModule
 {
     public NPC Target { get; private set; }
     public float Curve { get; set; }
@@ -13,8 +13,7 @@ public class AutoAim : BaseAI
     public float Speed { get; set; }
     public float Radius { get; set; }
 
-    public AutoAim(BaseProjectile baseProjectile)
-        : base(baseProjectile, AINames.AutoAim)
+    public HomeModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
     }
 
@@ -26,14 +25,8 @@ public class AutoAim : BaseAI
         Radius = 300f;
     }
 
-    public override AIData Update(AIData aiData)
+    public Vector2? Update(Vector2 position, Vector2 velocity)
     {
-        var position = (Vector2)aiData.Position;
-        var velocity = (Vector2)aiData.Velocity;
-
-        var result = new AIData();
-        result.Velocity = velocity;
-
         Target = Helper.FindNearsetNPC(position, Radius);
 
         if (Target != null)
@@ -47,9 +40,18 @@ public class AutoAim : BaseAI
 
             Curve *= CurveChange;
 
-            result.Velocity = newVelocity;
+            return newVelocity;
         }
 
-        return result;
+        return null;
+    }
+
+    public override void RuntimeAI()
+    {
+        base.RuntimeAI();
+
+        _baseProjectile.Projectile.velocity =
+            Update(_baseProjectile.Projectile.Center, _baseProjectile.Projectile.velocity) ??
+            _baseProjectile.Projectile.velocity;
     }
 }
