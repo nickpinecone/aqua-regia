@@ -1,7 +1,7 @@
 
 using WaterGuns.Projectiles.Modules;
 
-namespace WaterGuns.Projectiles;
+namespace WaterGuns.Projectiles.Wooden;
 
 public class WoodenProjectile : BaseProjectile
 {

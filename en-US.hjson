@@ -2,7 +2,7 @@ Mods: {
 	WaterGuns: {
 		Items: {
 			WoodenGun: {
-				Tooltip: ""
+				Tooltip: Boosted damage when near trees
 				DisplayName: Wooden Sprinkler
 			}
 		}
