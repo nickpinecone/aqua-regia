@@ -16,16 +16,15 @@ class InterfaceSystem : ModSystem
     {
         base.Load();
 
-        if (!Main.dedServ)
-        {
-            _interface = new UserInterface();
-            _pumpBar = new PumpBar();
-            _pumpBar.Activate();
-        }
+        _interface = new UserInterface();
+        _pumpBar = new PumpBar();
+        _pumpBar.Activate();
     }
 
     public override void UpdateUI(GameTime gameTime)
     {
+        base.UpdateUI(gameTime);
+
         _lastUpdateUI = gameTime;
         if (_interface?.CurrentState != null)
         {
@@ -35,24 +34,19 @@ class InterfaceSystem : ModSystem
 
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
     {
+        base.ModifyInterfaceLayers(layers);
+
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
         if (mouseTextIndex != -1)
         {
-            layers.Insert(
-                mouseTextIndex,
-                new LegacyGameInterfaceLayer(
-                    "WaterGuns: Interface",
-                    delegate
-                    {
-                        if (_lastUpdateUI != null && _interface?.CurrentState != null)
-                        {
-                            _interface.Draw(Main.spriteBatch, _lastUpdateUI);
-                        }
-                        return true;
-                    },
-                    InterfaceScaleType.UI
-                )
-            );
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("WaterGuns: Interface", delegate
+            {
+                if (_lastUpdateUI != null && _interface?.CurrentState != null)
+                {
+                    _interface.Draw(Main.spriteBatch, _lastUpdateUI);
+                }
+                return true;
+            }, InterfaceScaleType.UI));
         }
     }
 }

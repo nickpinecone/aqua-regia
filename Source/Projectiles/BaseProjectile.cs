@@ -25,6 +25,11 @@ public abstract class BaseProjectile : ModProjectile
         _immunity = new ImmunityModule(this);
     }
 
+    public void AddTimer(Timer timer)
+    {
+        _timers.Add(timer);
+    }
+
     public bool HasModule<T>()
     {
         return _modules.ContainsKey(typeof(T));

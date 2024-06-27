@@ -21,15 +21,15 @@ public class PropertyModule : BaseProjectileModule
 
         _baseProjectile.Projectile.damage = 1;
         _baseProjectile.Projectile.penetrate = 1;
-        _baseProjectile.Projectile.timeLeft = 60;
+        _baseProjectile.Projectile.timeLeft = 35;
 
         _baseProjectile.Projectile.width = 16;
         _baseProjectile.Projectile.height = 16;
 
         DefaultTime = 60;
-        DefaultGravity = 0.001f;
-        Gravity = 0.001f;
-        GravityChange = 0.002f;
+        DefaultGravity = 0.01f;
+        Gravity = DefaultGravity;
+        GravityChange = 0.02f;
     }
 
     public Vector2 ApplyGravity(Vector2 velocity)

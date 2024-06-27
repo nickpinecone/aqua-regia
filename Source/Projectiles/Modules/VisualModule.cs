@@ -37,9 +37,9 @@ public class VisualModule : BaseProjectileModule
     {
         DustData = new DustData()
         {
-            Amount = 4,
-            Offset = 3.4f,
-            Scale = 1f,
+            Amount = 6,
+            Offset = 3.8f,
+            Scale = 1.2f,
             Color = Color.White,
             Alpha = 0,
         };
@@ -61,7 +61,7 @@ public class VisualModule : BaseProjectileModule
             var newPosition = new Vector2(position.X + offset.X * i, position.Y + offset.Y * i);
             var dust = Dust.NewDustPerfect(newPosition, DustID.Wet, new Vector2(0, 0), DustData.Alpha, DustData.Color, DustData.Scale);
             dust.noGravity = true;
-            dust.fadeIn = 0f;
+            dust.fadeIn = 1f;
             dust.velocity = velocity.SafeNormalize(Vector2.Zero);
         }
     }

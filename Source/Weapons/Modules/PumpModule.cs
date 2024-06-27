@@ -23,9 +23,9 @@ public class PumpModule : BaseGunModule
 
     public Timer PumpTimer { get; }
 
-    public PumpModule(BaseGun baseGun, int waitTime) : base(baseGun)
+    public PumpModule(BaseGun baseGun) : base(baseGun)
     {
-        PumpTimer = new Timer(waitTime);
+        PumpTimer = new Timer(20, baseGun);
     }
 
     public void ApplyToProjectile(BaseProjectile baseProjectile)

@@ -18,11 +18,9 @@ class PumpBar : UIState
     public override void OnInitialize()
     {
         var outlineTexture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/BarOutline");
-        _outline = new UIImage(outlineTexture)
-        {
-            HAlign = 0.9f,
-            VAlign = 0.9f,
-        };
+        _outline = new UIImage(outlineTexture);
+        _outline.Top = StyleDimension.FromPercent(0.5f);
+        _outline.Left = StyleDimension.FromPercent(0.5f);
 
         _bar = new UIPanel();
         _bar.Width.Set(20, 0);
@@ -59,5 +57,8 @@ class PumpBar : UIState
             _bar.BorderColor = Color.Transparent;
             _bar.BackgroundColor = Color.Transparent;
         }
+
+        _bar.BorderColor = Color.White;
+        _bar.BackgroundColor = Color.White;
     }
 }

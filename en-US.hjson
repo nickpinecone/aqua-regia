@@ -1,1 +1,12 @@
+Mods: {
+	WaterGuns: {
+		Items: {
+			WoodenGun: {
+				Tooltip: ""
+				DisplayName: Wooden Gun
+			}
+		}
 
+		Projectiles.WoodenProjectile.DisplayName: Wooden Projectile
+	}
+}

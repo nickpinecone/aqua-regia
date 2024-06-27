@@ -1,3 +1,6 @@
+using WaterGuns.Projectiles;
+using WaterGuns.Weapons;
+
 namespace WaterGuns.Utils;
 
 public class Timer
@@ -11,9 +14,19 @@ public class Timer
         get { return WaitTime - Current; }
     }
 
-    public Timer(int waitTime)
+    private Timer(int waitTime)
     {
         WaitTime = waitTime;
+    }
+
+    public Timer(int waitTime, BaseGun baseGun) : this(waitTime)
+    {
+        baseGun.AddTimer(this);
+    }
+    
+    public Timer(int waitTime, BaseProjectile baseProjectile) : this(waitTime)
+    {
+        baseProjectile.AddTimer(this);
     }
 
     public void Restart()

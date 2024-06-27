@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Chat;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WaterGuns.Ammo;
 using WaterGuns.Projectiles;
@@ -16,11 +18,17 @@ public abstract class BaseGun : ModItem
     private List<Timer> _timers = new();
 
     protected Dictionary<Type, BaseGunModule> _modules = new();
-    protected SpriteModule _sprite;
+
+    public SpriteModule Sprite { get; private set; }
 
     protected BaseGun()
     {
-        _sprite = new SpriteModule(this);
+        Sprite = new SpriteModule(this);
+    }
+
+    public void AddTimer(Timer timer)
+    {
+        _timers.Add(timer);
     }
 
     public bool HasModule<T>()
@@ -30,6 +38,7 @@ public abstract class BaseGun : ModItem
 
     public void AddModule(BaseGunModule module)
     {
+        ChatHelper.DisplayMessage(NetworkText.FromLiteral("Hello"), Color.White, 1);
         _modules[module.GetType()] = module;
     }
 
@@ -39,10 +48,9 @@ public abstract class BaseGun : ModItem
         return (T)_modules[typeof(T)];
     }
 
-    public T ShootProjectile<T>(
-        Player player, EntitySource_ItemUse_WithAmmo source,
-        Vector2 position, Vector2 velocity, int damage, int knockback
-    ) where T : BaseProjectile
+    public T ShootProjectile<T>(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
+                                int damage, float knockback)
+        where T : BaseProjectile
     {
         var ammo = (BaseAmmo)ModContent.GetModItem(source.AmmoItemIdUsed);
         var projSource = new WaterGuns.ProjectileSource(source)
@@ -53,7 +61,8 @@ public abstract class BaseGun : ModItem
 
         var type = ModContent.ProjectileType<T>();
 
-        var proj = Projectile.NewProjectileDirect(projSource, position, velocity, type, damage, knockback, player.whoAmI);
+        var proj =
+            Projectile.NewProjectileDirect(projSource, position, velocity, type, damage, knockback, player.whoAmI);
         return (T)proj.ModProjectile;
     }
 
@@ -69,6 +78,6 @@ public abstract class BaseGun : ModItem
 
     public override Vector2? HoldoutOffset()
     {
-        return _sprite.HoldoutOffset;
+        return Sprite.HoldoutOffset;
     }
 }

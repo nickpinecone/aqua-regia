@@ -1,5 +1,4 @@
 
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -18,7 +17,9 @@ public class SpriteModule : BaseGunModule
 
     public Vector2 ApplyOffset(Vector2 position, Vector2 velocity)
     {
-        var offset = new Vector2(position.X + velocity.X * Offset.X, position.Y + velocity.Y * Offset.Y);
+        var normalized = velocity.SafeNormalize(Vector2.Zero);
+
+        var offset = new Vector2(position.X + normalized.X * Offset.X, position.Y + normalized.Y * Offset.Y);
 
         return offset + Shift;
     }
