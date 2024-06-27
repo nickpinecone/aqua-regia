@@ -9,17 +9,20 @@ namespace WaterGuns.UI;
 class InterfaceSystem : ModSystem
 {
     internal UserInterface _interface;
-    internal PumpBar _pumpBar;
+    internal PumpGauge _pumpGauge;
     private GameTime _lastUpdateUI;
 
     public override void Load()
     {
         base.Load();
 
-        _interface = new UserInterface();
-        _pumpBar = new PumpBar();
-        _pumpBar.Activate();
-        _interface.SetState(_pumpBar);
+        if (!Main.dedServ)
+        {
+            _interface = new UserInterface();
+            _pumpGauge = new PumpGauge();
+            _pumpGauge.Activate();
+            _interface.SetState(_pumpGauge);
+        }
     }
 
     public override void UpdateUI(GameTime gameTime)
@@ -40,14 +43,13 @@ class InterfaceSystem : ModSystem
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
         if (mouseTextIndex != -1)
         {
-            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("WaterGuns: Interface", delegate
-            {
-                if (_lastUpdateUI != null && _interface?.CurrentState != null)
-                {
-                    _interface.Draw(Main.spriteBatch, _lastUpdateUI);
-                }
-                return true;
-            }, InterfaceScaleType.UI));
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("WaterGuns: Interface", delegate {
+                              if (_lastUpdateUI != null && _interface?.CurrentState != null)
+                              {
+                                  _interface.Draw(Main.spriteBatch, _lastUpdateUI);
+                              }
+                              return true;
+                          }, InterfaceScaleType.UI));
         }
     }
 }

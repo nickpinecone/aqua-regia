@@ -26,7 +26,7 @@ public class PropertyModule : BaseProjectileModule
         _baseProjectile.Projectile.width = 16;
         _baseProjectile.Projectile.height = 16;
 
-        DefaultTime = 60;
+        DefaultTime = 35;
         DefaultGravity = 0.01f;
         Gravity = DefaultGravity;
         GravityChange = 0.02f;

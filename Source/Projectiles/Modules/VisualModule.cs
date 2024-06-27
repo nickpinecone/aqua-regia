@@ -50,6 +50,12 @@ public class VisualModule : BaseProjectileModule
         DustData.Color = baseAmmo.Color;
     }
 
+    public void KillEffect(Vector2 position)
+    {
+        var dust = Dust.NewDustDirect(position, 16, 16, DustID.Water, 0, 0, 0, default, 1);
+        dust.noGravity = true;
+    }
+
     public void CreateDust(Vector2 position, Vector2 velocity)
     {
         var offset = new Vector2(velocity.X, velocity.Y);

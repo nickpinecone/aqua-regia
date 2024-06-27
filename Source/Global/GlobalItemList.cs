@@ -13,6 +13,8 @@ public class GlobalItemList : GlobalItem
         if (entity.type == ItemID.BottledWater)
         {
             entity.ammo = ItemID.BottledWater;
+            entity.DamageType = DamageClass.Ranged;
+            entity.damage = 1;
         }
     }
 }

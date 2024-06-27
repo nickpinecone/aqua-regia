@@ -10,13 +10,13 @@ using WaterGuns.Weapons.Modules;
 
 namespace WaterGuns.UI;
 
-class PumpBar : UIState
+class PumpGauge : UIState
 {
     private UIImage _frame;
 
     public override void OnInitialize()
     {
-        var texture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/BarFrame");
+        var texture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/GaugeFrame");
 
         _frame = new UIImage(texture);
         _frame.Width.Set(18, 0);
@@ -50,6 +50,7 @@ class PumpBar : UIState
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {
         base.DrawSelf(spriteBatch);
+        this.DisplayTooltip();
 
         var pump = ((BaseGun)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
         float percent = (float)pump.PumpLevel / (float)pump.MaxPumpLevel;
@@ -69,6 +70,14 @@ class PumpBar : UIState
             spriteBatch.Draw(TextureAssets.MagicPixel.Value,
                              new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - i, rectangle.Width, 1),
                              Color.Lerp(Color.Blue, Color.Cyan, gradient));
+        }
+    }
+
+    private void DisplayTooltip()
+    {
+        if (_frame.IsMouseHovering)
+        {
+            Main.hoverItemName = "Pump Gauge";
         }
     }
 }

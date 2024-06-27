@@ -56,7 +56,7 @@ public abstract class BaseProjectile : ModProjectile
     }
 
     public T SpawnProjectile<T>(
-        Vector2 position, Vector2 velocity, int damage, int knockback
+        Vector2 position, Vector2 velocity, int damage, float knockback
     ) where T : BaseProjectile
     {
         if (Projectile.owner != Main.myPlayer) return null;

@@ -2,11 +2,19 @@ Mods: {
 	WaterGuns: {
 		Items: {
 			WoodenGun: {
-				Tooltip: Boosted damage when near trees
+				Tooltip:
+					'''
+					Passive: Boosted damage when near trees
+					Attack: Acorn falls on the enemy, when hit
+					Pumped: <right> to tree slam at the cursor position
+					'''
 				DisplayName: Wooden Sprinkler
 			}
 		}
 
-		Projectiles.WoodenProjectile.DisplayName: Wooden Projectile
+		Projectiles: {
+			WoodenProjectile.DisplayName: Wooden Projectile
+			AcornProjectile.DisplayName: Acorn Projectile
+		}
 	}
 }

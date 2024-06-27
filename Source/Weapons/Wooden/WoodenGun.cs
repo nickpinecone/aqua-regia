@@ -29,8 +29,8 @@ public class WoodenGun : BaseGun
         Property.SetDefaults();
         Property.SetProjectile<WoodenProjectile>();
 
-        Sprite.HoldoutOffset = new Vector2(0, 5);
-        Sprite.Offset = new Vector2(24f, 24f);
+        Sprite.HoldoutOffset = new Vector2(0, 6);
+        Sprite.Offset = new Vector2(26f, 26f);
         Pump.MaxPumpLevel = 8;
         Property.Inaccuracy = 3.5f;
 
@@ -60,13 +60,15 @@ public class WoodenGun : BaseGun
             Pump.Reset();
         }
 
-        return true;
+        return false;
     }
 
     public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source,
                                Microsoft.Xna.Framework.Vector2 position, Microsoft.Xna.Framework.Vector2 velocity,
                                int type, int damage, float knockback)
     {
+        base.Shoot(player, source, position, velocity, type, damage, knockback);
+
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
