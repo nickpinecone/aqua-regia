@@ -45,18 +45,24 @@ public class WoodenGun : BaseGun
         Pump.DefaultUpdate();
     }
 
+    public override bool AltFunctionUse(Terraria.Player player)
+    {
+        base.AltFunctionUse(player);
+
+        if(Pump.Pumped)
+        {
+            Pump.Reset();
+        }
+
+        return true;
+    }
+
     public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source, Microsoft.Xna.Framework.Vector2 position, Microsoft.Xna.Framework.Vector2 velocity, int type, int damage, float knockback)
     {
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
         var projectile = ShootProjectile<WoodenProjectile>(player, source, position, velocity, damage, knockback);
-
-        if(Pump.Pumped)
-        {
-            Pump.ApplyToProjectile(projectile);
-            Pump.Reset();
-        }
 
         return false;
     }

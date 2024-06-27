@@ -19,6 +19,7 @@ class InterfaceSystem : ModSystem
         _interface = new UserInterface();
         _pumpBar = new PumpBar();
         _pumpBar.Activate();
+        _interface.SetState(_pumpBar);
     }
 
     public override void UpdateUI(GameTime gameTime)

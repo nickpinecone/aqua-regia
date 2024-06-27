@@ -30,7 +30,6 @@ public class PumpModule : BaseGunModule
 
     public void ApplyToProjectile(BaseProjectile baseProjectile)
     {
-        baseProjectile.Projectile.scale *= 1.5f;
     }
 
     public void Reset()

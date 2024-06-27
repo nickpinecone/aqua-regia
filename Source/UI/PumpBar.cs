@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -11,54 +12,63 @@ namespace WaterGuns.UI;
 
 class PumpBar : UIState
 {
-    private UIImage _outline;
-    private UIPanel _bar;
-    private Vector2 _position;
+    private UIImage _frame;
 
     public override void OnInitialize()
     {
-        var outlineTexture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/BarOutline");
-        _outline = new UIImage(outlineTexture);
-        _outline.Top = StyleDimension.FromPercent(0.5f);
-        _outline.Left = StyleDimension.FromPercent(0.5f);
+        var texture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/BarFrame");
 
-        _bar = new UIPanel();
-        _bar.Width.Set(20, 0);
-        _bar.Height.Set(20, 0);
-        _position = new Vector2(2, _outline.Height.Pixels - _bar.Height.Pixels / 2 - 2);
-        _bar.Top.Set(_position.Y, 0);
-        _bar.Left.Set(_position.X, 0);
+        _frame = new UIImage(texture);
+        _frame.Width.Set(18, 0);
+        _frame.Height.Set(90, 0);
+        _frame.HAlign = 0.99f;
+        _frame.VAlign = 0.98f;
 
-        _outline.Append(_bar);
+        Append(_frame);
+    }
 
-        Append(_outline);
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        if (!(Main.LocalPlayer.HeldItem.ModItem is BaseGun baseGun && baseGun.HasModule<PumpModule>()))
+        {
+            return;
+        }
+
+        base.Draw(spriteBatch);
     }
 
     public override void Update(GameTime gameTime)
     {
+        if (!(Main.LocalPlayer.HeldItem.ModItem is BaseGun baseGun && baseGun.HasModule<PumpModule>()))
+        {
+            return;
+        }
+
         base.Update(gameTime);
+    }
 
-        if (Main.LocalPlayer.HeldItem.ModItem is BaseGun baseGun && baseGun.HasModule<PumpModule>())
+    protected override void DrawSelf(SpriteBatch spriteBatch)
+    {
+        base.DrawSelf(spriteBatch);
+
+        var pump = ((BaseGun)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
+        float percent = (float)pump.PumpLevel / (float)pump.MaxPumpLevel;
+
+        Rectangle rectangle = _frame.GetInnerDimensions().ToRectangle();
+        rectangle.X += 2;
+        rectangle.Width -= 4;
+        rectangle.Y += 2;
+        rectangle.Height -= 4;
+
+        int steps = (int)((rectangle.Bottom - rectangle.Top) * percent);
+
+        for (int i = 0; i < steps; i += 1)
         {
-            var pump = baseGun.GetModule<PumpModule>();
+            float gradient = (float)i / (rectangle.Bottom - rectangle.Top);
 
-            _bar.Top.Set(_position.Y, 0);
-            _bar.Left.Set(_position.X, 0);
-
-            _bar.BorderColor = Color.White;
-            _bar.BackgroundColor = Color.White;
-
-            var value = 100 * ((float)pump.PumpLevel / pump.MaxPumpLevel);
-            _bar.Height.Set(value, 0);
-            _bar.Top.Set(_position.Y - value, 0);
+            spriteBatch.Draw(TextureAssets.MagicPixel.Value,
+                             new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - i, rectangle.Width, 1),
+                             Color.Lerp(Color.Blue, Color.Cyan, gradient));
         }
-        else
-        {
-            _bar.BorderColor = Color.Transparent;
-            _bar.BackgroundColor = Color.Transparent;
-        }
-
-        _bar.BorderColor = Color.White;
-        _bar.BackgroundColor = Color.White;
     }
 }

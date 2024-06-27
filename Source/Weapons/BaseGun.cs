@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.DataStructures;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using WaterGuns.Ammo;
 using WaterGuns.Projectiles;
@@ -38,7 +36,6 @@ public abstract class BaseGun : ModItem
 
     public void AddModule(BaseGunModule module)
     {
-        ChatHelper.DisplayMessage(NetworkText.FromLiteral("Hello"), Color.White, 1);
         _modules[module.GetType()] = module;
     }
 
