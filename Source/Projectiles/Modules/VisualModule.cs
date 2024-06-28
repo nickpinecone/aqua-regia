@@ -48,10 +48,12 @@ public class VisualModule : BaseProjectileModule
         DustData.Color = baseAmmo.Color;
     }
 
-    public void KillEffect(Vector2 position)
+    public void KillEffect(Vector2 position, Vector2 velocity)
     {
-        var dust = Dust.NewDustDirect(position, 16, 16, DustID.Water, 0, 0, 0, default, 1);
-        dust.noGravity = true;
+        velocity.Normalize();
+        velocity *= 2f;
+
+        Dust.NewDust(position, 16, 16, DustID.Wet, velocity.X, velocity.Y, 0, default, 1.2f);
     }
 
     public void CreateDust(Vector2 position, Vector2 velocity)

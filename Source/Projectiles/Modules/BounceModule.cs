@@ -25,7 +25,7 @@ public class BounceModule : BaseProjectileModule
         {
             _current += 1;
 
-            var newVelocity = Vector2.Zero;
+            var newVelocity = velocity;
             if (oldVelocity.X != velocity.X)
                 newVelocity.X = -oldVelocity.X;
             if (oldVelocity.Y != velocity.Y)

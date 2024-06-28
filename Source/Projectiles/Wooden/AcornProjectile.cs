@@ -11,11 +11,13 @@ public class AcornProjectile : BaseProjectile
 
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
+    public HeadBounceModule HeadBounce { get; private set; }
 
     public AcornProjectile() : base()
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
+        HeadBounce = new HeadBounceModule(this);
     }
 
     public override void SetDefaults()
@@ -26,9 +28,9 @@ public class AcornProjectile : BaseProjectile
         Property.SetDefaultGravity();
 
         Projectile.damage = 1;
-        Projectile.penetrate = 3;
-        Projectile.timeLeft = 60;
-        Property.DefaultTime = 60;
+        Projectile.penetrate = 5;
+        Projectile.timeLeft = 120;
+        Property.DefaultTime = 120;
 
         Projectile.width = 20;
         Projectile.height = 20;
@@ -42,21 +44,23 @@ public class AcornProjectile : BaseProjectile
         Projectile.rotation = Main.rand.NextFloat(0f, MathHelper.TwoPi);
     }
 
+    public override bool? CanHitNPC(NPC target)
+    {
+        if(!HeadBounce.CanHit(target, Projectile.Center))
+            return false;
+
+        return base.CanHitNPC(target);
+    }
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        var dust = Dust.NewDustDirect(Projectile.Center, 16, 16, 7, 0, 0, 0, default, 1);
+        var dustWood = 7;
+        var dust = Dust.NewDustDirect(Projectile.Center, 16, 16, dustWood, 0, 0, 0, default, 1);
         dust.noGravity = true;
 
-        if (target.Top.Y > Projectile.Center.Y)
-        {
-            var bounce = new Vector2(0, -1).RotatedByRandom(MathHelper.ToRadians(45f));
-            bounce.Normalize();
-            bounce *= 8f;
-
-            Projectile.velocity = bounce;
-        }
+        Projectile.velocity = HeadBounce.BounceOff(target, Projectile.Center) ?? Projectile.velocity;
     }
 
     public override void AI()

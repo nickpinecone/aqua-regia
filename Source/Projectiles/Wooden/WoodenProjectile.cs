@@ -39,7 +39,7 @@ public class WoodenProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        Visual.KillEffect(Projectile.Center);
+        Visual.KillEffect(Projectile.Center, Projectile.velocity);
 
         if (Main.rand.Next(0, 6) == 0)
         {
