@@ -17,7 +17,7 @@ public class AcornProjectile : BaseProjectile
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
-        HeadBounce = new HeadBounceModule(this);
+        HeadBounce = new HeadBounceModule(this, Property);
     }
 
     public override void SetDefaults()
@@ -26,11 +26,10 @@ public class AcornProjectile : BaseProjectile
 
         Property.SetDefaults(this);
         Property.SetDefaultGravity();
+        Property.SetTimeLeft(this, 120);
 
         Projectile.damage = 1;
         Projectile.penetrate = 5;
-        Projectile.timeLeft = 120;
-        Property.DefaultTime = 120;
 
         Projectile.width = 20;
         Projectile.height = 20;

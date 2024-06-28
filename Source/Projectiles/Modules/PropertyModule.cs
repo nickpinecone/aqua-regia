@@ -4,8 +4,8 @@ namespace WaterGuns.Projectiles.Modules;
 
 public class PropertyModule : BaseProjectileModule
 {
-    public float DefaultGravity { get; set; }
-    public int DefaultTime { get; set; }
+    public float DefaultGravity { get; private set; }
+    public int DefaultTime { get; private set; }
 
     public float Gravity { get; set; }
     public float GravityChange { get; set; }
@@ -26,6 +26,18 @@ public class PropertyModule : BaseProjectileModule
         DefaultTime = baseProjectile.Projectile.timeLeft;
         baseProjectile.Projectile.hostile = false;
         baseProjectile.Projectile.friendly = true;
+    }
+
+    public void SetGravity(float value)
+    {
+        DefaultGravity = value;
+        Gravity = DefaultGravity;
+    }
+
+    public void SetTimeLeft(BaseProjectile baseProjectile, int time)
+    {
+        DefaultTime = time;
+        baseProjectile.Projectile.timeLeft = DefaultTime;
     }
 
     public void SetDefaultGravity()

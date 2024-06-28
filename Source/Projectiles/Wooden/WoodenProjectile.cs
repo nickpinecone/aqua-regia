@@ -25,11 +25,10 @@ public class WoodenProjectile : BaseProjectile
         Visual.SetWater();
         Property.SetDefaults(this);
         Property.SetDefaultGravity();
+        Property.SetTimeLeft(this, 35);
 
         Projectile.damage = 1;
         Projectile.penetrate = 1;
-        Projectile.timeLeft = 35;
-        Property.DefaultTime = 35;
 
         Projectile.width = 16;
         Projectile.height = 16;

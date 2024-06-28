@@ -6,8 +6,11 @@ namespace WaterGuns.Projectiles.Wooden;
 
 public class HeadBounceModule : BaseProjectileModule
 {
-    public HeadBounceModule(BaseProjectile baseProjectile) : base(baseProjectile)
+    private PropertyModule _property;
+
+    public HeadBounceModule(BaseProjectile baseProjectile, PropertyModule property) : base(baseProjectile)
     {
+        _property = property;
     }
 
     public Vector2? BounceOff(NPC target, Vector2 position)
@@ -18,6 +21,8 @@ public class HeadBounceModule : BaseProjectileModule
 
         bounceVelocity.Normalize();
         bounceVelocity *= Main.rand.NextFloat(6f, 8f);
+
+        _property.Gravity /= 1.2f;
 
         return bounceVelocity;
     }
