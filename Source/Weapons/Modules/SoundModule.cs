@@ -15,7 +15,7 @@ public class SoundModule : BaseGunModule
 
     public void SetWater(BaseGun baseGun)
     {
-        SoundStyle = new SoundStyle("WaterGuns/Assets/Audio/WaterGunShoot");
+        SoundStyle = new SoundStyle("WaterGuns/Assets/Audio/WaterShoot");
         Pitch = -0.1f;
         PitchVariance = 0.1f;
 

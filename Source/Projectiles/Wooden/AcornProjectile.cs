@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using WaterGuns.Projectiles.Modules;
 
 namespace WaterGuns.Projectiles.Wooden;
@@ -45,7 +46,7 @@ public class AcornProjectile : BaseProjectile
 
     public override bool? CanHitNPC(NPC target)
     {
-        if(!HeadBounce.CanHit(target, Projectile.Center))
+        if (!HeadBounce.CanHit(target, Projectile.Center))
             return false;
 
         return base.CanHitNPC(target);
@@ -54,6 +55,13 @@ public class AcornProjectile : BaseProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
+
+        SoundStyle BonkSound = new SoundStyle("WaterGuns/Assets/Audio/Bonk")
+        {
+            Volume = 0.3f,
+            PitchVariance = 0.1f,
+        };
+        SoundEngine.PlaySound(BonkSound);
 
         var dustWood = 7;
         var dust = Dust.NewDustDirect(Projectile.Center, 16, 16, dustWood, 0, 0, 0, default, 1);
