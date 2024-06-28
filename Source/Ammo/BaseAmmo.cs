@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles;
 
@@ -7,12 +9,30 @@ namespace WaterGuns.Ammo;
 
 public abstract class BaseAmmo : ModItem
 {
-    public int Damage { get; set; }
     public Color Color { get; set; }
+
+    public override void SetStaticDefaults()
+    {
+        Item.ResearchUnlockCount = 25;
+    }
+
+    public override void SetDefaults()
+    {
+        Item.ammo = ModContent.ItemType<BottledWater>();
+        Item.DamageType = DamageClass.Ranged;
+        Item.maxStack = Item.CommonMaxStack;
+        Item.consumable = true;
+
+        Item.width = 14;
+        Item.height = 28;
+
+        Item.damage = 0;
+        Item.knockBack = 0f;
+        Color = Color.White;
+    }
 
     public virtual void ApplyToProjectile(BaseProjectile baseProjectile)
     {
-        baseProjectile.Projectile.damage += Damage;
     }
 
     public virtual void RuntimeHitNPC(NPC target, NPC.HitInfo hit)

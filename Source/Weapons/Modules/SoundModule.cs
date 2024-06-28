@@ -13,13 +13,13 @@ public class SoundModule : BaseGunModule
     {
     }
 
-    public void SetDefaults()
+    public void SetWater(BaseGun baseGun)
     {
         SoundStyle = new SoundStyle("WaterGuns/Assets/Audio/WaterGunShoot");
         Pitch = -0.1f;
         PitchVariance = 0.1f;
 
-        _baseGun.Item.UseSound = SoundStyle with
+        baseGun.Item.UseSound = SoundStyle with
         {
             Pitch = Pitch,
             PitchVariance = PitchVariance,

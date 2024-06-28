@@ -22,8 +22,17 @@ public class WoodenProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults();
-        Visual.SetDefaults();
+        Visual.SetWater();
+        Property.SetDefaults(this);
+        Property.SetDefaultGravity();
+
+        Projectile.damage = 1;
+        Projectile.penetrate = 1;
+        Projectile.timeLeft = 35;
+        Property.DefaultTime = 35;
+
+        Projectile.width = 16;
+        Projectile.height = 16;
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)

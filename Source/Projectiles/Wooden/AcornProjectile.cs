@@ -22,14 +22,17 @@ public class AcornProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults();
+        Property.SetDefaults(this);
+        Property.SetDefaultGravity();
+
+        Projectile.damage = 1;
+        Projectile.penetrate = 3;
+        Projectile.timeLeft = 60;
+        Property.DefaultTime = 60;
 
         Projectile.width = 20;
         Projectile.height = 20;
         Projectile.alpha = 255;
-        Projectile.timeLeft = 60;
-        Property.DefaultTime = 60;
-        Projectile.penetrate = 3;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

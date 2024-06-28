@@ -10,6 +10,16 @@ Mods: {
 					'''
 				DisplayName: Wooden Sprinkler
 			}
+
+			BottledWater: {
+				DisplayName: Bottled Water
+				Tooltip: ""
+			}
+
+			EmptyBottle: {
+				DisplayName: Empty Bottle
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

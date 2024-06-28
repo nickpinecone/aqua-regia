@@ -46,12 +46,12 @@ public class HomeModule : BaseProjectileModule
         return null;
     }
 
-    public override void RuntimeAI()
+    public override void RuntimeAI(BaseProjectile baseProjectile)
     {
-        base.RuntimeAI();
+        base.RuntimeAI(baseProjectile);
 
-        _baseProjectile.Projectile.velocity =
-            Update(_baseProjectile.Projectile.Center, _baseProjectile.Projectile.velocity) ??
-            _baseProjectile.Projectile.velocity;
+        baseProjectile.Projectile.velocity =
+            Update(baseProjectile.Projectile.Center, baseProjectile.Projectile.velocity) ??
+            baseProjectile.Projectile.velocity;
     }
 }

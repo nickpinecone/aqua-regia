@@ -87,7 +87,7 @@ public abstract class BaseProjectile : ModProjectile
 
         foreach (var module in _runtimeModules)
         {
-            var status = module.RuntimeTileCollide(oldVelocity);
+            var status = module.RuntimeTileCollide(this, oldVelocity);
             if (status == false)
             {
                 isDefault = false;
@@ -115,7 +115,7 @@ public abstract class BaseProjectile : ModProjectile
 
         foreach (var module in _runtimeModules)
         {
-            module.RuntimeHitNPC(target, hit);
+            module.RuntimeHitNPC(this, target, hit);
         }
 
         if (IsAmmoRuntime)
@@ -142,7 +142,7 @@ public abstract class BaseProjectile : ModProjectile
 
         foreach (var module in _runtimeModules)
         {
-            module.RuntimeAI();
+            module.RuntimeAI(this);
         }
 
         _immunity.Update();

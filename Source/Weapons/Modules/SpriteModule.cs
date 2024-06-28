@@ -1,6 +1,9 @@
 
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
+using WaterGuns.Ammo;
 
 namespace WaterGuns.Weapons.Modules;
 
@@ -13,6 +16,11 @@ public class SpriteModule : BaseGunModule
 
     public SpriteModule(BaseGun baseGun) : base(baseGun)
     {
+    }
+
+    public void AddAmmoTooltip(List<TooltipLine> tooltip, Mod mod)
+    {
+        tooltip.Add(new TooltipLine(mod, "AmmoUse", $"[c/9CCFD8:Uses Bottled Water] [i/s1:{ModContent.ItemType<BottledWater>()}]"));
     }
 
     public Vector2 ApplyOffset(Vector2 position, Vector2 velocity)

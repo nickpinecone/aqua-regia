@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using WaterGuns.Projectiles.Wooden;
 using WaterGuns.Weapons.Modules;
 
@@ -11,23 +15,23 @@ public class WoodenGun : BaseGun
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
-    public TreeModule TreeBoost { get; private set; }
+    public TreeBoostModule TreeBoost { get; private set; }
 
     public WoodenGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
         Pump = new PumpModule(this);
-        TreeBoost = new TreeModule(this);
+        TreeBoost = new TreeBoostModule(this);
     }
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Sound.SetDefaults();
-        Property.SetDefaults();
-        Property.SetProjectile<WoodenProjectile>();
+        Sound.SetWater(this);
+        Property.SetDefaults(this);
+        Property.SetProjectile<WoodenProjectile>(this);
 
         Sprite.HoldoutOffset = new Vector2(0, 6);
         Sprite.Offset = new Vector2(26f, 26f);
@@ -38,6 +42,10 @@ public class WoodenGun : BaseGun
         Item.height = 22;
         Item.damage = 5;
         Item.knockBack = 0.8f;
+
+        Item.useTime = 20;
+        Item.useAnimation = 20;
+        Item.shootSpeed = 22f;
 
         TreeBoost.Initialize(Item.damage, 2);
     }
@@ -72,8 +80,24 @@ public class WoodenGun : BaseGun
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
-        var projectile = ShootProjectile<WoodenProjectile>(player, source, position, velocity, damage, knockback);
+        ShootProjectile<WoodenProjectile>(player, source, position, velocity, damage, knockback);
 
         return false;
+    }
+
+    public override void AddRecipes()
+    {
+        Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.Wood, 20);
+        recipe.AddIngredient(ItemID.Acorn, 5);
+        recipe.AddTile(TileID.WorkBenches);
+        recipe.Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltip)
+    {
+        base.ModifyTooltips(tooltip);
+
+        Sprite.AddAmmoTooltip(tooltip, Mod);
     }
 }

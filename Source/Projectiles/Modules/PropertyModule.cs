@@ -14,21 +14,24 @@ public class PropertyModule : BaseProjectileModule
     {
     }
 
-    public void SetDefaults()
+    public void SetDefaults(BaseProjectile baseProjectile)
     {
-        _baseProjectile.Projectile.hostile = false;
-        _baseProjectile.Projectile.friendly = true;
+        baseProjectile.Projectile.damage = 0;
+        baseProjectile.Projectile.penetrate = 0;
+        baseProjectile.Projectile.timeLeft = 0;
 
-        _baseProjectile.Projectile.damage = 1;
-        _baseProjectile.Projectile.penetrate = 1;
-        _baseProjectile.Projectile.timeLeft = 35;
+        baseProjectile.Projectile.width = 0;
+        baseProjectile.Projectile.height = 0;
 
-        _baseProjectile.Projectile.width = 16;
-        _baseProjectile.Projectile.height = 16;
+        DefaultTime = baseProjectile.Projectile.timeLeft;
+        baseProjectile.Projectile.hostile = false;
+        baseProjectile.Projectile.friendly = true;
+    }
 
-        DefaultTime = 35;
-        DefaultGravity = 0.01f;
-        Gravity = DefaultGravity;
+    public void SetDefaultGravity()
+    {
+        Gravity = 0.01f;
+        DefaultGravity = Gravity;
         GravityChange = 0.02f;
     }
 
