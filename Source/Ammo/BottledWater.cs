@@ -1,12 +1,12 @@
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Ammo;
 
 public class BottledWater : BaseAmmo
 {
-    public override string Texture => "WaterGuns/Assets/Textures/Ammo/BottledWater";
+    public override string Texture => TexturesPath.Ammo + "BottledWater";
 
     public override void SetDefaults()
     {

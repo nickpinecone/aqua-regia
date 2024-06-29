@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using WaterGuns.Projectiles.Modules;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles.Wooden;
 
 public class WoodenProjectile : BaseProjectile
 {
-    public override string Texture => "WaterGuns/Assets/Textures/Empty";
+    public override string Texture => TexturesPath.Empty;
 
     public PropertyModule Property { get; private set; }
     public VisualModule Visual { get; private set; }

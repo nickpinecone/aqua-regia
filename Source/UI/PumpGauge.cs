@@ -5,6 +5,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
+using WaterGuns.Utils;
 using WaterGuns.Weapons;
 using WaterGuns.Weapons.Modules;
 
@@ -16,7 +17,7 @@ class PumpGauge : UIState
 
     public override void OnInitialize()
     {
-        var texture = ModContent.Request<Texture2D>("WaterGuns/Assets/Textures/UI/GaugeFrame");
+        var texture = ModContent.Request<Texture2D>(TexturesPath.UI + "GaugeFrame");
 
         _frame = new UIImage(texture);
         _frame.Width.Set(18, 0);

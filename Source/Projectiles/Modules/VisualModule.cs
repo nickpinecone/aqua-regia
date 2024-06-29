@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WaterGuns.Ammo;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles.Modules;
 
@@ -53,7 +54,7 @@ public class VisualModule : BaseProjectileModule
         velocity.Normalize();
         velocity *= 2f;
 
-        Dust.NewDust(position, 16, 16, DustID.Wet, velocity.X, velocity.Y, 0, default, 1.2f);
+        Particle.Single(DustID.Wet, position, new Vector2(16, 16), velocity, 1.2f);
     }
 
     public void CreateDust(Vector2 position, Vector2 velocity)
@@ -65,10 +66,10 @@ public class VisualModule : BaseProjectileModule
         for (int i = 0; i < DustData.Amount; i++)
         {
             var newPosition = new Vector2(position.X + offset.X * i, position.Y + offset.Y * i);
-            var dust = Dust.NewDustPerfect(newPosition, DustID.Wet, new Vector2(0, 0), DustData.Alpha, DustData.Color, DustData.Scale);
-            dust.noGravity = true;
-            dust.fadeIn = 1f;
-            dust.velocity = velocity.SafeNormalize(Vector2.Zero);
+            var particle = Particle.SinglePerfect(DustID.Wet, newPosition, Vector2.Zero, DustData.Scale, DustData.Alpha, DustData.Color);
+            particle.noGravity = true;
+            particle.fadeIn = 1f;
+            particle.velocity = velocity.SafeNormalize(Vector2.Zero);
         }
     }
 
@@ -80,9 +81,9 @@ public class VisualModule : BaseProjectileModule
 
         var origin = source.Size() / 2f;
         var direction = to - from;
-        var unit = direction.SafeNormalize(Vector2.Zero);
+        var unitDirection = direction.SafeNormalize(Vector2.Zero);
 
-        var rotation = unit.ToRotation() + MathHelper.PiOver2;
+        var rotation = unitDirection.ToRotation() + MathHelper.PiOver2;
         var drawLength = direction.Length() + segmentLength / 2f;
 
         while (drawLength > 0f)
@@ -91,7 +92,7 @@ public class VisualModule : BaseProjectileModule
 
             Main.spriteBatch.Draw(texture.Value, from - Main.screenPosition, source, color, rotation, origin, 1f, SpriteEffects.None, 0f);
 
-            from += unit * segmentLength;
+            from += unitDirection * segmentLength;
             drawLength -= segmentLength;
         }
     }

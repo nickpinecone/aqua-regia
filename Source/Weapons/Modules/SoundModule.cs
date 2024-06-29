@@ -1,5 +1,6 @@
 
 using Terraria.Audio;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Weapons.Modules;
 
@@ -15,7 +16,7 @@ public class SoundModule : BaseGunModule
 
     public void SetWater(BaseGun baseGun)
     {
-        SoundStyle = new SoundStyle("WaterGuns/Assets/Audio/WaterShoot");
+        SoundStyle = new SoundStyle(AudioPath.Use + "WaterShoot");
         Pitch = -0.1f;
         PitchVariance = 0.1f;
 

@@ -1,12 +1,13 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Ammo;
 
 public class EmptyBottle : ModItem
 {
-    public override string Texture => "WaterGuns/Assets/Textures/Ammo/EmptyBottle";
+    public override string Texture => TexturesPath.Ammo + "EmptyBottle";
 
     public override void SetStaticDefaults()
     {

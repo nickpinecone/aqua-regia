@@ -2,23 +2,32 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using WaterGuns.Projectiles.Modules;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles.Wooden;
 
 public class AcornProjectile : BaseProjectile
 {
-    public override string Texture => "WaterGuns/Assets/Textures/Projectiles/AcornProjectile";
+    public override string Texture => TexturesPath.Projectiles + "AcornProjectile";
 
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
     public HeadBounceModule HeadBounce { get; private set; }
+
+    public SoundStyle BonkSound { get; private set; }
 
     public AcornProjectile() : base()
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         HeadBounce = new HeadBounceModule(this, Property);
+
+        BonkSound = new SoundStyle(AudioPath.Impact + "Bonk") {
+            Volume = 0.3f,
+            PitchVariance = 0.1f,
+        };
     }
 
     public override void SetDefaults()
@@ -44,6 +53,14 @@ public class AcornProjectile : BaseProjectile
         Projectile.rotation = Main.rand.NextFloat(0f, MathHelper.TwoPi);
     }
 
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        var particle = Particle.Single(ParticleID.Wood, Projectile.Center, new Vector2(16, 16), Vector2.Zero);
+        particle.noGravity = true;
+    }
+
     public override bool? CanHitNPC(NPC target)
     {
         if (!HeadBounce.CanHit(target, Projectile.Center))
@@ -56,16 +73,7 @@ public class AcornProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        SoundStyle BonkSound = new SoundStyle("WaterGuns/Assets/Audio/Bonk")
-        {
-            Volume = 0.3f,
-            PitchVariance = 0.1f,
-        };
         SoundEngine.PlaySound(BonkSound);
-
-        var dustWood = 7;
-        var dust = Dust.NewDustDirect(Projectile.Center, 16, 16, dustWood, 0, 0, 0, default, 1);
-        dust.noGravity = true;
 
         Projectile.velocity = HeadBounce.BounceOff(target, Projectile.Center) ?? Projectile.velocity;
     }
