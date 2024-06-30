@@ -75,6 +75,8 @@ public class AcornProjectile : BaseProjectile
 
         SoundEngine.PlaySound(BonkSound);
 
+        Particle.ArcPerfect(ParticleID.Wood, Projectile.Center, new Vector2(-1, 0), Vector2.UnitX, 10, 5, 2f);
+
         Projectile.velocity = HeadBounce.BounceOff(target, Projectile.Center) ?? Projectile.velocity;
     }
 
