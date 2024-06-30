@@ -54,7 +54,7 @@ public class VisualModule : BaseProjectileModule
         velocity.Normalize();
         velocity *= 2f;
 
-        Particle.Single(DustID.Wet, position, new Vector2(16, 16), velocity, 1.2f);
+        Particle.Single(DustID.Wet, position, new Vector2(2, 2), velocity, 1.2f);
     }
 
     public void CreateDust(Vector2 position, Vector2 velocity)

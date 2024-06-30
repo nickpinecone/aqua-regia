@@ -56,7 +56,7 @@ public class AcornProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        var particle = Particle.Single(ParticleID.Wood, Projectile.Center, new Vector2(16, 16), Vector2.Zero);
+        var particle = Particle.Single(ParticleID.Wood, Projectile.Center, new Vector2(10, 10), Vector2.Zero);
         particle.noGravity = true;
     }
 

@@ -35,11 +35,16 @@ public class WoodenProjectile : BaseProjectile
         Projectile.height = 16;
     }
 
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        Visual.KillEffect(Projectile.Center, Projectile.velocity);
+    }
+
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
-
-        Visual.KillEffect(Projectile.Center, Projectile.velocity);
 
         if (Main.rand.Next(0, 6) == 0)
         {
