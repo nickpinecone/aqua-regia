@@ -14,6 +14,18 @@ public static class Helper
         return MathF.Atan2(det, dot);
     }
 
+    public static float AngleOne(Vector2 u, Vector2 v)
+    {
+        var angle = AngleBetween(u, v);
+
+        if(angle <= 0)
+        {
+            angle = MathHelper.TwoPi + angle;
+        }
+
+        return angle;
+    }
+
     public static NPC FindNearsetNPC(Vector2 position, float radius)
     {
         float nearestDistance = float.PositiveInfinity;

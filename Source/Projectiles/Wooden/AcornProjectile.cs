@@ -2,7 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -74,8 +73,6 @@ public class AcornProjectile : BaseProjectile
         base.OnHitNPC(target, hit, damageDone);
 
         SoundEngine.PlaySound(BonkSound);
-
-        Particle.ArcPerfect(ParticleID.Wood, Projectile.Center, new Vector2(-1, 0), Vector2.UnitX, 10, 5, 2f);
 
         Projectile.velocity = HeadBounce.BounceOff(target, Projectile.Center) ?? Projectile.velocity;
     }

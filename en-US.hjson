@@ -20,6 +20,11 @@ Mods: {
 				DisplayName: Empty Bottle
 				Tooltip: ""
 			}
+
+			DebugStick: {
+				DisplayName: Debug Stick
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

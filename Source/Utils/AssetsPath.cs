@@ -13,6 +13,7 @@ public static class TexturesPath
     public static string NPC = _base + "NPC/";
     public static string Buffs = _base + "Buffs/";
     public static string Ammo = _base + "Ammo/";
+    public static string Utils = _base + "Utils/";
 }
 
 public static class AudioPath
