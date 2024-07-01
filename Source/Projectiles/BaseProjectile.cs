@@ -79,7 +79,10 @@ public abstract class BaseProjectile : ModProjectile
     {
         base.OnSpawn(source);
 
-        _source = (WaterGuns.ProjectileSource)source;
+        if (source is WaterGuns.ProjectileSource projSource)
+        {
+            _source = projSource;
+        }
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)

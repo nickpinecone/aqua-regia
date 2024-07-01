@@ -30,6 +30,7 @@ Mods: {
 		Projectiles: {
 			WoodenProjectile.DisplayName: Wooden Projectile
 			AcornProjectile.DisplayName: Acorn Projectile
+			TreeProjectile.DisplayName: Tree Projectile
 		}
 	}
 }
