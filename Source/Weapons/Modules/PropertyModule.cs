@@ -13,8 +13,12 @@ public class PropertyModule : BaseGunModule
     private float _inaccuracy;
     public float Inaccuracy
     {
-        get { return _inaccuracy; }
-        set { _inaccuracy = Math.Max(value, 0); }
+        get {
+            return _inaccuracy;
+        }
+        set {
+            _inaccuracy = Math.Max(value, 0);
+        }
     }
 
     public PropertyModule(BaseGun baseGun) : base(baseGun)

@@ -18,7 +18,7 @@ public static class Helper
     {
         var angle = AngleBetween(u, v);
 
-        if(angle <= 0)
+        if (angle <= 0)
         {
             angle = MathHelper.TwoPi + angle;
         }

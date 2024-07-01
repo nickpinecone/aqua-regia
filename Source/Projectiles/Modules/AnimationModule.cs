@@ -18,7 +18,7 @@ public class AnimationModule : BaseProjectileModule
     {
     }
 
-    private bool Animate(string name, int frames, string[] depends)
+    private bool CanAnimate(string name, int frames, string[] depends)
     {
         if (depends.Any((depend) => !_states[depend].Finished))
         {
@@ -51,7 +51,7 @@ public class AnimationModule : BaseProjectileModule
 
     public float? AnimateF(string name, float start, float end, int frames, string[] depends)
     {
-        if (!Animate(name, frames, depends))
+        if (!CanAnimate(name, frames, depends))
         {
             return null;
         }
@@ -63,7 +63,7 @@ public class AnimationModule : BaseProjectileModule
 
     public Vector2? AnimateVec(string name, Vector2 start, Vector2 end, int frames, string[] depends)
     {
-        if (!Animate(name, frames, depends))
+        if (!CanAnimate(name, frames, depends))
         {
             return null;
         }

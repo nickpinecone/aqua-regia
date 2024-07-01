@@ -20,7 +20,8 @@ public class SpriteModule : BaseGunModule
 
     public void AddAmmoTooltip(List<TooltipLine> tooltip, Mod mod)
     {
-        tooltip.Add(new TooltipLine(mod, "AmmoUse", $"[c/9CCFD8:Uses Bottled Water] [i/s1:{ModContent.ItemType<BottledWater>()}]"));
+        tooltip.Add(new TooltipLine(mod, "AmmoUse",
+                                    $"[c/9CCFD8:Uses Bottled Water] [i/s1:{ModContent.ItemType<BottledWater>()}]"));
     }
 
     public Vector2 ApplyOffset(Vector2 position, Vector2 velocity)

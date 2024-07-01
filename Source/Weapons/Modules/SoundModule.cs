@@ -20,8 +20,7 @@ public class SoundModule : BaseGunModule
         Pitch = -0.1f;
         PitchVariance = 0.1f;
 
-        baseGun.Item.UseSound = SoundStyle with
-        {
+        baseGun.Item.UseSound = SoundStyle with {
             Pitch = Pitch,
             PitchVariance = PitchVariance,
         };

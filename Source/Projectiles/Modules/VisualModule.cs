@@ -34,13 +34,8 @@ public class VisualModule : BaseProjectileModule
 
     public void SetWater()
     {
-        DustData = new DustData()
-        {
-            Amount = 6,
-            Offset = 3.8f,
-            Scale = 1.2f,
-            Color = Color.White,
-            Alpha = 0,
+        DustData = new DustData() {
+            Amount = 6, Offset = 3.8f, Scale = 1.2f, Color = Color.White, Alpha = 0,
         };
     }
 
@@ -66,7 +61,8 @@ public class VisualModule : BaseProjectileModule
         for (int i = 0; i < DustData.Amount; i++)
         {
             var newPosition = new Vector2(position.X + offset.X * i, position.Y + offset.Y * i);
-            var particle = Particle.SinglePerfect(DustID.Wet, newPosition, Vector2.Zero, DustData.Scale, DustData.Alpha, DustData.Color);
+            var particle = Particle.SinglePerfect(DustID.Wet, newPosition, Vector2.Zero, DustData.Scale, DustData.Alpha,
+                                                  DustData.Color);
             particle.noGravity = true;
             particle.fadeIn = 1f;
             particle.velocity = velocity.SafeNormalize(Vector2.Zero);
@@ -90,7 +86,8 @@ public class VisualModule : BaseProjectileModule
         {
             var color = Lighting.GetColor(from.ToTileCoordinates());
 
-            Main.spriteBatch.Draw(texture.Value, from - Main.screenPosition, source, color, rotation, origin, 1f, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(texture.Value, from - Main.screenPosition, source, color, rotation, origin, 1f,
+                                  SpriteEffects.None, 0f);
 
             from += unitDirection * segmentLength;
             drawLength -= segmentLength;

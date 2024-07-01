@@ -50,8 +50,7 @@ public abstract class BaseGun : ModItem
         where T : BaseProjectile
     {
         var ammo = (BaseAmmo)ModContent.GetModItem(source.AmmoItemIdUsed);
-        var projSource = new WaterGuns.ProjectileSource(source)
-        {
+        var projSource = new WaterGuns.ProjectileSource(source) {
             Weapon = this,
             Ammo = ammo,
         };
