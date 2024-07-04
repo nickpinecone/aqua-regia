@@ -7,12 +7,16 @@ using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles.Wooden;
 
+// TODO randomize stuff and make different directions
+
 public class TreeProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Projectiles + "TreeProjectile";
 
     public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }
+
+    private bool _didCollide = false;
 
     public TreeProjectile() : base()
     {
@@ -38,10 +42,9 @@ public class TreeProjectile : BaseProjectile
         Projectile.alpha = 255;
     }
 
-    bool didCollide = false;
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        didCollide = true;
+        _didCollide = true;
 
         SoundEngine.PlaySound(SoundID.Item14);
 
@@ -59,7 +62,7 @@ public class TreeProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        if (!didCollide)
+        if (!_didCollide)
         {
             SoundEngine.PlaySound(SoundID.Grass);
 
@@ -67,45 +70,36 @@ public class TreeProjectile : BaseProjectile
         }
     }
 
-    float rotState = 0;
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        Projectile.rotation = MathHelper.ToRadians(-30);
+        Projectile.position -= new Vector2(90, 160);
+    }
+
     public override void AI()
     {
         base.AI();
 
-        // TODO rewrite after animation overhaul
+        Projectile.alpha =
+            (int)(Animation.AnimateF("appear", 255, 0, 6, new string[] {}, Easing.Linear) ?? Projectile.alpha);
 
-        Projectile.alpha = (int)(Animation.AnimateF("appear", 255, 0, 10, new string[] { }) ?? Projectile.alpha);
-
-        Projectile.rotation = Animation.AnimateF("rot", 0f, -1f, 8, new string[] { "appear" }) ?? Projectile.rotation;
-
-        if (!Animation.IsFinished("rot"))
-        {
-            Projectile.velocity += (new Vector2(-0.8f, 0)).RotatedBy(MathHelper.ToRadians(45));
-        }
-        else
-        {
-            if (!Animation.IsFinished("rotSlow"))
-            {
-                var rotationSlow = Animation.AnimateF("rotSlow", 0.1f, 0, 10, new string[] { }) ?? 0;
-                Projectile.rotation -= rotationSlow;
-                Projectile.velocity =
-                    Animation.AnimateVec("slow", Projectile.velocity, Vector2.Zero, 10, new string[] { }) ??
-                    Projectile.velocity;
-                rotState = Projectile.rotation;
-            }
-        }
-
-        if (Animation.IsFinished("slow"))
+        if (Animation.IsFinished("appear"))
         {
             Projectile.friendly = true;
-
-            Projectile.rotation =
-                Animation.AnimateF("finalRot", rotState, MathHelper.ToRadians(135), 25, new string[] { }) ??
-                Projectile.rotation;
-            Projectile.velocity += (new Vector2(0.8f, 0)).RotatedBy(MathHelper.ToRadians(45));
         }
 
-        if (Animation.IsFinished("finalRot"))
+        Projectile.rotation = Animation.AnimateF("rot", MathHelper.ToRadians(-30), MathHelper.ToRadians(110), 20,
+                                                 new string[] { "appear" }, Easing.InOut) ??
+                              Projectile.rotation;
+
+        Projectile.velocity =
+            Animation.AnimateVec("vel", Vector2.Zero, Vector2.UnitX.RotatedBy(MathHelper.ToRadians(60)) * 20f, 20,
+                                 new string[] { "appear" }, Easing.InOut) ??
+            Projectile.velocity;
+
+        if (Animation.IsFinished("rot"))
         {
             Projectile.Kill();
         }

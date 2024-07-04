@@ -4,12 +4,18 @@ using Microsoft.Xna.Framework;
 
 namespace WaterGuns.Projectiles.Modules;
 
-// TODO overhaul the animation system with ease modes
+// TODO consider using animation classes and creating them
 
 public class AnimationState
 {
-    public int Frame;
-    public bool Finished;
+    public int Frame = 0;
+    public bool Finished = false;
+}
+
+public enum Easing
+{
+    Linear,
+    InOut,
 }
 
 public class AnimationModule : BaseProjectileModule
@@ -22,7 +28,7 @@ public class AnimationModule : BaseProjectileModule
 
     private bool CanAnimate(string name, int frames, string[] depends)
     {
-        if (depends.Any((depend) => !_states[depend].Finished))
+        if (depends.Any((depend) => !_states.ContainsKey(depend) || !_states[depend].Finished))
         {
             return false;
         }
@@ -37,6 +43,7 @@ public class AnimationModule : BaseProjectileModule
         }
 
         _states[name].Frame += 1;
+
         if (_states[name].Frame >= frames)
         {
             _states[name].Finished = true;
@@ -53,12 +60,13 @@ public class AnimationModule : BaseProjectileModule
 
     public bool IsFinished(string name)
     {
-        if(!_states.ContainsKey(name)) return false;
+        if (!_states.ContainsKey(name))
+            return false;
 
         return _states[name].Finished;
     }
 
-    public float? AnimateF(string name, float start, float end, int frames, string[] depends)
+    public float? AnimateF(string name, float start, float end, int frames, string[] depends, Easing easing)
     {
         if (!CanAnimate(name, frames, depends))
         {
@@ -66,11 +74,26 @@ public class AnimationModule : BaseProjectileModule
         }
         else
         {
-            return start + (end - start) * (_states[name].Frame / (float)frames);
+            if (easing == Easing.InOut)
+            {
+                var t = _states[name].Frame / (float)frames;
+
+                var result = t * t * (3.0f - 2.0f * t);
+
+                return start + (end - start) * result;
+            }
+            else if(easing == Easing.Linear)
+            {
+                return start + (end - start) * (_states[name].Frame / (float)frames);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 
-    public Vector2? AnimateVec(string name, Vector2 start, Vector2 end, int frames, string[] depends)
+    public Vector2? AnimateVec(string name, Vector2 start, Vector2 end, int frames, string[] depends, Easing easing)
     {
         if (!CanAnimate(name, frames, depends))
         {
@@ -78,7 +101,22 @@ public class AnimationModule : BaseProjectileModule
         }
         else
         {
-            return start + (end - start) * (_states[name].Frame / (float)frames);
+            if (easing == Easing.InOut)
+            {
+                var t = _states[name].Frame / (float)frames;
+
+                var result = t * t * (3.0f - 2.0f * t);
+
+                return start + (end - start) * result;
+            }
+            else if(easing == Easing.Linear)
+            {
+                return start + (end - start) * (_states[name].Frame / (float)frames);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
