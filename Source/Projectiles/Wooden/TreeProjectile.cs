@@ -7,8 +7,6 @@ using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles.Wooden;
 
-// TODO randomize stuff and make different directions
-
 public class TreeProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Projectiles + "TreeProjectile";
@@ -17,6 +15,7 @@ public class TreeProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
 
     private bool _didCollide = false;
+    private int _direction = 0;
 
     public TreeProjectile() : base()
     {
@@ -50,7 +49,7 @@ public class TreeProjectile : BaseProjectile
 
         foreach (var particle in Particle.Arc(DustID.Cloud, Projectile.Bottom, new Vector2(2, 2),
                                               Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-150)),
-                                              Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-30)), 6, 8f, 5f, 0, 75))
+                                              Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-30)), 6, 9f, 5f, 0, 75))
         {
             particle.noGravity = true;
         }
@@ -62,11 +61,11 @@ public class TreeProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
+        Particle.Circle(DustID.GrassBlades, Projectile.Center, new Vector2(12, 12), 6, 2f, 1f);
+
         if (!_didCollide)
         {
             SoundEngine.PlaySound(SoundID.Grass);
-
-            Particle.Circle(DustID.GrassBlades, Projectile.Center, new Vector2(12, 12), 6, 2f, 1f);
         }
     }
 
@@ -74,8 +73,10 @@ public class TreeProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Projectile.rotation = MathHelper.ToRadians(-30);
-        Projectile.position -= new Vector2(90, 160);
+        _direction = Main.rand.NextFromList(new int[] { -1, 1 });
+
+        Projectile.rotation = MathHelper.ToRadians(-30 * _direction);
+        Projectile.position -= new Vector2(90 * _direction, 160);
     }
 
     public override void AI()
@@ -90,12 +91,14 @@ public class TreeProjectile : BaseProjectile
             Projectile.friendly = true;
         }
 
-        Projectile.rotation = Animation.AnimateF("rot", MathHelper.ToRadians(-30), MathHelper.ToRadians(110), 20,
-                                                 new string[] { "appear" }, Easing.InOut) ??
-                              Projectile.rotation;
+        Projectile.rotation =
+            Animation.AnimateF("rot", MathHelper.ToRadians(-30 * _direction), MathHelper.ToRadians(110 * _direction),
+                               20, new string[] { "appear" }, Easing.InOut) ??
+            Projectile.rotation;
 
         Projectile.velocity =
-            Animation.AnimateVec("vel", Vector2.Zero, Vector2.UnitX.RotatedBy(MathHelper.ToRadians(60)) * 20f, 20,
+            Animation.AnimateVec("vel", Vector2.Zero,
+                                 Vector2.UnitY.RotatedBy(MathHelper.ToRadians(-30 * _direction)) * 20f, 20,
                                  new string[] { "appear" }, Easing.InOut) ??
             Projectile.velocity;
 
