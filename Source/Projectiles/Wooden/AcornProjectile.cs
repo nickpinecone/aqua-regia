@@ -81,7 +81,8 @@ public class AcornProjectile : BaseProjectile
     {
         base.AI();
 
-        Projectile.alpha = (int)(Animation.AnimateF("appear", 255, 0, 10, new string[] {}, Easing.Linear) ?? Projectile.alpha);
+        var appear = Animation.Animate<int>("apppear", 255, 0, 10, Ease.Linear, new string[] {});
+        Projectile.alpha = appear.Value ?? Projectile.alpha;
 
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
 

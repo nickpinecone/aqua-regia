@@ -83,26 +83,25 @@ public class TreeProjectile : BaseProjectile
     {
         base.AI();
 
-        Projectile.alpha =
-            (int)(Animation.AnimateF("appear", 255, 0, 6, new string[] {}, Easing.Linear) ?? Projectile.alpha);
+        var appear = Animation.Animate<int>("appear", 255, 0, 6, Ease.Linear, new string[] {});
+        Projectile.alpha = appear.Value ?? Projectile.alpha;
 
-        if (Animation.IsFinished("appear"))
+        if (appear.Finished)
         {
             Projectile.friendly = true;
         }
 
-        Projectile.rotation =
-            Animation.AnimateF("rot", MathHelper.ToRadians(-30 * _direction), MathHelper.ToRadians(110 * _direction),
-                               20, new string[] { "appear" }, Easing.InOut) ??
-            Projectile.rotation;
+        var rot =
+            Animation.Animate<float>("rot", MathHelper.ToRadians(-30 * _direction),
+                                     MathHelper.ToRadians(110 * _direction), 20, Ease.InOut, new string[] { "appear" });
+        Projectile.rotation = rot.Value ?? Projectile.rotation;
 
-        Projectile.velocity =
-            Animation.AnimateVec("vel", Vector2.Zero,
-                                 Vector2.UnitY.RotatedBy(MathHelper.ToRadians(-30 * _direction)) * 20f, 20,
-                                 new string[] { "appear" }, Easing.InOut) ??
-            Projectile.velocity;
+        var vel = Animation.Animate<Vector2>("vel", Vector2.Zero,
+                                             Vector2.UnitY.RotatedBy(MathHelper.ToRadians(-30 * _direction)) * 18f, 20,
+                                             Ease.InOut, new string[] { "appear" });
+        Projectile.velocity = vel.Value ?? Projectile.velocity;
 
-        if (Animation.IsFinished("rot"))
+        if (rot.Finished)
         {
             Projectile.Kill();
         }
