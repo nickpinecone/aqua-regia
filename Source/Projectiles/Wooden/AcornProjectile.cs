@@ -24,7 +24,7 @@ public class AcornProjectile : BaseProjectile
         HeadBounce = new HeadBounceModule(this, Property);
 
         BonkSound = new SoundStyle(AudioPath.Impact + "Bonk") {
-            Volume = 0.3f,
+            Volume = 0.4f,
             PitchVariance = 0.1f,
         };
     }

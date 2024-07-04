@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 
 namespace WaterGuns.Projectiles.Modules;
 
+// TODO overhaul the animation system with ease modes
+
 public class AnimationState
 {
     public int Frame;
@@ -47,6 +49,13 @@ public class AnimationModule : BaseProjectileModule
     {
         _states[name].Frame = 0;
         _states[name].Finished = false;
+    }
+
+    public bool IsFinished(string name)
+    {
+        if(!_states.ContainsKey(name)) return false;
+
+        return _states[name].Finished;
     }
 
     public float? AnimateF(string name, float start, float end, int frames, string[] depends)
