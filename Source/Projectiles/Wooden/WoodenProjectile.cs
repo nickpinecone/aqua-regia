@@ -11,19 +11,19 @@ public class WoodenProjectile : BaseProjectile
     public override string Texture => TexturesPath.Empty;
 
     public PropertyModule Property { get; private set; }
-    public VisualModule Visual { get; private set; }
+    public WaterModule Water { get; private set; }
 
     public WoodenProjectile() : base()
     {
         Property = new PropertyModule(this);
-        Visual = new VisualModule(this);
+        Water = new WaterModule(this);
     }
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Visual.SetWater();
+        Water.SetDefaults();
         Property.SetDefaults(this);
         Property.SetDefaultGravity();
         Property.SetTimeLeft(this, 35);
@@ -39,7 +39,7 @@ public class WoodenProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        Visual.KillEffect(Projectile.Center, Projectile.velocity);
+        Water.KillEffect(Projectile.Center, Projectile.velocity);
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
@@ -59,6 +59,6 @@ public class WoodenProjectile : BaseProjectile
         base.AI();
 
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
-        Visual.CreateDust(Projectile.Center, Projectile.velocity);
+        Water.CreateDust(Projectile.Center, Projectile.velocity);
     }
 }

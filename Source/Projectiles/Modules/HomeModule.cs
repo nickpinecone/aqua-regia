@@ -5,6 +5,8 @@ using WaterGuns.Utils;
 
 namespace WaterGuns.Projectiles.Modules;
 
+// TODO Experiment with https://github.com/tModLoader/tModLoader/wiki/Geometry#vector2torotation
+
 public class HomeModule : BaseProjectileModule
 {
     public NPC Target { get; private set; }

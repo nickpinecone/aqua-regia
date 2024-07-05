@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -44,6 +45,8 @@ public class TreeProjectile : BaseProjectile
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
         _didCollide = true;
+
+        Main.player[Projectile.owner].GetModPlayer<ScreenShake>().Activate(6, 2);
 
         SoundEngine.PlaySound(SoundID.Item14);
 
