@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -11,6 +12,8 @@ public class SeaProjectile : BaseProjectile
 
     public PropertyModule Property { get; private set; }
     public WaterModule Water { get; private set; }
+
+    private SeaPlayer _seaPlayer = null;
 
     public SeaProjectile() : base()
     {
@@ -32,6 +35,13 @@ public class SeaProjectile : BaseProjectile
 
         Projectile.width = 16;
         Projectile.height = 16;
+    }
+
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
     }
 
     public override void OnKill(int timeLeft)
@@ -70,5 +80,12 @@ public class SeaProjectile : BaseProjectile
 
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Water.CreateDust(Projectile.Center, Projectile.velocity);
+
+        var rect = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
+
+        if(_seaPlayer.CheckCollision(rect))
+        {
+            Projectile.Kill();
+        }
     }
 }

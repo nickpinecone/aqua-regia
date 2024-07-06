@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Sea;
+using WaterGuns.Utils;
 
 namespace WaterGuns.Players;
 
@@ -35,6 +36,21 @@ public class SeaPlayer : ModPlayer
             _bubbles[target].Target = target;
         }
         _bubbles[target].Enlarge();
+    }
+
+    public bool CheckCollision(Rectangle rect)
+    {
+        foreach(var bubble in _bubbles.Values)
+        {
+            if(bubble.IsMaxSize && bubble.WorldRectangle.Intersects(rect))
+            {
+                bubble.Explode();
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void Remove(NPC target)

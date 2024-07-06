@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
@@ -15,6 +17,7 @@ public class HugeBubble : BaseProjectile
     public AnimationModule Animation { get; private set; }
 
     public NPC Target { get; set; }
+    public Rectangle WorldRectangle { get; private set; }
 
     public float MaxScale { get; private set; }
     public int MaxSize { get; private set; }
@@ -45,7 +48,7 @@ public class HugeBubble : BaseProjectile
             if (IsMaxSize)
             {
                 Projectile.friendly = true;
-                Projectile.timeLeft = 120;
+                Projectile.timeLeft = 300;
             }
 
             _scaleAnimation = Animation.Animate<float>("scale", Projectile.scale, Projectile.scale + MaxScale / MaxSize,
@@ -70,7 +73,7 @@ public class HugeBubble : BaseProjectile
 
         Projectile.width = 20;
         Projectile.height = 20;
-        Projectile.alpha = 100;
+        Projectile.alpha = 155;
 
         MaxSize = 8;
         MaxScale = 3f;
@@ -94,6 +97,13 @@ public class HugeBubble : BaseProjectile
         }
 
         _seaPlayer.Remove(Target);
+    }
+    
+    public void Explode()
+    {
+        SoundEngine.PlaySound(SoundID.Item54);
+
+        Projectile.Kill();
     }
 
     public override void AI()
@@ -123,5 +133,11 @@ public class HugeBubble : BaseProjectile
         _scaleAnimation = Animation.Animate<float>("scale", 0f, MaxScale / MaxSize, 10, Ease.Linear);
 
         Projectile.scale = _scaleAnimation.Value ?? Projectile.scale;
+
+        var width = (int)(Projectile.width * (MaxScale));
+        var height = (int)(Projectile.height * (MaxScale));
+
+        WorldRectangle = new Rectangle((int)Projectile.Center.X - width / 2, (int)Projectile.Center.Y - height / 2,
+                                       width, height);
     }
 }
