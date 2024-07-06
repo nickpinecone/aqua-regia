@@ -26,8 +26,10 @@ public static class Helper
         return angle;
     }
 
-    public static NPC FindNearsetNPC(Vector2 position, float radius)
+    public static NPC FindNearsetNPC(Vector2 position, float radius, Func<NPC, bool> canHome = null)
     {
+        canHome ??= (_) => true;
+
         float nearestDistance = float.PositiveInfinity;
         NPC nearestNpc = null;
         float detectRange = MathF.Pow(radius, 2);
@@ -36,7 +38,7 @@ public static class Helper
         {
             NPC target = Main.npc[i];
 
-            if (!target.CanBeChasedBy())
+            if (!target.CanBeChasedBy() || !canHome(target))
             {
                 continue;
             }

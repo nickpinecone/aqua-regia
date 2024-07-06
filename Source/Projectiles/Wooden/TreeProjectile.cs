@@ -86,7 +86,7 @@ public class TreeProjectile : BaseProjectile
     {
         base.AI();
 
-        var appear = Animation.Animate<int>("appear", 255, 0, 6, Ease.Linear, new string[] {});
+        var appear = Animation.Animate<int>("appear", 255, 0, 6, Ease.Linear);
         Projectile.alpha = appear.Value ?? Projectile.alpha;
 
         if (appear.Finished)

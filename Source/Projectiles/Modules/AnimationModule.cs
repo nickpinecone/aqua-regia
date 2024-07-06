@@ -69,9 +69,11 @@ public class AnimationModule : BaseProjectileModule
     {
     }
 
-    public Animation<T> Animate<T>(string name, T start, T end, int frames, Ease ease, string[] depends)
+    public Animation<T> Animate<T>(string name, T start, T end, int frames, Ease ease, string[] depends = null)
         where T : struct
     {
+        depends ??= new string[] {};
+
         if (!_states.ContainsKey(name))
         {
             _states[name] = new Animation<T>() {

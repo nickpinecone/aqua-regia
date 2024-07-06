@@ -3,27 +3,25 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Projectiles.Wooden;
+using WaterGuns.Projectiles.Sea;
 using WaterGuns.Utils;
 using WaterGuns.Weapons.Modules;
 
-namespace WaterGuns.Weapons.Wooden;
+namespace WaterGuns.Weapons.Sea;
 
-public class WoodenGun : BaseGun
+public class SeaGun : BaseGun
 {
-    public override string Texture => TexturesPath.Weapons + "WoodenGun";
+    public override string Texture => TexturesPath.Weapons + "SeaGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
-    public TreeBoostModule TreeBoost { get; private set; }
 
-    public WoodenGun() : base()
+    public SeaGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
         Pump = new PumpModule(this);
-        TreeBoost = new TreeBoostModule(this);
     }
 
     public override void SetDefaults()
@@ -32,23 +30,21 @@ public class WoodenGun : BaseGun
 
         Sound.SetWater(this);
         Property.SetDefaults(this);
-        Property.SetProjectile<WoodenProjectile>(this);
+        Property.SetProjectile<SeaProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(0, 6);
-        Sprite.Offset = new Vector2(26f, 26f);
-        Pump.MaxPumpLevel = 8;
+        Sprite.HoldoutOffset = new Vector2(-8, 2);
+        Sprite.Offset = new Vector2(34f, 34f);
+        Pump.MaxPumpLevel = 10;
         Property.Inaccuracy = 3.5f;
 
-        Item.width = 38;
-        Item.height = 22;
-        Item.damage = 4;
-        Item.knockBack = 0.8f;
+        Item.width = 58;
+        Item.height = 40;
+        Item.damage = 8;
+        Item.knockBack = 1.2f;
 
         Item.useTime = 20;
         Item.useAnimation = 20;
         Item.shootSpeed = 22f;
-
-        TreeBoost.Initialize(Item.damage, 2);
     }
 
     public override void HoldItem(Terraria.Player player)
@@ -56,23 +52,6 @@ public class WoodenGun : BaseGun
         base.HoldItem(player);
 
         Pump.DefaultUpdate();
-
-        Item.damage = TreeBoost.Apply(player);
-
-        if(Main.mouseRight)
-        {
-            TreeSlam(player);
-        }
-    }
-
-    public void TreeSlam(Player player)
-    {
-        if (Pump.Pumped)
-        {
-            SpawnProjectile<TreeProjectile>(player, Main.MouseWorld, Vector2.Zero, Item.damage * 4, Item.knockBack * 2);
-
-            Pump.Reset();
-        }
     }
 
     public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source,
@@ -84,7 +63,7 @@ public class WoodenGun : BaseGun
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
-        ShootProjectile<WoodenProjectile>(player, source, position, velocity, damage, knockback);
+        ShootProjectile<SeaProjectile>(player, source, position, velocity, damage, knockback);
 
         return false;
     }
@@ -92,8 +71,9 @@ public class WoodenGun : BaseGun
     public override void AddRecipes()
     {
         Recipe recipe = CreateRecipe();
-        recipe.AddIngredient(ItemID.Wood, 20);
-        recipe.AddIngredient(ItemID.Acorn, 5);
+        recipe.AddIngredient(ItemID.Seashell, 10);
+        recipe.AddIngredient(ItemID.Starfish, 8);
+        recipe.AddIngredient(ItemID.Coral, 6);
         recipe.AddTile(TileID.WorkBenches);
         recipe.Register();
     }

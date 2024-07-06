@@ -25,12 +25,20 @@ Mods: {
 				DisplayName: Debug Stick
 				Tooltip: ""
 			}
+
+			SeaGun: {
+				DisplayName: Sea Gun
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
 			WoodenProjectile.DisplayName: Wooden Projectile
 			AcornProjectile.DisplayName: Acorn Projectile
 			TreeProjectile.DisplayName: Tree Projectile
+			SeaProjectile.DisplayName: Sea Projectile
+			BubbleProjectile.DisplayName: Bubble Projectile
+			HugeBubble.DisplayName: Huge Bubble
 		}
 	}
 }

@@ -27,14 +27,19 @@ public class HomeModule : BaseProjectileModule
         Radius = 300f;
     }
 
-    public Vector2? Update(Vector2 position, Vector2 velocity)
+    public Vector2? Update(Vector2 position, Vector2 velocity, Func<NPC, bool> canHome = null)
     {
-        Target = Helper.FindNearsetNPC(position, Radius);
+        Target = Helper.FindNearsetNPC(position, Radius, canHome);
 
         if (Target != null)
         {
             var direction = Target.Center - position;
             var angle = Helper.AngleBetween(velocity, direction);
+
+            if(velocity == Vector2.Zero)
+            {
+                velocity = direction;
+            }
 
             var newVelocity = velocity.RotatedBy(MathF.Sign(angle) * MathF.Min(Curve, MathF.Abs(angle)));
             newVelocity.Normalize();
