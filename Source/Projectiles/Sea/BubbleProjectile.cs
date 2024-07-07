@@ -18,6 +18,7 @@ public class BubbleProjectile : BaseProjectile
     public StickModule Stick { get; private set; }
 
     private SeaPlayer _seaPlayer = null;
+    private bool _wasConsumed = false;
 
     public BubbleProjectile() : base()
     {
@@ -67,6 +68,16 @@ public class BubbleProjectile : BaseProjectile
         }
     }
 
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        if(!_wasConsumed)
+        {
+            Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 4, 2f, 0.6f);
+        }
+    }
+
     public override void AI()
     {
         base.AI();
@@ -88,8 +99,9 @@ public class BubbleProjectile : BaseProjectile
 
             if (pos.Finished)
             {
+                _wasConsumed = true;
                 SoundEngine.PlaySound(SoundID.Item85);
-                _seaPlayer.Enlarge(Stick.Target);
+                _seaPlayer.AddBubble(Stick.Target);
                 Projectile.Kill();
             }
         }

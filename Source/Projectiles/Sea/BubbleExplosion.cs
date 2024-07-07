@@ -24,10 +24,11 @@ public class BubbleExplosion : BaseProjectile
 
         Projectile.tileCollide = false;
         Projectile.damage = 1;
-        Projectile.penetrate = -1;
+        Projectile.penetrate = 1;
         Projectile.CritChance = 100;
 
-        Projectile.width = 20 * 3;
-        Projectile.height = 20 * 3;
+        // Only damage one NPC so hitbox is small
+        Projectile.width = 20;
+        Projectile.height = 20;
     }
 }

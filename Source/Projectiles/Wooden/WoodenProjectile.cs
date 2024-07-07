@@ -48,7 +48,7 @@ public class WoodenProjectile : BaseProjectile
 
         if (Main.rand.Next(0, 6) == 0)
         {
-            var position = target.Center - new Vector2(0, target.height * 1.5f);
+            var position = target.Center - new Vector2(0, target.height * 1.5f + Main.rand.NextFloat(0f, 6f));
 
             SpawnProjectile<AcornProjectile>(position, Vector2.Zero, hit.Damage, hit.Knockback);
         }

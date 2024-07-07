@@ -1,15 +1,27 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Sea;
-using WaterGuns.Utils;
 
 namespace WaterGuns.Players;
+
+public class SeaSource : IEntitySource
+{
+    public NPC Target;
+
+    public string Context { get; set; }
+    public SeaSource(IEntitySource source)
+    {
+        Context = source.Context;
+    }
+}
 
 public class SeaPlayer : ModPlayer
 {
     public Dictionary<NPC, HugeBubble> _bubbles { get; private set; }
+    public int ProjectileDamage { get; set; }
 
     public SeaPlayer()
     {
@@ -21,28 +33,30 @@ public class SeaPlayer : ModPlayer
         if (!_bubbles.ContainsKey(target))
             return true;
 
-        return !_bubbles[target].IsMaxSize;
+        return !_bubbles[target].IsMaxStage;
     }
 
-    public void Enlarge(NPC target)
+    public void AddBubble(NPC target)
     {
         if (!_bubbles.ContainsKey(target))
         {
-            var projectile =
-                Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), target.Center, Vector2.Zero,
-                                               ModContent.ProjectileType<HugeBubble>(), 1, 0, Main.myPlayer);
+            var source = new SeaSource(Projectile.GetSource_NaturalSpawn());
+            source.Target = target;
+
+            var projectile = Projectile.NewProjectileDirect(
+                source, target.Center, Vector2.Zero, ModContent.ProjectileType<HugeBubble>(), 0, 0, Main.myPlayer);
 
             _bubbles[target] = projectile.ModProjectile as HugeBubble;
-            _bubbles[target].Target = target;
         }
+
         _bubbles[target].Enlarge();
     }
 
-    public bool CheckCollision(Rectangle rect)
+    public bool BubbleCollide(Rectangle rect)
     {
-        foreach(var bubble in _bubbles.Values)
+        foreach (var bubble in _bubbles.Values)
         {
-            if(bubble.IsMaxSize && bubble.WorldRectangle.Intersects(rect))
+            if (bubble.IsMaxStage && bubble.WorldRectangle.Intersects(rect))
             {
                 bubble.Explode();
 
@@ -53,7 +67,7 @@ public class SeaPlayer : ModPlayer
         return false;
     }
 
-    public void Remove(NPC target)
+    public void RemoveBubble(NPC target)
     {
         _bubbles.Remove(target);
     }

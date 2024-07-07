@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using WaterGuns.Players;
@@ -42,6 +43,7 @@ public class SeaProjectile : BaseProjectile
         base.OnSpawn(source);
 
         _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
+        _seaPlayer.ProjectileDamage = Projectile.damage;
     }
 
     public override void OnKill(int timeLeft)
@@ -55,23 +57,48 @@ public class SeaProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        Vector2 position;
+        Vector2 position = Projectile.Center;
 
-        while(true)
+        // Finite tries so it does not stuck in a while loop forever
+        for (int i = 0; i < 128; i++)
         {
-            position = target.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 96f;
+            var offset = MathF.Max(target.width, target.height) * 1.5f;
+            position = target.Center +
+                       Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(offset, offset + 12f);
 
-            var tilePosition = position.ToTileCoordinates();
-            var tile = Main.tile[tilePosition.X, tilePosition.Y];
-            var isSolid = tile.HasTile && Main.tileSolid[tile.TileType];
+            // Scan 3x3 area
+            bool clear = true;
+            bool bail = false;
 
-            if(!isSolid)
+            for (int x = -1; x <= 1; x++)
+            {
+                if(bail)
+                {
+                    break;
+                }
+
+                for (int y = -1; y <= 1; y++)
+                {
+                    var tilePosition = (position + new Vector2(16 * x, 16 * y)).ToTileCoordinates();
+                    var tile = Main.tile[tilePosition.X, tilePosition.Y];
+                    var isSolid = tile.HasTile && Main.tileSolid[tile.TileType];
+
+                    if (isSolid)
+                    {
+                        clear = false;
+                        bail = true;
+                        break;
+                    }
+                }
+            }
+
+            if (clear)
             {
                 break;
             }
         }
 
-        SpawnProjectile<BubbleProjectile>(position, Vector2.Zero, 1, 0);
+        SpawnProjectile<BubbleProjectile>(position, Vector2.Zero, Projectile.damage / 2, 0);
     }
 
     public override void AI()
@@ -81,9 +108,7 @@ public class SeaProjectile : BaseProjectile
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Water.CreateDust(Projectile.Center, Projectile.velocity);
 
-        var rect = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
-
-        if(_seaPlayer.CheckCollision(rect))
+        if (_seaPlayer.BubbleCollide(Projectile.getRect()))
         {
             Projectile.Kill();
         }

@@ -18,21 +18,23 @@ public class HugeBubble : BaseProjectile
     public AnimationModule Animation { get; private set; }
 
     public NPC Target { get; set; }
+    public Vector2 Size { get; private set; }
     public Rectangle WorldRectangle { get; private set; }
 
     public float MaxScale { get; private set; }
-    public int MaxSize { get; private set; }
-    public int Size { get; private set; }
+    public int MaxStage { get; private set; }
+    public int Stage { get; private set; }
 
-    public bool IsMaxSize
+    public bool IsMaxStage
     {
         get {
-            return Size >= MaxSize;
+            return Stage >= MaxStage;
         }
     }
 
-    private Animation<float> _scaleAnimation = null;
     private SeaPlayer _seaPlayer = null;
+    private bool _didDetach = false;
+    private bool _didExplode = false;
 
     public HugeBubble() : base()
     {
@@ -40,34 +42,12 @@ public class HugeBubble : BaseProjectile
         Animation = new AnimationModule(this);
     }
 
-    public void Enlarge()
-    {
-        if (!IsMaxSize)
-        {
-            Size += 1;
-
-            if (IsMaxSize)
-            {
-                Projectile.friendly = true;
-                Projectile.timeLeft = 300;
-                Projectile.alpha = 155;
-            }
-
-            _scaleAnimation = Animation.Animate<float>("scale", Projectile.scale, Projectile.scale + MaxScale / MaxSize,
-                                                       10, Ease.Linear);
-
-            _scaleAnimation.Start = MaxScale / MaxSize * Size;
-            _scaleAnimation.End = _scaleAnimation.Start + MaxScale / MaxSize;
-            _scaleAnimation.Reset();
-        }
-    }
-
     public override void SetDefaults()
     {
         base.SetDefaults();
 
         Property.SetDefaults(this);
-        Property.SetTimeLeft(this, 2);
+        Property.SetTimeLeft(this, 600);
 
         Projectile.friendly = false;
         Projectile.damage = 1;
@@ -77,39 +57,84 @@ public class HugeBubble : BaseProjectile
         Projectile.height = 20;
         Projectile.alpha = 200;
 
-        MaxSize = 8;
-        MaxScale = 3f;
+        MaxStage = 8;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
 
+        if (source is SeaSource seaSource)
+        {
+            Target = seaSource.Target;
+        }
+
+        var wideSide = Math.Max(Target.width, Target.height);
+        MaxScale = (float)wideSide / Projectile.width + 0.2f;
+        Size = new Vector2(Projectile.width * (MaxScale + 1), Projectile.height * (MaxScale + 1));
+
         _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
     }
 
-    public override void OnKill(int timeLeft)
+    public void Enlarge()
     {
-        if (!IsMaxSize)
+        if (!IsMaxStage)
         {
-            for (int i = 0; i < Size; i++)
-            {
-                SpawnProjectile<BubbleProjectile>(Projectile.Center, Vector2.Zero, 1, 0);
-            }
-        }
+            Stage += 1;
 
-        _seaPlayer.Remove(Target);
+            Projectile.timeLeft = Property.DefaultTime;
+
+            if (IsMaxStage)
+            {
+                Projectile.friendly = true;
+                Projectile.timeLeft = 300;
+                Projectile.alpha = 155;
+            }
+
+            var scale = Animation.Animate<float>("scale", 0f, 0f, 10, Ease.Linear);
+
+            scale.Start = MaxScale / MaxStage * Stage;
+            scale.End = scale.Start + MaxScale / MaxStage;
+            scale.Reset();
+        }
     }
-    
+
     public void Explode()
     {
+        _didExplode = true;
+
         SoundEngine.PlaySound(SoundID.Item96);
         Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 3);
         Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 8, 4f, 1.5f);
 
-        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, 16, 1f);
+        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, _seaPlayer.ProjectileDamage * 2, 1f);
 
         Projectile.Kill();
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        if (!_didExplode)
+        {
+            SoundEngine.PlaySound(SoundID.Item54);
+            Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 4, 2f, 0.8f);
+        }
+
+        if (!IsMaxStage && _didDetach)
+        {
+            for (int i = 0; i < Stage; i++)
+            {
+                var low = Projectile.scale * -4f;
+                var high = Projectile.scale * 4f;
+
+                var offset = new Vector2(Main.rand.NextFloat(low, high), Main.rand.NextFloat(low, high));
+
+                SpawnProjectile<BubbleProjectile>(Projectile.Center + offset, Vector2.Zero,
+                                                  _seaPlayer.ProjectileDamage / 2, 0);
+            }
+        }
+
+        _seaPlayer.RemoveBubble(Target);
     }
 
     public override void AI()
@@ -118,10 +143,9 @@ public class HugeBubble : BaseProjectile
 
         if (Target != null)
         {
-            if (!IsMaxSize)
+            if (!IsMaxStage || Target.boss)
             {
                 Projectile.Center = Target.Center;
-                Projectile.timeLeft = 2;
             }
             else
             {
@@ -134,18 +158,15 @@ public class HugeBubble : BaseProjectile
 
             if (Target.GetLifePercent() <= 0f)
             {
+                _didDetach = true;
                 Projectile.Kill();
             }
         }
 
-        _scaleAnimation = Animation.Animate<float>("scale", 0f, MaxScale / MaxSize, 10, Ease.Linear);
+        var scale = Animation.Animate<float>("scale", 0f, 0f, 10, Ease.Linear);
+        Projectile.scale = scale.Value ?? Projectile.scale;
 
-        Projectile.scale = _scaleAnimation.Value ?? Projectile.scale;
-
-        var width = (int)(Projectile.width * (MaxScale + 1));
-        var height = (int)(Projectile.height * (MaxScale + 1));
-
-        WorldRectangle = new Rectangle((int)Projectile.Center.X - width / 2, (int)Projectile.Center.Y - height / 2,
-                                       width, height);
+        WorldRectangle = new Rectangle((int)(Projectile.Center.X - Size.X / 2), (int)(Projectile.Center.Y - Size.Y / 2),
+                                       (int)Size.X, (int)Size.Y);
     }
 }
