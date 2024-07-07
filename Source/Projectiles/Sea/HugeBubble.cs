@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -49,6 +50,7 @@ public class HugeBubble : BaseProjectile
             {
                 Projectile.friendly = true;
                 Projectile.timeLeft = 300;
+                Projectile.alpha = 155;
             }
 
             _scaleAnimation = Animation.Animate<float>("scale", Projectile.scale, Projectile.scale + MaxScale / MaxSize,
@@ -73,7 +75,7 @@ public class HugeBubble : BaseProjectile
 
         Projectile.width = 20;
         Projectile.height = 20;
-        Projectile.alpha = 155;
+        Projectile.alpha = 200;
 
         MaxSize = 8;
         MaxScale = 3f;
@@ -101,7 +103,11 @@ public class HugeBubble : BaseProjectile
     
     public void Explode()
     {
-        SoundEngine.PlaySound(SoundID.Item54);
+        SoundEngine.PlaySound(SoundID.Item96);
+        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 3);
+        Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 8, 4f, 1.5f);
+
+        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, 16, 1f);
 
         Projectile.Kill();
     }
@@ -119,7 +125,9 @@ public class HugeBubble : BaseProjectile
             }
             else
             {
-                Projectile.velocity = new Vector2(0, -1);
+                var x = MathF.Sin(Projectile.Center.Y / 12f);
+
+                Projectile.velocity = new Vector2(x, -1);
                 Target.velocity = new Vector2(0, -1);
                 Target.Center = Projectile.Center;
             }
@@ -134,8 +142,8 @@ public class HugeBubble : BaseProjectile
 
         Projectile.scale = _scaleAnimation.Value ?? Projectile.scale;
 
-        var width = (int)(Projectile.width * (MaxScale));
-        var height = (int)(Projectile.height * (MaxScale));
+        var width = (int)(Projectile.width * (MaxScale + 1));
+        var height = (int)(Projectile.height * (MaxScale + 1));
 
         WorldRectangle = new Rectangle((int)Projectile.Center.X - width / 2, (int)Projectile.Center.Y - height / 2,
                                        width, height);

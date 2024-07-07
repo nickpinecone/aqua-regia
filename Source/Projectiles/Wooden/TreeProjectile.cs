@@ -35,6 +35,7 @@ public class TreeProjectile : BaseProjectile
         Projectile.damage = 1;
         Projectile.knockBack = 1f;
         Projectile.penetrate = -1;
+        Projectile.CritChance = 100;
 
         Projectile.width = 76;
         Projectile.height = 66;

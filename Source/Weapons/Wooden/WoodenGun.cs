@@ -69,7 +69,7 @@ public class WoodenGun : BaseGun
     {
         if (Pump.Pumped)
         {
-            SpawnProjectile<TreeProjectile>(player, Main.MouseWorld, Vector2.Zero, Item.damage * 4, Item.knockBack * 2);
+            SpawnProjectile<TreeProjectile>(player, Main.MouseWorld, Vector2.Zero, Item.damage * 2, Item.knockBack * 2);
 
             Pump.Reset();
         }
