@@ -60,35 +60,22 @@ public class SeaProjectile : BaseProjectile
         Vector2 position = Projectile.Center;
 
         // Finite tries so it does not stuck in a while loop forever
-        for (int i = 0; i < 128; i++)
+        for (int i = 0; i < 16; i++)
         {
             var offset = MathF.Max(target.width, target.height) * 1.5f;
             position = target.Center +
                        Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(offset, offset + 12f);
 
-            // Scan 3x3 area
-            bool clear = true;
-            bool bail = false;
+            var clear = true;
 
-            for (int x = -1; x <= 1; x++)
+            foreach (var tilePosition in TileHelper.Area(position, 1, 1))
             {
-                if(bail)
+                var tile = Main.tile[tilePosition.X, tilePosition.Y];
+
+                if (TileHelper.IsSolid(tile))
                 {
+                    clear = false;
                     break;
-                }
-
-                for (int y = -1; y <= 1; y++)
-                {
-                    var tilePosition = (position + new Vector2(16 * x, 16 * y)).ToTileCoordinates();
-                    var tile = Main.tile[tilePosition.X, tilePosition.Y];
-                    var isSolid = tile.HasTile && Main.tileSolid[tile.TileType];
-
-                    if (isSolid)
-                    {
-                        clear = false;
-                        bail = true;
-                        break;
-                    }
                 }
             }
 

@@ -53,6 +53,7 @@ public class BubbleProjectile : BaseProjectile
         _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
 
         Projectile.scale += Main.rand.NextFloat(-0.2f, 0.2f);
+        Projectile.rotation = Main.rand.NextFloat(0f, MathHelper.TwoPi);
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

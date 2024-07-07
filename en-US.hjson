@@ -21,14 +21,13 @@ Mods: {
 				Tooltip: ""
 			}
 
-			DebugStick: {
-				DisplayName: Debug Stick
-				Tooltip: ""
-			}
-
 			SeaGun: {
-				DisplayName: Sea Gun
-				Tooltip: ""
+				DisplayName: Sea Splasher
+				Tooltip:
+					'''
+					Attack: Spawns bubbles that attach to enemies, expanding with each hit
+					When fully expanded floats up the enemy, shooting the bubble explodes it
+					'''
 			}
 		}
 

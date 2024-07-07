@@ -81,6 +81,17 @@ public class TreeProjectile : BaseProjectile
 
         Projectile.rotation = MathHelper.ToRadians(-30 * _direction);
         Projectile.position -= new Vector2(90 * _direction, 160);
+
+        foreach (var tilePosition in TileHelper.Area(Projectile.Center, 3, 3))
+        {
+            var tile = Main.tile[tilePosition.X, tilePosition.Y];
+
+            if (TileHelper.IsSolid(tile))
+            {
+                Projectile.Kill();
+                break;
+            }
+        }
     }
 
     public override void AI()
