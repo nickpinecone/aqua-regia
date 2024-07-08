@@ -46,7 +46,7 @@ public class WoodenProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        if (Main.rand.Next(0, 6) == 0)
+        if (Main.rand.Next(0, 4) == 0)
         {
             var position = target.Center - new Vector2(0, target.height * 1.5f + Main.rand.NextFloat(0f, 6f));
 

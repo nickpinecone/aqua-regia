@@ -21,7 +21,9 @@ public class StarfishProjectile : BaseProjectile
     private NPC _oldTarget;
     private Timer _stickTime;
     private Vector2 _beforeVelocity;
-    private Timer _homeTime;
+    private float _maxPosition = 512f * 512f;
+    private Vector2 _spawnPosition;
+    private bool _hitEnd;
 
     public StarfishProjectile() : base()
     {
@@ -32,8 +34,6 @@ public class StarfishProjectile : BaseProjectile
 
         _stickTime = new Timer(15, this);
         _stickTime.Paused = true;
-
-        _homeTime = new Timer(120, this);
     }
 
     public override void SetDefaults()
@@ -53,7 +53,14 @@ public class StarfishProjectile : BaseProjectile
 
         Home.SetDefaults();
         Home.CurveChange = 1.01f;
-        Home.Curve = 2f;
+        Home.Curve = 0.2f;
+    }
+
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        _spawnPosition = Projectile.Center;
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
@@ -86,9 +93,15 @@ public class StarfishProjectile : BaseProjectile
     {
         base.AI();
 
-        if (_homeTime.Done && Stick.Target == null)
+        if (!_hitEnd && Projectile.Center.DistanceSQ(_spawnPosition) > _maxPosition)
+        {
+            _hitEnd = true;
+        }
+
+        if (_hitEnd && Stick.Target == null)
         {
             var slow = Animation.Animate<Vector2>("slow", Projectile.velocity, Vector2.Zero, 20, Ease.InOut);
+            Projectile.velocity = slow.Value ?? Projectile.velocity;
 
             if (slow.Finished)
             {

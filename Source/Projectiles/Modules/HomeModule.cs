@@ -30,12 +30,13 @@ public class HomeModule : BaseProjectileModule
     public Vector2 Calculate(Vector2 position, Vector2 velocity, Vector2 targetPosition)
     {
         var direction = targetPosition - position;
-        var angle = Helper.AngleBetween(velocity, direction);
 
         if (velocity == Vector2.Zero)
         {
             velocity = direction;
         }
+
+        var angle = Helper.AngleBetween(velocity, direction);
 
         var newVelocity = velocity.RotatedBy(MathF.Sign(angle) * MathF.Min(Curve, MathF.Abs(angle)));
         newVelocity.Normalize();

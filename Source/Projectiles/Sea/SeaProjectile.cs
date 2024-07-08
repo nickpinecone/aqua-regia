@@ -85,7 +85,7 @@ public class SeaProjectile : BaseProjectile
             }
         }
 
-        SpawnProjectile<BubbleProjectile>(position, Vector2.Zero, Projectile.damage / 2, 0);
+        SpawnProjectile<BubbleProjectile>(position, Vector2.Zero, 1, 0);
     }
 
     public override void AI()
