@@ -39,6 +39,7 @@ Mods: {
 			BubbleProjectile.DisplayName: Bubble Projectile
 			HugeBubble.DisplayName: Huge Bubble
 			BubbleExplosion.DisplayName: Bubble Explosion
+			StarfishProjectile.DisplayName: Starfish Projectile
 		}
 	}
 }

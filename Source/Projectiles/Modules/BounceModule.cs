@@ -7,7 +7,7 @@ public class BounceModule : BaseProjectileModule
 {
     private PropertyModule _property;
     private int _current;
-    public int BounceCount { get; set; }
+    public int MaxCount { get; set; }
 
     public BounceModule(BaseProjectile baseProjectile, PropertyModule property) : base(baseProjectile)
     {
@@ -16,12 +16,12 @@ public class BounceModule : BaseProjectileModule
 
     public void SetDefaults()
     {
-        BounceCount = 3;
+        MaxCount = 3;
     }
 
-    public Vector2? Bounce(BaseProjectile baseProjectile, Vector2 oldVelocity, Vector2 velocity)
+    public Vector2? Update(BaseProjectile baseProjectile, Vector2 oldVelocity, Vector2 velocity)
     {
-        if (_current < BounceCount)
+        if (_current < MaxCount)
         {
             _current += 1;
 
@@ -46,7 +46,7 @@ public class BounceModule : BaseProjectileModule
     {
         base.RuntimeTileCollide(baseProjectile, oldVelocity);
 
-        var newVelocity = Bounce(baseProjectile, oldVelocity, baseProjectile.Projectile.velocity);
+        var newVelocity = Update(baseProjectile, oldVelocity, baseProjectile.Projectile.velocity);
         if (newVelocity != null)
         {
             baseProjectile.Projectile.velocity = (Vector2)newVelocity;

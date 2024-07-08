@@ -89,7 +89,7 @@ public class BubbleProjectile : BaseProjectile
         if (appear.Finished && Stick.Target == null)
         {
             Projectile.velocity =
-                Home.Update(Projectile.Center, Projectile.velocity, (target) => _seaPlayer.CanHome(target)) ??
+                Home.Default(Projectile.Center, Projectile.velocity, (target) => _seaPlayer.CanHome(target)) ??
                 Projectile.velocity;
         }
 

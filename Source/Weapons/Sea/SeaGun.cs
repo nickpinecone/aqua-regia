@@ -52,6 +52,29 @@ public class SeaGun : BaseGun
         base.HoldItem(player);
 
         Pump.DefaultUpdate();
+
+        if (Main.mouseRight)
+        {
+            Starfish(player);
+        }
+    }
+
+    public void Starfish(Player player)
+    {
+        if (Pump.Pumped)
+        {
+            var angleStep = MathHelper.TwoPi / 5;
+
+            for (int i = 0; i < 6; i++)
+            {
+                var velocity = Vector2.UnitY.RotatedBy(angleStep * i);
+                velocity *= 12f;
+
+                SpawnProjectile<StarfishProjectile>(player, player.Center, velocity, Item.damage, Item.knockBack);
+            }
+
+            Pump.Reset();
+        }
     }
 
     public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source,

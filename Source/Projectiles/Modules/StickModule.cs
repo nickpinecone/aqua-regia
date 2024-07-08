@@ -29,6 +29,6 @@ public class StickModule : BaseProjectileModule
             return null;
         }
 
-        return Target.Center + HitPoint;
+        return Target.Center - HitPoint;
     }
 }

@@ -27,27 +27,32 @@ public class HomeModule : BaseProjectileModule
         Radius = 300f;
     }
 
-    public Vector2? Update(Vector2 position, Vector2 velocity, Func<NPC, bool> canHome = null)
+    public Vector2 Calculate(Vector2 position, Vector2 velocity, Vector2 targetPosition)
+    {
+        var direction = targetPosition - position;
+        var angle = Helper.AngleBetween(velocity, direction);
+
+        if (velocity == Vector2.Zero)
+        {
+            velocity = direction;
+        }
+
+        var newVelocity = velocity.RotatedBy(MathF.Sign(angle) * MathF.Min(Curve, MathF.Abs(angle)));
+        newVelocity.Normalize();
+        newVelocity *= Speed;
+
+        Curve *= CurveChange;
+
+        return newVelocity;
+    }
+
+    public Vector2? Default(Vector2 position, Vector2 velocity, Func<NPC, bool> canHome = null)
     {
         Target = Helper.FindNearsetNPC(position, Radius, canHome);
 
         if (Target != null)
         {
-            var direction = Target.Center - position;
-            var angle = Helper.AngleBetween(velocity, direction);
-
-            if(velocity == Vector2.Zero)
-            {
-                velocity = direction;
-            }
-
-            var newVelocity = velocity.RotatedBy(MathF.Sign(angle) * MathF.Min(Curve, MathF.Abs(angle)));
-            newVelocity.Normalize();
-            newVelocity *= Speed;
-
-            Curve *= CurveChange;
-
-            return newVelocity;
+            return Calculate(position, velocity, Target.Center);
         }
 
         return null;
@@ -58,7 +63,7 @@ public class HomeModule : BaseProjectileModule
         base.RuntimeAI(baseProjectile);
 
         baseProjectile.Projectile.velocity =
-            Update(baseProjectile.Projectile.Center, baseProjectile.Projectile.velocity) ??
+            Default(baseProjectile.Projectile.Center, baseProjectile.Projectile.velocity) ??
             baseProjectile.Projectile.velocity;
     }
 }
