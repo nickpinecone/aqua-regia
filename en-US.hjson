@@ -27,6 +27,7 @@ Mods: {
 					'''
 					Attack: Spawns bubbles that attach to enemies, expanding with each hit
 					When fully expanded floats up the enemy, shooting the bubble explodes it
+					Pumped: Shoots a starfish boomerang that slashes through enemies
 					'''
 			}
 		}

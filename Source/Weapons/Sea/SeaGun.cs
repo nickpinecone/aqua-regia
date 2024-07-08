@@ -63,15 +63,11 @@ public class SeaGun : BaseGun
     {
         if (Pump.Pumped)
         {
-            var angleStep = MathHelper.TwoPi / 5;
+            var direction = Main.MouseWorld - player.Center;
+            direction.Normalize();
+            var velocity = direction * 12f; 
 
-            for (int i = 0; i < 6; i++)
-            {
-                var velocity = Vector2.UnitY.RotatedBy(angleStep * i);
-                velocity *= 12f;
-
-                SpawnProjectile<StarfishProjectile>(player, player.Center, velocity, Item.damage, Item.knockBack);
-            }
+            SpawnProjectile<StarfishProjectile>(player, player.Center, velocity, Item.damage, Item.knockBack);
 
             Pump.Reset();
         }

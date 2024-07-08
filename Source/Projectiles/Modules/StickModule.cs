@@ -12,6 +12,12 @@ public class StickModule : BaseProjectileModule
     {
     }
 
+    public void Detach()
+    {
+        Target = null;
+        HitPoint = Vector2.Zero;
+    }
+
     public void ToTarget(NPC target, Vector2 position)
     {
         if (Target == null)

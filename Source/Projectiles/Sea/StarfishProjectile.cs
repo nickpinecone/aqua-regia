@@ -1,6 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -13,27 +16,31 @@ public class StarfishProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
     public StickModule Stick { get; private set; }
-    public BounceModule Bounce { get; private set; }
     public HomeModule Home { get; private set; }
 
-    private Timer _spawnWait;
-    private Vector2 _mouseWorld;
-    private bool _reached;
+    private NPC _oldTarget;
+    private Timer _stickTime;
+    private Vector2 _beforeVelocity;
+    private Timer _homeTime;
 
     public StarfishProjectile() : base()
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         Stick = new StickModule(this);
-        Bounce = new BounceModule(this, null);
         Home = new HomeModule(this);
 
-        _spawnWait = new Timer(10, this);
+        _stickTime = new Timer(15, this);
+        _stickTime.Paused = true;
+
+        _homeTime = new Timer(120, this);
     }
 
     public override void SetDefaults()
     {
         base.SetDefaults();
+
+        _immunity.ImmunityTime = 5;
 
         Property.SetDefaults(this);
         Property.SetTimeLeft(this, 600);
@@ -46,81 +53,63 @@ public class StarfishProjectile : BaseProjectile
 
         Home.SetDefaults();
         Home.CurveChange = 1.01f;
-        Home.Curve = 0.1f;
-
-        // Infinite bounce
-        Bounce.MaxCount = int.MaxValue;
-    }
-
-    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
-    {
-        base.OnSpawn(source);
-
-        _mouseWorld = Main.MouseWorld;
-    }
-
-    public override bool OnTileCollide(Vector2 oldVelocity)
-    {
-        base.OnTileCollide(oldVelocity);
-
-        if (!_spawnWait.Done)
-        {
-            Projectile.velocity = Bounce.Update(null, oldVelocity, Projectile.velocity) ?? Projectile.velocity;
-
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        Home.Curve = 2f;
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        Stick.ToTarget(target, Projectile.Center);
+        SoundEngine.PlaySound(SoundID.NPCHit9);
+
+        if (Stick.Target == null)
+        {
+            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(5, 1);
+
+            Stick.ToTarget(target, Projectile.Center);
+
+            _beforeVelocity = Projectile.velocity;
+            Projectile.velocity.Normalize();
+            _stickTime.Restart();
+        }
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        var particle = Particle.Single(DustID.Coralstone, Projectile.Center, new Vector2(8, 8), Vector2.Zero, 1f);
+        particle.noGravity = true;
     }
 
     public override void AI()
     {
         base.AI();
 
-        if (_spawnWait.Done && Stick.Target == null && !_reached)
+        if (_homeTime.Done && Stick.Target == null)
         {
-            Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, _mouseWorld);
+            var slow = Animation.Animate<Vector2>("slow", Projectile.velocity, Vector2.Zero, 20, Ease.InOut);
 
-            if (_mouseWorld.DistanceSQ(Projectile.Center) < 16f * 16f)
+            if (slow.Finished)
             {
-                _reached = true;
+                Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, Main.LocalPlayer.Center);
+
+                if (Main.LocalPlayer.Center.DistanceSQ(Projectile.Center) < 16f * 16f)
+                {
+                    Projectile.Kill();
+                }
             }
         }
 
-        if (Stick.Target == null)
+        if (Math.Abs(Projectile.velocity.X) > 0)
         {
-            if (Math.Abs(Projectile.velocity.X) > 0)
-            {
-                Projectile.rotation += 0.1f * Math.Sign(Projectile.velocity.X);
-            }
+            Projectile.rotation += 0.2f * Math.Sign(Projectile.velocity.X);
         }
-        else
+
+        if (_stickTime.Done && Stick.Target != null)
         {
-            Projectile.Center = Stick.Update() ?? Projectile.Center;
-
-            var upscale = Animation.Animate<float>("upscale", 1f, 1.2f, 20, Ease.InOut);
-            Projectile.scale = upscale.Value ?? Projectile.scale;
-
-            var downscale = Animation.Animate<float>("downscale", upscale.End, upscale.Start, upscale.Frames,
-                                                     Ease.InOut, new string[] { "upscale" });
-            Projectile.scale = downscale.Value ?? Projectile.scale;
-
-            if (downscale.Finished)
-            {
-                upscale.Reset();
-                downscale.Reset();
-
-                upscale.End = Main.rand.NextFloat(1.1f, 1.3f);
-            }
+            Stick.Detach();
+            Projectile.velocity = _beforeVelocity;
         }
     }
 }
