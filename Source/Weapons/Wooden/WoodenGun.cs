@@ -61,11 +61,11 @@ public class WoodenGun : BaseGun
 
         if(Main.mouseRight)
         {
-            TreeSlam(player);
+            AltUseAlways(player);
         }
     }
 
-    public void TreeSlam(Player player)
+    public void AltUseAlways(Player player)
     {
         if (Pump.Pumped)
         {

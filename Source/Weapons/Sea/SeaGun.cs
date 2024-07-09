@@ -55,11 +55,11 @@ public class SeaGun : BaseGun
 
         if (Main.mouseRight)
         {
-            Starfish(player);
+            AltUseAlways(player);
         }
     }
 
-    public void Starfish(Player player)
+    public void AltUseAlways(Player player)
     {
         if (Pump.Pumped)
         {

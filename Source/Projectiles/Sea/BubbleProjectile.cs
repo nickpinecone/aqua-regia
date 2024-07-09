@@ -84,7 +84,7 @@ public class BubbleProjectile : BaseProjectile
         base.AI();
 
         var appear = Animation.Animate<int>("appear", 255, 100, 10, Ease.Linear);
-        Projectile.alpha = appear.Value ?? Projectile.alpha;
+        Projectile.alpha = appear.Update() ?? Projectile.alpha;
 
         if (appear.Finished && Stick.Target == null)
         {
@@ -96,7 +96,7 @@ public class BubbleProjectile : BaseProjectile
         if (Stick.Target != null)
         {
             var pos = Animation.Animate<Vector2>("pos", Projectile.Center, Stick.Target.Center, 20, Ease.Linear);
-            Projectile.Center = pos.Value ?? Projectile.Center;
+            Projectile.Center = pos.Update() ?? Projectile.Center;
 
             if (pos.Finished)
             {

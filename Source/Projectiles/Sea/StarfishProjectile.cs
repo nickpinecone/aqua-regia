@@ -16,31 +16,23 @@ public class StarfishProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
     public StickModule Stick { get; private set; }
-    public HomeModule Home { get; private set; }
+    public BoomerangModule Boomerang { get; private set; }
 
-    private NPC _oldTarget;
     private Timer _stickTime;
-    private Vector2 _beforeVelocity;
-    private float _maxPosition = 512f * 512f;
-    private Vector2 _spawnPosition;
-    private bool _hitEnd;
 
     public StarfishProjectile() : base()
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         Stick = new StickModule(this);
-        Home = new HomeModule(this);
+        Boomerang = new BoomerangModule(this);
 
-        _stickTime = new Timer(15, this);
-        _stickTime.Paused = true;
+        _stickTime = new Timer(10, this, false);
     }
 
     public override void SetDefaults()
     {
         base.SetDefaults();
-
-        _immunity.ImmunityTime = 5;
 
         Property.SetDefaults(this);
         Property.SetTimeLeft(this, 600);
@@ -51,16 +43,17 @@ public class StarfishProjectile : BaseProjectile
         Projectile.width = 20;
         Projectile.height = 18;
 
-        Home.SetDefaults();
-        Home.CurveChange = 1.01f;
-        Home.Curve = 0.2f;
+        Boomerang.MaxPosition = 512f;
+        Boomerang.Home.SetDefaults();
+        Boomerang.Home.CurveChange = 1.01f;
+        Boomerang.Home.Curve = 0.2f;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
 
-        _spawnPosition = Projectile.Center;
+        Boomerang.SpawnPosition = Projectile.Center;
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
@@ -75,10 +68,15 @@ public class StarfishProjectile : BaseProjectile
 
             Stick.ToTarget(target, Projectile.Center);
 
-            _beforeVelocity = Projectile.velocity;
+            Stick.BeforeVelocity = Projectile.velocity;
             Projectile.velocity.Normalize();
             _stickTime.Restart();
         }
+
+        var invert = Projectile.velocity.RotatedBy(MathHelper.Pi);
+        var start = invert.RotatedBy(-MathHelper.PiOver4);
+        var end = invert.RotatedBy(MathHelper.PiOver4);
+        Particle.Arc(DustID.Blood, Stick.HitPoint, new Vector2(8, 8), start, end, 6, 2f, 1.2f);
     }
 
     public override void OnKill(int timeLeft)
@@ -93,24 +91,15 @@ public class StarfishProjectile : BaseProjectile
     {
         base.AI();
 
-        if (!_hitEnd && Projectile.Center.DistanceSQ(_spawnPosition) > _maxPosition)
-        {
-            _hitEnd = true;
-        }
+        var isFar = Boomerang.Update(Projectile.Center);
 
-        if (_hitEnd && Stick.Target == null)
+        if (isFar && Stick.Target == null)
         {
-            var slow = Animation.Animate<Vector2>("slow", Projectile.velocity, Vector2.Zero, 20, Ease.InOut);
-            Projectile.velocity = slow.Value ?? Projectile.velocity;
+            Projectile.velocity = Boomerang.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity);
 
-            if (slow.Finished)
+            if(Boomerang.Returned)
             {
-                Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, Main.LocalPlayer.Center);
-
-                if (Main.LocalPlayer.Center.DistanceSQ(Projectile.Center) < 16f * 16f)
-                {
-                    Projectile.Kill();
-                }
+                Projectile.Kill();
             }
         }
 
@@ -122,7 +111,7 @@ public class StarfishProjectile : BaseProjectile
         if (_stickTime.Done && Stick.Target != null)
         {
             Stick.Detach();
-            Projectile.velocity = _beforeVelocity;
+            Projectile.velocity = Stick.BeforeVelocity;
         }
     }
 }

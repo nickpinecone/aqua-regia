@@ -5,8 +5,18 @@ namespace WaterGuns.Projectiles.Modules;
 
 public class StickModule : BaseProjectileModule
 {
+    private Vector2 _localHit = Vector2.Zero;
+
     public NPC Target { get; private set; }
-    public Vector2 HitPoint { get; private set; }
+    public Vector2 BeforeVelocity { get; set; }
+
+    public Vector2 HitPoint
+    {
+        get
+        {
+            return Target.Center - _localHit;
+        }
+    }
 
     public StickModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
@@ -15,7 +25,7 @@ public class StickModule : BaseProjectileModule
     public void Detach()
     {
         Target = null;
-        HitPoint = Vector2.Zero;
+        _localHit = Vector2.Zero;
     }
 
     public void ToTarget(NPC target, Vector2 position)
@@ -23,7 +33,7 @@ public class StickModule : BaseProjectileModule
         if (Target == null)
         {
             Target = target;
-            HitPoint = target.Center - position;
+            _localHit = target.Center - position;
         }
     }
 
@@ -35,6 +45,6 @@ public class StickModule : BaseProjectileModule
             return null;
         }
 
-        return Target.Center - HitPoint;
+        return HitPoint;
     }
 }

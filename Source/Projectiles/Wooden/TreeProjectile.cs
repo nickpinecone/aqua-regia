@@ -99,7 +99,7 @@ public class TreeProjectile : BaseProjectile
         base.AI();
 
         var appear = Animation.Animate<int>("appear", 255, 0, 6, Ease.Linear);
-        Projectile.alpha = appear.Value ?? Projectile.alpha;
+        Projectile.alpha = appear.Update() ?? Projectile.alpha;
 
         if (appear.Finished)
         {
@@ -109,12 +109,12 @@ public class TreeProjectile : BaseProjectile
         var rot =
             Animation.Animate<float>("rot", MathHelper.ToRadians(-30 * _direction),
                                      MathHelper.ToRadians(110 * _direction), 20, Ease.InOut, new string[] { "appear" });
-        Projectile.rotation = rot.Value ?? Projectile.rotation;
+        Projectile.rotation = rot.Update() ?? Projectile.rotation;
 
         var vel = Animation.Animate<Vector2>("vel", Vector2.Zero,
                                              Vector2.UnitY.RotatedBy(MathHelper.ToRadians(-30 * _direction)) * 18f, 20,
                                              Ease.InOut, new string[] { "appear" });
-        Projectile.velocity = vel.Value ?? Projectile.velocity;
+        Projectile.velocity = vel.Update() ?? Projectile.velocity;
 
         if (rot.Finished)
         {

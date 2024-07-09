@@ -91,7 +91,6 @@ public class HugeBubble : BaseProjectile
             }
 
             var scale = Animation.Animate<float>("scale", 0f, 0f, 10, Ease.Linear);
-
             scale.Start = MaxScale / MaxStage * Stage;
             scale.End = scale.Start + MaxScale / MaxStage;
             scale.Reset();
@@ -106,7 +105,8 @@ public class HugeBubble : BaseProjectile
         Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 3);
         Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 8, 4f, 1.5f);
 
-        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, (int)(_seaPlayer.ProjectileDamage * 1.5f), 1f);
+        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, (int)(_seaPlayer.ProjectileDamage * 1.5f),
+                                         1f);
 
         Projectile.Kill();
     }
@@ -128,8 +128,7 @@ public class HugeBubble : BaseProjectile
 
                 var offset = new Vector2(Main.rand.NextFloat(low, high), Main.rand.NextFloat(low, high));
 
-                SpawnProjectile<BubbleProjectile>(Projectile.Center + offset, Vector2.Zero,
-                                                  _seaPlayer.ProjectileDamage / 2, 0);
+                SpawnProjectile<BubbleProjectile>(Projectile.Center + offset, Vector2.Zero, 1, 0);
             }
         }
 
@@ -162,8 +161,8 @@ public class HugeBubble : BaseProjectile
             }
         }
 
-        var scale = Animation.Animate<float>("scale", 0f, 0f, 10, Ease.Linear);
-        Projectile.scale = scale.Value ?? Projectile.scale;
+        var scale = Animation.Get<float>("scale");
+        Projectile.scale = scale?.Update() ?? Projectile.scale;
 
         WorldRectangle = new Rectangle((int)(Projectile.Center.X - Size.X / 2), (int)(Projectile.Center.Y - Size.Y / 2),
                                        (int)Size.X, (int)Size.Y);
