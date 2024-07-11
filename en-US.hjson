@@ -30,6 +30,11 @@ Mods: {
 					Pumped: Shoots a starfish boomerang that slashes through enemies
 					'''
 			}
+
+			GoldenGun: {
+				DisplayName: Golden Tide
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
