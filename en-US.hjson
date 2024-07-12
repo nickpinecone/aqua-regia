@@ -48,6 +48,7 @@ Mods: {
 			StarfishProjectile.DisplayName: Starfish Projectile
 			GoldenProjectile.DisplayName: Golden Projectile
 			DaggerProjectile.DisplayName: Dagger Projectile
+			TreeExplosion.DisplayName: Tree Explosion
 		}
 	}
 }

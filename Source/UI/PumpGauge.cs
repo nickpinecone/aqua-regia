@@ -56,6 +56,15 @@ class PumpGauge : UIState
         var pump = ((BaseGun)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
         float percent = (float)pump.PumpLevel / (float)pump.MaxPumpLevel;
 
+        if(percent >= 1f)
+        {
+            _frame.Color = Color.Gold;
+        }
+        else
+        {
+            _frame.Color = Color.White;
+        }
+
         Rectangle rectangle = _frame.GetInnerDimensions().ToRectangle();
         rectangle.X += 2;
         rectangle.Width -= 4;

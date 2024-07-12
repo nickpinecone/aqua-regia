@@ -35,7 +35,6 @@ public class TreeProjectile : BaseProjectile
         Projectile.damage = 1;
         Projectile.knockBack = 1f;
         Projectile.penetrate = -1;
-        Projectile.CritChance = 100;
 
         Projectile.width = 76;
         Projectile.height = 66;
@@ -50,6 +49,7 @@ public class TreeProjectile : BaseProjectile
         Main.player[Projectile.owner].GetModPlayer<ScreenShake>().Activate(6, 2);
 
         SoundEngine.PlaySound(SoundID.Item14);
+        SpawnProjectile<TreeExplosion>(Projectile.Center, Vector2.Zero, Projectile.damage, Projectile.knockBack);
 
         foreach (var particle in Particle.Arc(DustID.Cloud, Projectile.Bottom, new Vector2(2, 2),
                                               Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-150)),
