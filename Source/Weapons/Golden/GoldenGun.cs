@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Projectiles.Sea;
+using WaterGuns.Projectiles.Golden;
 using WaterGuns.Utils;
 using WaterGuns.Weapons.Modules;
 
@@ -30,12 +30,12 @@ public class GoldenGun : BaseGun
 
         Sound.SetWater(this);
         Property.SetDefaults(this);
-        Property.SetProjectile<SeaProjectile>(this);
+        Property.SetProjectile<GoldenProjectile>(this);
 
         Sprite.HoldoutOffset = new Vector2(-12, 6);
         Sprite.Offset = new Vector2(52f, 52f);
         Pump.MaxPumpLevel = 12;
-        Property.Inaccuracy = 3.3f;
+        Property.Inaccuracy = 3.2f;
 
         Item.width = 58;
         Item.height = 40;
@@ -76,7 +76,7 @@ public class GoldenGun : BaseGun
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
-        ShootProjectile<SeaProjectile>(player, source, position, velocity, damage, knockback);
+        ShootProjectile<GoldenProjectile>(player, source, position, velocity, damage, knockback);
 
         return false;
     }
