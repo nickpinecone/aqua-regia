@@ -33,7 +33,7 @@ Mods: {
 
 			GoldenGun: {
 				DisplayName: Golden Tide
-				Tooltip: ""
+				Tooltip: Attack: Sometimes spawns a dagger that sticks to enemies making them bleed
 			}
 		}
 

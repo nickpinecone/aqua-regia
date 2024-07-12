@@ -1,9 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -15,15 +13,25 @@ public class DaggerProjectile : BaseProjectile
 
     public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }
-    public HomeModule Home { get; private set; }
     public StickModule Stick { get; private set; }
+
+    public SoundStyle SlashSound { get; private set; }
+    public Vector2 InitialVelocity { get; set; } = Vector2.Zero;
+
+    private int _penetrateAmount = 0;
+    private int _penetrateMax = 3;
 
     public DaggerProjectile() : base()
     {
         Animation = new AnimationModule(this);
         Property = new PropertyModule(this);
-        Home = new HomeModule(this);
         Stick = new StickModule(this);
+
+        SlashSound = new SoundStyle(AudioPath.Impact + "Slash")
+        {
+            Volume = 0.5f,
+            PitchVariance = 0.1f,
+        };
     }
 
     public override void SetDefaults()
@@ -31,14 +39,11 @@ public class DaggerProjectile : BaseProjectile
         base.SetDefaults();
 
         Property.SetDefaults(this);
-        Property.SetTimeLeft(this, 600);
-
-        Home.SetDefaults();
-        Home.Speed = 8;
+        Property.SetTimeLeft(this, 60);
 
         Projectile.tileCollide = false;
         Projectile.damage = 1;
-        Projectile.penetrate = 3;
+        Projectile.penetrate = -1;
 
         Projectile.width = 10;
         Projectile.height = 24;
@@ -49,15 +54,58 @@ public class DaggerProjectile : BaseProjectile
     {
         if (target.getRect().Intersects(Projectile.getRect()) && Stick.Target == null)
         {
+            SoundEngine.PlaySound(SlashSound);
+
+            Stick.BeforeVelocity = Projectile.velocity;
+            Projectile.velocity = Vector2.Zero;
             Stick.ToTarget(target, Projectile.Center);
         }
 
         return base.CanHitNPC(target);
     }
 
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        base.OnHitNPC(target, hit, damageDone);
+        if (_penetrateAmount < _penetrateMax)
+        {
+            Projectile.timeLeft = Property.DefaultTime;
+            _penetrateAmount += 1;
+
+            var invert = Stick.BeforeVelocity.RotatedBy(MathHelper.Pi);
+            var start = invert.RotatedBy(-MathHelper.PiOver4);
+            var end = invert.RotatedBy(MathHelper.PiOver4);
+
+            var offset = Stick.BeforeVelocity.SafeNormalize(Vector2.Zero);
+            Particle.Arc(DustID.Blood, Stick.HitPoint + offset * (Projectile.height / 2), new Vector2(6, 6), start, end,
+                         4, 2f, 1.2f);
+        }
+        else
+        {
+            Projectile.timeLeft = 10;
+        }
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        if (_penetrateAmount < _penetrateMax)
+        {
+            var particle = Particle.Single(DustID.Iron, Projectile.Center, new Vector2(6, 6), Vector2.Zero, 1f);
+            particle.noGravity = true;
+        }
+    }
+
     public override void AI()
     {
         base.AI();
+
+        if (_penetrateAmount >= _penetrateMax)
+        {
+            var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
+            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+        }
 
         var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
         Projectile.alpha = appear.Update() ?? Projectile.alpha;
@@ -66,12 +114,19 @@ public class DaggerProjectile : BaseProjectile
         {
             if (Stick.Target == null)
             {
-                Projectile.velocity = Home.Default(Projectile.Center, Projectile.velocity) ?? Projectile.velocity;
+                Projectile.velocity = InitialVelocity;
                 Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             }
             else if (Stick.Target != null)
             {
-                Projectile.Center = Stick.HitPoint;
+                if (Stick.Update() == null)
+                {
+                    Projectile.Kill();
+                }
+                else
+                {
+                    Projectile.Center = Stick.HitPoint;
+                }
             }
         }
     }

@@ -46,11 +46,19 @@ public class GoldenProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        var offset = MathF.Max(target.width, target.height) * 2f;
-        var position =
-            target.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(offset, offset + 12f);
+        if (Main.rand.Next(0, 3) == 0)
+        {
+            var offset = MathF.Max(target.width, target.height) * 2f;
+            var offsetVector = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(offset, offset + 12f);
+            var position = target.Center + offsetVector;
 
-        SpawnProjectile<DaggerProjectile>(position, Vector2.Zero, Projectile.damage / 2, Projectile.knockBack / 2);
+            var dagger = SpawnProjectile<DaggerProjectile>(position, Vector2.Zero, Projectile.damage / 2,
+                                                           Projectile.knockBack / 2);
+            offsetVector.Normalize();
+            offsetVector = offsetVector.RotatedBy(MathHelper.Pi);
+            dagger.InitialVelocity = offsetVector * 10f;
+            dagger.Projectile.rotation = offsetVector.ToRotation() + MathHelper.PiOver2;
+        }
     }
 
     public override void AI()
