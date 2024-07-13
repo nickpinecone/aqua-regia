@@ -1,3 +1,4 @@
+using Terraria.ModLoader;
 using WaterGuns.Projectiles;
 using WaterGuns.Weapons;
 
@@ -32,6 +33,10 @@ public class Timer
     public Timer(int waitTime, BaseProjectile baseProjectile, bool start = true) : this(waitTime, start)
     {
         baseProjectile.AddTimer(this);
+    }
+
+    public Timer(int waitTime, ModPlayer _, bool start = true) : this(waitTime, start)
+    {
     }
 
     public void Restart()

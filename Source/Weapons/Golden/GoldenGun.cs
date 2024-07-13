@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WaterGuns.Players;
 using WaterGuns.Projectiles.Golden;
 using WaterGuns.Utils;
 using WaterGuns.Weapons.Modules;
@@ -63,6 +65,9 @@ public class GoldenGun : BaseGun
     {
         if (Pump.Pumped)
         {
+            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().Damage = Item.damage;
+            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SpawnSwords();
+
             Pump.Reset();
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -67,5 +68,11 @@ public class GoldenProjectile : BaseProjectile
 
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Water.CreateDust(Projectile.Center, Projectile.velocity);
+
+        if(Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SwordCollide(Projectile.getRect()))
+        {
+            Projectile.Kill();
+        }
     }
+
 }

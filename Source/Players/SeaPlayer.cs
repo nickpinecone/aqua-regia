@@ -20,13 +20,9 @@ public class SeaSource : IEntitySource
 
 public class SeaPlayer : ModPlayer
 {
-    public Dictionary<NPC, HugeBubble> _bubbles { get; private set; }
-    public int ProjectileDamage { get; set; }
+    private Dictionary<NPC, HugeBubble> _bubbles = new();
 
-    public SeaPlayer()
-    {
-        _bubbles = new();
-    }
+    public int ProjectileDamage { get; set; }
 
     public bool CanHome(NPC target)
     {
