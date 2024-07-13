@@ -27,13 +27,18 @@ Mods: {
 					'''
 					Attack: Spawns bubbles that attach to enemies, expanding with each hit
 					When fully expanded floats up the enemy, shooting the bubble explodes it
-					Pumped: Shoots a starfish boomerang that slashes through enemies
+					Pumped: <right> to shoot a starfish boomerang that slashes through enemies
 					'''
 			}
 
 			GoldenGun: {
 				DisplayName: Golden Tide
-				Tooltip: Attack: Sometimes spawns a dagger that sticks to enemies making them bleed
+				Tooltip: 
+                    '''
+                    Attack: Sometimes spawns a dagger that sticks to enemies making them bleed
+                    Pumped: <right> to shoot a sword at cursor position that sticks to enemies
+                    Shooting at the sword drives it further into the enemy, increasing damage
+                    '''
 			}
 		}
 

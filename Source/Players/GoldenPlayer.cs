@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Golden;
-using WaterGuns.Utils;
 
 namespace WaterGuns.Players;
 
@@ -11,40 +10,29 @@ public class GoldenPlayer : ModPlayer
 {
     private List<SwordProjectile> _swords = new();
 
-    public int Damage { get; set; }
-    public int Knockback { get; set; }
-
-    public Timer SpawnTimer { get; private set; }
-
-    public GoldenPlayer()
+    public void SpawnSword(Player player, int damage, float knockback)
     {
-        SpawnTimer = new Timer(40, this, false);
-    }
+        var aim = Main.MouseWorld - player.Center;
+        aim.Normalize();
+        var direction = aim.X > 0 ? 1 : -1;
 
-    private void NewSword()
-    {
-        var offset = 320f;
-        var offsetVector = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(offset, offset + 12f);
-        var position = Main.MouseWorld + offsetVector;
+        var offsetY = Main.rand.NextFloat(-96f, 96f);
+        var offsetX = Main.rand.NextFloat(0, 96f) * -direction;
+        var offsetVector = new Vector2(offsetX, offsetY);
+        var position = player.Center + offsetVector;
 
         var sword =
             Projectile
                 .NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), position, Vector2.Zero,
-                                     ModContent.ProjectileType<SwordProjectile>(), Damage, Knockback, Main.myPlayer)
+                                     ModContent.ProjectileType<SwordProjectile>(), damage, knockback, Main.myPlayer)
                 .ModProjectile as SwordProjectile;
 
-        offsetVector.Normalize();
-        offsetVector = offsetVector.RotatedBy(MathHelper.Pi);
-        sword.InitialVelocity = offsetVector * 16f;
-        sword.Projectile.rotation = offsetVector.ToRotation() + MathHelper.PiOver4;
+        var relative = Main.MouseWorld - position;
+        var velocity = (new Vector2(1, 0) * 16f).RotatedBy(relative.ToRotation());
+        sword.InitialVelocity = velocity;
+        sword.Projectile.rotation = velocity.ToRotation() + MathHelper.PiOver4;
 
         _swords.Add(sword);
-    }
-
-    public void SpawnSwords()
-    {
-        NewSword();
-        SpawnTimer.Restart();
     }
 
     public void RemoveSword(SwordProjectile sword)
@@ -65,20 +53,5 @@ public class GoldenPlayer : ModPlayer
         }
 
         return false;
-    }
-
-    public override void PreUpdate()
-    {
-        base.PreUpdate();
-
-        SpawnTimer.Update();
-
-        if (SpawnTimer.Done)
-        {
-            NewSword();
-
-            SpawnTimer.Restart();
-            SpawnTimer.Paused = true;
-        }
     }
 }

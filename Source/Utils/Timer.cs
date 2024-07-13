@@ -22,7 +22,7 @@ public class Timer
     private Timer(int waitTime, bool start = true)
     {
         WaitTime = waitTime;
-        Started = true;
+        Started = start;
     }
 
     public Timer(int waitTime, BaseGun baseGun, bool start = true) : this(waitTime, start)

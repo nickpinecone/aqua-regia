@@ -38,23 +38,28 @@ public class SwordProjectile : BaseProjectile
         base.SetDefaults();
 
         Property.SetDefaults(this);
-        Property.SetTimeLeft(this, 500);
+        Property.SetTimeLeft(this, 80);
 
         Projectile.tileCollide = false;
         Projectile.damage = 1;
         Projectile.penetrate = -1;
+        Projectile.CritChance = 100;
 
         Projectile.width = 40;
         Projectile.height = 40;
         Projectile.alpha = 255;
     }
 
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+    }
+
     public override bool? CanHitNPC(NPC target)
     {
         if (target.getRect().Intersects(Projectile.getRect()) && Stick.Target == null)
         {
-            SoundEngine.PlaySound(SlashSound);
-
+            Projectile.timeLeft = 360;
             Stick.BeforeVelocity = Projectile.velocity;
             Projectile.velocity = Vector2.Zero;
             Stick.ToTarget(target, Projectile.Center);
@@ -67,6 +72,7 @@ public class SwordProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
+        SoundEngine.PlaySound(SlashSound);
         Projectile.friendly = false;
         Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
 
@@ -81,8 +87,12 @@ public class SwordProjectile : BaseProjectile
 
     public void Push()
     {
-        Projectile.friendly = true;
-        _localShift += Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()) * 8f;
+        if (Stick.Target != null)
+        {
+            Projectile.damage = (int)(Projectile.damage * 1.1f);
+            Projectile.friendly = true;
+            _localShift += Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()) * 6f;
+        }
     }
 
     public override void OnKill(int timeLeft)
@@ -95,6 +105,12 @@ public class SwordProjectile : BaseProjectile
     public override void AI()
     {
         base.AI();
+
+        if (Projectile.timeLeft <= 10)
+        {
+            var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
+            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+        }
 
         var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
         Projectile.alpha = appear.Update() ?? Projectile.alpha;

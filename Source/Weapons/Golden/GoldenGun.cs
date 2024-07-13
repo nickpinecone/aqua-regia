@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -18,6 +17,8 @@ public class GoldenGun : BaseGun
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
+
+    private GoldenPlayer _goldenPlayer;
 
     public GoldenGun() : base()
     {
@@ -49,13 +50,20 @@ public class GoldenGun : BaseGun
         Item.shootSpeed = 22f;
     }
 
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        ChatLog.Message("Golden gun spawned");
+    }
+
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);
 
         Pump.DefaultUpdate();
 
-        if(Main.mouseRight)
+        if (Main.mouseRight)
         {
             AltUseAlways(player);
         }
@@ -65,8 +73,7 @@ public class GoldenGun : BaseGun
     {
         if (Pump.Pumped)
         {
-            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().Damage = Item.damage;
-            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SpawnSwords();
+            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SpawnSword(player, Item.damage, Item.knockBack);
 
             Pump.Reset();
         }

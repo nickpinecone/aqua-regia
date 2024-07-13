@@ -27,8 +27,7 @@ public class DaggerProjectile : BaseProjectile
         Property = new PropertyModule(this);
         Stick = new StickModule(this);
 
-        SlashSound = new SoundStyle(AudioPath.Impact + "Slash")
-        {
+        SlashSound = new SoundStyle(AudioPath.Impact + "Slash") {
             Volume = 0.5f,
             PitchVariance = 0.1f,
         };
@@ -78,7 +77,7 @@ public class DaggerProjectile : BaseProjectile
 
             var offset = Stick.BeforeVelocity.SafeNormalize(Vector2.Zero);
             Particle.Arc(DustID.Blood, Stick.HitPoint + offset * (Projectile.height / 2), new Vector2(6, 6), start, end,
-                         4, 2f, 1.2f);
+                         3, 2f, 1f);
         }
         else
         {
@@ -103,6 +102,7 @@ public class DaggerProjectile : BaseProjectile
 
         if (_penetrateAmount >= _penetrateMax)
         {
+            Projectile.friendly = false;
             var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
             Projectile.alpha = disappear.Update() ?? Projectile.alpha;
         }
