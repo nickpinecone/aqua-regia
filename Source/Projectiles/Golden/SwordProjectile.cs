@@ -15,8 +15,9 @@ public class SwordProjectile : BaseProjectile
     public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }
     public StickModule Stick { get; private set; }
+    public Rectangle WorldRectangle { get; private set; }
 
-    public SoundStyle SlashSound { get; private set; }
+    public SoundStyle MetalHitSound { get; private set; }
     public Vector2 InitialVelocity { get; set; } = Vector2.Zero;
 
     private Vector2 _localShift = Vector2.Zero;
@@ -27,7 +28,7 @@ public class SwordProjectile : BaseProjectile
         Property = new PropertyModule(this);
         Stick = new StickModule(this);
 
-        SlashSound = new SoundStyle(AudioPath.Impact + "Slash") {
+        MetalHitSound = new SoundStyle(AudioPath.Impact + "MetalHit") {
             Volume = 0.7f,
             PitchVariance = 0.1f,
         };
@@ -59,6 +60,7 @@ public class SwordProjectile : BaseProjectile
     {
         if (target.getRect().Intersects(Projectile.getRect()) && Stick.Target == null)
         {
+            SoundEngine.PlaySound(MetalHitSound);
             Projectile.timeLeft = 360;
             Stick.BeforeVelocity = Projectile.velocity;
             Projectile.velocity = Vector2.Zero;
@@ -72,7 +74,6 @@ public class SwordProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        SoundEngine.PlaySound(SlashSound);
         Projectile.friendly = false;
         Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
 
@@ -89,9 +90,18 @@ public class SwordProjectile : BaseProjectile
     {
         if (Stick.Target != null)
         {
-            Projectile.damage = (int)(Projectile.damage * 1.1f);
-            Projectile.friendly = true;
-            _localShift += Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()) * 6f;
+            var temp = Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()) * 6f;
+            var rect = new Rectangle((int)(Projectile.position.X + temp.X), (int)(Projectile.position.Y + temp.Y),
+                                     Projectile.width, Projectile.height);
+
+            if (rect.Intersects(Stick.Target.getRect()))
+            {
+                SoundEngine.PlaySound(MetalHitSound);
+
+                _localShift += temp;
+                Projectile.damage = (int)(Projectile.damage * 1.1f);
+                Projectile.friendly = true;
+            }
         }
     }
 
@@ -105,6 +115,10 @@ public class SwordProjectile : BaseProjectile
     public override void AI()
     {
         base.AI();
+
+        var size = new Vector2(Projectile.width * 1.5f, Projectile.height * 1.5f);
+        WorldRectangle = new Rectangle((int)(Projectile.Center.X - size.X / 2), (int)(Projectile.Center.Y - size.Y / 2),
+                                       (int)size.X, (int)size.Y);
 
         if (Projectile.timeLeft <= 10)
         {

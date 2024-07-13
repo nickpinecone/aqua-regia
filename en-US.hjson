@@ -33,12 +33,12 @@ Mods: {
 
 			GoldenGun: {
 				DisplayName: Golden Tide
-				Tooltip: 
-                    '''
-                    Attack: Sometimes spawns a dagger that sticks to enemies making them bleed
-                    Pumped: <right> to shoot a sword at cursor position that sticks to enemies
-                    Shooting at the sword drives it further into the enemy, increasing damage
-                    '''
+				Tooltip:
+					'''
+					Attack: Sometimes spawns a dagger that sticks to enemies making them bleed
+					Pumped: <right> to shoot a sword at cursor position that sticks to enemies
+					Shooting at the sword drives it further into the enemy, increasing damage
+					'''
 			}
 		}
 
