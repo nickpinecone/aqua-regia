@@ -44,7 +44,7 @@ public class GoldenPlayer : ModPlayer
     {
         foreach (var sword in _swords)
         {
-            if (sword.Projectile.getRect().Intersects(rect))
+            if (sword.WorldRectangle.Intersects(rect))
             {
                 sword.Push();
 

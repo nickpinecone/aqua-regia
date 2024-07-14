@@ -50,13 +50,6 @@ public class GoldenGun : BaseGun
         Item.shootSpeed = 22f;
     }
 
-    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
-    {
-        base.OnSpawn(source);
-
-        ChatLog.Message("Golden gun spawned");
-    }
-
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);

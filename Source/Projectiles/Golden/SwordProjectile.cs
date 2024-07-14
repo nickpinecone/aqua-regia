@@ -15,6 +15,8 @@ public class SwordProjectile : BaseProjectile
     public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }
     public StickModule Stick { get; private set; }
+
+    public Vector2 Size { get; private set; }
     public Rectangle WorldRectangle { get; private set; }
 
     public SoundStyle MetalHitSound { get; private set; }
@@ -54,11 +56,13 @@ public class SwordProjectile : BaseProjectile
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
+
+        Size = new Vector2(Projectile.width * 0.4f, Projectile.height * 0.4f);
     }
 
     public override bool? CanHitNPC(NPC target)
     {
-        if (target.getRect().Intersects(Projectile.getRect()) && Stick.Target == null)
+        if (Stick.Target == null && target.getRect().Intersects(Projectile.getRect()))
         {
             SoundEngine.PlaySound(MetalHitSound);
             Projectile.timeLeft = 360;
@@ -90,15 +94,15 @@ public class SwordProjectile : BaseProjectile
     {
         if (Stick.Target != null)
         {
-            var temp = Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()) * 6f;
-            var rect = new Rectangle((int)(Projectile.position.X + temp.X), (int)(Projectile.position.Y + temp.Y),
+            var shift = Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()) * 6f;
+            var rect = new Rectangle((int)(Projectile.position.X + shift.X), (int)(Projectile.position.Y + shift.Y),
                                      Projectile.width, Projectile.height);
 
             if (rect.Intersects(Stick.Target.getRect()))
             {
                 SoundEngine.PlaySound(MetalHitSound);
 
-                _localShift += temp;
+                _localShift += shift;
                 Projectile.damage = (int)(Projectile.damage * 1.1f);
                 Projectile.friendly = true;
             }
@@ -110,15 +114,17 @@ public class SwordProjectile : BaseProjectile
         base.OnKill(timeLeft);
 
         Main.LocalPlayer.GetModPlayer<GoldenPlayer>().RemoveSword(this);
+
+        if (timeLeft > 0)
+        {
+            var particle = Particle.Single(DustID.Platinum, Projectile.Center, new Vector2(10, 10), Vector2.Zero, 1.2f);
+            particle.noGravity = true;
+        }
     }
 
     public override void AI()
     {
         base.AI();
-
-        var size = new Vector2(Projectile.width * 1.5f, Projectile.height * 1.5f);
-        WorldRectangle = new Rectangle((int)(Projectile.Center.X - size.X / 2), (int)(Projectile.Center.Y - size.Y / 2),
-                                       (int)size.X, (int)size.Y);
 
         if (Projectile.timeLeft <= 10)
         {
@@ -138,6 +144,11 @@ public class SwordProjectile : BaseProjectile
             }
             else if (Stick.Target != null)
             {
+                var direction = Vector2.UnitX.RotatedBy(Stick.BeforeVelocity.ToRotation()).RotatedBy(MathHelper.Pi);
+                var handle = Projectile.Center + direction * Projectile.height;
+                handle = handle - (new Vector2(1, 1) * (Size.X / 2));
+                WorldRectangle = new Rectangle((int)(handle.X), (int)(handle.Y), (int)Size.X, (int)Size.Y);
+
                 if (Stick.Update() == null)
                 {
                     Projectile.Kill();

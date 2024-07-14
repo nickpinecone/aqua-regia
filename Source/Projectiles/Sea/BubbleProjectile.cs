@@ -34,8 +34,8 @@ public class BubbleProjectile : BaseProjectile
 
         Property.SetDefaults(this);
         Property.SetTimeLeft(this, 120);
-        Home.SetDefaults();
 
+        Home.SetDefaults();
         Home.Speed = 2;
 
         Projectile.damage = 1;
@@ -56,24 +56,25 @@ public class BubbleProjectile : BaseProjectile
         Projectile.rotation = Main.rand.NextFloat(0f, MathHelper.TwoPi);
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    public override bool? CanHitNPC(NPC target)
     {
-        base.OnHitNPC(target, hit, damageDone);
-
-        if (_seaPlayer.CanHome(target))
+        if (Stick.Target == null && target.getRect().Intersects(Projectile.getRect()) && _seaPlayer.CanHome(target))
         {
+            Projectile.friendly = false;
+
             Stick.ToTarget(target, Projectile.Center);
 
-            Projectile.friendly = false;
             Projectile.velocity = Vector2.Zero;
         }
+
+        return base.CanHitNPC(target);
     }
 
     public override void OnKill(int timeLeft)
     {
         base.OnKill(timeLeft);
 
-        if(!_wasConsumed)
+        if (!_wasConsumed)
         {
             Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 4, 2f, 0.6f);
         }
