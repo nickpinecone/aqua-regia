@@ -40,6 +40,11 @@ Mods: {
 					Shooting at the sword drives it further into the enemy, increasing damage
 					'''
 			}
+
+			Shotgun: {
+				DisplayName: Shotgun
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -55,6 +60,7 @@ Mods: {
 			DaggerProjectile.DisplayName: Dagger Projectile
 			TreeExplosion.DisplayName: Tree Explosion
 			SwordProjectile.DisplayName: Sword Projectile
+			ShotProjectile.DisplayName: Shot Projectile
 		}
 	}
 }
