@@ -48,6 +48,9 @@ public class GoldenGun : BaseGun
         Item.useTime = 20;
         Item.useAnimation = 20;
         Item.shootSpeed = 22f;
+
+        Item.rare = ItemRarityID.Blue;
+        Item.value = Item.sellPrice(0, 0, 20, 0);
     }
 
     public override void HoldItem(Terraria.Player player)

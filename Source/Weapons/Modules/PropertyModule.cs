@@ -40,6 +40,9 @@ public class PropertyModule : BaseGunModule
         baseGun.Item.noMelee = true;
         baseGun.Item.autoReuse = true;
 
+        baseGun.Item.rare = ItemRarityID.White;
+        baseGun.Item.value = Item.sellPrice(0, 0, 0, 0);
+
         baseGun.Item.useStyle = ItemUseStyleID.Shoot;
         baseGun.Item.useAmmo = ModContent.ItemType<BottledWater>();
         baseGun.Item.DamageType = DamageClass.Ranged;

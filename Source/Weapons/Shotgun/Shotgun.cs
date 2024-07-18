@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Shotgun;
@@ -42,9 +43,12 @@ public class Shotgun : BaseGun
         Item.damage = 20;
         Item.knockBack = 3f;
 
-        Item.useTime = 32;
-        Item.useAnimation = 32;
+        Item.useTime = 38;
+        Item.useAnimation = 38;
         Item.shootSpeed = 22f;
+
+        Item.rare = ItemRarityID.Blue;
+        Item.value = Item.buyPrice(0, 5, 25, 0);
     }
 
     public override void HoldItem(Terraria.Player player)

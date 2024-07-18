@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles;
 
@@ -26,6 +27,9 @@ public abstract class BaseAmmo : ModItem
 
         Item.damage = 0;
         Item.knockBack = 0f;
+
+        Item.rare = ItemRarityID.White;
+        Item.value = Item.buyPrice(0, 0, 0, 5);
         Color = Color.White;
     }
 

@@ -48,6 +48,9 @@ public class WoodenGun : BaseGun
         Item.useAnimation = 20;
         Item.shootSpeed = 22f;
 
+        Item.rare = ItemRarityID.White;
+        Item.value = Item.sellPrice(0, 0, 0, 20);
+
         TreeBoost.Initialize(Item.damage, 2);
     }
 

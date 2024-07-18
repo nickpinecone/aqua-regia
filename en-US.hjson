@@ -42,8 +42,12 @@ Mods: {
 			}
 
 			Shotgun: {
-				DisplayName: Shotgun
-				Tooltip: ""
+				DisplayName: Water Blunderbuss
+				Tooltip:
+					'''
+					Attack: Shoots four inaccurate and short-lived water streams
+					[c/F6C177:Bought from the Merchant after defeating King Slime]
+					'''
 			}
 		}
 
