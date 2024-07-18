@@ -58,7 +58,7 @@ public class BubbleProjectile : BaseProjectile
 
     public override bool? CanHitNPC(NPC target)
     {
-        if (Stick.Target == null && target.getRect().Intersects(Projectile.getRect()) && _seaPlayer.CanHome(target))
+        if (Stick.Target == null && !target.friendly && target.getRect().Intersects(Projectile.getRect()) && _seaPlayer.CanHome(target))
         {
             Projectile.friendly = false;
 

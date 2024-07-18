@@ -62,7 +62,7 @@ public class SwordProjectile : BaseProjectile
 
     public override bool? CanHitNPC(NPC target)
     {
-        if (Stick.Target == null && target.getRect().Intersects(Projectile.getRect()))
+        if (Stick.Target == null && !target.friendly && target.getRect().Intersects(Projectile.getRect()))
         {
             SoundEngine.PlaySound(MetalHitSound);
             Projectile.timeLeft = 360;
