@@ -41,7 +41,7 @@ public class Shotgun : BaseGun
         Item.width = 78;
         Item.height = 26;
         Item.damage = 20;
-        Item.knockBack = 256f;
+        Item.knockBack = 3f;
 
         Item.useTime = 38;
         Item.useAnimation = 38;

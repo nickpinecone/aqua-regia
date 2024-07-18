@@ -1,5 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using WaterGuns.Players;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -58,6 +61,9 @@ public class ChainProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
+        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
+        SoundEngine.PlaySound(SoundID.Item1);
+
         Projectile.velocity = Vector2.Zero;
         Stick.ToTarget(target, Projectile.Center);
         Projectile.friendly = false;
@@ -97,6 +103,9 @@ public class ChainProjectile : BaseProjectile
 
         if(_pulling && Main.mouseLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item36);
+            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
+
             var direction = Main.LocalPlayer.Center - Main.MouseWorld;
             direction.Normalize();
             direction *= 12f;
