@@ -12,4 +12,4 @@ This mod is still work-in-progress
 More items, enhancments and better sprites are comming
 
 Discord server: https://discord.gg/hEcs7ynpee
-The source code on github: https://github.com/ThreeDotsEllipsis/more-water-guns
+The source code on github: https://github.com/nickpinecone/more-water-guns
