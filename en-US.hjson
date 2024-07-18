@@ -65,6 +65,7 @@ Mods: {
 			TreeExplosion.DisplayName: Tree Explosion
 			SwordProjectile.DisplayName: Sword Projectile
 			ShotProjectile.DisplayName: Shot Projectile
+			ChainProjectile.DisplayName: Chain Projectile
 		}
 	}
 }

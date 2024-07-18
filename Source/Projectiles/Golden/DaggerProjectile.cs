@@ -51,7 +51,7 @@ public class DaggerProjectile : BaseProjectile
 
     public override bool? CanHitNPC(NPC target)
     {
-        if (target.getRect().Intersects(Projectile.getRect()) && Stick.Target == null)
+        if (Stick.Target == null && !target.friendly && target.getRect().Intersects(Projectile.getRect()))
         {
             SoundEngine.PlaySound(SlashSound);
 

@@ -41,7 +41,7 @@ public class Shotgun : BaseGun
         Item.width = 78;
         Item.height = 26;
         Item.damage = 20;
-        Item.knockBack = 3f;
+        Item.knockBack = 256f;
 
         Item.useTime = 38;
         Item.useAnimation = 38;
@@ -67,6 +67,12 @@ public class Shotgun : BaseGun
     {
         if (Pump.Pumped)
         {
+            var direction = Main.MouseWorld - player.Center;
+            direction.Normalize();
+            direction *= 24f;
+
+            SpawnProjectile<ChainProjectile>(player, player.Center, direction, Item.damage, Item.knockBack);
+
             Pump.Reset();
         }
     }

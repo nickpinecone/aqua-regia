@@ -1,24 +1,68 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace WaterGuns.Projectiles.Modules;
 
-// TODO Incomplete
-
 public class ChainModule : BaseProjectileModule
 {
-    public string TexturePath { get; set; }
-    public Rectangle Source { get; set; }
+    public Asset<Texture2D> Texture { get; private set; }
+    public Rectangle Source { get; private set; }
+    public AnimationModule Animation { get; private set; }
+
+    public float MaxPosition { get; set; }
+    public float BackSpeed { get; set; }
+    public Vector2 SpawnPosition { get; set; }
+    public float PlayerClose { get; set; } = 16f;
+
+    public bool IsFarAway { get; private set; }
+    public bool Returned { get; private set; }
 
     public ChainModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
+        Animation = new AnimationModule(baseProjectile);
+    }
+
+    public void SetTexture(string path, Rectangle rect)
+    {
+        Texture = ModContent.Request<Texture2D>(path);
+        Source = rect;
+    }
+
+    public bool Update(Vector2 position)
+    {
+        if (!IsFarAway && position.DistanceSQ(SpawnPosition) > MaxPosition * MaxPosition)
+        {
+            IsFarAway = true;
+        }
+
+        return IsFarAway;
+    }
+
+    public Vector2 ReturnToPlayer(Player player, Vector2 position, Vector2 velocity, int slowFrames = 20)
+    {
+        // var slow = Animation.Animate<Vector2>("slow", velocity, Vector2.Zero, slowFrames, Ease.InOut);
+        // velocity = slow.Update() ?? velocity;
+
+        // if (slow.Finished)
+        {
+            var direction = player.Center - position;
+            direction.Normalize();
+            velocity = direction * BackSpeed;
+
+            if (player.Center.DistanceSQ(position) < PlayerClose * PlayerClose)
+            {
+                Returned = true;
+            }
+        }
+
+        return velocity;
     }
 
     public void DrawChain(Vector2 from, Vector2 to)
     {
-        var texture = ModContent.Request<Texture2D>(TexturePath);
         var source = Source;
         var segmentLength = source.Height;
 
@@ -33,7 +77,7 @@ public class ChainModule : BaseProjectileModule
         {
             var color = Lighting.GetColor(from.ToTileCoordinates());
 
-            Main.spriteBatch.Draw(texture.Value, from - Main.screenPosition, source, color, rotation, origin, 1f,
+            Main.spriteBatch.Draw(Texture.Value, from - Main.screenPosition, source, color, rotation, origin, 1f,
                                   SpriteEffects.None, 0f);
 
             from += unitDirection * segmentLength;
