@@ -67,5 +67,9 @@ class InterfaceSystem : ModSystem
         RecipeGroup titaniumBars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Titanium Bar",
                                                    new int[] { ItemID.TitaniumBar, ItemID.AdamantiteBar });
         RecipeGroup.RegisterGroup("WaterGuns:TitaniumBar", titaniumBars);
+
+        RecipeGroup evilBars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Bar",
+                                                   new int[] { ItemID.DemoniteBar, ItemID.CrimtaneBar });
+        RecipeGroup.RegisterGroup("WaterGuns:EvilBar", evilBars);
     }
 }

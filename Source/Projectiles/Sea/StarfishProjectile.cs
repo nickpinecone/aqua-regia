@@ -64,7 +64,7 @@ public class StarfishProjectile : BaseProjectile
 
         if (Stick.Target == null)
         {
-            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(5, 1);
+            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(4, 2);
 
             Stick.ToTarget(target, Projectile.Center);
 

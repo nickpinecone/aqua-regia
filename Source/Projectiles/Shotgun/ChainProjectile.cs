@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using WaterGuns.Players;
+using WaterGuns.Players.Weapons;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -15,14 +15,20 @@ public class ChainProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public ChainModule Chain { get; private set; }
     public StickModule Stick { get; private set; }
+    public SoundStyle ChainHit { get; private set; }
 
-    private bool _pulling = false;
+    private ShotPlayer _shotPlayer;
+    private bool _didCollide;
 
     public ChainProjectile() : base()
     {
         Property = new PropertyModule(this);
         Chain = new ChainModule(this);
         Stick = new StickModule(this);
+
+        ChainHit = new SoundStyle(AudioPath.Impact + "ChainHit") with {
+            PitchVariance = 0.1f,
+        };
     }
 
     public override void SetDefaults()
@@ -38,7 +44,6 @@ public class ChainProjectile : BaseProjectile
 
         Projectile.damage = 1;
         Projectile.penetrate = -1;
-        Projectile.CritChance = 100;
 
         Projectile.width = 16;
         Projectile.height = 16;
@@ -48,72 +53,76 @@ public class ChainProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
+        _shotPlayer = Main.LocalPlayer.GetModPlayer<ShotPlayer>();
+
         Chain.SpawnPosition = Projectile.Center;
         Chain.BackSpeed = Projectile.velocity.Length();
+    }
+
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
+        _didCollide = true;
+
+        return false;
     }
 
     public override void OnKill(int timeLeft)
     {
         base.OnKill(timeLeft);
+
+        _shotPlayer.Chain = null;
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
-        SoundEngine.PlaySound(SoundID.Item1);
+        if (!Chain.IsFarAway && !_didCollide)
+        {
+            _shotPlayer.Chain = this;
+            _shotPlayer.IsPulling = true;
+            _shotPlayer.Target = target;
 
-        Projectile.velocity = Vector2.Zero;
-        Stick.ToTarget(target, Projectile.Center);
-        Projectile.friendly = false;
+            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
+            SoundEngine.PlaySound(ChainHit);
+
+            Projectile.velocity = Vector2.Zero;
+            Stick.ToTarget(target, Projectile.Center);
+            Projectile.friendly = false;
+        }
     }
 
     public override void AI()
     {
         base.AI();
 
-        if (Stick.Target == null || Chain.IsFarAway)
+        if (_didCollide || Chain.IsFarAway)
         {
-            if (Chain.Update(Projectile.Center))
-            {
-                Projectile.velocity = Chain.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity, 1);
-            }
+            Projectile.velocity = Chain.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity, 1);
 
             if (Chain.Returned)
             {
                 Projectile.Kill();
             }
         }
-        else
+        else if (Stick.Target == null)
+        {
+            Chain.Update(Projectile.Center);
+        }
+        else if (_shotPlayer.IsPulling)
         {
             Projectile.Center = Stick.HitPoint;
 
-            Main.LocalPlayer.velocity = Chain.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity).RotatedBy(MathHelper.Pi);
-            _pulling = true;
+            Main.LocalPlayer.velocity =
+                Chain.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity).RotatedBy(MathHelper.Pi);
 
-            if (Main.LocalPlayer.Center.DistanceSQ(Stick.Target.Center) < 32f * 32f)
+            if (Main.LocalPlayer.Center.DistanceSQ(Stick.Target.Center) < 32f * 32f ||
+                Stick.Target.GetLifePercent() <= 0f)
             {
-                _pulling = false;
+                _shotPlayer.IsPulling = false;
                 Main.LocalPlayer.velocity = Main.LocalPlayer.velocity.RotatedBy(MathHelper.Pi) / 4f;
-                Stick.Detach();
                 Projectile.Kill();
             }
-        }
-
-        if(_pulling && Main.mouseLeft)
-        {
-            SoundEngine.PlaySound(SoundID.Item36);
-            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
-
-            var direction = Main.LocalPlayer.Center - Main.MouseWorld;
-            direction.Normalize();
-            direction *= 12f;
-            Main.LocalPlayer.velocity = direction;
-            _pulling = false;
-
-            Stick.Detach();
-            Projectile.Kill();
         }
     }
 

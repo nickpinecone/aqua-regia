@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Players;
+using WaterGuns.Players.Weapons;
 using WaterGuns.Projectiles.Golden;
 using WaterGuns.Utils;
 using WaterGuns.Weapons.Modules;
@@ -17,8 +17,6 @@ public class GoldenGun : BaseGun
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
-
-    private GoldenPlayer _goldenPlayer;
 
     public GoldenGun() : base()
     {
@@ -42,14 +40,14 @@ public class GoldenGun : BaseGun
 
         Item.width = 58;
         Item.height = 40;
-        Item.damage = 12;
+        Item.damage = 8;
         Item.knockBack = 1.8f;
 
         Item.useTime = 20;
         Item.useAnimation = 20;
         Item.shootSpeed = 22f;
 
-        Item.rare = ItemRarityID.Blue;
+        Item.rare = ItemRarityID.White;
         Item.value = Item.sellPrice(0, 0, 20, 0);
     }
 
@@ -69,7 +67,7 @@ public class GoldenGun : BaseGun
     {
         if (Pump.Pumped)
         {
-            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SpawnSword(player, Item.damage, Item.knockBack);
+            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SpawnSword(player, (int)(Item.damage * 1.3f), Item.knockBack);
 
             Pump.Reset();
         }

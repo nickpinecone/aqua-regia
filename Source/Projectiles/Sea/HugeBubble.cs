@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using WaterGuns.Players;
+using WaterGuns.Players.Weapons;
 using WaterGuns.Projectiles.Modules;
 using WaterGuns.Utils;
 
@@ -102,7 +103,7 @@ public class HugeBubble : BaseProjectile
         _didExplode = true;
 
         SoundEngine.PlaySound(SoundID.Item96);
-        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 3);
+        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
         Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 8, 4f, 1.5f);
 
         SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, (int)(_seaPlayer.ProjectileDamage * 1.5f),

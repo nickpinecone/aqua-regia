@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WaterGuns.Players;
+using WaterGuns.Players.Weapons;
 using WaterGuns.Projectiles.Shotgun;
 using WaterGuns.Utils;
 using WaterGuns.Weapons.Modules;
@@ -65,7 +68,7 @@ public class Shotgun : BaseGun
 
     public void AltUseAlways(Player player)
     {
-        if (Pump.Pumped)
+        if (Pump.Pumped && Main.LocalPlayer.GetModPlayer<ShotPlayer>().Chain == null)
         {
             var direction = Main.MouseWorld - player.Center;
             direction.Normalize();
@@ -84,6 +87,7 @@ public class Shotgun : BaseGun
         base.Shoot(player, source, position, velocity, type, damage, knockback);
 
         var spreads = new int[] { -2, -1, 1, 2 };
+        var shotPlayer = Main.LocalPlayer.GetModPlayer<ShotPlayer>();
 
         foreach (var spread in spreads)
         {
@@ -93,9 +97,34 @@ public class Shotgun : BaseGun
             var up = velocity.RotatedBy(-MathHelper.PiOver2);
             up.Normalize();
             positionCopy += up * spread * Main.rand.NextFloat(2f, 3f);
+            velocityCopy *= Main.rand.NextFloat(0.8f, 1f);
 
-            var shot = ShootProjectile<ShotProjectile>(player, source, positionCopy, velocityCopy, damage, knockback);
-            shot.Projectile.timeLeft += Main.rand.Next(-5, 5);
+            if (shotPlayer.IsPulling)
+            {
+                ShootProjectile<WaterBalloon>(player, source, positionCopy, velocityCopy, damage, knockback);
+            }
+            else
+            {
+                ShootProjectile<ShotProjectile>(player, source, positionCopy, velocityCopy, damage, knockback);
+            }
+        }
+
+        if (shotPlayer.IsPulling)
+        {
+            shotPlayer.IsPulling = false;
+
+            SoundEngine.PlaySound(SoundID.Item36);
+            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
+
+            var direction = Main.LocalPlayer.Center - Main.MouseWorld;
+            direction.Normalize();
+            var dist = (Main.LocalPlayer.Center - shotPlayer.Target.Center).Length();
+            dist = (1 / dist) * Main.ViewSize.X;
+            dist = MathHelper.Clamp(dist, 3f, 12f);
+            direction *= dist;
+            Main.LocalPlayer.velocity = direction;
+
+            shotPlayer.Chain.Projectile.Kill();
         }
 
         return false;

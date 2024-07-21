@@ -39,15 +39,15 @@ public class SeaGun : BaseGun
 
         Item.width = 58;
         Item.height = 40;
-        Item.damage = 8;
+        Item.damage = 12;
         Item.knockBack = 1.2f;
 
         Item.useTime = 20;
         Item.useAnimation = 20;
         Item.shootSpeed = 22f;
 
-        Item.rare = ItemRarityID.White;
-        Item.value = Item.sellPrice(0, 0, 1, 0);
+        Item.rare = ItemRarityID.Blue;
+        Item.value = Item.sellPrice(0, 0, 80, 0);
     }
 
     public override void HoldItem(Terraria.Player player)
@@ -96,7 +96,8 @@ public class SeaGun : BaseGun
         recipe.AddIngredient(ItemID.Seashell, 10);
         recipe.AddIngredient(ItemID.Starfish, 8);
         recipe.AddIngredient(ItemID.Coral, 6);
-        recipe.AddTile(TileID.WorkBenches);
+        recipe.AddRecipeGroup("WaterGuns:EvilBar", 10);
+        recipe.AddTile(TileID.Anvils);
         recipe.Register();
     }
 

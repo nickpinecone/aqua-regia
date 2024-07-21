@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Sea;
 
-namespace WaterGuns.Players;
+namespace WaterGuns.Players.Weapons;
 
 public class SeaSource : IEntitySource
 {

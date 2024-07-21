@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using WaterGuns.Projectiles.Golden;
 
-namespace WaterGuns.Players;
+namespace WaterGuns.Players.Weapons;
 
 public class GoldenPlayer : ModPlayer
 {
