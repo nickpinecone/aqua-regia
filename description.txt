@@ -1,15 +1,8 @@
-A Terraria mod that brings more water guns to the game that actually do damage
+Aqua regia is a mod that brings more water-themed items, weapons, accessories, pets and more to the game
+Meant to be used along side other large content mods as it does not feature world generation or bosses
 
-Adds:
-- Various water guns each with their uniqueness
-- New ammo types for water guns
-- A town npc
-
-Water guns consume bottled water as ammo, and it could be bought from the new Swimmer NPC
-Water guns are pumped over-time automaically, gaining new powerful attacks
-
-This mod is still work-in-progress
-More items, enhancments and better sprites are comming
+This mod is currently in DEMO
+More items, enhancements and better sprites are comming
 
 Discord server: https://discord.gg/hEcs7ynpee
-The source code on github: https://github.com/nickpinecone/more-water-guns
+Github page: https://github.com/nickpinecone/aqua-regia

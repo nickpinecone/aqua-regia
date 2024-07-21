@@ -1,5 +1,5 @@
-# more-water-guns
-A Terraria mod that brings more water guns to the game that actually do damage
+# aqua-regia
+Terraria mod that brings more water-themed items to the game
 
 [Discord server](https://discord.gg/hEcs7ynpee)
 
