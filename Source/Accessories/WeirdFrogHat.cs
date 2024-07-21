@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WaterGuns.Players.Accessories;
 using WaterGuns.Utils;
 
 namespace WaterGuns.Accessoires;
 
-[AutoloadEquip(EquipType.Face)]
 public class WeirdFrogHat : ModItem
 {
     public override string Texture => TexturesPath.Accessories + "WeirdFrogHat";
@@ -14,36 +14,23 @@ public class WeirdFrogHat : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 44;
-        Item.height = 40;
+        Item.width = 18;
+        Item.height = 14;
         Item.accessory = true;
-        Item.value = Item.sellPrice(gold: 1);
-        Item.rare = ItemRarityID.Green;
-
-        AttackTimer = new Timer(120, true);
+        Item.value = Item.buyPrice(gold: 1);
+        Item.rare = ItemRarityID.Blue;
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
         base.UpdateAccessory(player, hideVisual);
 
-        AttackTimer.Update();
+        Main.LocalPlayer.GetModPlayer<FrogPlayer>().Active = true;
 
-        if (AttackTimer.Done)
+        if (Main.LocalPlayer.GetModPlayer<FrogPlayer>().minion == null)
         {
-            var target = Helper.FindNearsetNPC(Main.LocalPlayer.Top, 512f);
-
-            if (target != null)
-            {
-                AttackTimer.Restart();
-
-                var direction = target.Center - Main.LocalPlayer.Top;
-                direction.Normalize();
-                direction *= 24f;
-
-                Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Main.LocalPlayer.Top, direction,
-                                               ModContent.ProjectileType<TongueProjectile>(), 12, 1f, Main.myPlayer);
-            }
+            Projectile.NewProjectile(Projectile.GetSource_None(), Main.LocalPlayer.Center, Vector2.Zero,
+                                     ModContent.ProjectileType<FrogMinion>(), 12, 1f, Main.myPlayer);
         }
     }
 }

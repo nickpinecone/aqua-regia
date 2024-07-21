@@ -52,14 +52,9 @@ Mods: {
 					'''
 			}
 
-			ExampleHelmet: {
-				DisplayName: Example Helmet
-				Tooltip: ""
-			}
-
 			WeirdFrogHat: {
 				DisplayName: Weird Frog Hat
-				Tooltip: ""
+				Tooltip: Tongues nearby enemies
 			}
 		}
 
@@ -80,6 +75,7 @@ Mods: {
 			ChainProjectile.DisplayName: Chain Projectile
 			WaterBalloon.DisplayName: Water Balloon
 			TongueProjectile.DisplayName: Tongue Projectile
+			FrogMinion.DisplayName: Frog Minion
 		}
 	}
 }
