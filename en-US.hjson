@@ -51,6 +51,16 @@ Mods: {
 					[c/F6C177:Bought from the Merchant after defeating King Slime]
 					'''
 			}
+
+			ExampleHelmet: {
+				DisplayName: Example Helmet
+				Tooltip: ""
+			}
+
+			WeirdFrogHat: {
+				DisplayName: Weird Frog Hat
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -69,6 +79,7 @@ Mods: {
 			ShotProjectile.DisplayName: Shot Projectile
 			ChainProjectile.DisplayName: Chain Projectile
 			WaterBalloon.DisplayName: Water Balloon
+			TongueProjectile.DisplayName: Tongue Projectile
 		}
 	}
 }

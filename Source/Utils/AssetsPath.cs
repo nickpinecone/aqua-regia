@@ -14,6 +14,7 @@ public static class TexturesPath
     public static string Buffs = _base + "Buffs/";
     public static string Ammo = _base + "Ammo/";
     public static string Utils = _base + "Utils/";
+    public static string Accessories = _base + "Accessories/";
 }
 
 public static class AudioPath

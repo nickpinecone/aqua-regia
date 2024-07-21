@@ -19,7 +19,7 @@ public class Timer
         }
     }
 
-    private Timer(int waitTime, bool start = true)
+    public Timer(int waitTime, bool start = true)
     {
         WaitTime = waitTime;
         Started = start;
@@ -33,10 +33,6 @@ public class Timer
     public Timer(int waitTime, BaseProjectile baseProjectile, bool start = true) : this(waitTime, start)
     {
         baseProjectile.AddTimer(this);
-    }
-
-    public Timer(int waitTime, ModPlayer _, bool start = true) : this(waitTime, start)
-    {
     }
 
     public void Restart()

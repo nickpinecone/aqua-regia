@@ -41,21 +41,15 @@ public class ChainModule : BaseProjectileModule
         return IsFarAway;
     }
 
-    public Vector2 ReturnToPlayer(Player player, Vector2 position, Vector2 velocity, int slowFrames = 20)
+    public Vector2 ReturnToPlayer(Vector2 returnTo, Vector2 position, Vector2 velocity, int slowFrames = 20)
     {
-        // var slow = Animation.Animate<Vector2>("slow", velocity, Vector2.Zero, slowFrames, Ease.InOut);
-        // velocity = slow.Update() ?? velocity;
+        var direction = returnTo - position;
+        direction.Normalize();
+        velocity = direction * BackSpeed;
 
-        // if (slow.Finished)
+        if (returnTo.DistanceSQ(position) < PlayerClose * PlayerClose)
         {
-            var direction = player.Center - position;
-            direction.Normalize();
-            velocity = direction * BackSpeed;
-
-            if (player.Center.DistanceSQ(position) < PlayerClose * PlayerClose)
-            {
-                Returned = true;
-            }
+            Returned = true;
         }
 
         return velocity;

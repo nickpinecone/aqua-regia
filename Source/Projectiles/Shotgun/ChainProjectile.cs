@@ -98,7 +98,7 @@ public class ChainProjectile : BaseProjectile
 
         if (_didCollide || Chain.IsFarAway)
         {
-            Projectile.velocity = Chain.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity, 1);
+            Projectile.velocity = Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity, 1);
 
             if (Chain.Returned)
             {
@@ -114,7 +114,7 @@ public class ChainProjectile : BaseProjectile
             Projectile.Center = Stick.HitPoint;
 
             Main.LocalPlayer.velocity =
-                Chain.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity).RotatedBy(MathHelper.Pi);
+                Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity).RotatedBy(MathHelper.Pi);
 
             if (Main.LocalPlayer.Center.DistanceSQ(Stick.Target.Center) < 32f * 32f ||
                 Stick.Target.GetLifePercent() <= 0f)
