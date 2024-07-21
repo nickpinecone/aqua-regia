@@ -24,7 +24,7 @@ public class ShotProjectile : BaseProjectile
         Water.SetDefaults();
         Property.SetDefaults(this);
         Property.SetDefaultGravity();
-        Property.SetTimeLeft(this, 25);
+        Property.SetTimeLeft(this, 20);
 
         Projectile.damage = 1;
         Projectile.penetrate = 1;

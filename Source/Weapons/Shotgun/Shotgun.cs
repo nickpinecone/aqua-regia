@@ -39,11 +39,11 @@ public class Shotgun : BaseGun
         Sprite.HoldoutOffset = new Vector2(-12, 0);
         Sprite.Offset = new Vector2(56f, 56f);
         Pump.MaxPumpLevel = 10;
-        Property.Inaccuracy = 12f;
+        Property.Inaccuracy = 16f;
 
         Item.width = 78;
         Item.height = 26;
-        Item.damage = 20;
+        Item.damage = 14;
         Item.knockBack = 3f;
 
         Item.useTime = 38;
@@ -97,7 +97,7 @@ public class Shotgun : BaseGun
             var up = velocity.RotatedBy(-MathHelper.PiOver2);
             up.Normalize();
             positionCopy += up * spread * Main.rand.NextFloat(2f, 3f);
-            velocityCopy *= Main.rand.NextFloat(0.8f, 1f);
+            velocityCopy *= Main.rand.NextFloat(0.6f, 1f);
 
             if (shotPlayer.IsPulling)
             {
@@ -120,7 +120,7 @@ public class Shotgun : BaseGun
             direction.Normalize();
             var dist = (Main.LocalPlayer.Center - shotPlayer.Target.Center).Length();
             dist = (1 / dist) * Main.ViewSize.X;
-            dist = MathHelper.Clamp(dist, 3f, 12f);
+            dist = MathHelper.Clamp(dist, 3f, 10f);
             direction *= dist;
             Main.LocalPlayer.velocity = direction;
 

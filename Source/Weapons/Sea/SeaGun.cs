@@ -39,7 +39,7 @@ public class SeaGun : BaseGun
 
         Item.width = 58;
         Item.height = 40;
-        Item.damage = 12;
+        Item.damage = 14;
         Item.knockBack = 1.2f;
 
         Item.useTime = 20;
