@@ -38,7 +38,7 @@ public class ChainProjectile : BaseProjectile
         Property.SetDefaults(this);
         Property.SetTimeLeft(this, 120);
 
-        Chain.SetTexture(TexturesPath.Weapons + "Shotgun/ChainProjectile", new Rectangle(0, 0, 6, 14));
+        Chain.SetTexture(TexturesPath.Weapons + "Shotgun/Chain", new Rectangle(0, 0, 6, 14));
         Chain.MaxPosition = 768f;
         Chain.PlayerClose = 32f;
 

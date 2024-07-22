@@ -35,12 +35,12 @@ public class GoldenGun : BaseGun
         Sprite.HoldoutOffset = new Vector2(-12, 6);
         Sprite.Offset = new Vector2(52f, 52f);
         Pump.MaxPumpLevel = 12;
-        Property.Inaccuracy = 3.2f;
+        Property.Inaccuracy = 3.3f;
 
         Item.width = 58;
         Item.height = 40;
         Item.damage = 8;
-        Item.knockBack = 1.8f;
+        Item.knockBack = 1.2f;
 
         Item.useTime = 20;
         Item.useAnimation = 20;

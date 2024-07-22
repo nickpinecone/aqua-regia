@@ -35,12 +35,12 @@ public class SeaGun : BaseGun
         Sprite.HoldoutOffset = new Vector2(-8, 2);
         Sprite.Offset = new Vector2(34f, 34f);
         Pump.MaxPumpLevel = 10;
-        Property.Inaccuracy = 3.5f;
+        Property.Inaccuracy = 3.2f;
 
         Item.width = 58;
         Item.height = 40;
-        Item.damage = 14;
-        Item.knockBack = 1.2f;
+        Item.damage = 12;
+        Item.knockBack = 1.8f;
 
         Item.useTime = 20;
         Item.useAnimation = 20;
@@ -93,10 +93,10 @@ public class SeaGun : BaseGun
     public override void AddRecipes()
     {
         Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.SlimeGun, 1);
         recipe.AddIngredient(ItemID.Seashell, 10);
         recipe.AddIngredient(ItemID.Starfish, 8);
         recipe.AddIngredient(ItemID.Coral, 6);
-        recipe.AddRecipeGroup("WaterGuns:EvilBar", 10);
         recipe.AddTile(TileID.Anvils);
         recipe.Register();
     }

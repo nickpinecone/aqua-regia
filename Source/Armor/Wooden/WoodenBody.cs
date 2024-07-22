@@ -44,7 +44,7 @@ public class WoodenBody : ModItem
         var tilePosition = (player.Bottom + new Vector2(0, 12)).ToTileCoordinates();
         var tile = Main.tile[tilePosition.X, tilePosition.Y];
 
-        if (player.GetModPlayer<WoodenPlayer>().Root == null && TileHelper.IsSolid(tile))
+        if (player.GetModPlayer<WoodenPlayer>().Root == null && TileHelper.IsSolid(tile) && Main.LocalPlayer.velocity.Length() <= 1e-3)
         {
             RootTimer.Update();
             HealTimer.Restart();
@@ -53,12 +53,18 @@ public class WoodenBody : ModItem
             {
                 RootTimer.Restart();
 
-                Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(),
-                                               Main.LocalPlayer.Bottom + new Vector2(0, 8), Vector2.Zero,
-                                               ModContent.ProjectileType<RootProjectile>(), 0, 0, Main.myPlayer);
+                var directions = new int[] { 1, -1 };
+
+                for (int i = 0; i < directions.Length; i++)
+                {
+                    var source = new WoodenSource(Projectile.GetSource_NaturalSpawn());
+                    source.direction = directions[i];
+                    Projectile.NewProjectileDirect(source, Main.LocalPlayer.Bottom + new Vector2(0, 8), Vector2.Zero,
+                                                   ModContent.ProjectileType<RootProjectile>(), 0, 0, Main.myPlayer);
+                }
             }
         }
-        else if(player.GetModPlayer<WoodenPlayer>().Root != null)
+        else if (player.GetModPlayer<WoodenPlayer>().Root != null)
         {
             player.GetDamage(DamageClass.Generic) += 0.1f;
 
@@ -70,6 +76,10 @@ public class WoodenBody : ModItem
                 HealTimer.Restart();
                 player.Heal(1);
             }
+        }
+        else
+        {
+            RootTimer.Restart();
         }
     }
 

@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using WaterGuns.Utils;
@@ -80,15 +81,17 @@ public class FrogMinion : ModProjectile
                 direction.Normalize();
                 direction *= 24f;
 
-                Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
-
                 Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), Main.LocalPlayer.Top, direction,
                                                ModContent.ProjectileType<TongueProjectile>(), 12, 1f, Main.myPlayer);
             }
         }
     }
 
-    public override void DrawBehind(int index, System.Collections.Generic.List<int> behindNPCsAndTiles, System.Collections.Generic.List<int> behindNPCs, System.Collections.Generic.List<int> behindProjectiles, System.Collections.Generic.List<int> overPlayers, System.Collections.Generic.List<int> overWiresUI)
+    public override void DrawBehind(int index, System.Collections.Generic.List<int> behindNPCsAndTiles,
+                                    System.Collections.Generic.List<int> behindNPCs,
+                                    System.Collections.Generic.List<int> behindProjectiles,
+                                    System.Collections.Generic.List<int> overPlayers,
+                                    System.Collections.Generic.List<int> overWiresUI)
     {
         base.DrawBehind(index, behindNPCsAndTiles, behindNPCs, behindProjectiles, overPlayers, overWiresUI);
 

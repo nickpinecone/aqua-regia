@@ -8,7 +8,7 @@ namespace WaterGuns.Accessories.FrogHat;
 
 public class TongueProjectile : BaseProjectile
 {
-    public override string Texture => TexturesPath.Empty;
+    public override string Texture => TexturesPath.Accessories + "FrogHat/TongueProjectile";
 
     public PropertyModule Property { get; private set; }
     public ChainModule Chain { get; private set; }
@@ -28,15 +28,15 @@ public class TongueProjectile : BaseProjectile
         Property.SetDefaults(this);
         Property.SetTimeLeft(this, 120);
 
-        Chain.SetTexture(TexturesPath.Accessories + "FrogHat/TongueProjectile", new Rectangle(0, 0, 6, 16));
+        Chain.SetTexture(TexturesPath.Accessories + "FrogHat/TongueChain", new Rectangle(0, 0, 6, 16));
         Chain.MaxPosition = 512f;
         Chain.PlayerClose = 32f;
 
         Projectile.damage = 1;
         Projectile.penetrate = -1;
 
-        Projectile.width = 16;
-        Projectile.height = 16;
+        Projectile.width = 12;
+        Projectile.height = 12;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
@@ -52,6 +52,15 @@ public class TongueProjectile : BaseProjectile
         base.OnHitNPC(target, hit, damageDone);
 
         _didHit = true;
+    }
+
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
+        base.OnTileCollide(oldVelocity);
+
+        _didHit = true;
+
+        return false;
     }
 
     public override void AI()

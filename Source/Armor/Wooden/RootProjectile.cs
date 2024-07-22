@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using WaterGuns.Modules;
 using WaterGuns.Modules.Projectiles;
@@ -41,8 +42,15 @@ public class RootProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Projectile.rotation = Main.rand.NextFloat(-0.4f, 0.4f);
-        Projectile.scale = Main.rand.NextFloat(1.2f, 1.6f);
+        var woodenSource = source as WoodenSource;
+
+        var side = MathHelper.PiOver4 * woodenSource.direction;
+        side += Main.rand.NextFloat(-0.1f, 0.1f);
+        Projectile.rotation = side;
+        Projectile.Center += new Vector2(Main.rand.Next(-2, 2), 0);
+
+        Projectile.spriteDirection = Main.rand.NextFromList(new int[] { 1, -1 });
+        Projectile.scale = Main.rand.NextFloat(1f, 1.2f);
         Main.LocalPlayer.GetModPlayer<WoodenPlayer>().Root = this;
     }
 
@@ -51,6 +59,9 @@ public class RootProjectile : BaseProjectile
         base.OnKill(timeLeft);
 
         Main.LocalPlayer.GetModPlayer<WoodenPlayer>().Root = null;
+
+        var particle = Particle.Single(ParticleID.Wood, Projectile.Center, new Vector2(6, 6), Vector2.Zero);
+        particle.noGravity = true;
     }
 
     public override void AI()
@@ -76,7 +87,7 @@ public class RootProjectile : BaseProjectile
             Projectile.scale = upscale.Update() ?? Projectile.scale;
             Projectile.scale = downscale.Update() ?? Projectile.scale;
 
-            if(downscale.Finished)
+            if (downscale.Finished)
             {
                 upscale.Reset();
                 downscale.Reset();
