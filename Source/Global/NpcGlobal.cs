@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Accessoires.FrogHat;
+using WaterGuns.Accessories.FrogHat;
 using WaterGuns.Ammo;
 using WaterGuns.Weapons.Shotgun;
 
@@ -16,7 +16,7 @@ public class NpcGlobal : GlobalNPC
         if (shop.NpcType == NPCID.Merchant)
         {
             shop.Add(ModContent.ItemType<BottledWater>());
-            shop.Add(ModContent.ItemType<WeirdFrogHat>());
+            shop.Add(ModContent.ItemType<FrogHat>());
             shop.Add(ModContent.ItemType<Shotgun>(), Condition.DownedKingSlime);
         }
     }

@@ -2,12 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Accessories.FrogHat;
 using WaterGuns.Utils;
 
-namespace WaterGuns.Accessoires.FrogHat;
+namespace WaterGuns.Accessories.FrogHat;
 
-public class WeirdFrogHat : ModItem
+public class FrogHat : ModItem
 {
     public override string Texture => TexturesPath.Accessories + "FrogHat/FrogHat";
     public Timer AttackTimer { get; private set; }

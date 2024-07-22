@@ -1,9 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
-using WaterGuns.Accessories.FrogHat;
 using WaterGuns.Utils;
 
-namespace WaterGuns.Accessoires.FrogHat;
+namespace WaterGuns.Accessories.FrogHat;
 
 public class FrogMinion : ModProjectile
 {

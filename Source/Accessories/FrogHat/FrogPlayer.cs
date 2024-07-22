@@ -1,5 +1,4 @@
 using Terraria.ModLoader;
-using WaterGuns.Accessoires.FrogHat;
 
 namespace WaterGuns.Accessories.FrogHat;
 

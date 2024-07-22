@@ -52,9 +52,24 @@ Mods: {
 					'''
 			}
 
-			WeirdFrogHat: {
+			FrogHat: {
 				DisplayName: Weird Frog Hat
 				Tooltip: Tongues nearby enemies
+			}
+
+			WoodenBody: {
+				DisplayName: Wooden Bikini
+				Tooltip: 3% increased ranged damage
+			}
+
+			WoodenHead: {
+				DisplayName: Wooden Cap
+				Tooltip: 3% increased ranged damage
+			}
+
+			WoodenLegs: {
+				DisplayName: Wooden Shorts
+				Tooltip: 3% increased ranged damage
 			}
 		}
 
@@ -76,6 +91,7 @@ Mods: {
 			WaterBalloon.DisplayName: Water Balloon
 			TongueProjectile.DisplayName: Tongue Projectile
 			FrogMinion.DisplayName: Frog Minion
+			RootProjectile.DisplayName: Root Projectile
 		}
 	}
 }

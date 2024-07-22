@@ -4,7 +4,7 @@ using WaterGuns.Modules;
 using WaterGuns.Modules.Projectiles;
 using WaterGuns.Utils;
 
-namespace WaterGuns.Accessoires.FrogHat;
+namespace WaterGuns.Accessories.FrogHat;
 
 public class TongueProjectile : BaseProjectile
 {
