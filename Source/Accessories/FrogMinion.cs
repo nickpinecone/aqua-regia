@@ -7,7 +7,7 @@ namespace WaterGuns.Accessoires;
 
 public class FrogMinion : ModProjectile
 {
-    public override string Texture => TexturesPath.Accessories + "WeirdFrogHat";
+    public override string Texture => TexturesPath.Accessories + "FrogMinion";
 
     public Timer AttackTimer { get; private set; }
 
@@ -64,11 +64,11 @@ public class FrogMinion : ModProjectile
         if (target != null)
         {
             var direction = target.Center - Main.LocalPlayer.Top;
-            Projectile.spriteDirection = direction.X > 0 ? 1 : -1;
+            Projectile.spriteDirection = direction.X > 0 ? -1 : 1;
         }
         else
         {
-            Projectile.spriteDirection = Main.LocalPlayer.direction;
+            Projectile.spriteDirection = -Main.LocalPlayer.direction;
         }
 
         if (AttackTimer.Done)

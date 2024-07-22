@@ -17,6 +17,7 @@ public class WeirdFrogHat : ModItem
         Item.width = 18;
         Item.height = 14;
         Item.accessory = true;
+        Item.scale = 0.5f;
         Item.value = Item.buyPrice(gold: 1);
         Item.rare = ItemRarityID.Blue;
     }
