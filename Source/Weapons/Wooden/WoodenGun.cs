@@ -3,15 +3,15 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Projectiles.Wooden;
 using WaterGuns.Utils;
-using WaterGuns.Weapons.Modules;
+using WaterGuns.Modules.Weapons;
+using WaterGuns.Modules;
 
 namespace WaterGuns.Weapons.Wooden;
 
 public class WoodenGun : BaseGun
 {
-    public override string Texture => TexturesPath.Weapons + "WoodenGun";
+    public override string Texture => TexturesPath.Weapons + "Wooden/WoodenGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }

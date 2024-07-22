@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Accessoires;
+using WaterGuns.Accessoires.FrogHat;
 using WaterGuns.Ammo;
 using WaterGuns.Weapons.Shotgun;
 

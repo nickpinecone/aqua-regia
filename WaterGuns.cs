@@ -1,7 +1,6 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using WaterGuns.Ammo;
-using WaterGuns.Weapons;
+using WaterGuns.Modules;
 
 namespace WaterGuns;
 

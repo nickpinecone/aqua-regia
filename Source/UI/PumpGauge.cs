@@ -5,9 +5,9 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
+using WaterGuns.Modules;
+using WaterGuns.Modules.Weapons;
 using WaterGuns.Utils;
-using WaterGuns.Weapons;
-using WaterGuns.Weapons.Modules;
 
 namespace WaterGuns.UI;
 

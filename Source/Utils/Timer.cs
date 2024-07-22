@@ -1,6 +1,4 @@
-using Terraria.ModLoader;
-using WaterGuns.Projectiles;
-using WaterGuns.Weapons;
+using WaterGuns.Modules;
 
 namespace WaterGuns.Utils;
 

@@ -3,16 +3,15 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Players.Weapons;
-using WaterGuns.Projectiles.Golden;
+using WaterGuns.Modules;
+using WaterGuns.Modules.Weapons;
 using WaterGuns.Utils;
-using WaterGuns.Weapons.Modules;
 
 namespace WaterGuns.Weapons.Golden;
 
 public class GoldenGun : BaseGun
 {
-    public override string Texture => TexturesPath.Weapons + "GoldenGun";
+    public override string Texture => TexturesPath.Weapons + "Golden/GoldenGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }

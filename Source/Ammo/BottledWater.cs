@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using WaterGuns.Modules;
 using WaterGuns.Utils;
 
 namespace WaterGuns.Ammo;

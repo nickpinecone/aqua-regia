@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.ID;
-using WaterGuns.Weapons.Modules;
+using WaterGuns.Modules;
+using WaterGuns.Modules.Weapons;
 
 namespace WaterGuns.Weapons.Wooden;
 

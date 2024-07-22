@@ -5,17 +5,16 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WaterGuns.Modules;
+using WaterGuns.Modules.Weapons;
 using WaterGuns.Players;
-using WaterGuns.Players.Weapons;
-using WaterGuns.Projectiles.Shotgun;
 using WaterGuns.Utils;
-using WaterGuns.Weapons.Modules;
 
 namespace WaterGuns.Weapons.Shotgun;
 
 public class Shotgun : BaseGun
 {
-    public override string Texture => TexturesPath.Weapons + "Shotgun";
+    public override string Texture => TexturesPath.Weapons + "Shotgun/Shotgun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }

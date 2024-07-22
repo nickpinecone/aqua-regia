@@ -3,15 +3,15 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Projectiles.Sea;
+using WaterGuns.Modules;
+using WaterGuns.Modules.Weapons;
 using WaterGuns.Utils;
-using WaterGuns.Weapons.Modules;
 
 namespace WaterGuns.Weapons.Sea;
 
 public class SeaGun : BaseGun
 {
-    public override string Texture => TexturesPath.Weapons + "SeaGun";
+    public override string Texture => TexturesPath.Weapons + "Sea/SeaGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
