@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WaterGuns.Utils;
 
@@ -8,6 +9,8 @@ namespace WaterGuns.Armor.Wooden;
 [AutoloadEquip(EquipType.Head)]
 public class WoodenHead : ModItem
 {
+    public static readonly int RangePercent = 3;
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
     public override string Texture => TexturesPath.Armor + "Wooden/WoodenHead";
 
     public override void SetDefaults()
@@ -23,7 +26,7 @@ public class WoodenHead : ModItem
     {
         base.UpdateEquip(player);
 
-        player.GetDamage(DamageClass.Ranged) += 0.03f;
+        player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
     }
 
     public override void AddRecipes()

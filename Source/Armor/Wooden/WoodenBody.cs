@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WaterGuns.Utils;
 
@@ -9,9 +10,21 @@ namespace WaterGuns.Armor.Wooden;
 [AutoloadEquip(EquipType.Body)]
 public class WoodenBody : ModItem
 {
+    public static readonly int RangePercent = 3;
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
+    public static LocalizedText SetBonusText { get; private set; }
+
     public override string Texture => TexturesPath.Armor + "Wooden/WoodenBody";
+
     public Timer RootTimer { get; private set; }
     public Timer HealTimer { get; private set; }
+
+    public override void SetStaticDefaults()
+    {
+        base.SetStaticDefaults();
+
+        SetBonusText = this.GetLocalization("SetBonus");
+    }
 
     public override void SetDefaults()
     {
@@ -29,7 +42,7 @@ public class WoodenBody : ModItem
     {
         base.UpdateEquip(player);
 
-        player.GetDamage(DamageClass.Ranged) += 0.03f;
+        player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -39,12 +52,13 @@ public class WoodenBody : ModItem
 
     public override void UpdateArmorSet(Player player)
     {
-        player.setBonus = "Standing in place sprouts roots which increases damage and heals occasionally";
+        player.setBonus = SetBonusText.Value;
 
         var tilePosition = (player.Bottom + new Vector2(0, 12)).ToTileCoordinates();
         var tile = Main.tile[tilePosition.X, tilePosition.Y];
 
-        if (player.GetModPlayer<WoodenPlayer>().Root == null && TileHelper.IsSolid(tile) && Main.LocalPlayer.velocity.Length() <= 1e-3)
+        if (player.GetModPlayer<WoodenPlayer>().Root == null && TileHelper.IsSolid(tile) &&
+            Main.LocalPlayer.velocity.Length() <= 1e-3)
         {
             RootTimer.Update();
             HealTimer.Restart();
