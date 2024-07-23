@@ -100,6 +100,10 @@ public class Shotgun : BaseGun
 
             if (shotPlayer.IsPulling)
             {
+                var start = velocity.RotatedBy(-MathHelper.PiOver4);
+                var end = velocity.RotatedBy(MathHelper.PiOver4);
+                Particle.Arc(DustID.Smoke, positionCopy, new Vector2(8, 8), start, end, 3, 2f, 1.4f, 0, 55);
+
                 ShootProjectile<WaterBalloon>(player, source, positionCopy, velocityCopy, damage, knockback);
             }
             else
