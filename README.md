@@ -1,4 +1,4 @@
-# aqua-regia
+# Aqua Regia
 Terraria mod that brings more water-themed items to the game
 
 [Discord server](https://discord.gg/hEcs7ynpee)
