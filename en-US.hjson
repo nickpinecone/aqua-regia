@@ -72,6 +72,16 @@ Mods: {
 				DisplayName: Wooden Shorts
 				Tooltip: "{$CommonItemTooltip.PercentIncreasedRangedDamage}"
 			}
+
+			GraniteGun: {
+				DisplayName: Granite Gun
+				Tooltip: ""
+			}
+
+			SwimmerGun: {
+				DisplayName: Swimmer Gun
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -93,6 +103,30 @@ Mods: {
 			TongueProjectile.DisplayName: Tongue Projectile
 			FrogMinion.DisplayName: Frog Minion
 			RootProjectile.DisplayName: Root Projectile
+			GraniteProjecitle.DisplayName: Granite Projecitle
+			SwimmerProjectile.DisplayName: Swimmer Projectile
+		}
+
+		NPCs: {
+			Swimmer: {
+				DisplayName: Swimmer
+
+				TownNPCMood: {
+					Content: I am content.
+					NoHome: I hate not having a home.
+					FarFromHome: I am too far from home.
+					LoveSpace: I love having so much space.
+					DislikeCrowded: I dislike how crowded I am.
+					HateCrowded: I hate how crowded I am.
+					LikeBiome: I like {BiomeName}.
+					DislikeBiome: I dislike {BiomeName}.
+					LoveNPC: I love {NPCName}.
+					LikeNPC: I like {NPCName}.
+					DislikeNPC: I dislike {NPCName}.
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+			}
 		}
 	}
 }

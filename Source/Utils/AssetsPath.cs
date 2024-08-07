@@ -10,7 +10,7 @@ public static class TexturesPath
     public static string UI = _base + "UI/";
     public static string Projectiles = _base + "Projectiles/";
     public static string Pets = _base + "Pets/";
-    public static string NPC = _base + "NPC/";
+    public static string NPCs = _base + "NPCs/";
     public static string Buffs = _base + "Buffs/";
     public static string Ammo = _base + "Ammo/";
     public static string Utils = _base + "Utils/";

@@ -3,11 +3,11 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Utils;
 
-namespace WaterGuns.NPC;
+namespace WaterGuns.NPCs;
 
-public class Swimmer_Gore2 : ModGore
+public class SwimmerGore3 : ModGore
 {
-    public override string Texture => TexturesPath.NPC + "Swimmer_Gore2";
+    public override string Texture => TexturesPath.NPCs + "SwimmerGore3";
 
     public override void OnSpawn(Terraria.Gore gore, IEntitySource source)
     {

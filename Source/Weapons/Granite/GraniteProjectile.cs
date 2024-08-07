@@ -3,16 +3,16 @@ using WaterGuns.Modules;
 using WaterGuns.Modules.Projectiles;
 using WaterGuns.Utils;
 
-namespace WaterGuns.NPC;
+namespace WaterGuns.Weapons.Granite;
 
-public class Swimmer_Projectile : BaseProjectile
+public class GraniteProjecitle : BaseProjectile
 {
     public override string Texture => TexturesPath.Empty;
 
     public PropertyModule Property { get; private set; }
     public WaterModule Water { get; private set; }
 
-    public Swimmer_Projectile() : base()
+    public GraniteProjecitle() : base()
     {
         Property = new PropertyModule(this);
         Water = new WaterModule(this);
@@ -39,6 +39,11 @@ public class Swimmer_Projectile : BaseProjectile
         base.OnKill(timeLeft);
 
         Water.KillEffect(Projectile.Center, Projectile.velocity);
+    }
+
+    public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
+    {
+        base.OnHitNPC(target, hit, damageDone);
     }
 
     public override void AI()

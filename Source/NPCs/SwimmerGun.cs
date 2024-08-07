@@ -7,16 +7,16 @@ using WaterGuns.Utils;
 using WaterGuns.Modules.Weapons;
 using WaterGuns.Modules;
 
-namespace WaterGuns.NPC;
+namespace WaterGuns.NPCs;
 
-public class Swimmer_Gun : BaseGun
+public class SwimmerGun : BaseGun
 {
-    public override string Texture => TexturesPath.NPC + "Simmer_Gun";
+    public override string Texture => TexturesPath.NPCs + "SwimmerGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
 
-    public Swimmer_Gun() : base()
+    public SwimmerGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
@@ -28,10 +28,10 @@ public class Swimmer_Gun : BaseGun
 
         Sound.SetWater(this);
         Property.SetDefaults(this);
-        Property.SetProjectile<Swimmer_Projectile>(this);
+        Property.SetProjectile<SwimmerProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-2f, -1f);
-        Sprite.Offset = new Vector2(3f, 3f);
+        Sprite.HoldoutOffset = new Vector2(-2f, 4f);
+        Sprite.Offset = new Vector2(0f, 0f);
         Property.Inaccuracy = 3.2f;
 
         Item.width = 36;
@@ -56,7 +56,7 @@ public class Swimmer_Gun : BaseGun
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
-        ShootProjectile<Swimmer_Projectile>(player, source, position, velocity, damage, knockback);
+        ShootProjectile<SwimmerProjectile>(player, source, position, velocity, damage, knockback);
 
         return false;
     }

@@ -9,12 +9,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WaterGuns.Utils;
 
-namespace WaterGuns.NPC;
+namespace WaterGuns.NPCs;
 
 [AutoloadHead]
 public class Swimmer : ModNPC
 {
-    public override string Texture => TexturesPath.NPC + "Swimmer";
+    public override string Texture => TexturesPath.NPCs + "Swimmer";
 
     public override void SetStaticDefaults()
     {
@@ -73,16 +73,16 @@ public class Swimmer : ModNPC
     {
         base.ModifyNPCLoot(npcLoot);
 
-        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Swimmer_Gun>(), 100));
+        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwimmerGun>(), 100));
     }
 
     public override void HitEffect(Terraria.NPC.HitInfo hit)
     {
         if (NPC.life <= 0)
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Swimmer_Gore1>());
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Swimmer_Gore2>());
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<Swimmer_Gore3>());
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<SwimmerGore1>());
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<SwimmerGore2>());
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<SwimmerGore3>());
         }
         base.HitEffect(hit);
     }
@@ -147,7 +147,7 @@ public class Swimmer : ModNPC
     public override void DrawTownAttackGun(ref Texture2D item, ref Rectangle itemFrame, ref float scale,
                                            ref int horizontalHoldoutOffset)
     {
-        Main.GetItemDrawFrame(ModContent.ItemType<Swimmer_Gun>(), out item, out itemFrame);
+        Main.GetItemDrawFrame(ModContent.ItemType<SwimmerGun>(), out item, out itemFrame);
         scale = 0.9f;
         horizontalHoldoutOffset = -8;
         base.DrawTownAttackGun(ref item, ref itemFrame, ref scale, ref horizontalHoldoutOffset);
@@ -155,7 +155,7 @@ public class Swimmer : ModNPC
 
     public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
     {
-        projType = ModContent.ProjectileType<Swimmer_Projectile>();
+        projType = ModContent.ProjectileType<SwimmerProjectile>();
         attackDelay = 1;
     }
 
