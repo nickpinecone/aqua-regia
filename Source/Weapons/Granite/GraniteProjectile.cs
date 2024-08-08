@@ -46,12 +46,12 @@ public class GraniteProjecitle : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        // if (Main.rand.Next(0, 3) == 0)
+        if (Main.rand.Next(0, 3) == 0)
         {
             var source = new GraniteSource(Projectile.GetSource_NaturalSpawn());
             source.Target = target;
 
-            SpawnProjectile<GraniteChunk>(target.Center, Vector2.Zero, hit.Damage, hit.Knockback * 4, source);
+            SpawnProjectile<GraniteChunk>(target.Center, Vector2.Zero, hit.Damage, 0, source);
         }
     }
 

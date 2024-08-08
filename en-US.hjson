@@ -74,8 +74,8 @@ Mods: {
 			}
 
 			GraniteGun: {
-				DisplayName: Granite Gun
-				Tooltip: ""
+				DisplayName: Granite Flood
+				Tooltip: Attack: Ocassionaly granite chunks come from the ground to knock enemies up
 			}
 
 			SwimmerGun: {

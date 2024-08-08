@@ -39,7 +39,7 @@ public class GraniteGun : BaseGun
 
         Item.width = 54;
         Item.height = 24;
-        Item.damage = 18;
+        Item.damage = 20;
         Item.knockBack = 2.4f;
 
         Item.useTime = 26;
