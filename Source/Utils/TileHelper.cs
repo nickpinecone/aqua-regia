@@ -24,10 +24,10 @@ public static class TileHelper
         }
     }
 
-    public static IEnumerable<Point> FromTop(Vector2 from, float to)
+    public static IEnumerable<Point> FromTop(Vector2 from, float amount)
     {
         var tilePosition = from.ToTileCoordinates();
-        var tileAmount = (to - from.Y) / 16;
+        var tileAmount = amount / 16;
 
         for(var i = 0; i < tileAmount; i++)
         {

@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using WaterGuns.Modules;
 using WaterGuns.Modules.Projectiles;
@@ -44,6 +45,14 @@ public class GraniteProjecitle : BaseProjectile
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
+
+        // if (Main.rand.Next(0, 3) == 0)
+        {
+            var source = new GraniteSource(Projectile.GetSource_NaturalSpawn());
+            source.Target = target;
+
+            SpawnProjectile<GraniteChunk>(target.Center, Vector2.Zero, hit.Damage, hit.Knockback * 4, source);
+        }
     }
 
     public override void AI()

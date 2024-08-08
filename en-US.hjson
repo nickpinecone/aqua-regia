@@ -105,6 +105,7 @@ Mods: {
 			RootProjectile.DisplayName: Root Projectile
 			GraniteProjecitle.DisplayName: Granite Projecitle
 			SwimmerProjectile.DisplayName: Swimmer Projectile
+			GraniteChunk.DisplayName: Granite Chunk
 		}
 
 		NPCs: {

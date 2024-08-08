@@ -43,13 +43,14 @@ public abstract class BaseGun : ModItem
         return (T)_modules[typeof(T)];
     }
 
-    public T SpawnProjectile<T>(Player player, Vector2 position, Vector2 velocity, int damage, float knockback)
+    public T SpawnProjectile<T>(Player player, Vector2 position, Vector2 velocity, int damage, float knockback,
+                                IEntitySource source = null)
         where T : BaseProjectile
     {
         var type = ModContent.ProjectileType<T>();
 
-        var proj = Projectile.NewProjectileDirect(Projectile.GetSource_None(), position, velocity, type, damage,
-                                                  knockback, player.whoAmI);
+        var proj = Projectile.NewProjectileDirect(source ?? Projectile.GetSource_NaturalSpawn(), position, velocity, type,
+                                                  damage, knockback, player.whoAmI);
         return (T)proj.ModProjectile;
     }
 

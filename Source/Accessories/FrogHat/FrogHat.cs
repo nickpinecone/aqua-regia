@@ -29,7 +29,7 @@ public class FrogHat : ModItem
 
         if (Main.LocalPlayer.GetModPlayer<FrogPlayer>().Minion == null)
         {
-            Projectile.NewProjectile(Projectile.GetSource_None(), Main.LocalPlayer.Center, Vector2.Zero,
+            Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Main.LocalPlayer.Center, Vector2.Zero,
                                      ModContent.ProjectileType<FrogMinion>(), 12, 1f, Main.myPlayer);
         }
     }

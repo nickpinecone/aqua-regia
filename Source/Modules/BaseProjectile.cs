@@ -55,7 +55,8 @@ public abstract class BaseProjectile : ModProjectile
         return (T)_modules[typeof(T)];
     }
 
-    public T SpawnProjectile<T>(Vector2 position, Vector2 velocity, int damage, float knockback)
+    public T SpawnProjectile<T>(Vector2 position, Vector2 velocity, int damage, float knockback,
+                                IEntitySource source = null)
         where T : BaseProjectile
     {
         if (Projectile.owner != Main.myPlayer)
@@ -63,8 +64,8 @@ public abstract class BaseProjectile : ModProjectile
 
         var type = ModContent.ProjectileType<T>();
 
-        var proj =
-            Projectile.NewProjectileDirect(_source, position, velocity, type, damage, knockback, Projectile.owner);
+        var proj = Projectile.NewProjectileDirect(source ?? _source, position, velocity, type, damage, knockback,
+                                                  Projectile.owner);
         return (T)proj.ModProjectile;
     }
 
