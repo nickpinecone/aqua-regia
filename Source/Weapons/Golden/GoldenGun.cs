@@ -88,10 +88,15 @@ public class GoldenGun : BaseGun
 
     public override void AddRecipes()
     {
-        Recipe recipe = CreateRecipe();
-        recipe.AddRecipeGroup("WaterGuns:GoldBar", 10);
-        recipe.AddTile(TileID.Anvils);
-        recipe.Register();
+        Recipe recipe1 = CreateRecipe();
+        recipe1.AddIngredient(ItemID.GoldBar, 10);
+        recipe1.AddTile(TileID.Anvils);
+        recipe1.Register();
+
+        Recipe recipe2 = CreateRecipe();
+        recipe2.AddIngredient(ItemID.PlatinumBar, 10);
+        recipe2.AddTile(TileID.Anvils);
+        recipe2.Register();
     }
 
     public override void ModifyTooltips(List<TooltipLine> tooltip)

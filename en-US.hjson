@@ -82,6 +82,21 @@ Mods: {
 				DisplayName: Swimmer Gun
 				Tooltip: ""
 			}
+
+			DiverBody: {
+				DisplayName: Diver Body
+				Tooltip: ""
+			}
+
+			DiverHead: {
+				DisplayName: Diver Head
+				Tooltip: ""
+			}
+
+			DiverLegs: {
+				DisplayName: Diver Legs
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

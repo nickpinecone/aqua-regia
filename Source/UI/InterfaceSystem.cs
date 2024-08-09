@@ -55,21 +55,4 @@ class InterfaceSystem : ModSystem
             }, InterfaceScaleType.UI));
         }
     }
-
-    public override void AddRecipeGroups()
-    {
-        base.AddRecipeGroups();
-
-        RecipeGroup goldBars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar",
-                                               new int[] { ItemID.GoldBar, ItemID.PlatinumBar });
-        RecipeGroup.RegisterGroup("WaterGuns:GoldBar", goldBars);
-
-        RecipeGroup titaniumBars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Titanium Bar",
-                                                   new int[] { ItemID.TitaniumBar, ItemID.AdamantiteBar });
-        RecipeGroup.RegisterGroup("WaterGuns:TitaniumBar", titaniumBars);
-
-        RecipeGroup evilBars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Bar",
-                                                   new int[] { ItemID.DemoniteBar, ItemID.CrimtaneBar });
-        RecipeGroup.RegisterGroup("WaterGuns:EvilBar", evilBars);
-    }
 }
