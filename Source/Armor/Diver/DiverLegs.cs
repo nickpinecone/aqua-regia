@@ -9,8 +9,8 @@ namespace WaterGuns.Armor.Diver;
 [AutoloadEquip(EquipType.Legs)]
 public class DiverLegs : ModItem
 {
-    // public static readonly int RangePercent = 3;
-    // public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
+    public static readonly int RangePercent = 4;
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
     public override string Texture => TexturesPath.Armor + "Diver/DiverLegs";
 
     public override void SetDefaults()
@@ -26,7 +26,8 @@ public class DiverLegs : ModItem
     {
         base.UpdateEquip(player);
 
-        // player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
+        player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
+        player.accFlipper = true;
     }
 
     public override void AddRecipes()

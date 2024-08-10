@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -10,11 +11,20 @@ namespace WaterGuns.Armor.Diver;
 [AutoloadEquip(EquipType.Body)]
 public class DiverBody : ModItem
 {
-    // public static readonly int RangePercent = 3;
-    // public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
-    // public static LocalizedText SetBonusText { get; private set; }
+    public static readonly int RangePercent = 5;
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
+    public static LocalizedText SetBonusText { get; private set; }
 
     public override string Texture => TexturesPath.Armor + "Diver/DiverBody";
+
+    private Projectile _bubble = null;
+
+    public override void SetStaticDefaults()
+    {
+        base.SetStaticDefaults();
+
+        SetBonusText = this.GetLocalization("SetBonus");
+    }
 
     public override void SetDefaults()
     {
@@ -29,17 +39,34 @@ public class DiverBody : ModItem
     {
         base.UpdateEquip(player);
 
-        // player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
+        player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
     }
 
-    // public override bool IsArmorSet(Item head, Item body, Item legs)
-    // {
-    //     return head.type == ModContent.ItemType<WoodenHead>() && legs.type == ModContent.ItemType<WoodenLegs>();
-    // }
+    public override bool IsArmorSet(Item head, Item body, Item legs)
+    {
+        return head.type == ModContent.ItemType<DiverHead>() && legs.type == ModContent.ItemType<DiverLegs>();
+    }
 
     public override void UpdateArmorSet(Player player)
     {
-        // player.setBonus = SetBonusText.Value;
+        player.setBonus = SetBonusText.Value;
+
+        if (Main.keyState.IsKeyDown(Keys.W) && player.velocity.Y > 0)
+        {
+            player.slowFall = true;
+
+            if (_bubble == null)
+            {
+                _bubble =
+                    Projectile.NewProjectileDirect(Projectile.GetSource_NaturalSpawn(), player.Center, Vector2.Zero,
+                                                   ModContent.ProjectileType<FloatBubble>(), 0, 0, player.whoAmI);
+            }
+        }
+        else if (_bubble != null)
+        {
+            _bubble.Kill();
+            _bubble = null;
+        }
     }
 
     public override void AddRecipes()

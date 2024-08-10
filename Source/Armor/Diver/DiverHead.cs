@@ -9,8 +9,8 @@ namespace WaterGuns.Armor.Diver;
 [AutoloadEquip(EquipType.Head)]
 public class DiverHead : ModItem
 {
-    // public static readonly int RangePercent = 3;
-    // public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
+    public static readonly int RangePercent = 4;
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
     public override string Texture => TexturesPath.Armor + "Diver/DiverHead";
 
     public override void SetDefaults()
@@ -26,7 +26,8 @@ public class DiverHead : ModItem
     {
         base.UpdateEquip(player);
 
-        // player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
+        player.GetDamage(DamageClass.Ranged) += RangePercent / 100f;
+        player.gills = true;
     }
 
     public override void AddRecipes()

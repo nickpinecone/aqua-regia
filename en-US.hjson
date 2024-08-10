@@ -84,18 +84,27 @@ Mods: {
 			}
 
 			DiverBody: {
-				DisplayName: Diver Body
-				Tooltip: ""
+				DisplayName: Diver Suit
+				Tooltip: "{$CommonItemTooltip.PercentIncreasedRangedDamage}"
+				SetBonus: Hold Up while falling to float in a bubble
 			}
 
 			DiverHead: {
-				DisplayName: Diver Head
-				Tooltip: ""
+				DisplayName: Diver Mask
+				Tooltip:
+					'''
+					{$CommonItemTooltip.PercentIncreasedRangedDamage}
+					Allows breathing under water
+					'''
 			}
 
 			DiverLegs: {
-				DisplayName: Diver Legs
-				Tooltip: ""
+				DisplayName: Diver Fins
+				Tooltip:
+					'''
+					{$CommonItemTooltip.PercentIncreasedRangedDamage}
+					Grants the ability to swim
+					'''
 			}
 		}
 
@@ -121,6 +130,7 @@ Mods: {
 			GraniteProjecitle.DisplayName: Granite Projecitle
 			SwimmerProjectile.DisplayName: Swimmer Projectile
 			GraniteChunk.DisplayName: Granite Chunk
+			FloatBubble.DisplayName: Float Bubble
 		}
 
 		NPCs: {
