@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Terraria;
 
 namespace WaterGuns.Modules.Projectiles;
 
@@ -98,15 +99,36 @@ public class AnimationModule : BaseProjectileModule
     public Animation<T> Animate<T>(string name, T start, T end, int frames, Ease ease, string[] depends = null)
         where T : struct
     {
-        depends ??= new string[] {};
+        depends ??= new string[] { };
 
         if (!_states.ContainsKey(name))
         {
-            _states[name] = new Animation<T>(_states) {
-                Start = start, End = end, Frames = frames, Ease = ease, Depends = depends,
+            _states[name] = new Animation<T>(_states)
+            {
+                Start = start,
+                End = end,
+                Frames = frames,
+                Ease = ease,
+                Depends = depends,
             };
         }
 
         return _states[name] as Animation<T>;
+    }
+
+    public void Sprite(BaseProjectile baseProjectile, int delay)
+    {
+        baseProjectile.Projectile.frameCounter += 1;
+
+        if (baseProjectile.Projectile.frameCounter >= delay)
+        {
+            baseProjectile.Projectile.frameCounter = 0;
+            baseProjectile.Projectile.frame += 1;
+
+            if (baseProjectile.Projectile.frame >= Main.projFrames[baseProjectile.Projectile.type])
+            {
+                baseProjectile.Projectile.frame = 0;
+            }
+        }
     }
 }

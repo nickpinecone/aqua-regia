@@ -75,7 +75,12 @@ Mods: {
 
 			GraniteGun: {
 				DisplayName: Granite Flood
-				Tooltip: Attack: Ocassionaly granite chunks come from the ground to knock enemies up
+				Tooltip:
+					'''
+					Attack: Ocassionaly granite chunks come from the ground to knock enemies up
+					Pumped: Turn into a granite elemental and dash through enemies at the cursor
+					"Granite, In My Chest"
+					'''
 			}
 
 			SwimmerGun: {
@@ -131,6 +136,7 @@ Mods: {
 			SwimmerProjectile.DisplayName: Swimmer Projectile
 			GraniteChunk.DisplayName: Granite Chunk
 			FloatBubble.DisplayName: Float Bubble
+			GraniteElemental.DisplayName: Granite Elemental
 		}
 
 		NPCs: {

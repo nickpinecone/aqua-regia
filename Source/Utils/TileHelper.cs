@@ -4,6 +4,8 @@ using Terraria;
 
 namespace WaterGuns.Utils;
 
+// TODO experiment with this, before using Main here crashed terraria for some reason
+
 public static class TileHelper
 {
     public static bool IsSolid(Tile tile)

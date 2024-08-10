@@ -162,6 +162,6 @@ public class Swimmer : ModNPC
     public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection,
                                                 ref float randomOffset)
     {
-        multiplier = 10f;
+        multiplier = 22f;
     }
 }

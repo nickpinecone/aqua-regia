@@ -66,6 +66,8 @@ public class GraniteGun : BaseGun
     {
         if (Pump.Pumped)
         {
+            Main.LocalPlayer.GetModPlayer<GranitePlayer>().Activate();
+
             Pump.Reset();
         }
     }

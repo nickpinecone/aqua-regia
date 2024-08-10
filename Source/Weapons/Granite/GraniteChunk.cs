@@ -78,7 +78,10 @@ public class GraniteChunk : BaseProjectile
             _endPosition = Projectile.Center;
             Projectile.Center += (new Vector2(48, 0)).RotatedBy(Projectile.rotation - MathHelper.PiOver2);
 
-            graniteSource.Target.velocity = new Vector2(vector.X * 4f, vector.Y * 8f);
+            if (!graniteSource.Target.boss)
+            {
+                graniteSource.Target.velocity = new Vector2(vector.X * 4f, vector.Y * 8f);
+            }
         }
         else
         {
