@@ -1,5 +1,8 @@
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using WaterGuns.Modules;
 using WaterGuns.Modules.Projectiles;
 using WaterGuns.Utils;
@@ -14,11 +17,19 @@ public class GraniteElemental : BaseProjectile
     public AnimationModule Animation { get; private set; }
     public SpriteModule Sprite { get; private set; }
 
+    public SoundStyle RockCrush { get; private set; }
+
     public GraniteElemental()
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         Sprite = new SpriteModule(this);
+
+        RockCrush = new SoundStyle(AudioPath.Kill + "RockCrush") with
+        {
+            Volume = 0.6f,
+            PitchVariance = 0.1f,
+        };
     }
 
     public override void SetStaticDefaults()
@@ -37,8 +48,8 @@ public class GraniteElemental : BaseProjectile
 
         Projectile.damage = 1;
         Projectile.penetrate = -1;
-        Projectile.tileCollide = true;
 
+        Projectile.tileCollide = true;
         Projectile.width = 30;
         Projectile.height = 30;
     }
@@ -47,8 +58,11 @@ public class GraniteElemental : BaseProjectile
     {
         base.OnKill(timeLeft);
 
+        SoundEngine.PlaySound(RockCrush);
+        Particle.Circle(DustID.Granite, Projectile.Center, new Vector2(12, 12), 6, 3f, 0.8f);
+
         Main.LocalPlayer.GetModPlayer<GranitePlayer>().Deactivate();
-        Main.LocalPlayer.velocity = Projectile.velocity / 2f;
+        Main.LocalPlayer.velocity = Projectile.velocity / 3f;
     }
 
     public override void AI()

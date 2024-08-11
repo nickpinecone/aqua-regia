@@ -32,13 +32,13 @@ public class GraniteGun : BaseGun
         Property.SetDefaults(this);
         Property.SetProjectile<GraniteProjecitle>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-8f, 0);
-        Sprite.Offset = new Vector2(36f, 36f);
+        Sprite.HoldoutOffset = new Vector2(-8f, 2f);
+        Sprite.Offset = new Vector2(42f, 42f);
         Pump.MaxPumpLevel = 14;
         Property.Inaccuracy = 3.2f;
 
-        Item.width = 54;
-        Item.height = 24;
+        Item.width = 60;
+        Item.height = 26;
         Item.damage = 20;
         Item.knockBack = 2.4f;
 
@@ -66,7 +66,7 @@ public class GraniteGun : BaseGun
     {
         if (Pump.Pumped)
         {
-            Main.LocalPlayer.GetModPlayer<GranitePlayer>().Activate();
+            Main.LocalPlayer.GetModPlayer<GranitePlayer>().Activate(Item.damage);
 
             Pump.Reset();
         }

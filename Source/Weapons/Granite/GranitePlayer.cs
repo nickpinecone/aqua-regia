@@ -20,7 +20,7 @@ public class GranitePlayer : ModPlayer
 {
     private bool _active = false;
 
-    public void Activate()
+    public void Activate(int damage)
     {
         _active = true;
 
@@ -29,7 +29,7 @@ public class GranitePlayer : ModPlayer
         var velocity = direction * 24f;
 
         Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), Main.LocalPlayer.Center, velocity,
-                                 ModContent.ProjectileType<GraniteElemental>(), 1, 0, Main.LocalPlayer.whoAmI);
+                                 ModContent.ProjectileType<GraniteElemental>(), damage, 0, Main.LocalPlayer.whoAmI);
     }
 
     public void Deactivate()

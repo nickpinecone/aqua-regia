@@ -55,7 +55,7 @@ public class FrogMinion : ModProjectile
             Projectile.timeLeft = 5;
         }
         Main.LocalPlayer.GetModPlayer<FrogPlayer>().Active = false;
-        Projectile.Center = Main.LocalPlayer.Top;
+        Projectile.Center = new Vector2((int)Main.LocalPlayer.Top.X, (int)Main.LocalPlayer.Top.Y);
 
         AttackTimer.Update();
 
