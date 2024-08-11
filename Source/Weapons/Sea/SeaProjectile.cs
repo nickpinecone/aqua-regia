@@ -66,20 +66,7 @@ public class SeaProjectile : BaseProjectile
             position = target.Center +
                        Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(offset, offset + 12f);
 
-            var clear = true;
-
-            foreach (var tilePosition in TileHelper.Area(position, 1, 1))
-            {
-                var tile = Main.tile[tilePosition.X, tilePosition.Y];
-
-                if (TileHelper.IsSolid(tile))
-                {
-                    clear = false;
-                    break;
-                }
-            }
-
-            if (clear)
+            if (!TileHelper.AnySolidInArea(position, 1, 1))
             {
                 break;
             }

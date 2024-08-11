@@ -2,17 +2,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static WaterGuns.WaterGuns;
 
 namespace WaterGuns.Weapons.Granite;
 
-public class GraniteSource : IEntitySource
+public class GraniteSource : ProjectileSource
 {
     public NPC Target;
 
-    public string Context { get; set; }
-    public GraniteSource(IEntitySource source)
+    public GraniteSource(IEntitySource source) : base(source)
     {
-        Context = source.Context;
     }
 }
 

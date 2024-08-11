@@ -55,16 +55,14 @@ public class GraniteChunk : BaseProjectile
         var graniteSource = (GraniteSource)source;
 
         var x = graniteSource.Target.Center.X + Main.rand.Next(-4, 4);
-        var tiles = TileHelper.FromTop(new Vector2(x, graniteSource.Target.Center.Y), 64);
-        tiles = tiles.Where((tile) => TileHelper.IsSolid(Main.tile[tile.X, tile.Y]));
+        var tile = TileHelper.FirstSolidFromTop(new Vector2(x, graniteSource.Target.Center.Y), 64);
 
-        if (tiles.Count() > 0)
+        if (tile != null)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath43);
             Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 6);
 
-            var tile = tiles.ElementAt(0);
-            Projectile.Bottom = tile.ToWorldCoordinates() + new Vector2(Main.rand.Next(-4, 4), 0);
+            Projectile.Bottom = tile?.ToWorldCoordinates() + new Vector2(Main.rand.Next(-4, 4), 0) ?? Projectile.Bottom;
 
             var direction = Projectile.Center - graniteSource.Target.Center;
             Projectile.rotation = direction.ToRotation() + MathHelper.PiOver2;

@@ -4,13 +4,31 @@ using Terraria;
 
 namespace WaterGuns.Utils;
 
-// TODO experiment with this, before using Main here crashed terraria for some reason
-
 public static class TileHelper
 {
+    public static Tile GetTile(Point point)
+    {
+        return Main.tile[point.X, point.Y];
+    }
+
+    public static Tile GetTile(Vector2 position)
+    {
+        return GetTile(position.ToTileCoordinates());
+    }
+
     public static bool IsSolid(Tile tile)
     {
         return tile.HasTile && Main.tileSolid[tile.TileType];
+    }
+
+    public static bool IsSolid(Point point)
+    {
+        return IsSolid(GetTile(point));
+    }
+
+    public static bool IsSolid(Vector2 position)
+    {
+        return IsSolid(position.ToTileCoordinates());
     }
 
     public static IEnumerable<Point> Area(Vector2 center, int width, int height)
@@ -26,16 +44,42 @@ public static class TileHelper
         }
     }
 
+    public static bool AnySolidInArea(Vector2 center, int width, int height)
+    {
+        foreach (var tile in Area(center, width, height))
+        {
+            if (IsSolid(tile))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static IEnumerable<Point> FromTop(Vector2 from, float amount)
     {
         var tilePosition = from.ToTileCoordinates();
         var tileAmount = amount / 16;
 
-        for(var i = 0; i < tileAmount; i++)
+        for (var i = 0; i < tileAmount; i++)
         {
-            tilePosition = (from + new Vector2(0, 16 * i)).ToTileCoordinates();
+            var position = (from + new Vector2(0, 16 * i));
 
-            yield return tilePosition;
+            yield return position.ToTileCoordinates();
         }
+    }
+
+    public static Point? FirstSolidFromTop(Vector2 from, float amount)
+    {
+        foreach (var tile in FromTop(from, amount))
+        {
+            if (IsSolid(tile))
+            {
+                return tile;
+            }
+        }
+
+        return null;
     }
 }

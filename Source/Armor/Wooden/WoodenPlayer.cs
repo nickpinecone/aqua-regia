@@ -5,7 +5,7 @@ namespace WaterGuns.Armor.Wooden;
 
 public class WoodenSource : IEntitySource
 {
-    public int direction;
+    public int Direction;
 
     public string Context { get; set; }
     public WoodenSource(IEntitySource source)

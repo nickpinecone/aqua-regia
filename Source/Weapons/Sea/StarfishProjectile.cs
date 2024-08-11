@@ -17,6 +17,7 @@ public class StarfishProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
     public StickModule Stick { get; private set; }
+    public SpriteModule Sprite { get; private set; }
     public BoomerangModule Boomerang { get; private set; }
 
     private Timer _stickTime;
@@ -26,6 +27,7 @@ public class StarfishProjectile : BaseProjectile
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         Stick = new StickModule(this);
+        Sprite = new SpriteModule(this);
         Boomerang = new BoomerangModule(this);
 
         _stickTime = new Timer(10, this, false);
@@ -98,16 +100,13 @@ public class StarfishProjectile : BaseProjectile
         {
             Projectile.velocity = Boomerang.ReturnToPlayer(Main.LocalPlayer, Projectile.Center, Projectile.velocity);
 
-            if(Boomerang.Returned)
+            if (Boomerang.Returned)
             {
                 Projectile.Kill();
             }
         }
 
-        if (Math.Abs(Projectile.velocity.X) > 0)
-        {
-            Projectile.rotation += 0.2f * Math.Sign(Projectile.velocity.X);
-        }
+        Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, 0.2f);
 
         if (_stickTime.Done && Stick.Target != null)
         {

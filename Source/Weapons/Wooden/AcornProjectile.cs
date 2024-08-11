@@ -14,6 +14,7 @@ public class AcornProjectile : BaseProjectile
 
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
+    public SpriteModule Sprite { get; private set; }
     public HeadBounceModule HeadBounce { get; private set; }
 
     public SoundStyle BonkSound { get; private set; }
@@ -22,9 +23,11 @@ public class AcornProjectile : BaseProjectile
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
+        Sprite = new SpriteModule(this);
         HeadBounce = new HeadBounceModule(this, Property);
 
-        BonkSound = new SoundStyle(AudioPath.Impact + "Bonk") {
+        BonkSound = new SoundStyle(AudioPath.Impact + "Bonk")
+        {
             Volume = 0.4f,
             PitchVariance = 0.1f,
         };
@@ -86,10 +89,6 @@ public class AcornProjectile : BaseProjectile
         Projectile.alpha = appear.Update() ?? Projectile.alpha;
 
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
-
-        if (Math.Abs(Projectile.velocity.X) > 0)
-        {
-            Projectile.rotation += 0.1f * Math.Sign(Projectile.velocity.X);
-        }
+        Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, 0.1f);
     }
 }

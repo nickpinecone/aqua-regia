@@ -3,17 +3,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static WaterGuns.WaterGuns;
 
 namespace WaterGuns.Weapons.Sea;
 
-public class SeaSource : IEntitySource
+public class SeaSource : ProjectileSource
 {
     public NPC Target;
 
-    public string Context { get; set; }
-    public SeaSource(IEntitySource source)
+    public SeaSource(IEntitySource source) : base(source)
     {
-        Context = source.Context;
     }
 }
 

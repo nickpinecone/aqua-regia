@@ -44,7 +44,7 @@ public class RootProjectile : BaseProjectile
 
         var woodenSource = source as WoodenSource;
 
-        var side = MathHelper.PiOver4 * woodenSource.direction;
+        var side = MathHelper.PiOver4 * woodenSource.Direction;
         side += Main.rand.NextFloat(-0.1f, 0.1f);
         Projectile.rotation = side;
         Projectile.Center += new Vector2(Main.rand.Next(-2, 2), 0);

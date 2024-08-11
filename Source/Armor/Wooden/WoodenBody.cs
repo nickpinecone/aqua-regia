@@ -55,9 +55,8 @@ public class WoodenBody : ModItem
         player.setBonus = SetBonusText.Value;
 
         var tilePosition = (player.Bottom + new Vector2(0, 12)).ToTileCoordinates();
-        var tile = Main.tile[tilePosition.X, tilePosition.Y];
 
-        if (player.GetModPlayer<WoodenPlayer>().Root == null && TileHelper.IsSolid(tile) &&
+        if (player.GetModPlayer<WoodenPlayer>().Root == null && TileHelper.IsSolid(tilePosition) &&
             Main.LocalPlayer.velocity.Length() <= 1e-3)
         {
             RootTimer.Update();
@@ -72,7 +71,7 @@ public class WoodenBody : ModItem
                 for (int i = 0; i < directions.Length; i++)
                 {
                     var source = new WoodenSource(Projectile.GetSource_NaturalSpawn());
-                    source.direction = directions[i];
+                    source.Direction = directions[i];
                     Projectile.NewProjectileDirect(source, Main.LocalPlayer.Bottom + new Vector2(0, 8), Vector2.Zero,
                                                    ModContent.ProjectileType<RootProjectile>(), 0, 0, Main.myPlayer);
                 }

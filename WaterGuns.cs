@@ -11,6 +11,13 @@ public class WaterGuns : Mod
         public BaseGun Weapon;
         public BaseAmmo Ammo;
 
+        public void Inherit(ProjectileSource original)
+        {
+            Context = original.Context;
+            Weapon = original.Weapon;
+            Ammo = original.Ammo;
+        }
+
         public string Context { get; set; }
         public ProjectileSource(IEntitySource source)
         {

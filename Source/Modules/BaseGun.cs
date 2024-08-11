@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Modules.Weapons;
 using WaterGuns.Utils;
+using static WaterGuns.WaterGuns;
 
 namespace WaterGuns.Modules;
 
@@ -44,30 +45,47 @@ public abstract class BaseGun : ModItem
     }
 
     public T SpawnProjectile<T>(Player player, Vector2 position, Vector2 velocity, int damage, float knockback,
-                                IEntitySource source = null)
+                                ProjectileSource customSource = null)
         where T : BaseProjectile
     {
+        var projSource = new WaterGuns.ProjectileSource(Projectile.GetSource_NaturalSpawn())
+        {
+            Weapon = this,
+            Ammo = null,
+        };
+
+        if (customSource != null)
+        {
+            customSource.Inherit(projSource);
+        }
+
         var type = ModContent.ProjectileType<T>();
 
-        var proj = Projectile.NewProjectileDirect(source ?? Projectile.GetSource_NaturalSpawn(), position, velocity, type,
-                                                  damage, knockback, player.whoAmI);
+        var proj = Projectile.NewProjectileDirect(customSource ?? projSource, position, velocity, type, damage,
+                                                  knockback, player.whoAmI);
         return (T)proj.ModProjectile;
     }
 
     public T ShootProjectile<T>(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
-                                int damage, float knockback)
+                                int damage, float knockback, ProjectileSource customSource = null)
         where T : BaseProjectile
     {
         var ammo = (BaseAmmo)ModContent.GetModItem(source.AmmoItemIdUsed);
-        var projSource = new WaterGuns.ProjectileSource(source) {
+        var projSource = new WaterGuns.ProjectileSource(source)
+        {
             Weapon = this,
             Ammo = ammo,
         };
 
+        if (customSource != null)
+        {
+            customSource.Inherit(projSource);
+        }
+
         var type = ModContent.ProjectileType<T>();
 
-        var proj =
-            Projectile.NewProjectileDirect(projSource, position, velocity, type, damage, knockback, player.whoAmI);
+        var proj = Projectile.NewProjectileDirect(customSource ?? projSource, position, velocity, type, damage,
+                                                  knockback, player.whoAmI);
         return (T)proj.ModProjectile;
     }
 

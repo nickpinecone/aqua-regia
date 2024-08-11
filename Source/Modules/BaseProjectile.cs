@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WaterGuns.Modules.Projectiles;
 using WaterGuns.Utils;
+using static WaterGuns.WaterGuns;
 
 namespace WaterGuns.Modules;
 
@@ -56,7 +57,7 @@ public abstract class BaseProjectile : ModProjectile
     }
 
     public T SpawnProjectile<T>(Vector2 position, Vector2 velocity, int damage, float knockback,
-                                IEntitySource source = null)
+                                ProjectileSource customSource = null)
         where T : BaseProjectile
     {
         if (Projectile.owner != Main.myPlayer)
@@ -64,7 +65,12 @@ public abstract class BaseProjectile : ModProjectile
 
         var type = ModContent.ProjectileType<T>();
 
-        var proj = Projectile.NewProjectileDirect(source ?? _source, position, velocity, type, damage, knockback,
+        if (customSource != null)
+        {
+            customSource.Inherit(_source);
+        }
+
+        var proj = Projectile.NewProjectileDirect(customSource ?? _source, position, velocity, type, damage, knockback,
                                                   Projectile.owner);
         return (T)proj.ModProjectile;
     }
