@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -81,5 +82,66 @@ public static class TileHelper
         }
 
         return null;
+    }
+
+    public static IEnumerable<Point> ScanSolidSurface(Vector2 center, int width, int height)
+    {
+        List<Point> surface = new();
+
+        for (int yDirection = -1; yDirection <= 1; yDirection += 2)
+        {
+            for (int dy = 0; Math.Abs(dy) <= height; dy += yDirection)
+            {
+                var position = center + new Vector2(0, dy * 16);
+                if (IsSolid(position))
+                {
+                    surface.Add(position.ToTileCoordinates());
+                    break;
+                }
+
+                for (int xDirection = -1; xDirection <= 1; xDirection += 2)
+                {
+                    for (int dx = 0; Math.Abs(dx) <= width; dx += xDirection)
+                    {
+                        position = center + new Vector2(dx * 16, dy * 16);
+
+                        if (IsSolid(position))
+                        {
+                            surface.Add(position.ToTileCoordinates());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int xDirection = -1; xDirection <= 1; xDirection += 2)
+        {
+            for (int dx = 0; Math.Abs(dx) <= width; dx += xDirection)
+            {
+                var position = center + new Vector2(dx * 16, 0);
+                if (IsSolid(position))
+                {
+                    surface.Add(position.ToTileCoordinates());
+                    break;
+                }
+
+                for (int yDirection = -1; yDirection <= 1; yDirection += 2)
+                {
+                    for (int dy = 0; Math.Abs(dy) <= height; dy += yDirection)
+                    {
+                        position = center + new Vector2(dx * 16, dy * 16);
+
+                        if (IsSolid(position))
+                        {
+                            surface.Add(position.ToTileCoordinates());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return surface;
     }
 }

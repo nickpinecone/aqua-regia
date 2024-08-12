@@ -59,16 +59,12 @@ public class WoodenGun : BaseGun
         base.HoldItem(player);
 
         Pump.DefaultUpdate();
-
         Item.damage = TreeBoost.Apply(player);
 
-        if(Main.mouseRight)
-        {
-            AltUseAlways(player);
-        }
+        DoAltUse(player);
     }
 
-    public void AltUseAlways(Player player)
+    public override void AltUseAlways(Player player)
     {
         if (Pump.Pumped)
         {

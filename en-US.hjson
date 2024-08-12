@@ -78,7 +78,7 @@ Mods: {
 				Tooltip:
 					'''
 					Attack: Ocassionaly granite chunks come from the ground to knock enemies up
-					Pumped: Turn into a granite elemental and dash through enemies at the cursor
+					Pumped: <right> to turn into a granite elemental and dash through enemies at the cursor
 					"Granite, In My Chest"
 					'''
 			}

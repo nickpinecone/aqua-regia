@@ -99,6 +99,25 @@ public abstract class BaseGun : ModItem
         }
     }
 
+    public override bool AltFunctionUse(Player player)
+    {
+        AltUseAlways(player);
+
+        return base.AltFunctionUse(player);
+    }
+
+    public void DoAltUse(Player player)
+    {
+        if (Main.mouseLeft && Main.mouseRight)
+        {
+            AltUseAlways(player);
+        }
+    }
+
+    public virtual void AltUseAlways(Player player)
+    {
+    }
+
     public override Vector2? HoldoutOffset()
     {
         return Sprite.HoldoutOffset;

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -36,8 +38,9 @@ public class GraniteChunk : BaseProjectile
         Projectile.penetrate = -1;
         Projectile.knockBack = 0;
 
-        Projectile.width = 26;
-        Projectile.height = 48;
+        Projectile.width = 24;
+        Projectile.height = 24;
+        DrawOriginOffsetY = -28;
         Projectile.tileCollide = false;
     }
 
@@ -54,15 +57,17 @@ public class GraniteChunk : BaseProjectile
 
         var graniteSource = (GraniteSource)source;
 
-        var x = graniteSource.Target.Center.X + Main.rand.Next(-4, 4);
-        var tile = TileHelper.FirstSolidFromTop(new Vector2(x, graniteSource.Target.Center.Y), 64);
+        var tileSurface = TileHelper.ScanSolidSurface(graniteSource.Target.Center, 2, 2).ToList();
+        Helper.Shuffle(tileSurface);
 
-        if (tile != null)
+        if (tileSurface.Count > 0)
         {
+            var tile = tileSurface[0];
+
             SoundEngine.PlaySound(SoundID.NPCDeath43);
             Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 6);
 
-            Projectile.Bottom = tile?.ToWorldCoordinates() + new Vector2(Main.rand.Next(-4, 4), 0) ?? Projectile.Bottom;
+            Projectile.Center = tile.ToWorldCoordinates();
 
             var direction = Projectile.Center - graniteSource.Target.Center;
             Projectile.rotation = direction.ToRotation() + MathHelper.PiOver2;
@@ -71,10 +76,11 @@ public class GraniteChunk : BaseProjectile
             var start = vector.RotatedBy(-MathHelper.PiOver4);
             var end = vector.RotatedBy(MathHelper.PiOver4);
 
-            Particle.Arc(DustID.Granite, Projectile.Bottom, new Vector2(8, 8), start, end, 8, 3f, 0.8f);
+            Particle.Arc(DustID.Granite, Projectile.Bottom, new Vector2(8, 8), start, end, 8, 4f, 0.8f);
+            _endPosition = Projectile.Center - (new Vector2(42, 0)).RotatedBy(Projectile.rotation - MathHelper.PiOver2);
 
-            _endPosition = Projectile.Center;
-            Projectile.Center += (new Vector2(48, 0)).RotatedBy(Projectile.rotation - MathHelper.PiOver2);
+            Projectile.spriteDirection = Main.rand.NextFromList(new int[] { 1, -1 });
+            Projectile.scale = Main.rand.NextFloat(0.9f, 1.1f);
 
             if (!graniteSource.Target.boss)
             {

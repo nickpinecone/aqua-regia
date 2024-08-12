@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 
 namespace WaterGuns.Utils;
 
@@ -13,6 +14,16 @@ public static class ParticleID
 
 public static class Particle
 {
+    public static void Debug(Vector2 position, Color? color = null)
+    {
+        Dust.QuickDust(position, color ?? Color.Red);
+    }
+
+    public static void Debug(Point point, Color? color = null)
+    {
+        Dust.QuickDust(point, color ?? Color.Red);
+    }
+
     public static Dust Single(int type, Vector2 position, Vector2 size, Vector2 velocity, float scale = 1f,
                               int alpha = 0, Color color = default)
     {

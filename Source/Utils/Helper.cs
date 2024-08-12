@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -24,6 +26,20 @@ public static class Helper
         }
 
         return angle;
+    }
+
+    public static void Shuffle<T>(List<T> list)
+    {
+        int n = list.Count;
+
+        while (n > 1)
+        {
+            n--;
+            int k = Main.rand.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 
     public static NPC FindNearsetNPC(Vector2 position, float radius, Func<NPC, bool> canHome = null)

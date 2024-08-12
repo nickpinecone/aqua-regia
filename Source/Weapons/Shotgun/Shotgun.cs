@@ -59,13 +59,10 @@ public class Shotgun : BaseGun
 
         Pump.DefaultUpdate();
 
-        if (Main.mouseRight)
-        {
-            AltUseAlways(player);
-        }
+        DoAltUse(player);
     }
 
-    public void AltUseAlways(Player player)
+    public override void AltUseAlways(Player player)
     {
         if (Pump.Pumped && Main.LocalPlayer.GetModPlayer<ShotPlayer>().Chain == null)
         {

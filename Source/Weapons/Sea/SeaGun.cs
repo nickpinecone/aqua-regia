@@ -56,19 +56,16 @@ public class SeaGun : BaseGun
 
         Pump.DefaultUpdate();
 
-        if (Main.mouseRight)
-        {
-            AltUseAlways(player);
-        }
+        DoAltUse(player);
     }
 
-    public void AltUseAlways(Player player)
+    public override void AltUseAlways(Player player)
     {
         if (Pump.Pumped)
         {
             var direction = Main.MouseWorld - player.Center;
             direction.Normalize();
-            var velocity = direction * 12f; 
+            var velocity = direction * 12f;
 
             SpawnProjectile<StarfishProjectile>(player, player.Center, velocity, Item.damage, Item.knockBack);
 
