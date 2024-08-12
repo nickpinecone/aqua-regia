@@ -111,6 +111,11 @@ Mods: {
 					Grants the ability to swim
 					'''
 			}
+
+			BottledCryogel: {
+				Tooltip: ""
+				DisplayName: Bottled Cryogel
+			}
 		}
 
 		Projectiles: {

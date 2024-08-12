@@ -8,7 +8,7 @@ namespace WaterGuns.Modules;
 
 public abstract class BaseAmmo : ModItem
 {
-    public Color Color { get; set; }
+    public Color AccentColor { get; set; }
 
     public override void SetStaticDefaults()
     {
@@ -30,7 +30,7 @@ public abstract class BaseAmmo : ModItem
 
         Item.rare = ItemRarityID.White;
         Item.value = Item.buyPrice(0, 0, 0, 5);
-        Color = Color.White;
+        AccentColor = Color.White;
     }
 
     public virtual void ApplyToProjectile(BaseProjectile baseProjectile)

@@ -17,6 +17,8 @@ public class WaterBalloon : BaseProjectile
     {
         Property = new PropertyModule(this);
         Water = new WaterModule(this);
+
+        IsAmmoRuntime = true;
     }
 
     public override void SetDefaults()
@@ -33,6 +35,13 @@ public class WaterBalloon : BaseProjectile
 
         Projectile.width = 22;
         Projectile.height = 22;
+    }
+
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        Water.ApplyAmmo(_source.Ammo);
     }
 
     public override void OnKill(int timeLeft)

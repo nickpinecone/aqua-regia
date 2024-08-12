@@ -28,7 +28,7 @@ public class WaterModule : BaseProjectileModule
 
     public void ApplyAmmo(BaseAmmo baseAmmo)
     {
-        Color = baseAmmo.Color;
+        Color = baseAmmo.AccentColor;
     }
 
     public void KillEffect(Vector2 position, Vector2 velocity)
@@ -36,7 +36,7 @@ public class WaterModule : BaseProjectileModule
         velocity.Normalize();
         velocity *= 2f;
 
-        Particle.Single(DustID.Wet, position, new Vector2(2, 2), velocity, 1.2f);
+        Particle.Single(DustID.Wet, position, new Vector2(2, 2), velocity, 1.2f, 0, Color);
     }
 
     public void CreateDust(Vector2 position, Vector2 velocity)

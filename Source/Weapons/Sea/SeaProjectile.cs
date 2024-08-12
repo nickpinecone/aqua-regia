@@ -20,6 +20,8 @@ public class SeaProjectile : BaseProjectile
     {
         Property = new PropertyModule(this);
         Water = new WaterModule(this);
+
+        IsAmmoRuntime = true;
     }
 
     public override void SetDefaults()
@@ -41,6 +43,7 @@ public class SeaProjectile : BaseProjectile
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
+        Water.ApplyAmmo(_source.Ammo);
 
         _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
         _seaPlayer.ProjectileDamage = Projectile.damage;

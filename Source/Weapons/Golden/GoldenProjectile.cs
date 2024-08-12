@@ -18,6 +18,8 @@ public class GoldenProjectile : BaseProjectile
     {
         Property = new PropertyModule(this);
         Water = new WaterModule(this);
+
+        IsAmmoRuntime = true;
     }
 
     public override void SetDefaults()
@@ -34,6 +36,13 @@ public class GoldenProjectile : BaseProjectile
 
         Projectile.width = 16;
         Projectile.height = 16;
+    }
+
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        Water.ApplyAmmo(_source.Ammo);
     }
 
     public override void OnKill(int timeLeft)
@@ -69,10 +78,9 @@ public class GoldenProjectile : BaseProjectile
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Water.CreateDust(Projectile.Center, Projectile.velocity);
 
-        if(Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SwordCollide(Projectile.getRect()))
+        if (Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SwordCollide(Projectile.getRect()))
         {
             Projectile.Kill();
         }
     }
-
 }
