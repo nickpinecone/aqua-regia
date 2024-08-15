@@ -116,6 +116,11 @@ Mods: {
 				Tooltip: ""
 				DisplayName: Bottled Cryogel
 			}
+
+			SpaceGun: {
+				DisplayName: Space Gun
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -142,6 +147,7 @@ Mods: {
 			GraniteChunk.DisplayName: Granite Chunk
 			FloatBubble.DisplayName: Float Bubble
 			GraniteElemental.DisplayName: Granite Elemental
+			SpaceProjectile.DisplayName: Space Projectile
 		}
 
 		NPCs: {

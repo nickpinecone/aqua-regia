@@ -3,21 +3,21 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
-using WaterGuns.Modules.Weapons;
 using WaterGuns.Modules;
+using WaterGuns.Modules.Weapons;
+using WaterGuns.Utils;
 
-namespace WaterGuns.Weapons.Granite;
+namespace WaterGuns.Weapons.Space;
 
-public class GraniteGun : BaseGun
+public class SpaceGun : BaseGun
 {
-    public override string Texture => TexturesPath.Weapons + "Granite/GraniteGun";
+    public override string Texture => TexturesPath.Weapons + "Space/SpaceGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
 
-    public GraniteGun() : base()
+    public SpaceGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
@@ -30,24 +30,24 @@ public class GraniteGun : BaseGun
 
         Sound.SetWater(this);
         Property.SetDefaults(this);
-        Property.SetProjectile<GraniteProjecitle>(this);
+        Property.SetProjectile<SpaceProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-8f, 2f);
+        Sprite.HoldoutOffset = new Vector2(-20f, 4f);
         Sprite.Offset = new Vector2(42f, 42f);
-        Pump.MaxPumpLevel = 14;
+        Pump.MaxPumpLevel = 16;
         Property.Inaccuracy = 3.1f;
 
-        Item.width = 60;
-        Item.height = 26;
-        Item.damage = 20;
-        Item.knockBack = 2.4f;
+        Item.width = 76;
+        Item.height = 34;
+        Item.damage = 22;
+        Item.knockBack = 2.2f;
 
-        Item.useTime = 26;
-        Item.useAnimation = 26;
+        Item.useTime = 20;
+        Item.useAnimation = 20;
         Item.shootSpeed = 22f;
 
         Item.rare = ItemRarityID.Blue;
-        Item.value = Item.sellPrice(0, 2, 0, 0);
+        Item.value = Item.sellPrice(0, 2, 2, 0);
     }
 
     public override void HoldItem(Terraria.Player player)
@@ -63,8 +63,6 @@ public class GraniteGun : BaseGun
     {
         if (Pump.Pumped)
         {
-            Main.LocalPlayer.GetModPlayer<GranitePlayer>().Activate(Item.damage);
-
             Pump.Reset();
         }
     }
@@ -78,24 +76,17 @@ public class GraniteGun : BaseGun
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
 
-        ShootProjectile<GraniteProjecitle>(player, source, position, velocity, damage, knockback);
+        ShootProjectile<SpaceProjectile>(player, source, position, velocity, damage, knockback);
 
         return false;
     }
 
     public override void AddRecipes()
     {
-        Recipe recipe1 = CreateRecipe();
-        recipe1.AddIngredient(ItemID.Granite, 20);
-        recipe1.AddIngredient(ItemID.CrimtaneBar, 10);
-        recipe1.AddTile(TileID.Anvils);
-        recipe1.Register();
-
-        Recipe recipe2 = CreateRecipe();
-        recipe2.AddIngredient(ItemID.Granite, 20);
-        recipe2.AddIngredient(ItemID.DemoniteBar, 10);
-        recipe2.AddTile(TileID.Anvils);
-        recipe2.Register();
+        Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.Meteorite, 20);
+        recipe.AddTile(TileID.Anvils);
+        recipe.Register();
     }
 
     public override void ModifyTooltips(List<TooltipLine> tooltip)
