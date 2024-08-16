@@ -85,7 +85,7 @@ Mods: {
 
 			SwimmerGun: {
 				DisplayName: Swimmer Gun
-				Tooltip: ""
+				Tooltip: <right> to attack with a pool noodle
 			}
 
 			DiverBody: {

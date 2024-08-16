@@ -1,68 +1,92 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
+using WaterGuns.Modules;
+using WaterGuns.Modules.Projectiles;
 using WaterGuns.Utils;
 
 namespace WaterGuns.NPCs;
 
-public class SwimmerSword : ModProjectile
+public class SwimmerSword : BaseProjectile
 {
     public override string Texture => TexturesPath.NPCs + "PoolNoodle";
 
-    public Timer AttackTimer { get; private set; }
+    public AnimationModule Animation { get; private set; }
+    public PropertyModule Property { get; private set; }
+
+    private int _swingDirection = 1;
+    private bool _animationFinished = false;
+
+    public SwimmerSword()
+    {
+        Animation = new AnimationModule(this);
+        Property = new PropertyModule(this);
+    }
 
     public override void SetDefaults()
     {
-        AttackTimer = new Timer(4, true);
-
         base.SetDefaults();
+        _immunity.ImmunityTime = 10;
+
+        Property.SetTimeLeft(this, 2);
+        Property.SetDefaults(this);
 
         Projectile.damage = 1;
+        Projectile.knockBack = 4f;
         Projectile.penetrate = -1;
-        Projectile.timeLeft = 2;
 
         Projectile.width = 64;
         Projectile.height = 8;
 
-        Projectile.hostile = false;
-        Projectile.friendly = true;
+        Projectile.tileCollide = false;
         Projectile.hide = true;
     }
 
-    int dir = 1;
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        var player = Main.LocalPlayer;
+        player.itemRotation = MathHelper.PiOver2 * -player.direction;
+    }
+
     public override void AI()
     {
         base.AI();
 
-        AttackTimer.Update();
-
-        if (Main.mouseRight)
+        if (Main.mouseRight || !_animationFinished)
         {
-            if (AttackTimer.Done)
+            _animationFinished = false;
+
+            var player = Main.LocalPlayer;
+
+            Projectile.spriteDirection = player.direction;
+            Projectile.Center = new Vector2((int)player.Center.X, (int)player.Center.Y);
+            Projectile.Center += (new Vector2(32 * player.direction, 0)).RotatedBy(player.itemRotation);
+
+            Projectile.rotation = player.itemRotation;
+            Projectile.rotation -= 0.2f * _swingDirection * player.direction;
+
+            var rot = Animation.Animate<float>("rot", player.itemRotation, -player.itemRotation, 12, Ease.InOut);
+            player.itemRotation = rot.Update() ?? player.itemRotation;
+
+            var pause = Animation.Animate<float>("pause", 0f, 1f, 4, Ease.Linear, new string[] { "rot" });
+            pause.Update();
+
+            if (pause.Finished)
             {
-                AttackTimer.Restart();
+                _animationFinished = true;
 
-                var velocity = new Vector2(1, 0).RotatedBy(Main.LocalPlayer.itemRotation);
-                velocity *= 12f;
-
-                // Projectile.NewProjectile(Projectile.GetSource_None(), Main.LocalPlayer.Center, velocity,
-                //                          ModContent.ProjectileType<SwimmerProjectile>(), 1, 1, Projectile.owner);
+                _swingDirection = -_swingDirection;
+                rot.Start = player.itemRotation;
+                rot.End = -player.itemRotation;
+                rot.Reset();
+                pause.Reset();
             }
 
-            Projectile.Center = Main.LocalPlayer.Center + (new Vector2(32, 0)).RotatedBy(Main.LocalPlayer.itemRotation);
-            Projectile.rotation = Main.LocalPlayer.itemRotation - 0.4f;
-
-            Main.LocalPlayer.itemAnimation = 2;
-            Main.LocalPlayer.itemTime = 2;
-
-            if (Math.Abs(Main.LocalPlayer.itemRotation) > MathHelper.PiOver2)
-            {
-                dir = -dir;
-            }
-            Main.LocalPlayer.itemRotation += 0.15f * dir;
-
+            player.itemTime = 2;
+            player.itemAnimation = 2;
             Projectile.timeLeft = 2;
+            Projectile.velocity = new Vector2(player.direction, 0);
         }
     }
 

@@ -70,17 +70,12 @@ public class SwimmerGun : BaseGun
                                Microsoft.Xna.Framework.Vector2 position, Microsoft.Xna.Framework.Vector2 velocity,
                                int type, int damage, float knockback)
     {
+        base.Shoot(player, source, position, velocity, type, damage, knockback);
+
         if (player.altFunctionUse == 2)
         {
-            var proj = Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero,
-                                                ModContent.ProjectileType<SwimmerSword>(), 1, 1, player.whoAmI);
-
-            position = Sprite.ApplyOffset(position, velocity);
-            velocity = Property.ApplyInaccuracy(velocity);
-
-            ShootProjectile<SwimmerProjectile>(player, source, position, velocity, damage, knockback);
+            SpawnProjectile<SwimmerSword>(player, player.Center, Vector2.Zero, Item.damage * 2, Item.knockBack * 2f);
         }
-
         else
         {
             position = Sprite.ApplyOffset(position, velocity);
@@ -88,7 +83,7 @@ public class SwimmerGun : BaseGun
 
             ShootProjectile<SwimmerProjectile>(player, source, position, velocity, damage, knockback);
         }
-        base.Shoot(player, source, position, velocity, type, damage, knockback);
+
         return false;
     }
 
