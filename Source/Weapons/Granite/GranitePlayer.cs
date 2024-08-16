@@ -19,6 +19,11 @@ public class GranitePlayer : ModPlayer
 {
     private bool _active = false;
 
+    public bool IsActive()
+    {
+        return _active;
+    }
+
     public void Activate(int damage)
     {
         _active = true;

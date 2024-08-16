@@ -50,6 +50,11 @@ public class GraniteGun : BaseGun
         Item.value = Item.sellPrice(0, 2, 0, 0);
     }
 
+    public override bool CanUseItem(Player player)
+    {
+        return !player.GetModPlayer<GranitePlayer>().IsActive();
+    }
+
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);
