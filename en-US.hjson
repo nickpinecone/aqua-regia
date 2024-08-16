@@ -148,6 +148,7 @@ Mods: {
 			FloatBubble.DisplayName: Float Bubble
 			GraniteElemental.DisplayName: Granite Elemental
 			SpaceProjectile.DisplayName: Space Projectile
+			SwimmerSword.DisplayName: Swimmer Sword
 		}
 
 		NPCs: {

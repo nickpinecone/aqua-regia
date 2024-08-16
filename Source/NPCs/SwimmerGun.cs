@@ -47,17 +47,48 @@ public class SwimmerGun : BaseGun
         Item.value = Item.sellPrice(0, 1, 0, 0);
     }
 
+    public override bool AltFunctionUse(Player player)
+    {
+        return true;
+    }
+
+    public override bool CanUseItem(Player player)
+    {
+        if (player.altFunctionUse == 2)
+        {
+            Item.noUseGraphic = true;
+        }
+        else
+        {
+            Item.noUseGraphic = false;
+        }
+
+        return true;
+    }
+
     public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source,
                                Microsoft.Xna.Framework.Vector2 position, Microsoft.Xna.Framework.Vector2 velocity,
                                int type, int damage, float knockback)
     {
+        if (player.altFunctionUse == 2)
+        {
+            var proj = Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero,
+                                                ModContent.ProjectileType<SwimmerSword>(), 1, 1, player.whoAmI);
+
+            position = Sprite.ApplyOffset(position, velocity);
+            velocity = Property.ApplyInaccuracy(velocity);
+
+            ShootProjectile<SwimmerProjectile>(player, source, position, velocity, damage, knockback);
+        }
+
+        else
+        {
+            position = Sprite.ApplyOffset(position, velocity);
+            velocity = Property.ApplyInaccuracy(velocity);
+
+            ShootProjectile<SwimmerProjectile>(player, source, position, velocity, damage, knockback);
+        }
         base.Shoot(player, source, position, velocity, type, damage, knockback);
-
-        position = Sprite.ApplyOffset(position, velocity);
-        velocity = Property.ApplyInaccuracy(velocity);
-
-        ShootProjectile<SwimmerProjectile>(player, source, position, velocity, damage, knockback);
-
         return false;
     }
 
