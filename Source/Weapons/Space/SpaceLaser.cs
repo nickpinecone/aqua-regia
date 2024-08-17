@@ -1,6 +1,7 @@
 using AquaRegia.Modules;
 using AquaRegia.Modules.Projectiles;
 using AquaRegia.Utils;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace AquaRegia.Weapons.Space;
@@ -40,12 +41,9 @@ public class SpaceLaser : BaseProjectile
     {
         base.AI();
 
-        var player = Main.LocalPlayer;
-        var direction = Main.MouseWorld - player.Center;
-        Laser.Update(player.Center, direction);
+        Laser.Update(Projectile.Center, Vector2.UnitY);
 
         Projectile.timeLeft = 2;
-        Projectile.Center = player.Center;
     }
 
     public override bool PreDraw(ref Microsoft.Xna.Framework.Color lightColor)

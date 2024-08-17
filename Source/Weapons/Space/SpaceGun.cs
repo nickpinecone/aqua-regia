@@ -61,8 +61,7 @@ public class SpaceGun : BaseGun
 
     public override void AltUseAlways(Player player)
     {
-        Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero,
-                                 ModContent.ProjectileType<SpaceLaser>(), 1, 1, player.whoAmI);
+        SpawnProjectile<SpaceShip>(player, Main.MouseWorld, Vector2.UnitX * 2f, 1, 1);
 
         if (Pump.Pumped)
         {

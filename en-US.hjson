@@ -157,6 +157,7 @@ Mods: {
 			DuckProjectile.DisplayName: Duck Projectile
 			SpaceLaser.DisplayName: Space Laser
 			SpaceLaserOld.DisplayName: Space Laser Old
+			SpaceShip.DisplayName: Space Ship
 		}
 
 		NPCs: {
