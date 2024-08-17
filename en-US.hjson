@@ -155,6 +155,8 @@ Mods: {
 			SpaceProjectile.DisplayName: Space Projectile
 			SwimmerSword.DisplayName: Swimmer Sword
 			DuckProjectile.DisplayName: Duck Projectile
+			SpaceLaser.DisplayName: Space Laser
+			SpaceLaserOld.DisplayName: Space Laser Old
 		}
 
 		NPCs: {

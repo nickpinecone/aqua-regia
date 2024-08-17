@@ -17,19 +17,26 @@ public static class TileHelper
         return GetTile(position.ToTileCoordinates());
     }
 
-    public static bool IsSolid(Tile tile)
+    public static bool IsSolid(Tile tile, bool alsoSolidTop = false)
     {
-        return tile.HasTile && Main.tileSolid[tile.TileType];
+        if (alsoSolidTop)
+        {
+            return tile.HasTile && Main.tileSolid[tile.TileType];
+        }
+        else
+        {
+            return tile.HasTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
+        }
     }
 
-    public static bool IsSolid(Point point)
+    public static bool IsSolid(Point point, bool alsoSolidTop = false)
     {
-        return IsSolid(GetTile(point));
+        return IsSolid(GetTile(point), alsoSolidTop);
     }
 
-    public static bool IsSolid(Vector2 position)
+    public static bool IsSolid(Vector2 position, bool alsoSolidTop = false)
     {
-        return IsSolid(position.ToTileCoordinates());
+        return IsSolid(position.ToTileCoordinates(), alsoSolidTop);
     }
 
     public static IEnumerable<Point> Area(Vector2 center, int width, int height)
@@ -45,11 +52,11 @@ public static class TileHelper
         }
     }
 
-    public static bool AnySolidInArea(Vector2 center, int width, int height)
+    public static bool AnySolidInArea(Vector2 center, int width, int height, bool alsoSolidTop = false)
     {
         foreach (var tile in Area(center, width, height))
         {
-            if (IsSolid(tile))
+            if (IsSolid(tile, alsoSolidTop))
             {
                 return true;
             }
@@ -71,11 +78,11 @@ public static class TileHelper
         }
     }
 
-    public static Point? FirstSolidFromTop(Vector2 from, float amount)
+    public static Point? FirstSolidFromTop(Vector2 from, float amount, bool alsoSolidTop = false)
     {
         foreach (var tile in FromTop(from, amount))
         {
-            if (IsSolid(tile))
+            if (IsSolid(tile, alsoSolidTop))
             {
                 return tile;
             }
@@ -84,7 +91,7 @@ public static class TileHelper
         return null;
     }
 
-    public static IEnumerable<Point> ScanSolidSurface(Vector2 center, int width, int height)
+    public static IEnumerable<Point> ScanSolidSurface(Vector2 center, int width, int height, bool alsoSolidTop = false)
     {
         List<Point> surface = new();
 
@@ -93,7 +100,7 @@ public static class TileHelper
             for (int dy = 0; Math.Abs(dy) <= height; dy += yDirection)
             {
                 var position = center + new Vector2(0, dy * 16);
-                if (IsSolid(position))
+                if (IsSolid(position, alsoSolidTop))
                 {
                     surface.Add(position.ToTileCoordinates());
                     break;
@@ -105,7 +112,7 @@ public static class TileHelper
                     {
                         position = center + new Vector2(dx * 16, dy * 16);
 
-                        if (IsSolid(position))
+                        if (IsSolid(position, alsoSolidTop))
                         {
                             surface.Add(position.ToTileCoordinates());
                             break;
@@ -120,7 +127,7 @@ public static class TileHelper
             for (int dx = 0; Math.Abs(dx) <= width; dx += xDirection)
             {
                 var position = center + new Vector2(dx * 16, 0);
-                if (IsSolid(position))
+                if (IsSolid(position, alsoSolidTop))
                 {
                     surface.Add(position.ToTileCoordinates());
                     break;
@@ -132,7 +139,7 @@ public static class TileHelper
                     {
                         position = center + new Vector2(dx * 16, dy * 16);
 
-                        if (IsSolid(position))
+                        if (IsSolid(position, alsoSolidTop))
                         {
                             surface.Add(position.ToTileCoordinates());
                             break;

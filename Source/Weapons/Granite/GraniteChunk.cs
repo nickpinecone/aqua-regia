@@ -57,7 +57,7 @@ public class GraniteChunk : BaseProjectile
 
         var graniteSource = (GraniteSource)source;
 
-        var tileSurface = TileHelper.ScanSolidSurface(graniteSource.Target.Center, 2, 2).ToList();
+        var tileSurface = TileHelper.ScanSolidSurface(graniteSource.Target.Center, 2, 2, true).ToList();
         Helper.Shuffle(tileSurface);
 
         if (tileSurface.Count > 0)
