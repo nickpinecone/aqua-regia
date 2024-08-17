@@ -121,6 +121,11 @@ Mods: {
 				DisplayName: Space Gun
 				Tooltip: ""
 			}
+
+			DuckItem: {
+				DisplayName: Rubber Egg
+				Tooltip: Summons a rubber ducky that can float on water!
+			}
 		}
 
 		Projectiles: {
@@ -149,6 +154,7 @@ Mods: {
 			GraniteElemental.DisplayName: Granite Elemental
 			SpaceProjectile.DisplayName: Space Projectile
 			SwimmerSword.DisplayName: Swimmer Sword
+			DuckProjectile.DisplayName: Duck Projectile
 		}
 
 		NPCs: {
@@ -170,6 +176,13 @@ Mods: {
 					LikeNPC_Princess: I like {NPCName}.
 					Princess_LovesNPC: I like {NPCName}.
 				}
+			}
+		}
+
+		Buffs: {
+			DuckBuff: {
+				Description: A rubber ducky is following you
+				DisplayName: Rubber Ducky
 			}
 		}
 	}

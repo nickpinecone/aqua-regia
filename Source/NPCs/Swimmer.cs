@@ -113,6 +113,7 @@ public class Swimmer : ModNPC
         new NPCShop(Type)
             .Add(ItemID.BottledWater)
             .Add<Accessories.FrogHat.FrogHat>()
+            .Add<Pets.DuckItem>()
             .Add<Weapons.Shotgun.Shotgun>(Condition.DownedKingSlime)
             .Register();
     }

@@ -9,7 +9,7 @@ using AquaRegia.Utils;
 
 namespace AquaRegia.Weapons.Space;
 
-public abstract class SpaceGun : BaseGun
+public class SpaceGun : BaseGun
 {
     public override string Texture => TexturesPath.Weapons + "Space/SpaceGun";
 
