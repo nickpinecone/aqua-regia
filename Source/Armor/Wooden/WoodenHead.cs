@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Armor.Wooden;
+namespace AquaRegia.Armor.Wooden;
 
 [AutoloadEquip(EquipType.Head)]
 public class WoodenHead : ModItem

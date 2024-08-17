@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using static WaterGuns.WaterGuns;
+using static AquaRegia.AquaRegia;
 
-namespace WaterGuns.Weapons.Granite;
+namespace AquaRegia.Weapons.Granite;
 
 public class GraniteSource : ProjectileSource
 {

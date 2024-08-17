@@ -7,9 +7,9 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.NPCs;
+namespace AquaRegia.NPCs;
 
 [AutoloadHead]
 public class Swimmer : ModNPC

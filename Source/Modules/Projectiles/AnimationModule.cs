@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 
-namespace WaterGuns.Modules.Projectiles;
+namespace AquaRegia.Modules.Projectiles;
 
 public enum Ease
 {

@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Armor.Diver;
+namespace AquaRegia.Armor.Diver;
 
 public class FloatBubble : BaseProjectile
 {

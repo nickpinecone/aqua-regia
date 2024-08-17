@@ -1,8 +1,8 @@
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Sea;
+namespace AquaRegia.Weapons.Sea;
 
 public class BubbleExplosion : BaseProjectile
 {

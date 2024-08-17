@@ -1,9 +1,9 @@
 using Terraria;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Shotgun;
+namespace AquaRegia.Weapons.Shotgun;
 
 public class ShotProjectile : BaseProjectile
 {

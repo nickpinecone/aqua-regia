@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Accessories.FrogHat;
+namespace AquaRegia.Accessories.FrogHat;
 
 public class FrogHat : ModItem
 {

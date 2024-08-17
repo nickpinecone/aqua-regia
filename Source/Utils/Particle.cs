@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace WaterGuns.Utils;
+namespace AquaRegia.Utils;
 
 // DustID does not have these
 public static class ParticleID

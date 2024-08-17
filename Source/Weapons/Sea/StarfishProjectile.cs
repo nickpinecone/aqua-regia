@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Players;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Players;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Sea;
+namespace AquaRegia.Weapons.Sea;
 
 public class StarfishProjectile : BaseProjectile
 {

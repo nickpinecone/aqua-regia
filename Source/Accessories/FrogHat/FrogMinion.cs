@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Accessories.FrogHat;
+namespace AquaRegia.Accessories.FrogHat;
 
 public class FrogMinion : ModProjectile
 {

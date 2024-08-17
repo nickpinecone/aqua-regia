@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace WaterGuns.Utils;
+namespace AquaRegia.Utils;
 
 public static class TileHelper
 {

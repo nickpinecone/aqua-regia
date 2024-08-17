@@ -5,11 +5,11 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Utils;
 
-namespace WaterGuns.UI;
+namespace AquaRegia.UI;
 
 class PumpGauge : UIState
 {

@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Accessories.FrogHat;
+namespace AquaRegia.Accessories.FrogHat;
 
 public class TongueProjectile : BaseProjectile
 {

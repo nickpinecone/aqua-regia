@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using WaterGuns.Modules;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Ammo;
+namespace AquaRegia.Ammo;
 
 public class BottledWater : BaseAmmo
 {

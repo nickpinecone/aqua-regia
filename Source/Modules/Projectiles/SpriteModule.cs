@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace WaterGuns.Modules.Projectiles;
+namespace AquaRegia.Modules.Projectiles;
 
 public class SpriteModule : BaseProjectileModule
 {

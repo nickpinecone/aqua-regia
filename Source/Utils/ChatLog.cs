@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Chat;
 using Terraria.Localization;
 
-namespace WaterGuns.Utils;
+namespace AquaRegia.Utils;
 
 public static class ChatLog
 {

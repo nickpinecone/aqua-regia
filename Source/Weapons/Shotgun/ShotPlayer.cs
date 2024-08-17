@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Weapons.Shotgun;
+namespace AquaRegia.Weapons.Shotgun;
 
 public class ShotPlayer : ModPlayer
 {

@@ -1,6 +1,6 @@
-using WaterGuns.Modules;
+using AquaRegia.Modules;
 
-namespace WaterGuns.Utils;
+namespace AquaRegia.Utils;
 
 public class Timer
 {

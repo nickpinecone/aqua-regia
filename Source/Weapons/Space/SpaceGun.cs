@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Space;
+namespace AquaRegia.Weapons.Space;
 
-public class SpaceGun : BaseGun
+public abstract class SpaceGun : BaseGun
 {
     public override string Texture => TexturesPath.Weapons + "Space/SpaceGun";
 

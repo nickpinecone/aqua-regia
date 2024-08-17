@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using static WaterGuns.WaterGuns;
+using static AquaRegia.AquaRegia;
 
-namespace WaterGuns.Weapons.Sea;
+namespace AquaRegia.Weapons.Sea;
 
 public class SeaSource : ProjectileSource
 {

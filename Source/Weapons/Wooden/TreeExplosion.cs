@@ -1,8 +1,8 @@
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Wooden;
+namespace AquaRegia.Weapons.Wooden;
 
 public class TreeExplosion : BaseProjectile
 {

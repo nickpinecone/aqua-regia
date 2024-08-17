@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Utils;
-using static WaterGuns.WaterGuns;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Utils;
+using static AquaRegia.AquaRegia;
 
-namespace WaterGuns.Modules;
+namespace AquaRegia.Modules;
 
 public abstract class BaseProjectile : ModProjectile
 {
     private List<Timer> _timers = new();
-    protected WaterGuns.ProjectileSource _source = null;
+    protected AquaRegia.ProjectileSource _source = null;
 
     protected Dictionary<Type, BaseProjectileModule> _modules = new();
     protected List<BaseProjectileModule> _runtimeModules = new();
@@ -86,7 +86,7 @@ public abstract class BaseProjectile : ModProjectile
     {
         base.OnSpawn(source);
 
-        if (source is WaterGuns.ProjectileSource projSource)
+        if (source is AquaRegia.ProjectileSource projSource)
         {
             _source = projSource;
         }

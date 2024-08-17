@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Players;
+namespace AquaRegia.Players;
 
 public class ScreenShake : ModPlayer
 {

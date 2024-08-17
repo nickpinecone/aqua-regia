@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Golden;
+namespace AquaRegia.Weapons.Golden;
 
 public class GoldenGun : BaseGun
 {

@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
 
-namespace WaterGuns.Weapons.Wooden;
+namespace AquaRegia.Weapons.Wooden;
 
 public class HeadBounceModule : BaseProjectileModule
 {

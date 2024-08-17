@@ -1,7 +1,7 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Armor.Wooden;
+namespace AquaRegia.Armor.Wooden;
 
 public class WoodenSource : IEntitySource
 {

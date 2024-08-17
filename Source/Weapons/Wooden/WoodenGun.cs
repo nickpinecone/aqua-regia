@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Modules;
+using AquaRegia.Utils;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Modules;
 
-namespace WaterGuns.Weapons.Wooden;
+namespace AquaRegia.Weapons.Wooden;
 
 public class WoodenGun : BaseGun
 {

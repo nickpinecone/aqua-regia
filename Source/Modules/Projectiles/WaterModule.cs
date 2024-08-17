@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Modules.Projectiles;
+namespace AquaRegia.Modules.Projectiles;
 
 public class WaterModule : BaseProjectileModule
 {

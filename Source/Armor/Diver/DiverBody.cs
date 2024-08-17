@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Armor.Diver;
+namespace AquaRegia.Armor.Diver;
 
 [AutoloadEquip(EquipType.Body)]
 public class DiverBody : ModItem

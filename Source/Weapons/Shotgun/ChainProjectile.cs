@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Projectiles;
-using WaterGuns.Players;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Projectiles;
+using AquaRegia.Players;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Shotgun;
+namespace AquaRegia.Weapons.Shotgun;
 
 public class ChainProjectile : BaseProjectile
 {

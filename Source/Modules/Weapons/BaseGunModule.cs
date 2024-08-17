@@ -1,4 +1,4 @@
-namespace WaterGuns.Modules.Weapons;
+namespace AquaRegia.Modules.Weapons;
 
 public abstract class BaseGunModule
 {

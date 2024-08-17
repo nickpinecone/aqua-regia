@@ -1,10 +1,10 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using WaterGuns.Modules;
+using AquaRegia.Modules;
 
-namespace WaterGuns;
+namespace AquaRegia;
 
-public class WaterGuns : Mod
+public class AquaRegia : Mod
 {
     public class ProjectileSource : IEntitySource
     {

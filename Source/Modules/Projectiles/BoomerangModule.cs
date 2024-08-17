@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace WaterGuns.Modules.Projectiles;
+namespace AquaRegia.Modules.Projectiles;
 
 public class BoomerangModule : BaseProjectileModule
 {

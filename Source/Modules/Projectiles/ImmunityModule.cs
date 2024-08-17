@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace WaterGuns.Modules.Projectiles;
+namespace AquaRegia.Modules.Projectiles;
 
 public class ImmunityModule : BaseProjectileModule
 {

@@ -2,10 +2,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Modules;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Ammo;
+namespace AquaRegia.Ammo;
 
 public class BottledCryogel : BaseAmmo
 {

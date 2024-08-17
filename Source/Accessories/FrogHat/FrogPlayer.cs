@@ -1,6 +1,6 @@
 using Terraria.ModLoader;
 
-namespace WaterGuns.Accessories.FrogHat;
+namespace AquaRegia.Accessories.FrogHat;
 
 public class FrogPlayer : ModPlayer
 {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.ID;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Weapons;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Weapons;
 
-namespace WaterGuns.Weapons.Wooden;
+namespace AquaRegia.Weapons.Wooden;
 
 public class TreeBoostModule : BaseGunModule
 {

@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Ammo;
+namespace AquaRegia.Ammo;
 
 public class EmptyBottle : ModItem
 {

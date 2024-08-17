@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Players;
+namespace AquaRegia.Players;
 
 public class DebugPlayer : ModPlayer
 {

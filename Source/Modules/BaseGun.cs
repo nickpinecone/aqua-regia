@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Utils;
-using static WaterGuns.WaterGuns;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Utils;
+using static AquaRegia.AquaRegia;
 
-namespace WaterGuns.Modules;
+namespace AquaRegia.Modules;
 
 public abstract class BaseGun : ModItem
 {
@@ -48,7 +48,7 @@ public abstract class BaseGun : ModItem
                                 ProjectileSource customSource = null)
         where T : BaseProjectile
     {
-        var projSource = new WaterGuns.ProjectileSource(Projectile.GetSource_NaturalSpawn())
+        var projSource = new AquaRegia.ProjectileSource(Projectile.GetSource_NaturalSpawn())
         {
             Weapon = this,
             Ammo = null,
@@ -71,7 +71,7 @@ public abstract class BaseGun : ModItem
         where T : BaseProjectile
     {
         var ammo = (BaseAmmo)ModContent.GetModItem(source.AmmoItemIdUsed);
-        var projSource = new WaterGuns.ProjectileSource(source)
+        var projSource = new AquaRegia.ProjectileSource(source)
         {
             Weapon = this,
             Ammo = ammo,

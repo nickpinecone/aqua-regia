@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Ammo;
+using AquaRegia.Ammo;
 
-namespace WaterGuns.Modules.Weapons;
+namespace AquaRegia.Modules.Weapons;
 
 public class PropertyModule : BaseGunModule
 {

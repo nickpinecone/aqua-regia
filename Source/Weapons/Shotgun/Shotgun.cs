@@ -5,12 +5,12 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using WaterGuns.Modules;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Players;
-using WaterGuns.Utils;
+using AquaRegia.Modules;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Players;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Weapons.Shotgun;
+namespace AquaRegia.Weapons.Shotgun;
 
 public class Shotgun : BaseGun
 {

@@ -1,8 +1,8 @@
-namespace WaterGuns.Utils;
+namespace AquaRegia.Utils;
 
 public static class TexturesPath
 {
-    private static string _base = "WaterGuns/Assets/Textures/";
+    private static string _base = "AquaRegia/Assets/Textures/";
 
     public static string Empty = _base + "Empty";
 
@@ -20,7 +20,7 @@ public static class TexturesPath
 
 public static class AudioPath
 {
-    private static string _base = "WaterGuns/Assets/Audio/";
+    private static string _base = "AquaRegia/Assets/Audio/";
 
     public static string Impact = _base + "Impact/";
     public static string Kill = _base + "Kill/";

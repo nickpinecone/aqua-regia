@@ -1,7 +1,7 @@
 using System;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.Modules.Weapons;
+namespace AquaRegia.Modules.Weapons;
 
 public class PumpModule : BaseGunModule
 {

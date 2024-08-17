@@ -6,7 +6,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace WaterGuns.UI;
+namespace AquaRegia.UI;
 
 class InterfaceSystem : ModSystem
 {
@@ -45,7 +45,7 @@ class InterfaceSystem : ModSystem
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
         if (mouseTextIndex != -1)
         {
-            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("WaterGuns: Interface", delegate
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("AquaRegia: Interface", delegate
             {
                 if (_lastUpdateUI != null && _interface?.CurrentState != null)
                 {

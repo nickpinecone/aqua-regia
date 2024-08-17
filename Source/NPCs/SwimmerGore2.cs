@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
+using AquaRegia.Utils;
 
-namespace WaterGuns.NPCs;
+namespace AquaRegia.NPCs;
 
 public class SwimmerGore2 : ModGore
 {

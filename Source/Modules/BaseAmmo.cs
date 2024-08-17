@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Ammo;
+using AquaRegia.Ammo;
 
-namespace WaterGuns.Modules;
+namespace AquaRegia.Modules;
 
 public abstract class BaseAmmo : ModItem
 {

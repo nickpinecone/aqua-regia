@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WaterGuns.Utils;
-using WaterGuns.Modules.Weapons;
-using WaterGuns.Modules;
+using AquaRegia.Utils;
+using AquaRegia.Modules.Weapons;
+using AquaRegia.Modules;
 
-namespace WaterGuns.NPCs;
+namespace AquaRegia.NPCs;
 
 public class SwimmerGun : BaseGun
 {

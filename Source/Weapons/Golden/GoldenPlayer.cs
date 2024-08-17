@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace WaterGuns.Weapons.Golden;
+namespace AquaRegia.Weapons.Golden;
 
 public class GoldenPlayer : ModPlayer
 {
