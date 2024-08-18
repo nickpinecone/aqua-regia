@@ -12,6 +12,7 @@ public class WaterModule : BaseProjectileModule
     public float Scale { get; set; }
     public Color Color { get; set; }
     public int Alpha { get; set; }
+    public int ParticleID { get; set; }
 
     public WaterModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
@@ -24,6 +25,7 @@ public class WaterModule : BaseProjectileModule
         Scale = 1.2f;
         Alpha = 0;
         Color = Color.White;
+        ParticleID = DustID.Wet;
     }
 
     public void ApplyAmmo(BaseAmmo baseAmmo)
@@ -36,7 +38,7 @@ public class WaterModule : BaseProjectileModule
         velocity.Normalize();
         velocity *= 2f;
 
-        Particle.Single(DustID.Wet, position, new Vector2(2, 2), velocity, 1.2f, 0, Color);
+        Particle.Single(ParticleID, position, new Vector2(2, 2), velocity, 1.2f, 0, Color);
     }
 
     public void CreateDust(Vector2 position, Vector2 velocity)
@@ -48,7 +50,7 @@ public class WaterModule : BaseProjectileModule
         for (int i = 0; i < Amount; i++)
         {
             var newPosition = new Vector2(position.X + offset.X * i, position.Y + offset.Y * i);
-            var particle = Particle.SinglePerfect(DustID.Wet, newPosition, Vector2.Zero, Scale, Alpha, Color);
+            var particle = Particle.SinglePerfect(ParticleID, newPosition, Vector2.Zero, Scale, Alpha, Color);
             particle.noGravity = true;
             particle.fadeIn = 1f;
             particle.velocity = velocity.SafeNormalize(Vector2.Zero);

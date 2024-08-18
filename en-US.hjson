@@ -130,6 +130,11 @@ Mods: {
 				DisplayName: Rubber Egg
 				Tooltip: Summons a rubber ducky that can float on water!
 			}
+
+			SunflowerGun: {
+				DisplayName: Clown's Sunflower
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -157,11 +162,12 @@ Mods: {
 			FloatBubble.DisplayName: Float Bubble
 			GraniteElemental.DisplayName: Granite Elemental
 			SpaceProjectile.DisplayName: Space Projectile
-			SwimmerSword.DisplayName: Swimmer Sword
 			DuckProjectile.DisplayName: Duck Projectile
 			SpaceLaser.DisplayName: Space Laser
-			SpaceLaserOld.DisplayName: Space Laser Old
 			SpaceShip.DisplayName: Space Ship
+			SunflowerProjectile.DisplayName: Sunflower Projectile
+			PoolNoodle.DisplayName: Pool Noodle
+			BloodProjectile.DisplayName: Blood Projectile
 		}
 
 		NPCs: {

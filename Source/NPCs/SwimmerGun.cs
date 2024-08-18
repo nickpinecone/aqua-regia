@@ -74,7 +74,7 @@ public class SwimmerGun : BaseGun
 
         if (player.altFunctionUse == 2)
         {
-            SpawnProjectile<SwimmerSword>(player, player.Center, Vector2.Zero, Item.damage * 2, Item.knockBack * 2f);
+            SpawnProjectile<PoolNoodle>(player, player.Center, Vector2.Zero, Item.damage * 2, Item.knockBack * 2f);
         }
         else
         {

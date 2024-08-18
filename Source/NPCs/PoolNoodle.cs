@@ -6,7 +6,7 @@ using AquaRegia.Utils;
 
 namespace AquaRegia.NPCs;
 
-public class SwimmerSword : BaseProjectile
+public class PoolNoodle : BaseProjectile
 {
     public override string Texture => TexturesPath.NPCs + "PoolNoodle";
 
@@ -16,7 +16,7 @@ public class SwimmerSword : BaseProjectile
     private int _swingDirection = 1;
     private bool _animationFinished = false;
 
-    public SwimmerSword()
+    public PoolNoodle()
     {
         Animation = new AnimationModule(this);
         Property = new PropertyModule(this);
