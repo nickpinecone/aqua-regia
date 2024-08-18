@@ -118,8 +118,12 @@ Mods: {
 			}
 
 			SpaceGun: {
-				DisplayName: Space Gun
-				Tooltip: ""
+				DisplayName: Space Oxide
+				Tooltip:
+					'''
+					Attack: Shoots a piercing and bouncing water stream
+					Pumped: Call a spaceship that uses a powerful laser to annihilate your enemies
+					'''
 			}
 
 			DuckItem: {

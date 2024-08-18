@@ -61,10 +61,10 @@ public class SpaceGun : BaseGun
 
     public override void AltUseAlways(Player player)
     {
-        SpawnProjectile<SpaceShip>(player, Main.MouseWorld, Vector2.UnitX * 2f, 1, 1);
-
         if (Pump.Pumped)
         {
+            SpawnProjectile<SpaceShip>(player, Main.MouseWorld, Vector2.Zero, Item.damage, 0);
+
             Pump.Reset();
         }
     }

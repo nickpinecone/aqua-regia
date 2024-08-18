@@ -97,6 +97,7 @@ public class LaserModule : BaseProjectileModule
         var end = vector.RotatedBy(MathHelper.PiOver4);
 
         var position = _start + _direction * (_distance + 15f);
+        position -= new Vector2(6, 0);
 
         foreach (var particle in Particle.Arc(226, position, new Vector2(-8, -8), start, end, 4, 3f, 1f))
         {
