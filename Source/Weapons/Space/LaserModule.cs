@@ -97,10 +97,11 @@ public class LaserModule : BaseProjectileModule
         var end = vector.RotatedBy(MathHelper.PiOver4);
 
         var position = _start + _direction * (_distance + 15f);
-        position -= new Vector2(6, 0);
 
-        foreach (var particle in Particle.Arc(226, position, new Vector2(-8, -8), start, end, 4, 3f, 1f))
+        foreach (var particle in Particle.ArcPerfect(226, position, start, end, 4, 3f, 1f))
         {
+            particle.velocity = particle.velocity.RotatedByRandom(0.4f);
+            particle.velocity *= Main.rand.NextFloat(0.8f, 1.4f);
             particle.noGravity = true;
         }
     }
