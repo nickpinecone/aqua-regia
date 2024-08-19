@@ -87,14 +87,7 @@ public class SunflowerGun : BaseGun
             positionCopy += up * spread * Main.rand.NextFloat(2f, 3f);
             velocityCopy *= Main.rand.NextFloat(0.7f, 1.1f);
 
-            if (Main.IsItDay())
-            {
-                ShootProjectile<SunflowerProjectile>(player, source, positionCopy, velocityCopy, damage, knockback);
-            }
-            else
-            {
-                ShootProjectile<BloodProjectile>(player, source, positionCopy, velocityCopy, damage, knockback);
-            }
+            ShootProjectile<SunflowerProjectile>(player, source, positionCopy, velocityCopy, damage, knockback);
         }
 
         return false;

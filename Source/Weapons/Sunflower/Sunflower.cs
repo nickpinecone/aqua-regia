@@ -14,6 +14,8 @@ public class Sunflower : BaseProjectile
 
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
+
+    public Timer SeedTimer { get; private set; }
     public Timer ParticleTimer { get; private set; }
     public Vector2 Offset { get; private set; } = new Vector2(0, 48);
 
@@ -25,6 +27,7 @@ public class Sunflower : BaseProjectile
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         ParticleTimer = new Timer(10, this);
+        SeedTimer = new Timer(60, true);
     }
 
     public override void SetDefaults()
@@ -63,11 +66,31 @@ public class Sunflower : BaseProjectile
         var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
         Projectile.alpha = appear.Update() ?? Projectile.alpha;
 
-        SpawnSunParticles();
+        if (!Main.IsItDay())
+        {
+            AttackAtNight();
+        }
+        SpawnParticles();
     }
 
-    public void SpawnSunParticles()
+    public void AttackAtNight()
     {
+        SeedTimer.Update();
+
+        if (SeedTimer.Done)
+        {
+            SeedTimer.Restart();
+
+            var target = Helper.FindNearsetNPC(Projectile.Center, 500f);
+
+            SpawnProjectile<SeedProjectile>(Projectile.Top, Vector2.One, 1, 1);
+        }
+    }
+
+    public void SpawnParticles()
+    {
+        var particleType = Main.IsItDay() ? DustID.YellowTorch : DustID.Blood;
+
         if (ParticleTimer.Done)
         {
             ParticleTimer.Restart();
@@ -78,7 +101,7 @@ public class Sunflower : BaseProjectile
             velocity.Normalize();
             velocity *= 2f;
 
-            var particle = Particle.SinglePerfect(DustID.YellowTorch, position, velocity, 1.6f);
+            var particle = Particle.SinglePerfect(particleType, position, velocity, 1.6f);
             particle.noGravity = true;
             particle.fadeIn = 1f;
 
@@ -87,7 +110,7 @@ public class Sunflower : BaseProjectile
 
         foreach (var particle in _particles.Keys)
         {
-            if (!particle.active || particle.type != DustID.YellowTorch)
+            if (!particle.active || particle.type != particleType)
             {
                 _removeQueue.Add(particle);
             }

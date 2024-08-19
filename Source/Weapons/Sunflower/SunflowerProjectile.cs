@@ -3,6 +3,7 @@ using AquaRegia.Modules;
 using AquaRegia.Modules.Projectiles;
 using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
+using Terraria.ID;
 
 namespace AquaRegia.Weapons.Sunflower;
 
@@ -41,7 +42,18 @@ public class SunflowerProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Water.ApplyAmmo(_source.Ammo);
+        if (!Main.IsItDay())
+        {
+            IsAmmoRuntime = false;
+            Water.ParticleID = DustID.Blood;
+
+            Projectile.damage += 2;
+            Projectile.timeLeft -= 5;
+        }
+        else
+        {
+            Water.ApplyAmmo(_source.Ammo);
+        }
     }
 
     public override void OnKill(int timeLeft)

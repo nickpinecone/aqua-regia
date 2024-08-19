@@ -79,7 +79,7 @@ public class WoodenBody : ModItem
         }
         else if (player.GetModPlayer<WoodenPlayer>().Root != null)
         {
-            player.GetDamage(DamageClass.Generic) += 0.1f;
+            player.GetDamage(DamageClass.Ranged) += 0.1f;
 
             RootTimer.Restart();
             HealTimer.Update();

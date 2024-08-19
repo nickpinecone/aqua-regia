@@ -96,11 +96,6 @@ public class SpaceShip : BaseProjectile
         }
     }
 
-    public override void OnKill(int timeLeft)
-    {
-        base.OnKill(timeLeft);
-    }
-
     public override void AI()
     {
         base.AI();

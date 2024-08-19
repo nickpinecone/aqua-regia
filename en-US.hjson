@@ -169,6 +169,7 @@ Mods: {
 			Sunflower.DisplayName: Sunflower
 			PoolNoodle.DisplayName: Pool Noodle
 			BloodProjectile.DisplayName: Blood Projectile
+			SeedProjectile.DisplayName: Seed Projectile
 		}
 
 		NPCs: {

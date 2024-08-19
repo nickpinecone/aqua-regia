@@ -1,5 +1,4 @@
 using AquaRegia.Utils;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -18,6 +17,15 @@ public class SunflowerPlayer : ModPlayer
             var position = Helper.ToVector2I(drawInfo.Center - Sunflower.Offset);
 
             Sunflower.Projectile.Center = position;
+        }
+    }
+
+    public override void UpdateEquips()
+    {
+        if (Sunflower != null && Main.IsItDay())
+        {
+            Main.LocalPlayer.statDefense += 8;
+            Main.LocalPlayer.GetDamage(DamageClass.Ranged) += 0.2f;
         }
     }
 }
