@@ -15,6 +15,7 @@ public class Sunflower : BaseProjectile
     public PropertyModule Property { get; private set; }
     public AnimationModule Animation { get; private set; }
     public Timer ParticleTimer { get; private set; }
+    public Vector2 Offset { get; private set; } = new Vector2(0, 48);
 
     private Dictionary<Dust, Vector2> _particles = new();
     private List<Dust> _removeQueue = new();
@@ -38,10 +39,19 @@ public class Sunflower : BaseProjectile
 
         Projectile.width = 30;
         Projectile.height = 66;
+        Projectile.alpha = 255;
 
         Projectile.hostile = false;
         Projectile.friendly = false;
         Projectile.tileCollide = false;
+        Projectile.hide = true;
+    }
+
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+
+        Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().Sunflower = this;
     }
 
     public override void AI()
@@ -49,12 +59,9 @@ public class Sunflower : BaseProjectile
         base.AI();
 
         Projectile.timeLeft = Property.DefaultTime;
-        Projectile.Center = Helper.ToVector2I(Main.LocalPlayer.Center);
 
-        var offset = new Vector2(0, 10);
-        var slide = Animation.Animate<Vector2>("slide", Vector2.Zero + offset,
-                                               new Vector2(0, Projectile.Size.Y / 2) + offset, 60, Ease.Linear);
-        Projectile.Center -= Helper.ToVector2I(slide.Update() ?? slide.End);
+        var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
+        Projectile.alpha = appear.Update() ?? Projectile.alpha;
 
         SpawnSunParticles();
     }
@@ -98,5 +105,11 @@ public class Sunflower : BaseProjectile
             _particles.Remove(particle);
         }
         _removeQueue.Clear();
+    }
+
+    public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs,
+                                    List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+    {
+        overPlayers.Add(index);
     }
 }

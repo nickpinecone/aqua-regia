@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using AquaRegia.Utils;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AquaRegia.Accessories.FrogHat;
 
@@ -50,15 +51,11 @@ public class FrogMinion : ModProjectile
     {
         base.AI();
 
-        Player player = Main.player[Projectile.owner];
-
         if (Main.LocalPlayer.GetModPlayer<FrogPlayer>().Active)
         {
             Projectile.timeLeft = 5;
         }
         Main.LocalPlayer.GetModPlayer<FrogPlayer>().Active = false;
-
-        Projectile.Center = Helper.ToVector2I(player.Top);
 
         AttackTimer.Update();
 
