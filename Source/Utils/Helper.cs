@@ -42,6 +42,11 @@ public static class Helper
         }
     }
 
+    public static Vector2 ToVector2I(Vector2 vector)
+    {
+        return new Vector2((int)vector.X, (int)vector.Y);
+    }
+
     public static NPC FindNearsetNPC(Vector2 position, float radius, Func<NPC, bool> canHome = null)
     {
         canHome ??= (_) => true;

@@ -166,6 +166,7 @@ Mods: {
 			SpaceLaser.DisplayName: Space Laser
 			SpaceShip.DisplayName: Space Ship
 			SunflowerProjectile.DisplayName: Sunflower Projectile
+			Sunflower.DisplayName: Sunflower
 			PoolNoodle.DisplayName: Pool Noodle
 			BloodProjectile.DisplayName: Blood Projectile
 		}

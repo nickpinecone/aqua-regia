@@ -54,7 +54,7 @@ public class FloatBubble : BaseProjectile
         base.AI();
 
         Projectile.timeLeft = 2;
-        Projectile.Center = new Vector2((int)Main.LocalPlayer.Center.X, (int)Main.LocalPlayer.Center.Y);
+        Projectile.Center = Helper.ToVector2I(Main.LocalPlayer.Center);
     }
 
     public override void DrawBehind(int index, System.Collections.Generic.List<int> behindNPCsAndTiles,

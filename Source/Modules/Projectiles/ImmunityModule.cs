@@ -8,6 +8,7 @@ namespace AquaRegia.Modules.Projectiles;
 public class ImmunityModule : BaseProjectileModule
 {
     private Dictionary<NPC, int> _immunity = new();
+    private List<NPC> _removeQueue = new();
 
     public int ImmunityTime { get; set; }
 
@@ -29,7 +30,7 @@ public class ImmunityModule : BaseProjectileModule
     {
         if (_immunity.ContainsKey(target))
         {
-            return _immunity[target] <= 0;
+            return false;
         }
         else
         {
@@ -43,6 +44,17 @@ public class ImmunityModule : BaseProjectileModule
         foreach (var (npc, time) in _immunity)
         {
             _immunity[npc] = Math.Max(0, time - 1);
+
+            if (_immunity[npc] == 0)
+            {
+                _removeQueue.Add(npc);
+            }
         }
+
+        foreach (var npc in _removeQueue)
+        {
+            _immunity.Remove(npc);
+        }
+        _removeQueue.Clear();
     }
 }

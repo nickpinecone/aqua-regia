@@ -50,12 +50,15 @@ public class FrogMinion : ModProjectile
     {
         base.AI();
 
+        Player player = Main.player[Projectile.owner];
+
         if (Main.LocalPlayer.GetModPlayer<FrogPlayer>().Active)
         {
             Projectile.timeLeft = 5;
         }
         Main.LocalPlayer.GetModPlayer<FrogPlayer>().Active = false;
-        Projectile.Center = new Vector2((int)Main.LocalPlayer.Top.X, (int)Main.LocalPlayer.Top.Y);
+
+        Projectile.Center = Helper.ToVector2I(player.Top);
 
         AttackTimer.Update();
 

@@ -61,6 +61,8 @@ public class SunflowerGun : BaseGun
 
     public override void AltUseAlways(Player player)
     {
+        SpawnProjectile<Sunflower>(player, player.Center, Vector2.Zero, 0, 0);
+
         if (Pump.Pumped)
         {
             Pump.Reset();
