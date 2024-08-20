@@ -83,7 +83,7 @@ public class Sunflower : BaseProjectile
 
             var target = Helper.FindNearsetNPC(Projectile.Center, 500f);
 
-            SpawnProjectile<SeedProjectile>(Projectile.Top, Vector2.One, 1, 1);
+            // SpawnProjectile<SeedProjectile>(Projectile.Top, Vector2.One, 1, 1);
         }
     }
 
