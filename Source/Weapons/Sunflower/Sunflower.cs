@@ -27,7 +27,7 @@ public class Sunflower : BaseProjectile
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
         ParticleTimer = new Timer(10, this);
-        SeedTimer = new Timer(60, true);
+        SeedTimer = new Timer(20, true);
     }
 
     public override void SetDefaults()
@@ -35,7 +35,7 @@ public class Sunflower : BaseProjectile
         base.SetDefaults();
 
         Property.SetDefaults(this);
-        Property.SetTimeLeft(this, 2);
+        Property.SetTimeLeft(this, 11);
 
         Projectile.damage = 0;
         Projectile.penetrate = -1;
@@ -57,14 +57,27 @@ public class Sunflower : BaseProjectile
         Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().Sunflower = this;
     }
 
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().Sunflower = null;
+    }
+
     public override void AI()
     {
         base.AI();
 
-        Projectile.timeLeft = Property.DefaultTime;
-
-        var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        if (Projectile.timeLeft <= 10)
+        {
+            var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
+            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+        }
+        else
+        {
+            var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
+            Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        }
 
         if (!Main.IsItDay())
         {
@@ -81,9 +94,7 @@ public class Sunflower : BaseProjectile
         {
             SeedTimer.Restart();
 
-            var target = Helper.FindNearsetNPC(Projectile.Center, 500f);
-
-            // SpawnProjectile<SeedProjectile>(Projectile.Top, Vector2.One, 1, 1);
+            SpawnProjectile<SeedProjectile>(Projectile.Top, Vector2.One, Projectile.damage, Projectile.knockBack);
         }
     }
 

@@ -16,12 +16,17 @@ public class SunflowerGun : BaseGun
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
+    public Timer DecreaseTimer { get; private set; }
+
+    private Sunflower _sunflower = null;
 
     public SunflowerGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
         Pump = new PumpModule(this);
+
+        DecreaseTimer = new Timer(60);
     }
 
     public override void SetDefaults()
@@ -50,22 +55,46 @@ public class SunflowerGun : BaseGun
         Item.value = Item.sellPrice(0, 3, 0, 0);
     }
 
+    public override void UpdateInventory(Player player)
+    {
+        base.UpdateInventory(player);
+
+        if (_sunflower != null)
+        {
+            DecreaseTimer.Update();
+            _sunflower.Projectile.timeLeft = 11;
+
+            if (DecreaseTimer.Done)
+            {
+                DecreaseTimer.Restart();
+                Pump.PumpLevel -= 1;
+
+                if (Pump.PumpLevel == 0)
+                {
+                    Pump.Reset();
+                    _sunflower = null;
+                }
+            }
+        }
+    }
+
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);
 
-        Pump.DefaultUpdate();
+        if (_sunflower == null)
+        {
+            Pump.DefaultUpdate();
+        }
 
         DoAltUse(player);
     }
 
     public override void AltUseAlways(Player player)
     {
-        SpawnProjectile<Sunflower>(player, player.Center, Vector2.Zero, 0, 0);
-
-        if (Pump.Pumped)
+        if (Pump.Pumped && _sunflower == null)
         {
-            Pump.Reset();
+            _sunflower = SpawnProjectile<Sunflower>(player, player.Center, Vector2.Zero, Item.damage, Item.knockBack);
         }
     }
 

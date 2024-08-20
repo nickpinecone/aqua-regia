@@ -98,7 +98,7 @@ public class LaserModule : BaseProjectileModule
 
         var position = _start + _direction * (_distance + 15f);
 
-        foreach (var particle in Particle.ArcPerfect(226, position, start, end, 4, 3f, 1f))
+        foreach (var particle in Particle.ArcPerfect(DustID.Electric, position, start, end, 4, 3f, 1f))
         {
             particle.velocity = particle.velocity.RotatedByRandom(0.4f);
             particle.velocity *= Main.rand.NextFloat(0.8f, 1.4f);

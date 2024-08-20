@@ -10,6 +10,7 @@ namespace AquaRegia.Utils;
 public static class ParticleID
 {
     public static short Wood = 7;
+    public static short Fire = 218;
 }
 
 public static class Particle

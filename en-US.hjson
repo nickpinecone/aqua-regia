@@ -133,7 +133,15 @@ Mods: {
 
 			SunflowerGun: {
 				DisplayName: Clown's Sunflower
-				Tooltip: ""
+				Tooltip:
+					'''
+					[c/f6c177:Day Time:]
+					Attack: Shoots four innacurate short-lived water streams
+					Pumped: <right> to spawn a sunflower which collects sun power to boost stats
+					[c/eb6f92:Night Time:]
+					Attack: Shoots four innacurate short-lived blood streams
+					Pumped: <right> to spawn a sunflower which absorbs moon power to attack your enemies
+					'''
 			}
 		}
 
@@ -170,6 +178,7 @@ Mods: {
 			PoolNoodle.DisplayName: Pool Noodle
 			BloodProjectile.DisplayName: Blood Projectile
 			SeedProjectile.DisplayName: Seed Projectile
+			SeedExplosion.DisplayName: Seed Explosion
 		}
 
 		NPCs: {
