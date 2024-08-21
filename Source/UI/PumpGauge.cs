@@ -56,7 +56,7 @@ class PumpGauge : UIState
         var pump = ((BaseGun)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
         float percent = (float)pump.PumpLevel / (float)pump.MaxPumpLevel;
 
-        if(percent >= 1f)
+        if (percent >= 1f && !pump.DoDecrease)
         {
             _frame.Color = Color.Gold;
         }
@@ -79,7 +79,7 @@ class PumpGauge : UIState
 
             spriteBatch.Draw(TextureAssets.MagicPixel.Value,
                              new Rectangle(rectangle.X, rectangle.Y + rectangle.Height - i, rectangle.Width, 1),
-                             Color.Lerp(Color.Blue, Color.Cyan, gradient));
+                             Color.Lerp(pump.ColorA, pump.ColorB, gradient));
         }
     }
 

@@ -12,7 +12,8 @@ public class Timer
     public int WaitTime { get; set; }
     public int TimeLeft
     {
-        get {
+        get
+        {
             return WaitTime - Current;
         }
     }
@@ -25,7 +26,7 @@ public class Timer
 
     public Timer(int waitTime, BaseGun baseGun, bool start = true) : this(waitTime, start)
     {
-        baseGun.AddTimer(this);
+        baseGun.AddHoldTimer(this);
     }
 
     public Timer(int waitTime, BaseProjectile baseProjectile, bool start = true) : this(waitTime, start)

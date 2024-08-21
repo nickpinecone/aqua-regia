@@ -30,6 +30,13 @@ public class Sunflower : BaseProjectile
         SeedTimer = new Timer(20, true);
     }
 
+    public override void SetStaticDefaults()
+    {
+        base.SetStaticDefaults();
+
+        Main.projFrames[Projectile.type] = 2;
+    }
+
     public override void SetDefaults()
     {
         base.SetDefaults();
@@ -67,6 +74,8 @@ public class Sunflower : BaseProjectile
     public override void AI()
     {
         base.AI();
+
+        Projectile.frame = Main.IsItDay() ? 0 : 1;
 
         if (Projectile.timeLeft <= 10)
         {

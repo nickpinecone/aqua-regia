@@ -1,5 +1,6 @@
 using System;
 using AquaRegia.Utils;
+using Microsoft.Xna.Framework;
 
 namespace AquaRegia.Modules.Weapons;
 
@@ -8,10 +9,12 @@ public class PumpModule : BaseGunModule
     private int _pumpLevel;
     public int PumpLevel
     {
-        get {
+        get
+        {
             return _pumpLevel;
         }
-        set {
+        set
+        {
             _pumpLevel = Math.Max(0, value);
         }
     }
@@ -19,20 +22,32 @@ public class PumpModule : BaseGunModule
     private int _maxPumpLevel;
     public int MaxPumpLevel
     {
-        get {
+        get
+        {
             return _maxPumpLevel;
         }
-        set {
+        set
+        {
             _maxPumpLevel = Math.Max(0, value);
         }
     }
     public bool Pumped { get; private set; }
 
-    public Timer PumpTimer { get; }
+    public Color ColorA { get; set; }
+    public Color ColorB { get; set; }
 
-    public PumpModule(BaseGun baseGun, int pumpTime = 20) : base(baseGun)
+    public bool DoDecrease { get; private set; }
+    public Timer UpdateTimer { get; }
+    public Timer DecreaseTimer { get; }
+
+    public PumpModule(BaseGun baseGun, int updateTime = 20, int decraseTime = 20) : base(baseGun)
     {
-        PumpTimer = new Timer(pumpTime, baseGun);
+        ColorA = Color.Blue;
+        ColorB = Color.Cyan;
+
+        UpdateTimer = new Timer(updateTime, baseGun);
+        DecreaseTimer = new Timer(decraseTime);
+        baseGun.AddInventoryTimer(DecreaseTimer);
     }
 
     public void ApplyToProjectile(BaseProjectile baseProjectile)
@@ -42,29 +57,52 @@ public class PumpModule : BaseGunModule
     public void Reset()
     {
         _pumpLevel = 0;
-        PumpTimer.Restart();
+        UpdateTimer.Restart();
         Pumped = false;
     }
 
-    public void DefaultUpdate()
+    public void StartDecrease()
     {
-        if (PumpTimer.Done && !Pumped)
+        DoDecrease = true;
+        Pumped = false;
+        DecreaseTimer.Restart();
+    }
+
+    public void DefaultUpdate(int amount = 1)
+    {
+        if (UpdateTimer.Done && !Pumped)
         {
-            _pumpLevel += 1;
+            _pumpLevel += amount;
             if (_pumpLevel >= _maxPumpLevel)
             {
                 Pumped = true;
             }
             else
             {
-                PumpTimer.Restart();
+                UpdateTimer.Restart();
             }
         }
     }
 
-    public void DirectUpdate()
+    public void DefaultDecrease(int amount = 1)
     {
-        _pumpLevel += 1;
+        if (DoDecrease && DecreaseTimer.Done)
+        {
+            _pumpLevel -= amount;
+            if (_pumpLevel == 0)
+            {
+                DoDecrease = false;
+            }
+            else
+            {
+                DecreaseTimer.Restart();
+            }
+        }
+    }
+
+    public void DirectUpdate(int amount = 1)
+    {
+        _pumpLevel += amount;
         if (_pumpLevel >= _maxPumpLevel)
         {
             Pumped = true;

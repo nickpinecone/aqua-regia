@@ -16,7 +16,6 @@ public class SunflowerGun : BaseGun
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
-    public Timer DecreaseTimer { get; private set; }
 
     private Sunflower _sunflower = null;
 
@@ -24,9 +23,7 @@ public class SunflowerGun : BaseGun
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
-        Pump = new PumpModule(this);
-
-        DecreaseTimer = new Timer(60);
+        Pump = new PumpModule(this, 20, 60);
     }
 
     public override void SetDefaults()
@@ -61,19 +58,24 @@ public class SunflowerGun : BaseGun
 
         if (_sunflower != null)
         {
-            DecreaseTimer.Update();
-            _sunflower.Projectile.timeLeft = 11;
-
-            if (DecreaseTimer.Done)
+            if (Main.IsItDay())
             {
-                DecreaseTimer.Restart();
-                Pump.PumpLevel -= 1;
+                Pump.ColorA = Color.Gold;
+                Pump.ColorB = Color.Yellow;
+            }
+            else
+            {
+                Pump.ColorA = Color.DarkRed;
+                Pump.ColorB = Color.Red;
+            }
 
-                if (Pump.PumpLevel == 0)
-                {
-                    Pump.Reset();
-                    _sunflower = null;
-                }
+            _sunflower.Projectile.timeLeft = 11;
+            Pump.DefaultDecrease();
+
+            if (Pump.PumpLevel == 0)
+            {
+                Pump.Reset();
+                _sunflower = null;
             }
         }
     }
@@ -84,6 +86,9 @@ public class SunflowerGun : BaseGun
 
         if (_sunflower == null)
         {
+            Pump.ColorA = Color.Blue;
+            Pump.ColorB = Color.Cyan;
+
             Pump.DefaultUpdate();
         }
 
@@ -94,6 +99,7 @@ public class SunflowerGun : BaseGun
     {
         if (Pump.Pumped && _sunflower == null)
         {
+            Pump.StartDecrease();
             _sunflower = SpawnProjectile<Sunflower>(player, player.Center, Vector2.Zero, Item.damage, Item.knockBack);
         }
     }
