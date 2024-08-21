@@ -7,6 +7,7 @@ namespace AquaRegia.Weapons.Sunflower;
 public class SunflowerPlayer : ModPlayer
 {
     public Sunflower Sunflower = null;
+    public BloodVine BloodVine = null;
 
     public override void ModifyDrawInfo(ref Terraria.DataStructures.PlayerDrawSet drawInfo)
     {

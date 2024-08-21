@@ -179,6 +179,7 @@ Mods: {
 			BloodProjectile.DisplayName: Blood Projectile
 			SeedProjectile.DisplayName: Seed Projectile
 			SeedExplosion.DisplayName: Seed Explosion
+			BloodVine.DisplayName: Blood Vine
 		}
 
 		NPCs: {

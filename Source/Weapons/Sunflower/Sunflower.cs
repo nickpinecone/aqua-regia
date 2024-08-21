@@ -16,6 +16,7 @@ public class Sunflower : BaseProjectile
     public AnimationModule Animation { get; private set; }
 
     public Timer SeedTimer { get; private set; }
+    public Timer VineTimer { get; private set; }
     public Timer ParticleTimer { get; private set; }
     public Vector2 Offset { get; private set; } = new Vector2(0, 48);
 
@@ -28,6 +29,7 @@ public class Sunflower : BaseProjectile
         Animation = new AnimationModule(this);
         ParticleTimer = new Timer(10, this);
         SeedTimer = new Timer(20, true);
+        VineTimer = new Timer(60, true);
     }
 
     public override void SetStaticDefaults()
@@ -104,6 +106,23 @@ public class Sunflower : BaseProjectile
             SeedTimer.Restart();
 
             SpawnProjectile<SeedProjectile>(Projectile.Top, Vector2.One, Projectile.damage, Projectile.knockBack);
+        }
+
+        if (Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().BloodVine == null)
+        {
+            VineTimer.Update();
+
+            if (VineTimer.Done)
+            {
+                VineTimer.Restart();
+
+                var target = Helper.FindNearestNPC(Projectile.Center, 1000f);
+
+                if (target != null)
+                {
+                    SpawnProjectile<BloodVine>(Main.LocalPlayer.Top, Vector2.Zero, Projectile.damage / 2, 0);
+                }
+            }
         }
     }
 

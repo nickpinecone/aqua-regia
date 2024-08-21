@@ -47,7 +47,7 @@ public class HomeModule : BaseProjectileModule
 
     public Vector2? Default(Vector2 position, Vector2 velocity, Func<NPC, bool> canHome = null)
     {
-        Target = Helper.FindNearsetNPC(position, Radius, canHome);
+        Target = Helper.FindNearestNPC(position, Radius, canHome);
 
         if (Target != null)
         {

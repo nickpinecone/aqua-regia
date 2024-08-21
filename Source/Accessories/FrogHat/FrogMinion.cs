@@ -59,7 +59,7 @@ public class FrogMinion : ModProjectile
 
         AttackTimer.Update();
 
-        var target = Helper.FindNearsetNPC(Main.LocalPlayer.Top, 512f);
+        var target = Helper.FindNearestNPC(Main.LocalPlayer.Top, 512f);
 
         if (target != null)
         {
