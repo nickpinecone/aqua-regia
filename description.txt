@@ -1,8 +1,8 @@
-Aqua regia is a mod that brings more water-themed items, weapons, accessories, pets and more to the game
-Meant to be used along side other large content mods as it does not feature world generation or bosses
+Aqua Regia is a mod that brings more water-themed items, weapons, accessories, pets and more to the game
+Currently features a unique spin on the water guns, making them actually useful
 
-This mod is currently in DEMO
+This mod is in DEMO
 More items, enhancements and better sprites are coming
 
-Discord server: https://discord.gg/nZ4JM9DhzQ
-Github page: https://github.com/nickpinecone/aqua-regia
+Discord Server: https://discord.gg/nZ4JM9DhzQ
+Github Page: https://github.com/nickpinecone/aqua-regia

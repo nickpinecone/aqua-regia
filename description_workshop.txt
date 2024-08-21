@@ -1,0 +1,19 @@
+[h1]Aqua Regia[/h1]
+
+A mod that brings more water-themed items, weapons, accessories, pets and more to the game
+Currently features a unique spin on the water guns, making them actually useful
+
+This mod is in DEMO
+More items, enhancements and better sprites are coming
+
+[url=https://discord.gg/nZ4JM9DhzQ]Discord Server[/url]
+[url=https://github.com/nickpinecone/aqua-regia]Github Page[/url]
+
+[h2]Credits[/h2]
+[list]
+[*]Te234, Spriting
+[*]Someone with a short username, Spriting
+[*]StormdaHusky, Ideas
+[*]TunaMilkShake, Emotional Support
+[*]communistsnake, Random Hobo We Found On The Streets
+[/list] 
