@@ -9,7 +9,7 @@ namespace AquaRegia.UI;
 
 public class GaugeElement : UIImage
 {
-    public static Asset<Texture2D> Texture;
+    public static Asset<Texture2D> Texture = null;
 
     public int Current { get; set; } = 0;
     public int Max { get; set; } = 0;
@@ -21,16 +21,18 @@ public class GaugeElement : UIImage
     public Color ColorBorder { get; set; } = Color.White;
     public Color ColorBorderFull { get; set; } = Color.Gold;
 
-    public GaugeElement(Asset<Texture2D> texture) : base(texture)
+    public GaugeElement() : base(Texture)
     {
         Width.Set(18, 0);
         Height.Set(90, 0);
     }
 
-    public GaugeElement(Texture2D nonReloadingTexture) : base(nonReloadingTexture)
+    public GaugeElement(Asset<Texture2D> texture) : this()
     {
-        Width.Set(18, 0);
-        Height.Set(90, 0);
+    }
+
+    public GaugeElement(Texture2D nonReloadingTexture) : this()
+    {
     }
 
     public override void Draw(SpriteBatch spriteBatch)

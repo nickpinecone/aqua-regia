@@ -16,35 +16,16 @@ namespace AquaRegia.UI;
 class GaugeState : UIState
 {
     GaugeElement _gauge;
-    Asset<Texture2D> _texture;
 
     public override void OnInitialize()
     {
-        _texture = ModContent.Request<Texture2D>(TexturesPath.UI + "GaugeFrame");
+        GaugeElement.Texture = ModContent.Request<Texture2D>(TexturesPath.UI + "GaugeFrame");
 
-        _gauge = new GaugeElement(_texture);
+        _gauge = new GaugeElement();
         _gauge.HAlign = 0.99f;
         _gauge.VAlign = 0.98f;
 
         Append(_gauge);
-    }
-
-    public Asset<Texture2D> GetTexture()
-    {
-        return _texture;
-    }
-
-    public void AddGauge(GaugeElement gauge)
-    {
-        gauge.HAlign = 0.96f;
-        gauge.VAlign = 0.98f;
-
-        Append(gauge);
-    }
-
-    public void RemoveGauge(GaugeElement gauge)
-    {
-        RemoveChild(gauge);
     }
 
     public override void Draw(SpriteBatch spriteBatch)

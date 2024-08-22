@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -14,6 +16,8 @@ class InterfaceSystem : ModSystem
     internal GaugeState _gaugeState;
     private GameTime _lastUpdateUI;
 
+    private int _halign = 97;
+
     public override void Load()
     {
         base.Load();
@@ -25,6 +29,33 @@ class InterfaceSystem : ModSystem
             _gaugeState.Activate();
             _interface.SetState(_gaugeState);
         }
+    }
+
+    public void AddGauge(GaugeElement gauge)
+    {
+        gauge.HAlign = _halign / (float)100;
+        _halign -= 2;
+        gauge.VAlign = 0.98f;
+
+        _gaugeState.Append(gauge);
+    }
+
+    public void RemoveGauge(GaugeElement gauge)
+    {
+        _gaugeState.RemoveChild(gauge);
+
+        foreach (var child in _gaugeState.Children)
+        {
+            if (child is GaugeElement element)
+            {
+                if (child.HAlign < gauge.HAlign)
+                {
+                    child.HAlign += 0.02f;
+                }
+            }
+        }
+
+        _halign += 2;
     }
 
     public override void UpdateUI(GameTime gameTime)

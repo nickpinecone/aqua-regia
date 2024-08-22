@@ -20,7 +20,8 @@ public class WoodenGun : BaseGun
     public PumpModule Pump { get; private set; }
     public TreeBoostModule TreeBoost { get; private set; }
 
-    private GaugeElement _gauge;
+    private List<GaugeElement> _gauges = new();
+    private List<GaugeElement> _remove = new();
     private Timer _timer;
 
     public WoodenGun() : base()
@@ -61,31 +62,31 @@ public class WoodenGun : BaseGun
         TreeBoost.Initialize(Item.damage, 2);
     }
 
-    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
-    {
-        base.OnSpawn(source);
-    }
-
-    public override void OnCreated(Terraria.DataStructures.ItemCreationContext context)
-    {
-        base.OnCreated(context);
-
-        ChatLog.Message("I was called");
-    }
-
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);
 
-        if (_gauge != null)
-        {
-            _timer.Update();
+        _timer.Update();
 
-            if (_timer.Done)
+        if (_timer.Done)
+        {
+            foreach (var gauge in _gauges)
             {
-                _gauge.Current = Math.Min(_gauge.Current + 1, 100);
-                _timer.Restart();
+                gauge.Current = Math.Min(gauge.Current + 1, 100);
+                if (gauge.Current >= gauge.Max)
+                {
+                    var state = ModContent.GetInstance<InterfaceSystem>();
+                    state.RemoveGauge(gauge);
+                    _remove.Add(gauge);
+                }
             }
+
+            foreach (var gauge in _remove)
+            {
+                _gauges.Remove(gauge);
+            }
+            _remove.Clear();
+            _timer.Restart();
         }
 
         Pump.DefaultUpdate();
@@ -96,13 +97,16 @@ public class WoodenGun : BaseGun
 
     public override void AltUseAlways(Player player)
     {
+        var state = ModContent.GetInstance<InterfaceSystem>();
+        var gauge = new GaugeElement();
+        state.AddGauge(gauge);
+        _gauges.Add(gauge);
+
+        gauge.Max = Main.rand.Next(10, 100);
+        gauge.Current = 0;
+
         if (Pump.Pumped)
         {
-            var state = ModContent.GetInstance<InterfaceSystem>();
-            _gauge = new GaugeElement(state._gaugeState.GetTexture());
-            state._gaugeState.AddGauge(_gauge);
-            _gauge.Max = 100;
-            _gauge.Current = 0;
 
             SpawnProjectile<TreeProjectile>(player, Main.MouseWorld, Vector2.Zero, Item.damage * 2, Item.knockBack * 2);
 
