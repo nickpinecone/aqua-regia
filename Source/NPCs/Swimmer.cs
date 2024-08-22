@@ -64,6 +64,11 @@ public class Swimmer : ModNPC
             new IBestiaryInfoElement[] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean });
     }
 
+    public override bool CanChat()
+    {
+        return true;
+    }
+
     public override bool CanTownNPCSpawn(int numTownNPCs)
     {
         return true;

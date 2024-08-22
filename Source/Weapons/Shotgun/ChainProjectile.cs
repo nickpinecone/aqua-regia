@@ -10,7 +10,7 @@ namespace AquaRegia.Weapons.Shotgun;
 
 public class ChainProjectile : BaseProjectile
 {
-    public override string Texture => TexturesPath.Empty;
+    public override string Texture => TexturesPath.Weapons + "Shotgun/ChainProjectile";
 
     public PropertyModule Property { get; private set; }
     public ChainModule Chain { get; private set; }
@@ -96,9 +96,12 @@ public class ChainProjectile : BaseProjectile
     {
         base.AI();
 
+        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+
         if (_didCollide || Chain.IsFarAway)
         {
-            Projectile.velocity = Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity, 1);
+            Projectile.velocity =
+                Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity, 1);
 
             if (Chain.Returned)
             {
@@ -114,7 +117,8 @@ public class ChainProjectile : BaseProjectile
             Projectile.Center = Stick.HitPoint;
 
             Main.LocalPlayer.velocity =
-                Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity).RotatedBy(MathHelper.Pi);
+                Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity)
+                    .RotatedBy(MathHelper.Pi);
 
             if (Main.LocalPlayer.Center.DistanceSQ(Stick.Target.Center) < 32f * 32f ||
                 Stick.Target.GetLifePercent() <= 0f)
@@ -128,6 +132,9 @@ public class ChainProjectile : BaseProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
+        var velocity = Projectile.velocity.SafeNormalize(Vector2.Zero);
+
+        Chain.DrawChain(Main.LocalPlayer.Center, Projectile.Center - velocity * 8f);
         Chain.DrawChain(Main.LocalPlayer.Center, Projectile.Center);
 
         return base.PreDraw(ref lightColor);
