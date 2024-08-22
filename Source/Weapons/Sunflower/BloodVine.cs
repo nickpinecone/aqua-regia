@@ -23,7 +23,7 @@ public class BloodVine : BaseProjectile
         Chain = new ChainModule(this);
         Stick = new StickModule(this);
 
-        HealTimer = new Timer(60, this);
+        HealTimer = new Timer(60);
     }
 
     public override void SetDefaults()
@@ -82,6 +82,13 @@ public class BloodVine : BaseProjectile
             Projectile.velocity = Vector2.Zero;
             Stick.ToTarget(target, Projectile.Center);
         }
+    }
+
+    public override bool PreAI()
+    {
+        HealTimer.Update();
+
+        return true;
     }
 
     public override void AI()

@@ -11,7 +11,7 @@ namespace AquaRegia.UI;
 class InterfaceSystem : ModSystem
 {
     internal UserInterface _interface;
-    internal PumpGauge _pumpGauge;
+    internal GaugeState _gaugeState;
     private GameTime _lastUpdateUI;
 
     public override void Load()
@@ -21,9 +21,9 @@ class InterfaceSystem : ModSystem
         if (!Main.dedServ)
         {
             _interface = new UserInterface();
-            _pumpGauge = new PumpGauge();
-            _pumpGauge.Activate();
-            _interface.SetState(_pumpGauge);
+            _gaugeState = new GaugeState();
+            _gaugeState.Activate();
+            _interface.SetState(_gaugeState);
         }
     }
 

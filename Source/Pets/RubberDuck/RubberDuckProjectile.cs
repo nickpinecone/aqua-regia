@@ -5,11 +5,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Pets;
+namespace AquaRegia.Pets.RubberDuck;
 
-public class DuckProjectile : ModProjectile
+public class RubberDuckProjectile : ModProjectile
 {
-    public override string Texture => TexturesPath.Pets + "DuckProjectile";
+    public override string Texture => TexturesPath.Pets + "RubberDuck/RubberDuckProjectile";
 
     public override void SetStaticDefaults()
     {
@@ -87,7 +87,7 @@ public class DuckProjectile : ModProjectile
 
         Player player = Main.player[Projectile.owner];
 
-        if (!player.dead && player.HasBuff(ModContent.BuffType<DuckBuff>()))
+        if (!player.dead && player.HasBuff(ModContent.BuffType<RubberDuckBuff>()))
         {
             Projectile.timeLeft = 2;
         }

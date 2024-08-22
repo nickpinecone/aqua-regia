@@ -4,11 +4,11 @@ using AquaRegia.Modules;
 using AquaRegia.Modules.Projectiles;
 using AquaRegia.Utils;
 
-namespace AquaRegia.NPCs;
+namespace AquaRegia.NPCs.Swimmer;
 
 public class PoolNoodle : BaseProjectile
 {
-    public override string Texture => TexturesPath.NPCs + "PoolNoodle";
+    public override string Texture => TexturesPath.NPCs + "Swimmer/PoolNoodle";
 
     public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }

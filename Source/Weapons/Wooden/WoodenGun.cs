@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 using AquaRegia.Utils;
 using AquaRegia.Modules.Weapons;
 using AquaRegia.Modules;
+using AquaRegia.UI;
+using System;
 
 namespace AquaRegia.Weapons.Wooden;
 
@@ -18,12 +20,17 @@ public class WoodenGun : BaseGun
     public PumpModule Pump { get; private set; }
     public TreeBoostModule TreeBoost { get; private set; }
 
+    private GaugeElement _gauge;
+    private Timer _timer;
+
     public WoodenGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
         Pump = new PumpModule(this);
         TreeBoost = new TreeBoostModule(this);
+
+        _timer = new Timer(10);
     }
 
     public override void SetDefaults()
@@ -54,9 +61,32 @@ public class WoodenGun : BaseGun
         TreeBoost.Initialize(Item.damage, 2);
     }
 
+    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+    {
+        base.OnSpawn(source);
+    }
+
+    public override void OnCreated(Terraria.DataStructures.ItemCreationContext context)
+    {
+        base.OnCreated(context);
+
+        ChatLog.Message("I was called");
+    }
+
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);
+
+        if (_gauge != null)
+        {
+            _timer.Update();
+
+            if (_timer.Done)
+            {
+                _gauge.Current = Math.Min(_gauge.Current + 1, 100);
+                _timer.Restart();
+            }
+        }
 
         Pump.DefaultUpdate();
         Item.damage = TreeBoost.Apply(player);
@@ -68,6 +98,12 @@ public class WoodenGun : BaseGun
     {
         if (Pump.Pumped)
         {
+            var state = ModContent.GetInstance<InterfaceSystem>();
+            _gauge = new GaugeElement(state._gaugeState.GetTexture());
+            state._gaugeState.AddGauge(_gauge);
+            _gauge.Max = 100;
+            _gauge.Current = 0;
+
             SpawnProjectile<TreeProjectile>(player, Main.MouseWorld, Vector2.Zero, Item.damage * 2, Item.knockBack * 2);
 
             Pump.Reset();

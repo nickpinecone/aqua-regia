@@ -7,11 +7,11 @@ using AquaRegia.Utils;
 using AquaRegia.Modules.Weapons;
 using AquaRegia.Modules;
 
-namespace AquaRegia.NPCs;
+namespace AquaRegia.NPCs.Swimmer;
 
 public class SwimmerGun : BaseGun
 {
-    public override string Texture => TexturesPath.NPCs + "SwimmerGun";
+    public override string Texture => TexturesPath.NPCs + "Swimmer/SwimmerGun";
 
     public SoundModule Sound { get; private set; }
     public PropertyModule Property { get; private set; }

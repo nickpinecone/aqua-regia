@@ -2,11 +2,11 @@ using AquaRegia.Utils;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Pets;
+namespace AquaRegia.Pets.RubberDuck;
 
-public class DuckBuff : ModBuff
+public class RubberDuckBuff : ModBuff
 {
-    public override string Texture => TexturesPath.Pets + "DuckBuff";
+    public override string Texture => TexturesPath.Pets + "RubberDuck/RubberDuckBuff";
 
     public override void SetStaticDefaults()
     {
@@ -18,6 +18,6 @@ public class DuckBuff : ModBuff
     {
         bool unused = false;
         player.BuffHandle_SpawnPetIfNeededAndSetTime(buffIndex, ref unused,
-                                                     ModContent.ProjectileType<DuckProjectile>());
+                                                     ModContent.ProjectileType<RubberDuckProjectile>());
     }
 }

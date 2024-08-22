@@ -12,9 +12,6 @@ namespace AquaRegia.Modules;
 
 public abstract class BaseGun : ModItem
 {
-    private List<Timer> _holdTimers = new();
-    private List<Timer> _inventoryTimers = new();
-
     protected Dictionary<Type, BaseGunModule> _modules = new();
 
     public SpriteModule Sprite { get; private set; }
@@ -22,16 +19,6 @@ public abstract class BaseGun : ModItem
     protected BaseGun()
     {
         Sprite = new SpriteModule(this);
-    }
-
-    public void AddHoldTimer(Timer timer)
-    {
-        _holdTimers.Add(timer);
-    }
-
-    public void AddInventoryTimer(Timer timer)
-    {
-        _inventoryTimers.Add(timer);
     }
 
     public bool HasModule<T>()
@@ -93,26 +80,6 @@ public abstract class BaseGun : ModItem
         var proj = Projectile.NewProjectileDirect(customSource ?? projSource, position, velocity, type, damage,
                                                   knockback, player.whoAmI);
         return (T)proj.ModProjectile;
-    }
-
-    public override void HoldItem(Player player)
-    {
-        base.HoldItem(player);
-
-        foreach (var timer in _holdTimers)
-        {
-            timer.Update();
-        }
-    }
-
-    public override void UpdateInventory(Player player)
-    {
-        base.UpdateInventory(player);
-
-        foreach (var timer in _inventoryTimers)
-        {
-            timer.Update();
-        }
     }
 
     public override bool AltFunctionUse(Player player)

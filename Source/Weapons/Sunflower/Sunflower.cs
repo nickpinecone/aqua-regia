@@ -27,7 +27,7 @@ public class Sunflower : BaseProjectile
     {
         Property = new PropertyModule(this);
         Animation = new AnimationModule(this);
-        ParticleTimer = new Timer(10, this);
+        ParticleTimer = new Timer(10, true);
         SeedTimer = new Timer(20, true);
         VineTimer = new Timer(60, true);
     }
@@ -128,6 +128,8 @@ public class Sunflower : BaseProjectile
 
     public void SpawnParticles()
     {
+        ParticleTimer.Update();
+
         var particleType = Main.IsItDay() ? DustID.YellowTorch : DustID.Blood;
 
         if (ParticleTimer.Done)

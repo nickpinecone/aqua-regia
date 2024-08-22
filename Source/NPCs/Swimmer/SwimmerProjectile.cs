@@ -4,7 +4,7 @@ using AquaRegia.Modules;
 using AquaRegia.Modules.Projectiles;
 using AquaRegia.Utils;
 
-namespace AquaRegia.NPCs;
+namespace AquaRegia.NPCs.Swimmer;
 
 public class SwimmerProjectile : BaseProjectile
 {

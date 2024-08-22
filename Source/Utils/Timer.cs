@@ -1,9 +1,12 @@
-using AquaRegia.Modules;
+using AquaRegia.Players;
 
 namespace AquaRegia.Utils;
 
 public class Timer
 {
+    public bool OnManager { get; set; }
+    public bool Managed { get; set; }
+
     public bool Paused { get; set; }
     public bool Done { get; private set; }
     public bool Started { get; private set; }
@@ -24,18 +27,13 @@ public class Timer
         Started = start;
     }
 
-    public Timer(int waitTime, BaseGun baseGun, bool start = true) : this(waitTime, start)
-    {
-        baseGun.AddHoldTimer(this);
-    }
-
-    public Timer(int waitTime, BaseProjectile baseProjectile, bool start = true) : this(waitTime, start)
-    {
-        baseProjectile.AddTimer(this);
-    }
-
     public void Restart()
     {
+        if (Managed && !OnManager)
+        {
+            TimerManager.Add(this);
+        }
+
         Started = true;
         Paused = false;
         Done = false;

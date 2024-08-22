@@ -1,4 +1,5 @@
 using System;
+using AquaRegia.Players;
 using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 
@@ -31,23 +32,13 @@ public class PumpModule : BaseGunModule
             _maxPumpLevel = Math.Max(0, value);
         }
     }
+
     public bool Pumped { get; private set; }
-
-    public Color ColorA { get; set; }
-    public Color ColorB { get; set; }
-
-    public bool DoDecrease { get; private set; }
     public Timer UpdateTimer { get; }
-    public Timer DecreaseTimer { get; }
 
-    public PumpModule(BaseGun baseGun, int updateTime = 20, int decraseTime = 20) : base(baseGun)
+    public PumpModule(BaseGun baseGun, int updateTime = 20) : base(baseGun)
     {
-        ColorA = Color.Blue;
-        ColorB = Color.Cyan;
-
-        UpdateTimer = new Timer(updateTime, baseGun);
-        DecreaseTimer = new Timer(decraseTime);
-        baseGun.AddInventoryTimer(DecreaseTimer);
+        UpdateTimer = new Timer(updateTime);
     }
 
     public void ApplyToProjectile(BaseProjectile baseProjectile)
@@ -61,15 +52,10 @@ public class PumpModule : BaseGunModule
         Pumped = false;
     }
 
-    public void StartDecrease()
-    {
-        DoDecrease = true;
-        Pumped = false;
-        DecreaseTimer.Restart();
-    }
-
     public void DefaultUpdate(int amount = 1)
     {
+        UpdateTimer.Update();
+
         if (UpdateTimer.Done && !Pumped)
         {
             _pumpLevel += amount;
@@ -84,28 +70,22 @@ public class PumpModule : BaseGunModule
         }
     }
 
-    public void DefaultDecrease(int amount = 1)
-    {
-        if (DoDecrease && DecreaseTimer.Done)
-        {
-            _pumpLevel -= amount;
-            if (_pumpLevel == 0)
-            {
-                DoDecrease = false;
-            }
-            else
-            {
-                DecreaseTimer.Restart();
-            }
-        }
-    }
-
     public void DirectUpdate(int amount = 1)
     {
         _pumpLevel += amount;
         if (_pumpLevel >= _maxPumpLevel)
         {
             Pumped = true;
+        }
+    }
+
+    public void DirectDecrease(int amount = 1)
+    {
+        _pumpLevel -= amount;
+
+        if (_pumpLevel < _maxPumpLevel)
+        {
+            Pumped = false;
         }
     }
 }

@@ -9,12 +9,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using AquaRegia.Utils;
 
-namespace AquaRegia.NPCs;
+namespace AquaRegia.NPCs.Swimmer;
 
 [AutoloadHead]
 public class Swimmer : ModNPC
 {
-    public override string Texture => TexturesPath.NPCs + "Swimmer";
+    public override string Texture => TexturesPath.NPCs + "Swimmer/Swimmer";
 
     public override void SetStaticDefaults()
     {
@@ -118,7 +118,7 @@ public class Swimmer : ModNPC
         new NPCShop(Type)
             .Add(ItemID.BottledWater)
             .Add<Accessories.FrogHat.FrogHat>()
-            .Add<Pets.DuckItem>()
+            .Add<Pets.RubberDuck.RubberDuck>()
             .Add<Weapons.Shotgun.Shotgun>(Condition.DownedKingSlime)
             .Register();
     }

@@ -126,7 +126,7 @@ Mods: {
 					'''
 			}
 
-			DuckItem: {
+			RubberDuck: {
 				DisplayName: Rubber Egg
 				Tooltip: Summons a rubber ducky that can float on water!
 			}
@@ -180,6 +180,7 @@ Mods: {
 			SeedProjectile.DisplayName: Seed Projectile
 			SeedExplosion.DisplayName: Seed Explosion
 			BloodVine.DisplayName: Blood Vine
+			RubberDuckProjectile.DisplayName: Rubber Duck Projectile
 		}
 
 		NPCs: {
@@ -205,7 +206,7 @@ Mods: {
 		}
 
 		Buffs: {
-			DuckBuff: {
+			RubberDuckBuff: {
 				Description: A rubber ducky is following you
 				DisplayName: Rubber Ducky
 			}

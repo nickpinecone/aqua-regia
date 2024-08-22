@@ -20,7 +20,7 @@ public class StarfishProjectile : BaseProjectile
     public SpriteModule Sprite { get; private set; }
     public BoomerangModule Boomerang { get; private set; }
 
-    private Timer _stickTime;
+    public Timer StickTimer { get; private set; }
 
     public StarfishProjectile() : base()
     {
@@ -30,7 +30,7 @@ public class StarfishProjectile : BaseProjectile
         Sprite = new SpriteModule(this);
         Boomerang = new BoomerangModule(this);
 
-        _stickTime = new Timer(10, this, false);
+        StickTimer = new Timer(10, false);
     }
 
     public override void SetDefaults()
@@ -73,7 +73,7 @@ public class StarfishProjectile : BaseProjectile
 
             Stick.BeforeVelocity = Projectile.velocity;
             Projectile.velocity.Normalize();
-            _stickTime.Restart();
+            StickTimer.Restart();
         }
 
         var invert = Projectile.velocity.RotatedBy(MathHelper.Pi);
@@ -88,6 +88,13 @@ public class StarfishProjectile : BaseProjectile
 
         var particle = Particle.Single(DustID.Coralstone, Projectile.Center, new Vector2(8, 8), Vector2.Zero, 1f);
         particle.noGravity = true;
+    }
+
+    public override bool PreAI()
+    {
+        StickTimer.Update();
+
+        return true;
     }
 
     public override void AI()
@@ -108,7 +115,7 @@ public class StarfishProjectile : BaseProjectile
 
         Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, 0.2f);
 
-        if (_stickTime.Done && Stick.Target != null)
+        if (StickTimer.Done && Stick.Target != null)
         {
             Stick.Detach();
             Projectile.velocity = Stick.BeforeVelocity;

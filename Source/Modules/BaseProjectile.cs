@@ -12,7 +12,6 @@ namespace AquaRegia.Modules;
 
 public abstract class BaseProjectile : ModProjectile
 {
-    private List<Timer> _timers = new();
     protected AquaRegia.ProjectileSource _source = null;
 
     protected Dictionary<Type, BaseProjectileModule> _modules = new();
@@ -24,11 +23,6 @@ public abstract class BaseProjectile : ModProjectile
     protected BaseProjectile()
     {
         _immunity = new ImmunityModule(this);
-    }
-
-    public void AddTimer(Timer timer)
-    {
-        _timers.Add(timer);
     }
 
     public bool HasModule<T>()
@@ -157,10 +151,5 @@ public abstract class BaseProjectile : ModProjectile
         }
 
         _immunity.Update();
-
-        foreach (var timer in _timers)
-        {
-            timer.Update();
-        }
     }
 }
