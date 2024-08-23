@@ -6,8 +6,6 @@ using Terraria.ModLoader;
 using AquaRegia.Utils;
 using AquaRegia.Modules.Weapons;
 using AquaRegia.Modules;
-using AquaRegia.UI;
-using System;
 
 namespace AquaRegia.Weapons.Wooden;
 
@@ -20,18 +18,12 @@ public class WoodenGun : BaseGun
     public PumpModule Pump { get; private set; }
     public TreeBoostModule TreeBoost { get; private set; }
 
-    private List<GaugeElement> _gauges = new();
-    private List<GaugeElement> _remove = new();
-    private Timer _timer;
-
     public WoodenGun() : base()
     {
         Sound = new SoundModule(this);
         Property = new PropertyModule(this);
         Pump = new PumpModule(this);
         TreeBoost = new TreeBoostModule(this);
-
-        _timer = new Timer(10);
     }
 
     public override void SetDefaults()
@@ -66,29 +58,6 @@ public class WoodenGun : BaseGun
     {
         base.HoldItem(player);
 
-        _timer.Update();
-
-        if (_timer.Done)
-        {
-            foreach (var gauge in _gauges)
-            {
-                gauge.Current = Math.Min(gauge.Current + 1, 100);
-                if (gauge.Current >= gauge.Max)
-                {
-                    var state = ModContent.GetInstance<InterfaceSystem>();
-                    state.RemoveGauge(gauge);
-                    _remove.Add(gauge);
-                }
-            }
-
-            foreach (var gauge in _remove)
-            {
-                _gauges.Remove(gauge);
-            }
-            _remove.Clear();
-            _timer.Restart();
-        }
-
         Pump.DefaultUpdate();
         Item.damage = TreeBoost.Apply(player);
 
@@ -97,17 +66,8 @@ public class WoodenGun : BaseGun
 
     public override void AltUseAlways(Player player)
     {
-        var state = ModContent.GetInstance<InterfaceSystem>();
-        var gauge = new GaugeElement();
-        state.AddGauge(gauge);
-        _gauges.Add(gauge);
-
-        gauge.Max = Main.rand.Next(10, 100);
-        gauge.Current = 0;
-
         if (Pump.Pumped)
         {
-
             SpawnProjectile<TreeProjectile>(player, Main.MouseWorld, Vector2.Zero, Item.damage * 2, Item.knockBack * 2);
 
             Pump.Reset();

@@ -10,12 +10,10 @@ public class PumpModule : BaseGunModule
     private int _pumpLevel;
     public int PumpLevel
     {
-        get
-        {
+        get {
             return _pumpLevel;
         }
-        set
-        {
+        set {
             _pumpLevel = Math.Max(0, value);
         }
     }
@@ -23,17 +21,16 @@ public class PumpModule : BaseGunModule
     private int _maxPumpLevel;
     public int MaxPumpLevel
     {
-        get
-        {
+        get {
             return _maxPumpLevel;
         }
-        set
-        {
+        set {
             _maxPumpLevel = Math.Max(0, value);
         }
     }
 
-    public bool Pumped { get; private set; }
+    public bool Pumped { get; private set; } = false;
+    public bool Active { get; set; } = true;
     public Timer UpdateTimer { get; }
 
     public PumpModule(BaseGun baseGun, int updateTime = 20) : base(baseGun)
@@ -54,18 +51,22 @@ public class PumpModule : BaseGunModule
 
     public void DefaultUpdate(int amount = 1)
     {
-        UpdateTimer.Update();
-
-        if (UpdateTimer.Done && !Pumped)
+        if (Active)
         {
-            _pumpLevel += amount;
-            if (_pumpLevel >= _maxPumpLevel)
+            UpdateTimer.Update();
+
+            if (UpdateTimer.Done && !Pumped)
             {
-                Pumped = true;
-            }
-            else
-            {
-                UpdateTimer.Restart();
+                _pumpLevel += amount;
+                if (_pumpLevel >= _maxPumpLevel)
+                {
+                    Pumped = true;
+                }
+                else
+                {
+                    Pumped = false;
+                    UpdateTimer.Restart();
+                }
             }
         }
     }
@@ -73,17 +74,12 @@ public class PumpModule : BaseGunModule
     public void DirectUpdate(int amount = 1)
     {
         _pumpLevel += amount;
+
         if (_pumpLevel >= _maxPumpLevel)
         {
             Pumped = true;
         }
-    }
-
-    public void DirectDecrease(int amount = 1)
-    {
-        _pumpLevel -= amount;
-
-        if (_pumpLevel < _maxPumpLevel)
+        else
         {
             Pumped = false;
         }

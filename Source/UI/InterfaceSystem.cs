@@ -16,8 +16,6 @@ class InterfaceSystem : ModSystem
     internal GaugeState _gaugeState;
     private GameTime _lastUpdateUI;
 
-    private int _halign = 97;
-
     public override void Load()
     {
         base.Load();
@@ -31,31 +29,27 @@ class InterfaceSystem : ModSystem
         }
     }
 
+    public GaugeElement CreateGauge(string tooltip = "", int max = 0, int current = 0)
+    {
+        var gauge = new GaugeElement() {
+            Tooltip = tooltip,
+            Max = max,
+            Current = current,
+        };
+
+        AddGauge(gauge);
+
+        return gauge;
+    }
+
     public void AddGauge(GaugeElement gauge)
     {
-        gauge.HAlign = _halign / (float)100;
-        _halign -= 2;
-        gauge.VAlign = 0.98f;
-
-        _gaugeState.Append(gauge);
+        _gaugeState.Add(gauge);
     }
 
     public void RemoveGauge(GaugeElement gauge)
     {
-        _gaugeState.RemoveChild(gauge);
-
-        foreach (var child in _gaugeState.Children)
-        {
-            if (child is GaugeElement element)
-            {
-                if (child.HAlign < gauge.HAlign)
-                {
-                    child.HAlign += 0.02f;
-                }
-            }
-        }
-
-        _halign += 2;
+        _gaugeState.Remove(gauge);
     }
 
     public override void UpdateUI(GameTime gameTime)
@@ -76,14 +70,13 @@ class InterfaceSystem : ModSystem
         int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
         if (mouseTextIndex != -1)
         {
-            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("AquaRegia: Interface", delegate
-            {
-                if (_lastUpdateUI != null && _interface?.CurrentState != null)
-                {
-                    _interface.Draw(Main.spriteBatch, _lastUpdateUI);
-                }
-                return true;
-            }, InterfaceScaleType.UI));
+            layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer("AquaRegia: Interface", delegate {
+                              if (_lastUpdateUI != null && _interface?.CurrentState != null)
+                              {
+                                  _interface.Draw(Main.spriteBatch, _lastUpdateUI);
+                              }
+                              return true;
+                          }, InterfaceScaleType.UI));
         }
     }
 }

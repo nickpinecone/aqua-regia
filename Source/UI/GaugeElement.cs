@@ -13,13 +13,15 @@ public class GaugeElement : UIImage
 
     public int Current { get; set; } = 0;
     public int Max { get; set; } = 0;
-    public string Tooltip { get; set; } = "Gauge";
+    public string Tooltip { get; set; } = "";
     public bool Hidden { get; set; } = false;
+    public bool Active { get; set; } = true;
 
     public Color ColorA { get; set; } = Color.Blue;
     public Color ColorB { get; set; } = Color.Cyan;
     public Color ColorBorder { get; set; } = Color.White;
     public Color ColorBorderFull { get; set; } = Color.Gold;
+    public Color ColorBorderInactive { get; set; } = Color.Gray;
 
     public GaugeElement() : base(Texture)
     {
@@ -47,7 +49,11 @@ public class GaugeElement : UIImage
 
         float percent = Current / (float)Max;
 
-        if (percent >= 1f)
+        if (!Active)
+        {
+            Color = ColorBorderInactive;
+        }
+        else if (percent >= 1f)
         {
             Color = ColorBorderFull;
         }
@@ -76,7 +82,7 @@ public class GaugeElement : UIImage
 
     public override void Update(GameTime gameTime)
     {
-        if (Hidden)
+        if (Hidden || !Active)
         {
             return;
         }

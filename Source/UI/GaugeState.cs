@@ -15,32 +15,69 @@ namespace AquaRegia.UI;
 
 class GaugeState : UIState
 {
-    GaugeElement _gauge;
+    GaugeElement _pumpGauge;
+    List<GaugeElement> _gauges = new();
+
+    private int _halign = 97;
 
     public override void OnInitialize()
     {
         GaugeElement.Texture = ModContent.Request<Texture2D>(TexturesPath.UI + "GaugeFrame");
 
-        _gauge = new GaugeElement();
-        _gauge.HAlign = 0.99f;
-        _gauge.VAlign = 0.98f;
+        _pumpGauge = new GaugeElement();
+        _pumpGauge.Tooltip = "Pump Gauge";
+        _pumpGauge.HAlign = 0.99f;
+        _pumpGauge.VAlign = 0.98f;
 
-        Append(_gauge);
+        Append(_pumpGauge);
+    }
+
+    public void Add(GaugeElement gauge)
+    {
+        if (!_gauges.Contains(gauge))
+        {
+            gauge.HAlign = _halign / (float)100;
+            _halign -= 2;
+            gauge.VAlign = 0.98f;
+
+            _gauges.Add(gauge);
+            Append(gauge);
+        }
+    }
+
+    public void Remove(GaugeElement gauge)
+    {
+        if (_gauges.Contains(gauge))
+        {
+            _gauges.Remove(gauge);
+            RemoveChild(gauge);
+
+            foreach (var child in _gauges)
+            {
+                if (child.HAlign < gauge.HAlign)
+                {
+                    child.HAlign += 0.02f;
+                }
+            }
+
+            _halign += 2;
+        }
     }
 
     public override void Draw(SpriteBatch spriteBatch)
     {
         if (!(Main.LocalPlayer.HeldItem.ModItem is BaseGun baseGun && baseGun.HasModule<PumpModule>()))
         {
-            _gauge.Hidden = true;
+            _pumpGauge.Hidden = true;
         }
         else
         {
-            _gauge.Hidden = false;
+            _pumpGauge.Hidden = false;
             var pump = ((BaseGun)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
 
-            _gauge.Current = pump.PumpLevel;
-            _gauge.Max = pump.MaxPumpLevel;
+            _pumpGauge.Active = pump.Active;
+            _pumpGauge.Current = pump.PumpLevel;
+            _pumpGauge.Max = pump.MaxPumpLevel;
         }
 
         base.Draw(spriteBatch);

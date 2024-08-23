@@ -1,12 +1,7 @@
-using AquaRegia.Players;
-
 namespace AquaRegia.Utils;
 
 public class Timer
 {
-    public bool OnManager { get; set; }
-    public bool Managed { get; set; }
-
     public bool Paused { get; set; }
     public bool Done { get; private set; }
     public bool Started { get; private set; }
@@ -29,11 +24,6 @@ public class Timer
 
     public void Restart()
     {
-        if (Managed && !OnManager)
-        {
-            TimerManager.Add(this);
-        }
-
         Started = true;
         Paused = false;
         Done = false;
