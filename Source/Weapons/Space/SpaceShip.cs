@@ -14,7 +14,6 @@ public class SpaceShip : BaseProjectile
 
     public PropertyModule Property { get; private set; }
     public HomeModule Home { get; private set; }
-    public AnimationModule Animation { get; private set; }
 
     private int _direction = 0;
     private SpaceLaser _laser = null;
@@ -31,7 +30,6 @@ public class SpaceShip : BaseProjectile
     {
         Property = new PropertyModule(this);
         Home = new HomeModule(this);
-        Animation = new AnimationModule(this);
     }
 
     public override void SetStaticDefaults()
@@ -100,7 +98,7 @@ public class SpaceShip : BaseProjectile
     {
         base.AI();
 
-        Animation.Sprite(this, 6);
+        Property.AnimateSprite(this, 6);
         Projectile.timeLeft = 2;
 
         if (_reachStart)

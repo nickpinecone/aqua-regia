@@ -4,7 +4,6 @@ public class Timer
 {
     public bool Paused { get; set; }
     public bool Done { get; private set; }
-    public bool Started { get; private set; }
 
     public int Current { get; private set; }
     public int WaitTime { get; set; }
@@ -16,15 +15,13 @@ public class Timer
         }
     }
 
-    public Timer(int waitTime, bool start = true)
+    public Timer(int waitTime)
     {
         WaitTime = waitTime;
-        Started = start;
     }
 
     public void Restart()
     {
-        Started = true;
         Paused = false;
         Done = false;
         Current = 0;
@@ -32,7 +29,7 @@ public class Timer
 
     public void Update()
     {
-        if (Started && !Done && !Paused)
+        if (!Done && !Paused)
         {
             Current += 1;
             if (Current >= WaitTime)

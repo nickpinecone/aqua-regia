@@ -17,14 +17,17 @@ public class GraniteChunk : BaseProjectile
     public override string Texture => TexturesPath.Weapons + "Granite/GraniteChunk";
 
     public PropertyModule Property { get; private set; }
-    public AnimationModule Animation { get; private set; }
+    public Animation<Vector2> Position { get; private set; }
+    public Animation<int> Disappear { get; private set; }
 
     private Vector2 _endPosition;
 
     public GraniteChunk() : base()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
+
+        Position = new Animation<Vector2>(5, Ease.InOut);
+        Disappear = new Animation<int>(10);
     }
 
     public override void SetDefaults()
@@ -97,13 +100,11 @@ public class GraniteChunk : BaseProjectile
     {
         base.AI();
 
-        var pos = Animation.Animate<Vector2>("pos", Projectile.Center, _endPosition, 5, Ease.InOut);
-        Projectile.Center = pos.Update() ?? Projectile.Center;
+        Projectile.Center = Position.Animate(Projectile.Center, _endPosition) ?? Projectile.Center;
 
         if (Projectile.timeLeft <= 10)
         {
-            var disappear = Animation.Animate<int>("disappear", Projectile.alpha, 255, 10, Ease.Linear);
-            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+            Projectile.alpha = Disappear.Animate(0, 255) ?? Projectile.alpha;
         }
     }
 }

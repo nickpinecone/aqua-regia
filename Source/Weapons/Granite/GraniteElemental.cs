@@ -14,7 +14,6 @@ public class GraniteElemental : BaseProjectile
     public override string Texture => TexturesPath.Weapons + "Granite/GraniteElemental";
 
     public PropertyModule Property { get; private set; }
-    public AnimationModule Animation { get; private set; }
     public SpriteModule Sprite { get; private set; }
 
     public SoundStyle RockCrush { get; private set; }
@@ -22,7 +21,6 @@ public class GraniteElemental : BaseProjectile
     public GraniteElemental()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
         Sprite = new SpriteModule(this);
 
         RockCrush = new SoundStyle(AudioPath.Kill + "RockCrush") with
@@ -71,6 +69,6 @@ public class GraniteElemental : BaseProjectile
 
         Main.LocalPlayer.Center = Projectile.Center;
         Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, 0.2f);
-        Animation.Sprite(this, 4);
+        Property.AnimateSprite(this, 4);
     }
 }

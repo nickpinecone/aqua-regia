@@ -10,7 +10,6 @@ public class ChainModule : BaseProjectileModule
 {
     public Asset<Texture2D> Texture { get; private set; }
     public Rectangle Source { get; private set; }
-    public AnimationModule Animation { get; private set; }
 
     public float MaxPosition { get; set; }
     public float BackSpeed { get; set; }
@@ -22,7 +21,6 @@ public class ChainModule : BaseProjectileModule
 
     public ChainModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
-        Animation = new AnimationModule(baseProjectile);
     }
 
     public void SetTexture(string path, Rectangle rect)

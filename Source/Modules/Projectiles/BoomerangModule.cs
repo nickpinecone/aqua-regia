@@ -1,3 +1,4 @@
+using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -5,7 +6,7 @@ namespace AquaRegia.Modules.Projectiles;
 
 public class BoomerangModule : BaseProjectileModule
 {
-    public AnimationModule Animation { get; private set; }
+    public Animation<Vector2> Slow { get; private set; }
     public HomeModule Home { get; private set; }
 
     public float MaxPosition { get; set; }
@@ -17,7 +18,7 @@ public class BoomerangModule : BaseProjectileModule
 
     public BoomerangModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
-        Animation = new AnimationModule(baseProjectile);
+        Slow = new Animation<Vector2>(0, Ease.InOut);
         Home = new HomeModule(baseProjectile);
     }
 
@@ -33,10 +34,10 @@ public class BoomerangModule : BaseProjectileModule
 
     public Vector2 ReturnToPlayer(Player player, Vector2 position, Vector2 velocity, int slowFrames = 20)
     {
-        var slow = Animation.Animate<Vector2>("slow", velocity, Vector2.Zero, slowFrames, Ease.InOut);
-        velocity = slow.Update() ?? velocity;
+        Slow.Frames = slowFrames;
+        velocity = Slow.Animate(velocity, Vector2.Zero) ?? velocity;
 
-        if (slow.Finished)
+        if (Slow.Finished)
         {
             velocity = Home.Calculate(position, velocity, player.Center);
 

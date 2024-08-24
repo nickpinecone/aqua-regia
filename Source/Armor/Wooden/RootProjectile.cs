@@ -11,12 +11,14 @@ public class RootProjectile : BaseProjectile
     public override string Texture => TexturesPath.Armor + "Wooden/RootProjectile";
 
     public PropertyModule Property { get; set; }
-    public AnimationModule Animation { get; set; }
+    public Animation<int> Appear { get; private set; }
+    public Animation<float> Scale { get; private set; }
 
     public RootProjectile() : base()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
+        Appear = new Animation<int>(10);
+        Scale = new Animation<float>(60, Ease.InOut);
     }
 
     public override void SetDefaults()
@@ -68,8 +70,7 @@ public class RootProjectile : BaseProjectile
     {
         base.AI();
 
-        var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        Projectile.alpha = Appear.Animate(255, 0) ?? Projectile.alpha;
 
         if (Main.LocalPlayer.velocity.Length() >= 1e-3)
         {
@@ -78,20 +79,7 @@ public class RootProjectile : BaseProjectile
         else
         {
             Projectile.timeLeft = 10;
-
-            var upscale =
-                Animation.Animate<float>("upscale", Projectile.scale, Projectile.scale + 0.1f, 60, Ease.InOut);
-            var downscale = Animation.Animate<float>("downscale", Projectile.scale + 0.1f, Projectile.scale, 60,
-                                                     Ease.InOut, new string[] { "upscale" });
-
-            Projectile.scale = upscale.Update() ?? Projectile.scale;
-            Projectile.scale = downscale.Update() ?? Projectile.scale;
-
-            if (downscale.Finished)
-            {
-                upscale.Reset();
-                downscale.Reset();
-            }
+            Projectile.scale = Scale.Loop(Projectile.scale, Projectile.scale + 0.1f);
         }
     }
 }

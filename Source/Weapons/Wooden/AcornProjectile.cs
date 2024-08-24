@@ -13,16 +13,15 @@ public class AcornProjectile : BaseProjectile
     public override string Texture => TexturesPath.Weapons + "Wooden/AcornProjectile";
 
     public PropertyModule Property { get; private set; }
-    public AnimationModule Animation { get; private set; }
     public SpriteModule Sprite { get; private set; }
     public HeadBounceModule HeadBounce { get; private set; }
 
     public SoundStyle BonkSound { get; private set; }
+    public Animation<int> Appear { get; private set; }
 
     public AcornProjectile() : base()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
         Sprite = new SpriteModule(this);
         HeadBounce = new HeadBounceModule(this, Property);
 
@@ -31,6 +30,8 @@ public class AcornProjectile : BaseProjectile
             Volume = 0.4f,
             PitchVariance = 0.1f,
         };
+
+        Appear = new Animation<int>(10);
     }
 
     public override void SetDefaults()
@@ -85,8 +86,7 @@ public class AcornProjectile : BaseProjectile
     {
         base.AI();
 
-        var appear = Animation.Animate<int>("apppear", 255, 0, 10, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        Projectile.alpha = Appear.Animate(255, 0) ?? Projectile.alpha;
 
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, 0.1f);

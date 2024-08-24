@@ -13,16 +13,21 @@ public class TreeProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Weapons + "Wooden/TreeProjectile";
 
-    public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }
+    public Animation<int> Appear { get; private set; }
+    public Animation<float> Rotate { get; private set; }
+    public Animation<Vector2> Velocity { get; private set; }
 
     private bool _didCollide = false;
     private int _direction = 0;
 
     public TreeProjectile() : base()
     {
-        Animation = new AnimationModule(this);
         Property = new PropertyModule(this);
+
+        Appear = new Animation<int>(6);
+        Rotate = new Animation<float>(20, Ease.InOut, new BaseAnimation[] { Appear });
+        Velocity = new Animation<Vector2>(20, Ease.InOut, new BaseAnimation[] { Appear });
     }
 
     public override void SetDefaults()
@@ -93,25 +98,22 @@ public class TreeProjectile : BaseProjectile
     {
         base.AI();
 
-        var appear = Animation.Animate<int>("appear", 255, 0, 6, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        Projectile.alpha = Appear.Animate(255, 0) ?? Projectile.alpha;
 
-        if (appear.Finished)
+        if (Appear.Finished)
         {
             Projectile.friendly = true;
         }
 
-        var rot =
-            Animation.Animate<float>("rot", MathHelper.ToRadians(-30 * _direction),
-                                     MathHelper.ToRadians(110 * _direction), 20, Ease.InOut, new string[] { "appear" });
-        Projectile.rotation = rot.Update() ?? Projectile.rotation;
+        Projectile.rotation =
+            Rotate.Animate(MathHelper.ToRadians(-30 * _direction), MathHelper.ToRadians(110 * _direction)) ??
+            Projectile.rotation;
 
-        var vel = Animation.Animate<Vector2>("vel", Vector2.Zero,
-                                             Vector2.UnitY.RotatedBy(MathHelper.ToRadians(-30 * _direction)) * 18f, 20,
-                                             Ease.InOut, new string[] { "appear" });
-        Projectile.velocity = vel.Update() ?? Projectile.velocity;
+        Projectile.velocity =
+            Velocity.Animate(Vector2.Zero, Vector2.UnitY.RotatedBy(MathHelper.ToRadians(-30 * _direction)) * 18f) ??
+            Projectile.velocity;
 
-        if (rot.Finished)
+        if (Rotate.Finished)
         {
             Projectile.Kill();
         }

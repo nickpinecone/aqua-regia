@@ -13,7 +13,7 @@ public class SwordProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Weapons + "Golden/SwordProjectile";
 
-    public AnimationModule Animation { get; private set; }
+    public Animation<int> Appear { get; private set; }
     public PropertyModule Property { get; private set; }
     public StickModule Stick { get; private set; }
 
@@ -27,11 +27,12 @@ public class SwordProjectile : BaseProjectile
 
     public SwordProjectile() : base()
     {
-        Animation = new AnimationModule(this);
+        Appear = new Animation<int>(10);
         Property = new PropertyModule(this);
         Stick = new StickModule(this);
 
-        MetalHitSound = new SoundStyle(AudioPath.Impact + "MetalHit") {
+        MetalHitSound = new SoundStyle(AudioPath.Impact + "MetalHit")
+        {
             Volume = 0.7f,
             PitchVariance = 0.1f,
         };
@@ -129,14 +130,12 @@ public class SwordProjectile : BaseProjectile
 
         if (Projectile.timeLeft <= 10)
         {
-            var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
-            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+            Projectile.alpha = Appear.Backwards() ?? Projectile.alpha;
         }
 
-        var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        Projectile.alpha = Appear.Animate(255, 0) ?? Projectile.alpha;
 
-        if (appear.Finished)
+        if (Appear.Finished)
         {
             if (Stick.Target == null)
             {

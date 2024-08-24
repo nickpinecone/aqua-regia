@@ -15,7 +15,7 @@ public class HugeBubble : BaseProjectile
     public override string Texture => TexturesPath.Weapons + "Sea/BubbleProjectile";
 
     public PropertyModule Property { get; private set; }
-    public AnimationModule Animation { get; private set; }
+    public Animation<float> Scale { get; private set; }
 
     public NPC Target { get; set; }
     public Vector2 Size { get; private set; }
@@ -27,7 +27,8 @@ public class HugeBubble : BaseProjectile
 
     public bool IsMaxStage
     {
-        get {
+        get
+        {
             return Stage >= MaxStage;
         }
     }
@@ -39,7 +40,8 @@ public class HugeBubble : BaseProjectile
     public HugeBubble() : base()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
+
+        Scale = new Animation<float>(10);
     }
 
     public override void SetDefaults()
@@ -91,10 +93,10 @@ public class HugeBubble : BaseProjectile
                 Projectile.alpha = 155;
             }
 
-            var scale = Animation.Animate<float>("scale", 0f, 0f, 10, Ease.Linear);
-            scale.Start = MaxScale / MaxStage * Stage;
-            scale.End = scale.Start + MaxScale / MaxStage;
-            scale.Reset();
+            Scale.Start = MaxScale / MaxStage * Stage;
+            Scale.End = Scale.Start + MaxScale / MaxStage;
+            Scale.Reset();
+            Scale.Initiate = false;
         }
     }
 
@@ -162,8 +164,7 @@ public class HugeBubble : BaseProjectile
             }
         }
 
-        var scale = Animation.Get<float>("scale");
-        Projectile.scale = scale?.Update() ?? Projectile.scale;
+        Projectile.scale = Scale.Animate(Scale.Start, Scale.End) ?? Projectile.scale;
 
         WorldRectangle = new Rectangle((int)(Projectile.Center.X - Size.X / 2), (int)(Projectile.Center.Y - Size.Y / 2),
                                        (int)Size.X, (int)Size.Y);

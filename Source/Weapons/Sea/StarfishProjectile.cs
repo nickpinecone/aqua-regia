@@ -15,7 +15,6 @@ public class StarfishProjectile : BaseProjectile
     public override string Texture => TexturesPath.Weapons + "Sea/StarfishProjectile";
 
     public PropertyModule Property { get; private set; }
-    public AnimationModule Animation { get; private set; }
     public StickModule Stick { get; private set; }
     public SpriteModule Sprite { get; private set; }
     public BoomerangModule Boomerang { get; private set; }
@@ -25,12 +24,11 @@ public class StarfishProjectile : BaseProjectile
     public StarfishProjectile() : base()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
         Stick = new StickModule(this);
         Sprite = new SpriteModule(this);
         Boomerang = new BoomerangModule(this);
 
-        StickTimer = new Timer(10, false);
+        StickTimer = new Timer(10);
     }
 
     public override void SetDefaults()

@@ -13,7 +13,7 @@ public class Sunflower : BaseProjectile
     public override string Texture => TexturesPath.Weapons + "Sunflower/Sunflower";
 
     public PropertyModule Property { get; private set; }
-    public AnimationModule Animation { get; private set; }
+    public Animation<int> Appear { get; private set; }
 
     public Timer SeedTimer { get; private set; }
     public Timer VineTimer { get; private set; }
@@ -26,10 +26,11 @@ public class Sunflower : BaseProjectile
     public Sunflower() : base()
     {
         Property = new PropertyModule(this);
-        Animation = new AnimationModule(this);
-        ParticleTimer = new Timer(10, true);
-        SeedTimer = new Timer(20, true);
-        VineTimer = new Timer(60, true);
+        Appear = new Animation<int>(10);
+
+        ParticleTimer = new Timer(10);
+        SeedTimer = new Timer(20);
+        VineTimer = new Timer(60);
     }
 
     public override void SetStaticDefaults()
@@ -81,13 +82,11 @@ public class Sunflower : BaseProjectile
 
         if (Projectile.timeLeft <= 10)
         {
-            var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
-            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+            Projectile.alpha = Appear.Backwards() ?? Projectile.alpha;
         }
         else
         {
-            var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
-            Projectile.alpha = appear.Update() ?? Projectile.alpha;
+            Projectile.alpha = Appear.Animate(255, 0) ?? Projectile.alpha;
         }
 
         if (!Main.IsItDay())

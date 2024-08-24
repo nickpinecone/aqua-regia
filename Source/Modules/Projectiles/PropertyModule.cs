@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace AquaRegia.Modules.Projectiles;
 
@@ -53,5 +54,21 @@ public class PropertyModule : BaseProjectileModule
         velocity.Y += Gravity;
 
         return velocity;
+    }
+
+    public void AnimateSprite(BaseProjectile baseProjectile, int delay)
+    {
+        baseProjectile.Projectile.frameCounter += 1;
+
+        if (baseProjectile.Projectile.frameCounter >= delay)
+        {
+            baseProjectile.Projectile.frameCounter = 0;
+            baseProjectile.Projectile.frame += 1;
+
+            if (baseProjectile.Projectile.frame >= Main.projFrames[baseProjectile.Projectile.type])
+            {
+                baseProjectile.Projectile.frame = 0;
+            }
+        }
     }
 }

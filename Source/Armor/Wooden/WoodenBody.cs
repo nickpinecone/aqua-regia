@@ -34,8 +34,8 @@ public class WoodenBody : ModItem
         Item.rare = ItemRarityID.White;
         Item.defense = 2;
 
-        RootTimer = new Timer(30, true);
-        HealTimer = new Timer(300, true);
+        RootTimer = new Timer(30);
+        HealTimer = new Timer(300);
     }
 
     public override void UpdateEquip(Player player)

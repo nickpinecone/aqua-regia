@@ -12,7 +12,7 @@ public class DaggerProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Weapons + "Golden/DaggerProjectile";
 
-    public AnimationModule Animation { get; private set; }
+    public Animation<int> Appear { get; private set; }
     public PropertyModule Property { get; private set; }
     public StickModule Stick { get; private set; }
 
@@ -24,11 +24,12 @@ public class DaggerProjectile : BaseProjectile
 
     public DaggerProjectile() : base()
     {
-        Animation = new AnimationModule(this);
+        Appear = new Animation<int>(10);
         Property = new PropertyModule(this);
         Stick = new StickModule(this);
 
-        SlashSound = new SoundStyle(AudioPath.Impact + "Slash") {
+        SlashSound = new SoundStyle(AudioPath.Impact + "Slash")
+        {
             Volume = 0.5f,
             PitchVariance = 0.1f,
         };
@@ -104,14 +105,16 @@ public class DaggerProjectile : BaseProjectile
         if (_penetrateAmount >= _penetrateMax)
         {
             Projectile.friendly = false;
-            var disappear = Animation.Animate<int>("disappear", 0, 255, 10, Ease.Linear);
-            Projectile.alpha = disappear.Update() ?? Projectile.alpha;
+            Projectile.alpha = Appear.Backwards() ?? Projectile.alpha;
+        }
+        else
+        {
+            Projectile.alpha = Appear.Animate(255, 0) ?? Projectile.alpha;
+            // ChatLog.Message(Appear.Value.ToString());
+            // ChatLog.Message(Appear.Finished);
         }
 
-        var appear = Animation.Animate<int>("appear", 255, 0, 10, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
-
-        if (appear.Finished)
+        if (Appear.Finished)
         {
             if (Stick.Target == null)
             {

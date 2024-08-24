@@ -12,9 +12,12 @@ public class BubbleProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Weapons + "Sea/BubbleProjectile";
 
-    public AnimationModule Animation { get; private set; }
     public PropertyModule Property { get; private set; }
     public HomeModule Home { get; private set; }
+
+    public Animation<int> Appear { get; private set; }
+    public Animation<Vector2> Position { get; private set; }
+
     public StickModule Stick { get; private set; }
 
     private SeaPlayer _seaPlayer = null;
@@ -22,10 +25,12 @@ public class BubbleProjectile : BaseProjectile
 
     public BubbleProjectile() : base()
     {
-        Animation = new AnimationModule(this);
         Property = new PropertyModule(this);
         Home = new HomeModule(this);
         Stick = new StickModule(this);
+
+        Appear = new Animation<int>(10);
+        Position = new Animation<Vector2>(20);
     }
 
     public override void SetDefaults()
@@ -58,7 +63,8 @@ public class BubbleProjectile : BaseProjectile
 
     public override bool? CanHitNPC(NPC target)
     {
-        if (Stick.Target == null && !target.friendly && target.getRect().Intersects(Projectile.getRect()) && _seaPlayer.CanHome(target))
+        if (Stick.Target == null && !target.friendly && target.getRect().Intersects(Projectile.getRect()) &&
+            _seaPlayer.CanHome(target))
         {
             Projectile.friendly = false;
 
@@ -84,10 +90,9 @@ public class BubbleProjectile : BaseProjectile
     {
         base.AI();
 
-        var appear = Animation.Animate<int>("appear", 255, 100, 10, Ease.Linear);
-        Projectile.alpha = appear.Update() ?? Projectile.alpha;
+        Projectile.alpha = Appear.Animate(255, 100) ?? Projectile.alpha;
 
-        if (appear.Finished && Stick.Target == null)
+        if (Appear.Finished && Stick.Target == null)
         {
             Projectile.velocity =
                 Home.Default(Projectile.Center, Projectile.velocity, (target) => _seaPlayer.CanHome(target)) ??
@@ -96,10 +101,9 @@ public class BubbleProjectile : BaseProjectile
 
         if (Stick.Target != null)
         {
-            var pos = Animation.Animate<Vector2>("pos", Projectile.Center, Stick.Target.Center, 20, Ease.Linear);
-            Projectile.Center = pos.Update() ?? Projectile.Center;
+            Projectile.Center = Position.Animate(Projectile.Center, Stick.Target.Center) ?? Projectile.Center;
 
-            if (pos.Finished)
+            if (Position.Finished)
             {
                 _wasConsumed = true;
                 SoundEngine.PlaySound(SoundID.Item85);

@@ -10,16 +10,18 @@ public class PoolNoodle : BaseProjectile
 {
     public override string Texture => TexturesPath.NPCs + "Swimmer/PoolNoodle";
 
-    public AnimationModule Animation { get; private set; }
+    public Animation<float> Rotate { get; private set; }
     public PropertyModule Property { get; private set; }
+    public Timer PauseTimer { get; private set; }
 
     private int _swingDirection = 1;
     private bool _animationFinished = false;
 
     public PoolNoodle()
     {
-        Animation = new AnimationModule(this);
+        Rotate = new Animation<float>(12, Ease.InOut);
         Property = new PropertyModule(this);
+        PauseTimer = new Timer(4);
     }
 
     public override void SetDefaults()
@@ -66,21 +68,23 @@ public class PoolNoodle : BaseProjectile
             Projectile.rotation = player.itemRotation;
             Projectile.rotation -= 0.2f * _swingDirection * player.direction;
 
-            var rot = Animation.Animate<float>("rot", player.itemRotation, -player.itemRotation, 12, Ease.InOut);
-            player.itemRotation = rot.Update() ?? player.itemRotation;
+            player.itemRotation = Rotate.Animate(player.itemRotation, -player.itemRotation) ?? player.itemRotation;
 
-            var pause = Animation.Animate<float>("pause", 0f, 1f, 4, Ease.Linear, new string[] { "rot" });
-            pause.Update();
+            if (Rotate.Finished)
+            {
+                PauseTimer.Update();
+            }
 
-            if (pause.Finished)
+            if (PauseTimer.Done)
             {
                 _animationFinished = true;
 
                 _swingDirection = -_swingDirection;
-                rot.Start = player.itemRotation;
-                rot.End = -player.itemRotation;
-                rot.Reset();
-                pause.Reset();
+                Rotate.Start = player.itemRotation;
+                Rotate.End = -player.itemRotation;
+                Rotate.Reset();
+                Rotate.Initiate = false;
+                PauseTimer.Restart();
             }
 
             player.itemTime = 2;

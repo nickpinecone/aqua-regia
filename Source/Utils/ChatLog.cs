@@ -12,4 +12,9 @@ public static class ChatLog
 
         ChatHelper.DisplayMessage(NetworkText.FromLiteral(text), (Color)color, 1);
     }
+
+    public static void Message(Vector2 vector, string label = "", Color? color = null)
+    {
+        Message(label + $"X: {vector.X}, Y: {vector.Y}", color);
+    }
 }
