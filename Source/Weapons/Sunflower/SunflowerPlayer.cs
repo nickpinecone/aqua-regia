@@ -16,9 +16,9 @@ public class SunflowerPlayer : ModPlayer
 
     public void SpawnSunflower(int damage, float knockback)
     {
-        var proj =
-            Projectile.NewProjectileDirect(Projectile.GetSource_None(), Main.LocalPlayer.Center, Vector2.Zero,
-                                           ModContent.ProjectileType<Sunflower>(), damage, knockback, Main.LocalPlayer.whoAmI);
+        var proj = Projectile.NewProjectileDirect(Projectile.GetSource_None(), Main.LocalPlayer.Center, Vector2.Zero,
+                                                  ModContent.ProjectileType<Sunflower>(), damage, knockback,
+                                                  Main.LocalPlayer.whoAmI);
         Sunflower = proj.ModProjectile as Sunflower;
 
         _gauge = ModContent.GetInstance<InterfaceSystem>().CreateGauge("Sunflower Gauge", 60, 60);
@@ -60,10 +60,9 @@ public class SunflowerPlayer : ModPlayer
         }
     }
 
-    public override void ModifyDrawInfo(ref Terraria.DataStructures.PlayerDrawSet drawInfo)
+    public override void DrawEffects(Terraria.DataStructures.PlayerDrawSet drawInfo, ref float r, ref float g,
+                                     ref float b, ref float a, ref bool fullBright)
     {
-        base.ModifyDrawInfo(ref drawInfo);
-
         if (Sunflower != null)
         {
             var position = Helper.ToVector2I(drawInfo.Center - Sunflower.Offset);

@@ -145,7 +145,7 @@ public class Sunflower : BaseProjectile
             particle.noGravity = true;
             particle.fadeIn = 1f;
 
-            _particles[particle] = Main.screenPosition;
+            _particles[particle] = Projectile.Center;
         }
 
         foreach (var particle in _particles.Keys)
@@ -156,10 +156,10 @@ public class Sunflower : BaseProjectile
             }
             else
             {
-                var diff = Main.screenPosition - _particles[particle];
+                var diff = Projectile.Center - _particles[particle];
                 particle.position += diff;
 
-                _particles[particle] = Main.screenPosition;
+                _particles[particle] = Projectile.Center;
             }
         }
 

@@ -10,10 +10,9 @@ public class FrogPlayer : ModPlayer
     public bool Active = false;
     public FrogMinion Minion = null;
 
-    public override void ModifyDrawInfo(ref Terraria.DataStructures.PlayerDrawSet drawInfo)
+    public override void DrawEffects(Terraria.DataStructures.PlayerDrawSet drawInfo, ref float r, ref float g,
+                                     ref float b, ref float a, ref bool fullBright)
     {
-        base.ModifyDrawInfo(ref drawInfo);
-
         if (Minion != null)
         {
             var position = Helper.ToVector2I(drawInfo.Center + new Vector2(0, -16));
