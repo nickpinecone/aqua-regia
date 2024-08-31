@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace AquaRegia.Utils;
@@ -16,6 +17,8 @@ public class BaseAnimation
 public class Animation<T> : BaseAnimation
     where T : struct
 {
+    public event EventHandler OnFinished;
+
     public BaseAnimation[] Depends { get; set; }
     public Ease Ease { get; set; }
     public T Start { get; set; }
@@ -79,7 +82,9 @@ public class Animation<T> : BaseAnimation
 
         if (CurrentFrame > Frames)
         {
+            CurrentFrame = Frames;
             Finished = true;
+            OnFinished?.Invoke(this, null);
             return null;
         }
 
@@ -88,7 +93,7 @@ public class Animation<T> : BaseAnimation
 
     public T? Backwards()
     {
-        if (CurrentFrame < 0 || !CanAnimate())
+        if (CurrentFrame <= 0 || !CanAnimate())
             return null;
 
         CurrentFrame -= 1;

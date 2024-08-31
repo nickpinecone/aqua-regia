@@ -1,7 +1,11 @@
+using System;
+
 namespace AquaRegia.Utils;
 
 public class Timer
 {
+    public event EventHandler OnDone;
+
     public bool Paused { get; set; }
     public bool Done { get; private set; }
 
@@ -9,8 +13,7 @@ public class Timer
     public int WaitTime { get; set; }
     public int TimeLeft
     {
-        get
-        {
+        get {
             return WaitTime - Current;
         }
     }
@@ -35,6 +38,7 @@ public class Timer
             if (Current >= WaitTime)
             {
                 Done = true;
+                OnDone?.Invoke(this, null);
             }
         }
     }
