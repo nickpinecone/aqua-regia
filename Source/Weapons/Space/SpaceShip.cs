@@ -105,11 +105,17 @@ public class SpaceShip : BaseProjectile
         {
             Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, _start);
 
+            if (Projectile.Center.DistanceSQ(_start) < 128f * 128f)
+            {
+                Home.Speed *= 0.9f;
+            }
+
             if (Projectile.Center.DistanceSQ(_start) < 32f * 32f)
             {
                 _reachStart = false;
                 _laserPhase = true;
                 Projectile.velocity = Vector2.Zero;
+                Home.Speed = 16;
             }
         }
         else if (_laserPhase)

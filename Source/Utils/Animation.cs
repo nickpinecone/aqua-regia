@@ -3,10 +3,18 @@ using System.Linq;
 
 namespace AquaRegia.Utils;
 
-public enum Ease
+public static class Ease
 {
-    Linear,
-    InOut,
+    public static Func<float, float> Linear => (x) => x;
+
+    // Ease In Quad
+    public static Func<float, float> In => (x) => x * x;
+
+    // Ease Out Quad
+    public static Func<float, float> Out => (x) => 1f - (1f - x) * (1f - x);
+
+    // Ease In And Out Quad
+    public static Func<float, float> InOut => (x) => x < 0.5f ? 2f * x * x : 1f - MathF.Pow(-2f * x + 2f, 2f) / 2f;
 }
 
 public class BaseAnimation
@@ -20,7 +28,7 @@ public class Animation<T> : BaseAnimation
     public event EventHandler OnFinished;
 
     public BaseAnimation[] Depends { get; set; }
-    public Ease Ease { get; set; }
+    public Func<float, float> Easing { get; set; }
     public T Start { get; set; }
     public T End { get; set; }
     public int Frames { get; set; }
@@ -29,11 +37,13 @@ public class Animation<T> : BaseAnimation
     public T? Value { get; private set; } = null;
     public bool Initiate { get; set; } = true;
 
-    public Animation(int frames = 0, Ease ease = Ease.Linear, BaseAnimation[] depends = null) : base()
+    public Animation(int frames = 0, Func<float, float> ease = null, BaseAnimation[] depends = null) : base()
     {
+        ease ??= Ease.Linear;
+
         Frames = frames;
-        Ease = ease;
-        Depends = depends ?? new BaseAnimation[] { };
+        Easing = ease;
+        Depends = depends ?? new BaseAnimation[] {};
     }
 
     public void Reset()
@@ -50,17 +60,10 @@ public class Animation<T> : BaseAnimation
 
     public T? Calculate(T start, T end)
     {
-        if (Ease == Ease.Linear)
-        {
-            Value = (T)(Start + ((dynamic)End - Start) * (CurrentFrame / (float)Frames));
-        }
-        else if (Ease == Ease.InOut)
-        {
-            var percent = CurrentFrame / (float)Frames;
-            var bezier = percent * percent * (3.0f - 2.0f * percent);
+        var percent = CurrentFrame / (float)Frames;
+        var ease = Easing(percent);
 
-            Value = (T)(Start + ((dynamic)End - Start) * bezier);
-        }
+        Value = (T)(Start + ((dynamic)End - Start) * ease);
 
         return Value;
     }
