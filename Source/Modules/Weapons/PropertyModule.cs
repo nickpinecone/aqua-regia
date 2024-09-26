@@ -12,12 +12,10 @@ public class PropertyModule : BaseGunModule
     private float _inaccuracy;
     public float Inaccuracy
     {
-        get
-        {
+        get {
             return _inaccuracy;
         }
-        set
-        {
+        set {
             _inaccuracy = Math.Max(value, 0);
         }
     }
@@ -27,26 +25,27 @@ public class PropertyModule : BaseGunModule
     }
 
     public void SetDefaults(BaseGun baseGun, int width = 0, int height = 0, int damage = 0, float knockBack = 0f,
-                            int useTime = 0, int useAnimation = 0, float shootSpeed = 0f, int maxStack = 1,
-                            bool noMelee = true, bool autoReuse = true, int rarity = ItemRarityID.White,
-                            int sellPrice = 0, int useStyle = ItemUseStyleID.Shoot, int? useAmmo = null,
+                            float inaccuracy = 0f, int useTime = 0, int useAnimation = 0, float shootSpeed = 0f,
+                            int rarity = ItemRarityID.White, int sellPrice = 0, int maxStack = 1, bool noMelee = true,
+                            bool autoReuse = true, int useStyle = ItemUseStyleID.Shoot, int? useAmmo = null,
                             DamageClass damageType = null)
     {
         baseGun.Item.width = width;
         baseGun.Item.height = height;
         baseGun.Item.damage = damage;
         baseGun.Item.knockBack = knockBack;
+        _inaccuracy = inaccuracy;
 
         baseGun.Item.useTime = useTime;
         baseGun.Item.useAnimation = useAnimation;
         baseGun.Item.shootSpeed = shootSpeed;
 
+        baseGun.Item.rare = rarity;
+        baseGun.Item.value = sellPrice;
+
         baseGun.Item.maxStack = maxStack;
         baseGun.Item.noMelee = noMelee;
         baseGun.Item.autoReuse = autoReuse;
-
-        baseGun.Item.rare = rarity;
-        baseGun.Item.value = sellPrice;
 
         baseGun.Item.useStyle = useStyle;
         baseGun.Item.useAmmo = useAmmo ?? ModContent.ItemType<BottledWater>();

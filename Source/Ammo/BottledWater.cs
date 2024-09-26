@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using AquaRegia.Modules;
 using AquaRegia.Utils;
+using Terraria.ID;
 
 namespace AquaRegia.Ammo;
 
@@ -14,8 +15,7 @@ public class BottledWater : BaseAmmo
     {
         base.SetDefaults();
 
-        Item.damage = 1;
-        Item.knockBack = 0.1f;
+        SetProperties(1, 0.1f, ItemRarityID.White, Item.sellPrice(0, 0, 0, 5));
     }
 
     public override void AddRecipes()

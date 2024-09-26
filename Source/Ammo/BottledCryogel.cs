@@ -15,9 +15,7 @@ public class BottledCryogel : BaseAmmo
     {
         base.SetDefaults();
 
-        Item.damage = 2;
-        Item.knockBack = 0.2f;
-        AccentColor = Color.Cyan;
+        SetProperties(2, 0.2f, ItemRarityID.White, Item.sellPrice(0, 0, 0, 8), Color.Cyan);
     }
 
     public override void AddRecipes()

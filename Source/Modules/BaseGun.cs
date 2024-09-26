@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using AquaRegia.Modules.Weapons;
-using AquaRegia.Utils;
 using static AquaRegia.AquaRegia;
 
 namespace AquaRegia.Modules;

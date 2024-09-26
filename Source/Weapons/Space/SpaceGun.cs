@@ -29,25 +29,12 @@ public class SpaceGun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
         Property.SetProjectile<SpaceProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-20f, 4f);
-        Sprite.Offset = new Vector2(42f, 42f);
-        Pump.MaxPumpLevel = 16;
-        Property.Inaccuracy = 3.1f;
+        Property.SetDefaults(this, 76, 34, 22, 2.2f, 3.1f, 20, 20, 22f, ItemRarityID.Blue, Item.sellPrice(0, 2, 2, 0));
+        Sprite.SefDefaults(new Vector2(42f, 42f), new Vector2(-20f, 4f));
 
-        Item.width = 76;
-        Item.height = 34;
-        Item.damage = 22;
-        Item.knockBack = 2.2f;
-
-        Item.useTime = 20;
-        Item.useAnimation = 20;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.Blue;
-        Item.value = Item.sellPrice(0, 2, 2, 0);
+        Pump.SetDefaults(16);
     }
 
     public override void HoldItem(Terraria.Player player)

@@ -29,25 +29,12 @@ public class SeaGun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
         Property.SetProjectile<SeaProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-8, 2);
-        Sprite.Offset = new Vector2(34f, 34f);
-        Pump.MaxPumpLevel = 10;
-        Property.Inaccuracy = 3.2f;
+        Property.SetDefaults(this, 58, 40, 12, 1.8f, 3.2f, 20, 20, 22f, ItemRarityID.Blue, Item.sellPrice(0, 0, 80, 0));
+        Sprite.SefDefaults(new Vector2(34f, 34f), new Vector2(-8, 2));
 
-        Item.width = 58;
-        Item.height = 40;
-        Item.damage = 12;
-        Item.knockBack = 1.8f;
-
-        Item.useTime = 20;
-        Item.useAnimation = 20;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.Blue;
-        Item.value = Item.sellPrice(0, 0, 80, 0);
+        Pump.SetDefaults(10);
     }
 
     public override void HoldItem(Terraria.Player player)

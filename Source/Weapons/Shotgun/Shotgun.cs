@@ -32,25 +32,12 @@ public class Shotgun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
         Property.SetProjectile<ShotProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-12, 0);
-        Sprite.Offset = new Vector2(56f, 56f);
-        Pump.MaxPumpLevel = 10;
-        Property.Inaccuracy = 16f;
+        Property.SetDefaults(this, 78, 26, 14, 3f, 16f, 38, 38, 22f, ItemRarityID.Blue, Item.buyPrice(0, 5, 25, 0));
+        Sprite.SefDefaults(new Vector2(56f, 56f), new Vector2(-12, 0));
 
-        Item.width = 78;
-        Item.height = 26;
-        Item.damage = 14;
-        Item.knockBack = 3f;
-
-        Item.useTime = 38;
-        Item.useAnimation = 38;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.Blue;
-        Item.value = Item.buyPrice(0, 5, 25, 0);
+        Pump.SetDefaults(10);
     }
 
     public override void HoldItem(Terraria.Player player)

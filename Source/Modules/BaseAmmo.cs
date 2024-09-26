@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using AquaRegia.Ammo;
 
@@ -17,20 +16,26 @@ public abstract class BaseAmmo : ModItem
 
     public override void SetDefaults()
     {
-        Item.ammo = ModContent.ItemType<BottledWater>();
-        Item.DamageType = DamageClass.Ranged;
-        Item.maxStack = Item.CommonMaxStack;
-        Item.consumable = true;
+    }
 
-        Item.width = 14;
-        Item.height = 28;
+    protected void SetProperties(int damage = 0, float knockBack = 0f, int rarity = 0, int sellPrice = 0,
+                               Color? accentColor = null, int width = 14, int height = 28, int? maxStack = null,
+                               bool consumable = true, int? ammo = null, DamageClass damageType = null)
+    {
+        Item.damage = damage;
+        Item.knockBack = knockBack;
 
-        Item.damage = 0;
-        Item.knockBack = 0f;
+        Item.rare = rarity;
+        Item.value = sellPrice;
+        AccentColor = accentColor ?? Color.White;
 
-        Item.rare = ItemRarityID.White;
-        Item.value = Item.buyPrice(0, 0, 0, 5);
-        AccentColor = Color.White;
+        Item.width = width;
+        Item.height = height;
+
+        Item.consumable = consumable;
+        Item.ammo = ammo ?? ModContent.ItemType<BottledWater>();
+        Item.DamageType = damageType ?? DamageClass.Ranged;
+        Item.maxStack = maxStack ?? Item.CommonMaxStack;
     }
 
     public virtual void ApplyToProjectile(BaseProjectile baseProjectile)

@@ -29,25 +29,12 @@ public class GoldenGun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
         Property.SetProjectile<GoldenProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-12, 6);
-        Sprite.Offset = new Vector2(52f, 52f);
-        Pump.MaxPumpLevel = 12;
-        Property.Inaccuracy = 3.3f;
+        Property.SetDefaults(this, 58, 40, 8, 1.2f, 3.3f, 20, 20, 22f, ItemRarityID.White, Item.sellPrice(0, 0, 20, 0));
+        Sprite.SefDefaults(new Vector2(52f, 52f), new Vector2(-12, 6));
 
-        Item.width = 58;
-        Item.height = 40;
-        Item.damage = 8;
-        Item.knockBack = 1.2f;
-
-        Item.useTime = 20;
-        Item.useAnimation = 20;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.White;
-        Item.value = Item.sellPrice(0, 0, 20, 0);
+        Pump.SetDefaults(12);
     }
 
     public override void HoldItem(Terraria.Player player)

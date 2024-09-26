@@ -9,7 +9,7 @@ namespace AquaRegia.Weapons.Wooden;
 public class TreeBoostModule : BaseGunModule
 {
     private int _defaultDamage = 0;
-    private int _boostAmount = 2;
+    private int _boostAmount = 0;
 
     private List<ushort> _treeIds =
         new List<ushort>() { TileID.Trees,         TileID.PineTree,         TileID.PalmTree,

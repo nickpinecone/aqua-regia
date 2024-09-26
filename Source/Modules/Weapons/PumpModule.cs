@@ -1,7 +1,5 @@
 using System;
-using AquaRegia.Players;
 using AquaRegia.Utils;
-using Microsoft.Xna.Framework;
 
 namespace AquaRegia.Modules.Weapons;
 
@@ -31,11 +29,16 @@ public class PumpModule : BaseGunModule
 
     public bool Pumped { get; private set; } = false;
     public bool Active { get; set; } = true;
-    public Timer UpdateTimer { get; }
+    public Timer UpdateTimer { get; private set; }
 
-    public PumpModule(BaseGun baseGun, int updateTime = 20) : base(baseGun)
+    public PumpModule(BaseGun baseGun) : base(baseGun)
     {
-        UpdateTimer = new Timer(updateTime);
+    }
+
+    public void SetDefaults(int maxPumpLevel, Timer updateTimer = null)
+    {
+        MaxPumpLevel = maxPumpLevel;
+        UpdateTimer = updateTimer ?? new Timer(20);
     }
 
     public void ApplyToProjectile(BaseProjectile baseProjectile)

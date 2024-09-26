@@ -29,25 +29,12 @@ public class GraniteGun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
         Property.SetProjectile<GraniteProjecitle>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-8f, 2f);
-        Sprite.Offset = new Vector2(42f, 42f);
-        Pump.MaxPumpLevel = 14;
-        Property.Inaccuracy = 3.1f;
+        Property.SetDefaults(this, 60, 26, 20, 2.4f, 3.1f, 26, 26, 22f, ItemRarityID.Blue, Item.sellPrice(0, 2, 0, 0));
+        Sprite.SefDefaults(new Vector2(42f, 42f), new Vector2(-8f, 2f));
 
-        Item.width = 60;
-        Item.height = 26;
-        Item.damage = 20;
-        Item.knockBack = 2.4f;
-
-        Item.useTime = 26;
-        Item.useAnimation = 26;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.Blue;
-        Item.value = Item.sellPrice(0, 2, 0, 0);
+        Pump.SetDefaults(14);
     }
 
     public override bool CanUseItem(Player player)

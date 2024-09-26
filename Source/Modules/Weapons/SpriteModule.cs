@@ -10,11 +10,17 @@ public class SpriteModule : BaseGunModule
 {
     public Vector2 Offset { get; set; }
     public Vector2 Shift { get; set; }
-
     public Vector2 HoldoutOffset { get; set; }
 
     public SpriteModule(BaseGun baseGun) : base(baseGun)
     {
+    }
+
+    public void SefDefaults(Vector2? offset = null, Vector2? holdoutOffset = null, Vector2? shift = null)
+    {
+        Offset = offset ?? Vector2.Zero;
+        HoldoutOffset = holdoutOffset ?? Vector2.Zero;
+        Shift = shift ?? Vector2.Zero;
     }
 
     public void AddAmmoTooltip(List<TooltipLine> tooltip, Mod mod)

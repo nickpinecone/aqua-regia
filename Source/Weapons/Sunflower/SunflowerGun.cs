@@ -31,25 +31,12 @@ public class SunflowerGun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
         Property.SetProjectile<SunflowerProjectile>(this);
 
-        Sprite.HoldoutOffset = new Vector2(-12, 0);
-        Sprite.Offset = new Vector2(48f, 48f);
-        Pump.MaxPumpLevel = 20;
-        Property.Inaccuracy = 14f;
+        Property.SetDefaults(this, 78, 40, 16, 4f, 14f, 38, 38, 22f, ItemRarityID.Blue, Item.sellPrice(0, 3, 0, 0));
+        Sprite.SefDefaults(new Vector2(48f, 48f), new Vector2(-12, 0));
 
-        Item.width = 78;
-        Item.height = 40;
-        Item.damage = 16;
-        Item.knockBack = 4f;
-
-        Item.useTime = 38;
-        Item.useAnimation = 38;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.Blue;
-        Item.value = Item.sellPrice(0, 3, 0, 0);
+        Pump.SetDefaults(20);
     }
 
     public override void HoldItem(Terraria.Player player)
