@@ -31,7 +31,8 @@ public class WoodenGun : BaseGun
         base.SetDefaults();
 
         Sound.SetWater(this);
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, width: 38, height: 22, damage: 4, knockBack: 0.8f, useTime: 20, useAnimation: 20,
+                             shootSpeed: 22f, rarity: ItemRarityID.White, sellPrice: Item.sellPrice(0, 0, 0, 20));
         Property.SetProjectile<WoodenProjectile>(this);
 
         Sprite.HoldoutOffset = new Vector2(0, 6);
@@ -39,17 +40,17 @@ public class WoodenGun : BaseGun
         Pump.MaxPumpLevel = 8;
         Property.Inaccuracy = 3.5f;
 
-        Item.width = 38;
-        Item.height = 22;
-        Item.damage = 4;
-        Item.knockBack = 0.8f;
-
-        Item.useTime = 20;
-        Item.useAnimation = 20;
-        Item.shootSpeed = 22f;
-
-        Item.rare = ItemRarityID.White;
-        Item.value = Item.sellPrice(0, 0, 0, 20);
+        // Item.width = 38;
+        // Item.height = 22;
+        // Item.damage = 4;
+        // Item.knockBack = 0.8f;
+        //
+        // Item.useTime = 20;
+        // Item.useAnimation = 20;
+        // Item.shootSpeed = 22f;
+        //
+        // Item.rare = ItemRarityID.White;
+        // Item.value = Item.sellPrice(0, 0, 0, 20);
 
         TreeBoost.Initialize(Item.damage, 2);
     }
