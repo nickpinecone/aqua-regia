@@ -8,6 +8,8 @@ using Terraria.ModLoader;
 
 namespace AquaRegia.Modules.Projectiles;
 
+// Needs a rewrite to make it more generic
+
 public class LaserModule : BaseProjectileModule
 {
     public float MaxDistance { get; set; } = 2200f;

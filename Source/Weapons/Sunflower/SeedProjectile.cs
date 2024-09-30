@@ -21,20 +21,9 @@ public class SeedProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 8, 8, 1, 1, 1f, 0, 0);
         Property.SetTimeLeft(this, 120);
-        Property.SetDefaultGravity();
-
-        Projectile.damage = 1;
-        Projectile.knockBack = 1;
-        Projectile.penetrate = 1;
-
-        Projectile.width = 8;
-        Projectile.height = 8;
-
-        Projectile.tileCollide = true;
-        Projectile.hostile = false;
-        Projectile.friendly = true;
+        Property.SetGravity();
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

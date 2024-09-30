@@ -25,16 +25,9 @@ public class WaterBalloon : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
-        Property.SetDefaultGravity();
+        Property.SetDefaults(this, 22, 22, 1, 1, 0, 0, 100);
         Property.SetTimeLeft(this, 25);
-
-        Projectile.CritChance = 100;
-        Projectile.damage = 1;
-        Projectile.penetrate = 1;
-
-        Projectile.width = 22;
-        Projectile.height = 22;
+        Property.SetGravity();
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

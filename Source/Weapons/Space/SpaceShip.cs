@@ -43,17 +43,9 @@ public class SpaceShip : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 38, 32, 0, -1, 0, 0, 0, false, false, false);
         Property.SetTimeLeft(this, 2);
         Home.SetDefaults();
-
-        Projectile.penetrate = -1;
-        Projectile.width = 38;
-        Projectile.height = 32;
-
-        Projectile.tileCollide = false;
-        Projectile.hostile = false;
-        Projectile.friendly = false;
     }
 
     private Vector2 GetRandomScreenEdge(Vector2 bounds, int direction)

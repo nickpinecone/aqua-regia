@@ -19,16 +19,7 @@ public class BubbleExplosion : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 20, 20, 1, 1, 0, 0, 100, false);
         Property.SetTimeLeft(this, 15);
-
-        Projectile.tileCollide = false;
-        Projectile.damage = 1;
-        Projectile.penetrate = 1;
-        Projectile.CritChance = 100;
-
-        // Only damage one NPC so hitbox is small
-        Projectile.width = 20;
-        Projectile.height = 20;
     }
 }

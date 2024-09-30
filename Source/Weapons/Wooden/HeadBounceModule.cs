@@ -9,7 +9,11 @@ public class HeadBounceModule : BaseProjectileModule
 {
     private PropertyModule _property;
 
-    public HeadBounceModule(BaseProjectile baseProjectile, PropertyModule property) : base(baseProjectile)
+    public HeadBounceModule(BaseProjectile baseProjectile) : base(baseProjectile)
+    {
+    }
+
+    public void Initialize(PropertyModule property)
     {
         _property = property;
     }

@@ -41,15 +41,8 @@ public class GraniteElemental : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 30, 30, 1, -1);
         Property.SetTimeLeft(this, 20);
-
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.tileCollide = true;
-        Projectile.width = 30;
-        Projectile.height = 30;
     }
 
     public override void OnKill(int timeLeft)

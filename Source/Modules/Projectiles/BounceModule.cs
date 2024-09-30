@@ -5,18 +5,19 @@ namespace AquaRegia.Modules.Projectiles;
 
 public class BounceModule : BaseProjectileModule
 {
-    private PropertyModule _property;
-    private int _current;
     public int MaxCount { get; set; }
 
-    public BounceModule(BaseProjectile baseProjectile, PropertyModule property) : base(baseProjectile)
+    private PropertyModule _property;
+    private int _current;
+
+    public BounceModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
-        _property = property;
     }
 
-    public void SetDefaults()
+    public void SetDefaults(PropertyModule property = null, int maxCount = 3)
     {
-        MaxCount = 3;
+        _property = property;
+        MaxCount = maxCount;
     }
 
     public Vector2? Update(BaseProjectile baseProjectile, Vector2 oldVelocity, Vector2 velocity)

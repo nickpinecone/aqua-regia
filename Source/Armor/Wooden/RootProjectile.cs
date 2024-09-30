@@ -25,19 +25,8 @@ public class RootProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 16, 20, 1, -1, 0, 0, 0, false);
         Property.SetTimeLeft(this, 10);
-
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 16;
-        Projectile.height = 20;
-        Projectile.alpha = 255;
-
-        Projectile.tileCollide = false;
-        Projectile.hostile = false;
-        Projectile.friendly = true;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

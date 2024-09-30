@@ -30,19 +30,9 @@ public class BloodVine : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 24, 24, 1, -1, 0f, 0, 0, false);
         Property.SetTimeLeft(this, 2);
         Chain.SetTexture(TexturesPath.Weapons + "Sunflower/BloodVine", new Rectangle(0, 0, 24, 28));
-
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-        Projectile.tileCollide = false;
-
-        Projectile.width = 24;
-        Projectile.height = 24;
-
-        Projectile.hostile = false;
-        Projectile.friendly = true;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

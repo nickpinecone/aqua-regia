@@ -18,7 +18,7 @@ public class SpaceProjectile : BaseProjectile
     {
         Property = new PropertyModule(this);
         Water = new WaterModule(this);
-        Bounce = new BounceModule(this, Property);
+        Bounce = new BounceModule(this);
 
         IsAmmoRuntime = true;
     }
@@ -27,17 +27,12 @@ public class SpaceProjectile : BaseProjectile
     {
         base.SetDefaults();
 
+        Bounce.SetDefaults(Property, 2);
         Water.SetDefaults();
-        Property.SetDefaults(this);
-        Property.SetDefaultGravity();
+
+        Property.SetDefaults(this, 16, 16, 1, 2);
         Property.SetTimeLeft(this, 35);
-
-        Bounce.MaxCount = 2;
-        Projectile.penetrate = 2;
-        Projectile.damage = 1;
-
-        Projectile.width = 16;
-        Projectile.height = 16;
+        Property.SetGravity();
     }
 
     public override bool OnTileCollide(Microsoft.Xna.Framework.Vector2 oldVelocity)

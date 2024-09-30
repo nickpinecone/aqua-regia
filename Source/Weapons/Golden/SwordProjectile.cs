@@ -42,17 +42,8 @@ public class SwordProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 40, 40, 1, -1, 0, 255, 100, false);
         Property.SetTimeLeft(this, 80);
-
-        Projectile.tileCollide = false;
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-        Projectile.CritChance = 100;
-
-        Projectile.width = 40;
-        Projectile.height = 40;
-        Projectile.alpha = 255;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

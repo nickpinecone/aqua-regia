@@ -18,7 +18,8 @@ public class SpaceLaser : BaseProjectile
     {
         Laser = new LaserModule(this);
 
-        LaserShot = new SoundStyle(AudioPath.Spawn + "LaserShot") with {
+        LaserShot = new SoundStyle(AudioPath.Spawn + "LaserShot") with
+        {
             PitchVariance = 0.1f,
             Volume = 0.6f,
         };
@@ -28,7 +29,7 @@ public class SpaceLaser : BaseProjectile
     {
         base.SetDefaults();
 
-        _immunity.ImmunityTime = 10;
+        _immunity.SetDefaults(10);
 
         Laser.SetDefaults(this);
         Laser.SetTexture(TexturesPath.Weapons + "Space/SpaceLaser");

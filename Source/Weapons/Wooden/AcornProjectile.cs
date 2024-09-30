@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -23,7 +22,7 @@ public class AcornProjectile : BaseProjectile
     {
         Property = new PropertyModule(this);
         Sprite = new SpriteModule(this);
-        HeadBounce = new HeadBounceModule(this, Property);
+        HeadBounce = new HeadBounceModule(this);
 
         BonkSound = new SoundStyle(AudioPath.Impact + "Bonk")
         {
@@ -38,16 +37,11 @@ public class AcornProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
-        Property.SetDefaultGravity();
+        HeadBounce.Initialize(Property);
+
+        Property.SetDefaults(this, 20, 20, 1, 5, 0f, 255);
         Property.SetTimeLeft(this, 120);
-
-        Projectile.damage = 1;
-        Projectile.penetrate = 5;
-
-        Projectile.width = 20;
-        Projectile.height = 20;
-        Projectile.alpha = 255;
+        Property.SetGravity();
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

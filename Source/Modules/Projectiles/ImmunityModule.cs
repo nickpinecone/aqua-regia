@@ -16,9 +16,9 @@ public class ImmunityModule : BaseProjectileModule
     {
     }
 
-    public void SetDefaults()
+    public void SetDefaults(int time = 20)
     {
-        ImmunityTime = 20;
+        ImmunityTime = time;
     }
 
     public void Reset(NPC target)

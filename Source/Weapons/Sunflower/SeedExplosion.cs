@@ -20,6 +20,14 @@ public class SeedExplosion : BaseProjectile
         Property = new PropertyModule(this);
     }
 
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+
+        Property.SetDefaults(this, 32, 32, 1, -1, 0, 0, 100, false);
+        Property.SetTimeLeft(this, 15);
+    }
+
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
@@ -36,21 +44,5 @@ public class SeedExplosion : BaseProjectile
         {
             particle.noGravity = true;
         }
-    }
-
-    public override void SetDefaults()
-    {
-        base.SetDefaults();
-
-        Property.SetDefaults(this);
-        Property.SetTimeLeft(this, 15);
-
-        Projectile.tileCollide = false;
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-        Projectile.CritChance = 100;
-
-        Projectile.width = 32;
-        Projectile.height = 32;
     }
 }

@@ -15,37 +15,38 @@ public class PropertyModule : BaseProjectileModule
     {
     }
 
-    public void SetDefaults(BaseProjectile baseProjectile)
+    public void SetDefaults(BaseProjectile baseProjectile, int width = 0, int height = 0, int damage = 0,
+                            int penetrate = 0, float knockBack = 0f, int alpha = 0, int critChance = 0,
+                            bool tileCollide = true, bool hostile = false, bool friendly = true)
     {
-        baseProjectile.Projectile.damage = 0;
-        baseProjectile.Projectile.penetrate = 0;
+        baseProjectile.Projectile.width = width;
+        baseProjectile.Projectile.height = height;
+
+        baseProjectile.Projectile.damage = damage;
+        baseProjectile.Projectile.knockBack = knockBack;
+        baseProjectile.Projectile.penetrate = penetrate;
+        baseProjectile.Projectile.alpha = alpha;
+        baseProjectile.Projectile.CritChance = critChance;
+
+        baseProjectile.Projectile.tileCollide = tileCollide;
+        baseProjectile.Projectile.hostile = hostile;
+        baseProjectile.Projectile.friendly = friendly;
+
         baseProjectile.Projectile.timeLeft = 0;
-
-        baseProjectile.Projectile.width = 0;
-        baseProjectile.Projectile.height = 0;
-
         DefaultTime = baseProjectile.Projectile.timeLeft;
-        baseProjectile.Projectile.hostile = false;
-        baseProjectile.Projectile.friendly = true;
     }
 
-    public void SetGravity(float value)
+    public void SetGravity(float gravity = 0.01f, float gravityChange = 0.02f)
     {
-        DefaultGravity = value;
+        DefaultGravity = gravity;
         Gravity = DefaultGravity;
+        GravityChange = gravityChange;
     }
 
-    public void SetTimeLeft(BaseProjectile baseProjectile, int time)
+    public void SetTimeLeft(BaseProjectile baseProjectile, int time = 0)
     {
         DefaultTime = time;
         baseProjectile.Projectile.timeLeft = DefaultTime;
-    }
-
-    public void SetDefaultGravity()
-    {
-        Gravity = 0.01f;
-        DefaultGravity = Gravity;
-        GravityChange = 0.02f;
     }
 
     public Vector2 ApplyGravity(Vector2 velocity)

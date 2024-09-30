@@ -18,14 +18,15 @@ public class WaterModule : BaseProjectileModule
     {
     }
 
-    public void SetDefaults()
+    public void SetDefaults(int amount = 6, float offset = 3.8f, float scale = 1.2f, int alpha = 0,
+                            int particle = DustID.Wet, Color? color = null)
     {
-        Amount = 6;
-        Offset = 3.8f;
-        Scale = 1.2f;
-        Alpha = 0;
-        Color = Color.White;
-        ParticleID = DustID.Wet;
+        Amount = amount;
+        Offset = offset;
+        Scale = scale;
+        Alpha = alpha;
+        ParticleID = particle;
+        Color = color ?? Color.White;
     }
 
     public void ApplyAmmo(BaseAmmo baseAmmo)

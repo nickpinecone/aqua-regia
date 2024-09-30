@@ -39,16 +39,8 @@ public class DaggerProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 10, 24, 1, -1, 0, 255, 0, false);
         Property.SetTimeLeft(this, 60);
-
-        Projectile.tileCollide = false;
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 10;
-        Projectile.height = 24;
-        Projectile.alpha = 255;
     }
 
     public override bool? CanHitNPC(NPC target)

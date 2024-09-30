@@ -34,17 +34,10 @@ public class GraniteChunk : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 24, 24, 1, -1, 0, 0, 0, false);
         Property.SetTimeLeft(this, 35);
 
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-        Projectile.knockBack = 0;
-
-        Projectile.width = 24;
-        Projectile.height = 24;
         DrawOriginOffsetY = -28;
-        Projectile.tileCollide = false;
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

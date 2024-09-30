@@ -23,15 +23,9 @@ public class FloatBubble : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 20, 20, 0, -1, 0, 155, 0, false);
         Property.SetTimeLeft(this, 2);
 
-        Projectile.penetrate = -1;
-        Projectile.tileCollide = false;
-
-        Projectile.width = 20;
-        Projectile.height = 20;
-        Projectile.alpha = 155;
         Projectile.hide = true;
     }
 

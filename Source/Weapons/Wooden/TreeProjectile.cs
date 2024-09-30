@@ -34,18 +34,10 @@ public class TreeProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 76, 66, 1, -1, 1f, 255, 0, true, false, false);
         Property.SetTimeLeft(this, 120);
 
-        Projectile.friendly = false;
-        Projectile.damage = 1;
-        Projectile.knockBack = 1f;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 76;
-        Projectile.height = 66;
         Projectile.gfxOffY = 38;
-        Projectile.alpha = 255;
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)

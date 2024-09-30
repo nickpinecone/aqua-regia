@@ -48,16 +48,8 @@ public class HugeBubble : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 20, 20, 1, -1, 0, 200, 0, true, false, false);
         Property.SetTimeLeft(this, 600);
-
-        Projectile.friendly = false;
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 20;
-        Projectile.height = 20;
-        Projectile.alpha = 200;
 
         MaxStage = 8;
     }

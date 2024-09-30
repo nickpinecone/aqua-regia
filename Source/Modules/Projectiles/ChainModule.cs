@@ -11,16 +11,25 @@ public class ChainModule : BaseProjectileModule
     public Asset<Texture2D> Texture { get; private set; }
     public Rectangle Source { get; private set; }
 
-    public float MaxPosition { get; set; }
+    public float MaxDistance { get; set; }
     public float BackSpeed { get; set; }
     public Vector2 SpawnPosition { get; set; }
-    public float PlayerClose { get; set; } = 16f;
+    public float PlayerClose { get; set; }
 
     public bool IsFarAway { get; private set; }
     public bool Returned { get; private set; }
 
     public ChainModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
+    }
+
+    public void SetDefaults(float maxDistance = 0f, float backSpeed = 0f, Vector2? spawnPosition = null,
+                            float playerClose = 16f)
+    {
+        MaxDistance = maxDistance;
+        BackSpeed = backSpeed;
+        SpawnPosition = spawnPosition ?? Vector2.Zero;
+        PlayerClose = playerClose;
     }
 
     public void SetTexture(string path, Rectangle rect)
@@ -31,7 +40,7 @@ public class ChainModule : BaseProjectileModule
 
     public bool Update(Vector2 position)
     {
-        if (!IsFarAway && position.DistanceSQ(SpawnPosition) > MaxPosition * MaxPosition)
+        if (!IsFarAway && position.DistanceSQ(SpawnPosition) > MaxDistance * MaxDistance)
         {
             IsFarAway = true;
         }

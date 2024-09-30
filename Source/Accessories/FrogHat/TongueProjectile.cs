@@ -25,18 +25,11 @@ public class TongueProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 12, 12, 1, -1);
         Property.SetTimeLeft(this, 120);
 
         Chain.SetTexture(TexturesPath.Accessories + "FrogHat/TongueChain", new Rectangle(0, 0, 6, 16));
-        Chain.MaxPosition = 512f;
-        Chain.PlayerClose = 32f;
-
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 12;
-        Projectile.height = 12;
+        Chain.SetDefaults(512f, 0, null, 32f);
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

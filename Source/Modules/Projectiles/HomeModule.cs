@@ -17,12 +17,12 @@ public class HomeModule : BaseProjectileModule
     {
     }
 
-    public void SetDefaults()
+    public void SetDefaults(float curve = 0.1f, float curveChange = 1.01f, int speed = 16, float radius = 300f)
     {
-        Curve = 0.1f;
-        CurveChange = 1.01f;
-        Speed = 16;
-        Radius = 300f;
+        Curve = curve;
+        CurveChange = curveChange;
+        Speed = speed;
+        Radius = radius;
     }
 
     public Vector2 Calculate(Vector2 position, Vector2 velocity, Vector2 targetPosition)

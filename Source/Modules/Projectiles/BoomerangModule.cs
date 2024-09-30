@@ -9,7 +9,7 @@ public class BoomerangModule : BaseProjectileModule
     public Animation<Vector2> Slow { get; private set; }
     public HomeModule Home { get; private set; }
 
-    public float MaxPosition { get; set; }
+    public float MaxDistance { get; set; }
     public Vector2 SpawnPosition { get; set; }
     public float PlayerClose { get; set; } = 16f;
 
@@ -18,13 +18,22 @@ public class BoomerangModule : BaseProjectileModule
 
     public BoomerangModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
-        Slow = new Animation<Vector2>(0, Ease.InOut);
-        Home = new HomeModule(baseProjectile);
+    }
+
+    public void SetDefaults(HomeModule home, Animation<Vector2> slow, float maxDistance = 0f,
+                            Vector2? spawnPosition = null, float playerClose = 16f)
+    {
+        Home = home;
+        Slow = slow;
+
+        MaxDistance = maxDistance;
+        SpawnPosition = spawnPosition ?? Vector2.Zero;
+        PlayerClose = playerClose;
     }
 
     public bool Update(Vector2 position)
     {
-        if (!IsFarAway && position.DistanceSQ(SpawnPosition) > MaxPosition * MaxPosition)
+        if (!IsFarAway && position.DistanceSQ(SpawnPosition) > MaxDistance * MaxDistance)
         {
             IsFarAway = true;
         }
@@ -32,9 +41,8 @@ public class BoomerangModule : BaseProjectileModule
         return IsFarAway;
     }
 
-    public Vector2 ReturnToPlayer(Player player, Vector2 position, Vector2 velocity, int slowFrames = 20)
+    public Vector2 ReturnToPlayer(Player player, Vector2 position, Vector2 velocity)
     {
-        Slow.Frames = slowFrames;
         velocity = Slow.Animate(velocity, Vector2.Zero) ?? velocity;
 
         if (Slow.Finished)

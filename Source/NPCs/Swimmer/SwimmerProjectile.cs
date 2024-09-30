@@ -24,15 +24,9 @@ public class SwimmerProjectile : BaseProjectile
         base.SetDefaults();
 
         Water.SetDefaults();
-        Property.SetDefaults(this);
-        Property.SetDefaultGravity();
+        Property.SetDefaults(this, 16, 16, 1, 1);
         Property.SetTimeLeft(this, 35);
-
-        Projectile.damage = 1;
-        Projectile.penetrate = 1;
-
-        Projectile.width = 16;
-        Projectile.height = 16;
+        Property.SetGravity();
     }
 
     public override void OnSpawn(IEntitySource source)

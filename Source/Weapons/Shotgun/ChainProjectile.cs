@@ -26,7 +26,8 @@ public class ChainProjectile : BaseProjectile
         Chain = new ChainModule(this);
         Stick = new StickModule(this);
 
-        ChainHit = new SoundStyle(AudioPath.Impact + "ChainHit") with {
+        ChainHit = new SoundStyle(AudioPath.Impact + "ChainHit") with
+        {
             PitchVariance = 0.1f,
         };
     }
@@ -35,18 +36,11 @@ public class ChainProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 16, 16, 1, -1);
         Property.SetTimeLeft(this, 120);
 
         Chain.SetTexture(TexturesPath.Weapons + "Shotgun/Chain", new Rectangle(0, 0, 6, 14));
-        Chain.MaxPosition = 768f;
-        Chain.PlayerClose = 32f;
-
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 16;
-        Projectile.height = 16;
+        Chain.SetDefaults(768f, 0, null, 32f);
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

@@ -37,18 +37,9 @@ public class BubbleProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 20, 20, 1, -1, 0, 255);
         Property.SetTimeLeft(this, 120);
-
-        Home.SetDefaults();
-        Home.Speed = 2;
-
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 20;
-        Projectile.height = 20;
-        Projectile.alpha = 255;
+        Home.SetDefaults(speed: 2);
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

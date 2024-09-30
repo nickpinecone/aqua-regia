@@ -44,19 +44,9 @@ public class Sunflower : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 30, 66, 0, -1, 0, 0, 0, false, false, false);
         Property.SetTimeLeft(this, 11);
 
-        Projectile.damage = 0;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 30;
-        Projectile.height = 66;
-        Projectile.alpha = 255;
-
-        Projectile.hostile = false;
-        Projectile.friendly = false;
-        Projectile.tileCollide = false;
         Projectile.hide = true;
     }
 

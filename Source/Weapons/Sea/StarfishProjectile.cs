@@ -14,6 +14,7 @@ public class StarfishProjectile : BaseProjectile
 {
     public override string Texture => TexturesPath.Weapons + "Sea/StarfishProjectile";
 
+    public HomeModule Home { get; private set; }
     public PropertyModule Property { get; private set; }
     public StickModule Stick { get; private set; }
     public SpriteModule Sprite { get; private set; }
@@ -35,19 +36,13 @@ public class StarfishProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetDefaults(this);
+        Property.SetDefaults(this, 20, 18, 1, -1);
         Property.SetTimeLeft(this, 600);
 
-        Projectile.damage = 1;
-        Projectile.penetrate = -1;
+        Home = new HomeModule(this);
+        Home.SetDefaults(0.2f);
 
-        Projectile.width = 20;
-        Projectile.height = 18;
-
-        Boomerang.MaxPosition = 512f;
-        Boomerang.Home.SetDefaults();
-        Boomerang.Home.CurveChange = 1.01f;
-        Boomerang.Home.Curve = 0.2f;
+        Boomerang.SetDefaults(Home, new Animation<Vector2>(20, Ease.Out), 512f);
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

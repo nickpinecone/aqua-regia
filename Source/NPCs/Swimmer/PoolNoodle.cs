@@ -27,19 +27,12 @@ public class PoolNoodle : BaseProjectile
     public override void SetDefaults()
     {
         base.SetDefaults();
-        _immunity.ImmunityTime = 10;
 
+        _immunity.SetDefaults(10);
+
+        Property.SetDefaults(this, 64, 8, 1, -1, 4f, 0, 0, false);
         Property.SetTimeLeft(this, 2);
-        Property.SetDefaults(this);
 
-        Projectile.damage = 1;
-        Projectile.knockBack = 4f;
-        Projectile.penetrate = -1;
-
-        Projectile.width = 64;
-        Projectile.height = 8;
-
-        Projectile.tileCollide = false;
         Projectile.hide = true;
     }
 
