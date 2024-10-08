@@ -211,5 +211,12 @@ Mods: {
 				DisplayName: Rubber Ducky
 			}
 		}
+
+		Biomes: {
+			CoralReef: {
+				DisplayName: Coral Reef
+				TownNPCDialogueName: the Coral Reef
+			}
+		}
 	}
 }
