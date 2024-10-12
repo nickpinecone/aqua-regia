@@ -5,6 +5,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using AquaRegia.Utils;
 using Terraria.GameContent.Personalities;
+using System.Collections.Generic;
 
 namespace AquaRegia.World;
 
@@ -42,34 +43,48 @@ public class CoralReefGen : ModSystem
     private void TestMethod(int x, int y)
     {
         // t_* means tile coordinates, w_* means world cooridantes
-        // Dig a square in the middle of the ocean down
-        const int depth = 100;
+        // Dig a square in the middle of the ocean down, with curved edges
+        const int depth = 200;
+        const int curve_amount = 50;
 
-        var t_oceanX = Main.maxTilesX - WorldGen.oceanDistance / 1.2f;
+        var t_edge_tiles = new List<Point>();
+
+        var reefWidth = WorldGen.oceanDistance / 1.2f;
+        var t_oceanX = Main.maxTilesX - reefWidth;
         var w_scanFrom = new Vector2(t_oceanX * 16, 0);
         var t_tilePos = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
 
+        var round = new Animation<int>((int)reefWidth / 2, Ease.Out);
+        var back_round = new Animation<int>((int)reefWidth / 2, Ease.In, [round]);
+
         for (int i = (int)t_oceanX; i < Main.maxTilesX; i++)
         {
-            for (int j = t_tilePos.Y; j < t_tilePos.Y + depth; j++)
+            var round_rate = round.Animate(0, curve_amount) ?? curve_amount;
+            var back_rate = back_round.Animate(0, curve_amount) ?? 0;
+            int last_j = 0;
+
+            for (int j = t_tilePos.Y; j < t_tilePos.Y + (depth - curve_amount) + round_rate - back_rate; j++)
             {
+                last_j = j;
+
+                if (i == (int)t_oceanX)
+                {
+                    t_edge_tiles.Add(new Point(i, j));
+                }
+
                 WorldGen.KillTile(i, j, noItem: true);
                 Tile tile = Main.tile[i, j];
                 tile.LiquidAmount = 255;
                 tile.LiquidType = LiquidID.Water;
             }
+
+            t_edge_tiles.Add(new Point(i, last_j));
         }
 
         // Place "coral" splotches along the edges
-        for (int j = t_tilePos.Y; j < t_tilePos.Y + depth; j++)
+        foreach (var t_tile in t_edge_tiles)
         {
-            WorldGen.TileRunner((int)t_oceanX, j, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
-                                TileID.Adamantite, overRide: true, addTile: true);
-        }
-
-        for (int i = (int)t_oceanX; i < Main.maxTilesX; i++)
-        {
-            WorldGen.TileRunner(i, t_tilePos.Y + depth, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
+            WorldGen.TileRunner(t_tile.X, t_tile.Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
                                 TileID.Adamantite, overRide: true, addTile: true);
         }
     }
