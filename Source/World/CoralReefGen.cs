@@ -84,8 +84,39 @@ public class CoralReefGen : ModSystem
         // Place "coral" splotches along the edges
         foreach (var t_tile in t_edge_tiles)
         {
-            WorldGen.TileRunner(t_tile.X, t_tile.Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
-                                TileID.Adamantite, overRide: true, addTile: true);
+            if (t_tile.X == (int)t_oceanX && WorldGen.genRand.Next(0, depth / 10) == 0)
+            {
+                var angle = WorldGen.genRand.NextFloat(-0.2f, 0.2f);
+                var direction = new Vector2(16, 0).RotatedBy(angle);
+                var start = t_tile.ToWorldCoordinates();
+
+                var iters = 0;
+                var maxIters = 1000;
+
+                while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
+                {
+                    iters++;
+
+                    start += direction;
+                    var adjust = WorldGen.genRand.NextFloat(-0.05f, 0.05f);
+                    var current_angle = direction.ToRotation();
+
+                    if (current_angle + adjust > MathHelper.PiOver4 || current_angle + adjust < -MathHelper.PiOver4)
+                    {
+                        adjust = 0;
+                    }
+
+                    direction = direction.RotatedBy(adjust);
+
+                    WorldGen.TileRunner((int)(start.X / 16), (int)(start.Y / 16), WorldGen.genRand.Next(4, 6),
+                                        WorldGen.genRand.Next(2, 4), TileID.Adamantite, overRide: true, addTile: true);
+                }
+            }
+            else
+            {
+                WorldGen.TileRunner(t_tile.X, t_tile.Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
+                                    TileID.Adamantite, overRide: true, addTile: true);
+            }
         }
     }
 }
