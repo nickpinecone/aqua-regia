@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using AquaRegia.Utils;
 using Terraria.GameContent.Personalities;
 using System.Collections.Generic;
+using System;
 
 namespace AquaRegia.World;
 
@@ -44,7 +45,8 @@ public class CoralReefGen : ModSystem
     {
         // t_* means tile coordinates, w_* means world cooridantes
         // Dig a square in the middle of the ocean down, with curved edges
-        const int depth = 200;
+        const int reef_offset = 50;
+        const int depth = 200 + reef_offset;
         const int curve_amount = 50;
 
         var t_edge_tiles = new List<Point>();
@@ -67,7 +69,7 @@ public class CoralReefGen : ModSystem
             {
                 last_j = j;
 
-                if (i == (int)t_oceanX)
+                if (i == (int)t_oceanX && j > t_tilePos.Y + reef_offset)
                 {
                     t_edge_tiles.Add(new Point(i, j));
                 }
@@ -84,6 +86,25 @@ public class CoralReefGen : ModSystem
         // Place "coral" splotches along the edges
         foreach (var t_tile in t_edge_tiles)
         {
+            // Place some sand on under the coral tiles
+            var offset = new Point(0, 0);
+
+            if (t_tile.X == (int)t_oceanX)
+            {
+                offset.X = -4;
+            }
+            else
+            {
+                offset.Y = 4;
+            }
+
+            WorldGen.TileRunner(t_tile.X + offset.X, t_tile.Y + offset.Y, WorldGen.genRand.Next(3, 8),
+                                WorldGen.genRand.Next(2, 8), TileID.Sandstone, overRide: true, addTile: true);
+
+            WorldGen.TileRunner(t_tile.X, t_tile.Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
+                                TileID.Adamantite, overRide: true, addTile: true);
+
+            // Randomly spawn tendrils from one side to the other
             if (t_tile.X == (int)t_oceanX && WorldGen.genRand.Next(0, depth / 10) == 0)
             {
                 var angle = WorldGen.genRand.NextFloat(-0.2f, 0.2f);
@@ -101,7 +122,14 @@ public class CoralReefGen : ModSystem
                     var adjust = WorldGen.genRand.NextFloat(-0.05f, 0.05f);
                     var current_angle = direction.ToRotation();
 
-                    if (current_angle + adjust > MathHelper.PiOver4 || current_angle + adjust < -MathHelper.PiOver4)
+                    // Make sure it stays in the coral reef bounds
+                    if (start.Y / 16 < t_tilePos.Y + reef_offset)
+                    {
+                        adjust = MathF.Abs(adjust);
+                    }
+                    // And doesnt get too crazy with curving
+                    else if (current_angle + adjust > MathHelper.PiOver4 ||
+                             current_angle + adjust < -MathHelper.PiOver4)
                     {
                         adjust = 0;
                     }
@@ -111,11 +139,6 @@ public class CoralReefGen : ModSystem
                     WorldGen.TileRunner((int)(start.X / 16), (int)(start.Y / 16), WorldGen.genRand.Next(4, 6),
                                         WorldGen.genRand.Next(2, 4), TileID.Adamantite, overRide: true, addTile: true);
                 }
-            }
-            else
-            {
-                WorldGen.TileRunner(t_tile.X, t_tile.Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
-                                    TileID.Adamantite, overRide: true, addTile: true);
             }
         }
     }
