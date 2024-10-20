@@ -220,5 +220,17 @@ Mods: {
 		}
 
 		WorldGen.CoralReefGenMessage: Mods.AquaRegia.WorldGen.CoralReefGenMessage
+
+		Configs: {
+			AquaRegiaConfig: {
+				DisplayName: Aqua Regia Config
+				Headers.WorldGeneration: World Generation Header
+
+				CoralReefGenEnabled: {
+					Label: Coral Reef Generation Enabled (Experimental)
+					Tooltip: ""
+				}
+			}
+		}
 	}
 }

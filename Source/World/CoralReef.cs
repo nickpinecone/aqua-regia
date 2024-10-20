@@ -6,8 +6,6 @@ namespace AquaRegia.World;
 
 public class CoralReef : ModBiome
 {
-    public static int ReefLevel = 0;
-
     public override void OnEnter(Player player)
     {
         ChatLog.Message("Player has entered the coral reef biome!");
@@ -20,7 +18,7 @@ public class CoralReef : ModBiome
                  // Or on the right ocean
                  player.Center.X > (Main.maxTilesX - WorldGen.oceanDistance) * 16) &&
                 // And we are below ocean level
-                player.Center.Y > ReefLevel * 16);
-        // Then check for at lest x amount of coral tiles
+                // Then check for at least x amount of coral tiles
+                ModContent.GetInstance<CoralReefGen>().CoralTileCount >= 40);
     }
 }
