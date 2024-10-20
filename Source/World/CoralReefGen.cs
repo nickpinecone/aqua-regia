@@ -23,7 +23,8 @@ public class CoralReefGen : ModSystem
 
     public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
     {
-        CoralTileCount = tileCounts[TileID.RedStucco];
+        CoralTileCount =
+            tileCounts[TileID.RedStucco] + tileCounts[TileID.YellowStucco] + tileCounts[TileID.GreenStucco];
     }
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
@@ -59,7 +60,8 @@ public class CoralReefGenPass : GenPass
         // t_* means tile coordinates, w_* means world cooridantes
         // Dig a square in the middle of the ocean down, with curved edges
         const int ReefOffset = 50;
-        const int Depth = 200 + ReefOffset;
+        const int ReefDepth = 200;
+        const int Depth = ReefDepth + ReefOffset;
         const int CurveAmount = 50;
 
         var t_edge_tiles = new List<Point>();
@@ -67,11 +69,11 @@ public class CoralReefGenPass : GenPass
         var reefWidth = WorldGen.oceanDistance / 1.2f;
         var t_oceanX = Main.maxTilesX - reefWidth;
         var w_scanFrom = new Vector2(t_oceanX * 16, 0);
-        var t_tilePos = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
+        var t_sandTile = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
 
         // Mark as protected structure, because "Spreading Grass" step interferes with reef generation
         GenVars.structures.AddProtectedStructure(
-            new Rectangle(t_tilePos.X, t_tilePos.Y + ReefOffset, (int)reefWidth, Depth - ReefOffset), 4);
+            new Rectangle(t_sandTile.X, t_sandTile.Y + ReefOffset, (int)reefWidth, ReefDepth), 4);
 
         var round = new Animation<int>((int)reefWidth / 2, Ease.Out);
         var back_round = new Animation<int>((int)reefWidth / 2, Ease.In, [round]);
@@ -82,11 +84,11 @@ public class CoralReefGenPass : GenPass
             var back_rate = back_round.Animate(0, CurveAmount) ?? 0;
             int last_j = 0;
 
-            for (int j = t_tilePos.Y; j < t_tilePos.Y + (Depth - CurveAmount) + round_rate - back_rate; j++)
+            for (int j = t_sandTile.Y; j < t_sandTile.Y + (Depth - CurveAmount) + round_rate - back_rate; j++)
             {
                 last_j = j;
 
-                if (i == (int)t_oceanX && j > t_tilePos.Y + ReefOffset)
+                if (i == (int)t_oceanX && j > t_sandTile.Y + ReefOffset)
                 {
                     t_edge_tiles.Add(new Point(i, j));
                 }
@@ -101,6 +103,15 @@ public class CoralReefGenPass : GenPass
         }
 
         // Place "coral" splotches along the edges
+        var tendrilsAmount = WorldGen.genRand.Next(5, 10);
+        var tendrilsCount = 0;
+        var tendrilsPos = new List<int>();
+
+        for (int i = 0; i < tendrilsAmount; i++)
+        {
+            tendrilsPos.Add(WorldGen.genRand.Next(t_sandTile.Y + ReefOffset, t_sandTile.Y + ReefOffset + ReefDepth));
+        }
+
         foreach (var t_tile in t_edge_tiles)
         {
             // Place some sand on under the coral tiles
@@ -121,14 +132,19 @@ public class CoralReefGenPass : GenPass
             PlaceRoundSplotch(TileID.RedStucco, new Point(t_tile.X, t_tile.Y), WorldGen.genRand.Next(3, 4));
 
             // Randomly spawn tendrils from one side to the other
-            if (t_tile.X == (int)t_oceanX && WorldGen.genRand.Next(0, Depth / 10) == 0)
+            if (t_tile.X == (int)t_oceanX && tendrilsPos.Contains(t_tile.Y))
             {
+                tendrilsCount += 1;
+
                 var angle = WorldGen.genRand.NextFloat(-0.2f, 0.2f);
                 var direction = new Vector2(16, 0).RotatedBy(angle);
                 var start = t_tile.ToWorldCoordinates();
 
                 var iters = 0;
                 var maxIters = 1000;
+
+                var coralType =
+                    WorldGen.genRand.NextFromList(TileID.RedStucco, TileID.YellowStucco, TileID.GreenStucco);
 
                 while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
                 {
@@ -139,7 +155,7 @@ public class CoralReefGenPass : GenPass
                     var current_angle = direction.ToRotation();
 
                     // Make sure it stays in the coral reef bounds
-                    if (start.Y / 16 < t_tilePos.Y + ReefOffset)
+                    if (start.Y / 16 < t_sandTile.Y + ReefOffset)
                     {
                         adjust = MathF.Abs(adjust);
                     }
@@ -152,7 +168,7 @@ public class CoralReefGenPass : GenPass
 
                     direction = direction.RotatedBy(adjust);
 
-                    PlaceRoundSplotch(TileID.RedStucco, new Point((int)(start.X / 16), (int)(start.Y / 16)),
+                    PlaceRoundSplotch(coralType, new Point((int)(start.X / 16), (int)(start.Y / 16)),
                                       WorldGen.genRand.Next(2, 3));
                 }
             }
