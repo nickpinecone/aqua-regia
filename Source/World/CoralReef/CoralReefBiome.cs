@@ -2,9 +2,9 @@ using AquaRegia.Utils;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.World;
+namespace AquaRegia.World.CoralReef;
 
-public class CoralReef : ModBiome
+public class CoralReefBiome : ModBiome
 {
     public override void OnEnter(Player player)
     {

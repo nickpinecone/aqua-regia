@@ -9,7 +9,7 @@ using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.IO;
 
-namespace AquaRegia.World;
+namespace AquaRegia.World.CoralReef;
 
 public class CoralReefGen : ModSystem
 {

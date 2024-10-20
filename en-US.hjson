@@ -203,6 +203,10 @@ Mods: {
 					Princess_LovesNPC: I like {NPCName}.
 				}
 			}
+
+			OarfishBody.DisplayName: Oarfish Body
+			OarfishHead.DisplayName: Oarfish Head
+			OarfishTail.DisplayName: Oarfish Tail
 		}
 
 		Buffs: {
@@ -216,6 +220,11 @@ Mods: {
 			CoralReef: {
 				DisplayName: Coral Reef
 				TownNPCDialogueName: the Coral Reef
+			}
+
+			CoralReefBiome: {
+				DisplayName: Coral Reef Biome
+				TownNPCDialogueName: the Coral Reef Biome
 			}
 		}
 
