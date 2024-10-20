@@ -7,6 +7,8 @@ using AquaRegia.Utils;
 using Terraria.GameContent.Personalities;
 using System.Collections.Generic;
 using System;
+using Terraria.WorldBuilding;
+using ReLogic.Utilities;
 
 namespace AquaRegia.World;
 
@@ -41,6 +43,12 @@ public class CoralReefGen : ModSystem
         ChatLog.Message(ocean.IsInBiome(Main.LocalPlayer).ToString(), "Is In Ocean: ");
     }
 
+    private void PlaceRoundSplotch(ushort tileId, Point position, int size)
+    {
+        WorldUtils.Gen(position, new Shapes.Circle(size, size),
+                       Actions.Chain(new Actions.ClearTile(), new Actions.SetTile(tileId)));
+    }
+
     private void TestMethod(int x, int y)
     {
         // t_* means tile coordinates, w_* means world cooridantes
@@ -55,6 +63,8 @@ public class CoralReefGen : ModSystem
         var t_oceanX = Main.maxTilesX - reefWidth;
         var w_scanFrom = new Vector2(t_oceanX * 16, 0);
         var t_tilePos = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
+
+        CoralReef.ReefLevel = t_tilePos.Y + reef_offset;
 
         var round = new Animation<int>((int)reefWidth / 2, Ease.Out);
         var back_round = new Animation<int>((int)reefWidth / 2, Ease.In, [round]);
@@ -91,18 +101,17 @@ public class CoralReefGen : ModSystem
 
             if (t_tile.X == (int)t_oceanX)
             {
-                offset.X = -4;
+                offset.X = -6;
             }
             else
             {
-                offset.Y = 4;
+                offset.Y = 6;
             }
 
-            WorldGen.TileRunner(t_tile.X + offset.X, t_tile.Y + offset.Y, WorldGen.genRand.Next(3, 8),
-                                WorldGen.genRand.Next(2, 8), TileID.Sandstone, overRide: true, addTile: true);
+            PlaceRoundSplotch(TileID.Sandstone, new Point(t_tile.X + offset.X, t_tile.Y + offset.Y),
+                              WorldGen.genRand.Next(3, 5));
 
-            WorldGen.TileRunner(t_tile.X, t_tile.Y, WorldGen.genRand.Next(3, 8), WorldGen.genRand.Next(2, 8),
-                                TileID.Adamantite, overRide: true, addTile: true);
+            PlaceRoundSplotch(TileID.Adamantite, new Point(t_tile.X, t_tile.Y), WorldGen.genRand.Next(3, 5));
 
             // Randomly spawn tendrils from one side to the other
             if (t_tile.X == (int)t_oceanX && WorldGen.genRand.Next(0, depth / 10) == 0)
@@ -136,8 +145,8 @@ public class CoralReefGen : ModSystem
 
                     direction = direction.RotatedBy(adjust);
 
-                    WorldGen.TileRunner((int)(start.X / 16), (int)(start.Y / 16), WorldGen.genRand.Next(4, 6),
-                                        WorldGen.genRand.Next(2, 4), TileID.Adamantite, overRide: true, addTile: true);
+                    PlaceRoundSplotch(TileID.Adamantite, new Point((int)(start.X / 16), (int)(start.Y / 16)),
+                                      WorldGen.genRand.Next(1, 3));
                 }
             }
         }
