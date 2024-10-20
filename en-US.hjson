@@ -218,5 +218,7 @@ Mods: {
 				TownNPCDialogueName: the Coral Reef
 			}
 		}
+
+		WorldGen.CoralReefGenMessage: Mods.AquaRegia.WorldGen.CoralReefGenMessage
 	}
 }
