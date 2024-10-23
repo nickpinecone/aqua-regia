@@ -64,10 +64,6 @@ public class TestGen : ModSystem
         var w_scanFrom = new Vector2(t_oceanX * 16, 0);
         var t_sandTile = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
 
-        // Mark as protected structure, because "Spreading Grass" step interferes with reef generation
-        GenVars.structures.AddProtectedStructure(
-            new Rectangle(t_sandTile.X, t_sandTile.Y + ReefOffset, (int)reefWidth, ReefDepth), 4);
-
         var round = new Animation<int>((int)reefWidth / 2, Ease.Out);
         var back_round = new Animation<int>((int)reefWidth / 2, Ease.In, [round]);
 
