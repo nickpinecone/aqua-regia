@@ -16,6 +16,7 @@ public static class TexturesPath
     public static string Utils = _base + "Utils/";
     public static string Accessories = _base + "Accessories/";
     public static string Armor = _base + "Armor/";
+    public static string World = _base + "World/";
 }
 
 public static class AudioPath
