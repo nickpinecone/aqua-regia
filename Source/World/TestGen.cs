@@ -8,6 +8,7 @@ using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
+using AquaRegia.World.CoralReef.Tiles;
 
 namespace AquaRegia.World;
 
@@ -115,10 +116,11 @@ public class TestGen : ModSystem
                 offset.Y = 6;
             }
 
-            PlaceRoundSplotch(TileID.Sandstone, new Point(t_tile.X + offset.X, t_tile.Y + offset.Y),
+            PlaceRoundSplotch(TileID.Sand, new Point(t_tile.X + offset.X, t_tile.Y + offset.Y),
                               WorldGen.genRand.Next(3, 4));
 
-            PlaceRoundSplotch(TileID.RedStucco, new Point(t_tile.X, t_tile.Y), WorldGen.genRand.Next(3, 4));
+            PlaceRoundSplotch((ushort)ModContent.TileType<CoralTile>(), new Point(t_tile.X, t_tile.Y),
+                              WorldGen.genRand.Next(3, 4));
 
             // Randomly spawn tendrils from one side to the other
             if (t_tile.X == (int)t_oceanX && tendrilsPos.Contains(t_tile.Y))
@@ -132,8 +134,7 @@ public class TestGen : ModSystem
                 var iters = 0;
                 var maxIters = 1000;
 
-                var coralType =
-                    WorldGen.genRand.NextFromList(TileID.RedStucco, TileID.YellowStucco, TileID.GreenStucco);
+                var coralType = WorldGen.genRand.NextFromList(ModContent.TileType<CoralTile>());
 
                 while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
                 {
@@ -157,7 +158,7 @@ public class TestGen : ModSystem
 
                     direction = direction.RotatedBy(adjust);
 
-                    PlaceRoundSplotch(coralType, new Point((int)(start.X / 16), (int)(start.Y / 16)),
+                    PlaceRoundSplotch((ushort)coralType, new Point((int)(start.X / 16), (int)(start.Y / 16)),
                                       WorldGen.genRand.Next(2, 3));
                 }
             }

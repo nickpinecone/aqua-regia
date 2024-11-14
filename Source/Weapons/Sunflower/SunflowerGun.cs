@@ -17,8 +17,6 @@ public class SunflowerGun : BaseGun
     public PropertyModule Property { get; private set; }
     public PumpModule Pump { get; private set; }
 
-    private Sunflower _sunflower = null;
-
     public SunflowerGun() : base()
     {
         Sound = new SoundModule(this);

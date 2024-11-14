@@ -143,6 +143,11 @@ Mods: {
 					Pumped: <right> to spawn a sunflower which absorbs moon power to attack your enemies
 					'''
 			}
+
+			CoralTileItem: {
+				DisplayName: Coral Tile Item
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

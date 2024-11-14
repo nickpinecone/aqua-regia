@@ -25,7 +25,6 @@ public abstract class BaseSwimWorm : ModNPC
     public NPC FollowingNPC => SegmentType == WormSegmentType.Head ? null : Main.npc[(int)NPC.ai[1]];
     public NPC FollowerNPC => SegmentType == WormSegmentType.Tail ? null : Main.npc[(int)NPC.ai[0]];
 
-    private bool _startDespawning;
     private bool _didInit = false;
 
     public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
