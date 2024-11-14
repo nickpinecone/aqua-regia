@@ -2,7 +2,7 @@ namespace AquaRegia.Modules.Weapons;
 
 public abstract class BaseGunModule
 {
-    protected BaseGunModule(BaseGun baseGun)
+    protected BaseGunModule(IComposite<BaseGunModule> baseGun)
     {
         baseGun.AddModule(this);
     }

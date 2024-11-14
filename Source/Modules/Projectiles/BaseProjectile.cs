@@ -9,12 +9,14 @@ using static AquaRegia.AquaRegia;
 
 namespace AquaRegia.Modules;
 
-public abstract class BaseProjectile : ModProjectile
+public abstract class BaseProjectile : ModProjectile, IComposite<BaseProjectileModule>
 {
     protected AquaRegia.ProjectileSource _source = null;
 
     protected Dictionary<Type, BaseProjectileModule> _modules = new();
+    Dictionary<Type, BaseProjectileModule> IComposite<BaseProjectileModule>.Modules => _modules;
     protected List<BaseProjectileModule> _runtimeModules = new();
+    List<BaseProjectileModule> IComposite<BaseProjectileModule>.RuntimeModules => _runtimeModules;
     protected ImmunityModule _immunity;
 
     public bool IsAmmoRuntime { get; set; }
@@ -22,31 +24,6 @@ public abstract class BaseProjectile : ModProjectile
     protected BaseProjectile()
     {
         _immunity = new ImmunityModule(this);
-    }
-
-    public bool HasModule<T>()
-    {
-        return _modules.ContainsKey(typeof(T));
-    }
-
-    public void AddModule(BaseProjectileModule module)
-    {
-        _modules[module.GetType()] = module;
-    }
-
-    public void AddRuntimeModule(BaseProjectileModule module)
-    {
-        if (!_modules.ContainsKey(module.GetType()))
-        {
-            _modules[module.GetType()] = module;
-            _runtimeModules.Add(module);
-        }
-    }
-
-    public T GetModule<T>()
-        where T : BaseProjectileModule
-    {
-        return (T)_modules[typeof(T)];
     }
 
     public T SpawnProjectile<T>(Vector2 position, Vector2 velocity, int damage, float knockback,

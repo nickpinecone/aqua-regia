@@ -5,7 +5,7 @@ namespace AquaRegia.Modules.Projectiles;
 
 public abstract class BaseProjectileModule
 {
-    protected BaseProjectileModule(BaseProjectile baseProjectile)
+    protected BaseProjectileModule(IComposite<BaseProjectileModule> baseProjectile)
     {
         baseProjectile.AddModule(this);
     }

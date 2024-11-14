@@ -66,14 +66,15 @@ class GaugeState : UIState
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        if (!(Main.LocalPlayer.HeldItem.ModItem is BaseGun baseGun && baseGun.HasModule<PumpModule>()))
+        if (!(Main.LocalPlayer.HeldItem.ModItem is IComposite<BaseGunModule> baseGun &&
+              baseGun.HasModule<PumpModule>()))
         {
             _pumpGauge.Hidden = true;
         }
         else
         {
             _pumpGauge.Hidden = false;
-            var pump = ((BaseGun)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
+            var pump = ((IComposite<BaseGunModule>)Main.LocalPlayer.HeldItem.ModItem).GetModule<PumpModule>();
 
             _pumpGauge.Active = pump.Active;
             _pumpGauge.Current = pump.PumpLevel;

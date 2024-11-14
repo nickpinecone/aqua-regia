@@ -9,31 +9,17 @@ using static AquaRegia.AquaRegia;
 
 namespace AquaRegia.Modules;
 
-public abstract class BaseGun : ModItem
+public abstract class BaseGun : ModItem, IComposite<BaseGunModule>
 {
     protected Dictionary<Type, BaseGunModule> _modules = new();
+    Dictionary<Type, BaseGunModule> IComposite<BaseGunModule>.Modules => _modules;
+    List<BaseGunModule> IComposite<BaseGunModule>.RuntimeModules => throw new NotImplementedException();
 
     public SpriteModule Sprite { get; private set; }
 
     protected BaseGun()
     {
         Sprite = new SpriteModule(this);
-    }
-
-    public bool HasModule<T>()
-    {
-        return _modules.ContainsKey(typeof(T));
-    }
-
-    public void AddModule(BaseGunModule module)
-    {
-        _modules[module.GetType()] = module;
-    }
-
-    public T GetModule<T>()
-        where T : BaseGunModule
-    {
-        return (T)_modules[typeof(T)];
     }
 
     public T SpawnProjectile<T>(Player player, Vector2 position, Vector2 velocity, int damage, float knockback,
