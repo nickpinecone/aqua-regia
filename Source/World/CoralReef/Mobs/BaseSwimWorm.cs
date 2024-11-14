@@ -1,4 +1,5 @@
 using System;
+using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -81,6 +82,7 @@ public abstract class BaseSwimWormHead : BaseSwimWorm
     public virtual int MaxDistanceForUsingTileCollision => 1000;
 
     public Vector2? ForcedTargetPosition { get; set; }
+    private Vector2? _wanderPoint { get; set; }
 
     protected int SpawnSegment(IEntitySource source, int type, int latestNPC)
     {
@@ -259,10 +261,48 @@ public abstract class BaseSwimWormHead : BaseSwimWorm
             HeadAI_Movement_HandleFallingFromNoCollision(dirX, speed, acceleration);
         else
         {
-            HeadAI_Movement_HandleMovement(dirX, dirY, length, speed, acceleration);
+            if (TileHelper.AnySolidInSight(npcCenter, Main.LocalPlayer.Center))
+            {
+                HeadAI_Movement_Wander(speed, acceleration);
+            }
+            else
+            {
+                HeadAI_Movement_HandleMovement(dirX, dirY, length, speed, acceleration);
+            }
         }
 
         HeadAI_Movement_SetRotation(collision);
+    }
+
+    private void HeadAI_Movement_Wander(float speed, float acceleration)
+    {
+        var maxIters = 1000;
+        var iters = 0;
+
+        if (_wanderPoint == null || NPC.Center.DistanceSQ((Vector2)_wanderPoint) < 16f * 16f)
+        {
+            do
+            {
+                var amountX = Main.rand.Next(128, 256);
+                var amountY = Main.rand.Next(128, 256);
+                _wanderPoint = NPC.Center + new Vector2(amountX, amountY).RotatedByRandom(MathHelper.Pi * 2);
+
+                iters += 1;
+            } while (TileHelper.AnySolidInSight(NPC.Center, (Vector2)_wanderPoint) && iters < maxIters);
+        }
+
+        float targetRoundedPosX = (float)((int)(((Vector2)_wanderPoint).X / 16f) * 16);
+        float targetRoundedPosY = (float)((int)(((Vector2)_wanderPoint).Y / 16f) * 16);
+        var npcCenter = NPC.Center;
+        npcCenter.X = (float)((int)(npcCenter.X / 16f) * 16);
+        npcCenter.Y = (float)((int)(npcCenter.Y / 16f) * 16);
+
+        var dirX = targetRoundedPosX - npcCenter.X;
+        var dirY = targetRoundedPosY - npcCenter.Y;
+
+        float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+
+        HeadAI_Movement_HandleMovement(dirX, dirY, length, speed / 4f, acceleration / 2f);
     }
 
     private void HeadAI_Movement_HandleFallingFromNoCollision(float dirX, float speed, float acceleration)

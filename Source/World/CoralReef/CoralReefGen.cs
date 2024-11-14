@@ -24,8 +24,7 @@ public class CoralReefGen : ModSystem
 
     public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
     {
-        CoralTileCount =
-            tileCounts[TileID.RedStucco] + tileCounts[TileID.YellowStucco] + tileCounts[TileID.GreenStucco];
+        CoralTileCount = tileCounts[ModContent.TileType<CoralTile>()];
     }
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)

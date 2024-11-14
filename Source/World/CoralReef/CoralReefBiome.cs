@@ -8,7 +8,12 @@ public class CoralReefBiome : ModBiome
 {
     public override void OnEnter(Player player)
     {
-        ChatLog.Message("Player has entered the coral reef biome!");
+        // ChatLog.Message("Player has entered the coral reef biome!");
+    }
+
+    public override void OnLeave(Player player)
+    {
+        // ChatLog.Message("Player has left the coral reef biome!");
     }
 
     public override bool IsBiomeActive(Player player)

@@ -151,4 +151,19 @@ public static class TileHelper
 
         return surface;
     }
+
+    public static bool AnySolidInSight(Vector2 start, Vector2 end)
+    {
+        while (start.DistanceSQ(end) > 16f * 16f)
+        {
+            if (TileHelper.IsSolid(start))
+            {
+                return true;
+            }
+
+            start = start.MoveTowards(end, 16f);
+        }
+
+        return false;
+    }
 }

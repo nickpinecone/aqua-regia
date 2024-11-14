@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 
 namespace AquaRegia.World.CoralReef.Mobs;
 
@@ -22,6 +23,16 @@ internal class OarfishHead : BaseSwimWormHead
         NPC.height = 16;
         NPC.waterMovementSpeed = 1f;
         NPC.noGravity = true;
+    }
+
+    public override float SpawnChance(NPCSpawnInfo spawnInfo)
+    {
+        if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CoralReefBiome>()))
+        {
+            return 0.1f;
+        }
+
+        return 0f;
     }
 
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
