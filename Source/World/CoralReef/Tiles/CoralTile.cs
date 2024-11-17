@@ -13,7 +13,6 @@ public class CoralTile : ModTile
     public override void SetStaticDefaults()
     {
         Main.tileSolid[Type] = true;
-        Main.tileBlockLight[Type] = true;
         Main.tileLighted[Type] = true;
 
         TileID.Sets.ChecksForMerge[Type] = true;
@@ -22,6 +21,13 @@ public class CoralTile : ModTile
         DustType = DustID.Coralstone;
 
         AddMapEntry(new Color(235, 114, 80));
+    }
+
+    public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+    {
+        r = 0.5f;
+        g = 0.5f;
+        b = 0.5f;
     }
 
     public override void ModifyFrameMerge(int i, int j, ref int up, ref int down, ref int left, ref int right,

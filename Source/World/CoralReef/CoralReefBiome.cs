@@ -1,11 +1,15 @@
 using AquaRegia.Utils;
 using Terraria;
+using Terraria.Graphics.Capture;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AquaRegia.World.CoralReef;
 
 public class CoralReefBiome : ModBiome
 {
+    public override int Music => MusicID.Ocean;
+
     public override void OnEnter(Player player)
     {
         // ChatLog.Message("Player has entered the coral reef biome!");
