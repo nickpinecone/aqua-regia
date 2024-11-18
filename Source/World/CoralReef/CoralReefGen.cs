@@ -9,6 +9,7 @@ using Terraria.WorldBuilding;
 using Terraria.Localization;
 using Terraria.IO;
 using AquaRegia.World.CoralReef.Tiles;
+using System.Linq;
 
 namespace AquaRegia.World.CoralReef;
 
@@ -49,128 +50,275 @@ public class CoralReefGenPass : GenPass
     {
     }
 
+    private enum EdgeType
+    {
+        Side,
+        Corner,
+        Bottom,
+    }
+
+    private class EdgeTile
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public Vector2 DirectionCreated { get; set; }
+        public EdgeType Type { get; set; }
+
+        public Vector2 ToWorldCoordinates()
+        {
+            return new Vector2(X * 16, Y * 16);
+        }
+    }
+
+    private List<EdgeTile> t_edgeTiles = new();
+
+    public const int ReefOffset = 50;
+    public const int ReefDepth = 200;
+    public const int Depth = ReefDepth + ReefOffset;
+
+    protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+    {
+        GenerateOutline();
+        ClearInside();
+        PlaceOutline();
+        GenerateTendrils();
+    }
+
+    private void GenerateOutline()
+    {
+        var t_reefWidth = WorldGen.oceanDistance / 1.2f;
+        var t_oceanX = Main.maxTilesX - t_reefWidth;
+        var w_scanFrom = new Vector2(t_oceanX * 16, 0);
+        var t_sandTile = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
+
+        t_edgeTiles.Add(new EdgeTile()
+        {
+            X = t_sandTile.X,
+            Y = t_sandTile.Y,
+            DirectionCreated = Vector2.UnitY,
+            Type = EdgeType.Side,
+        });
+
+        var angle = WorldGen.genRand.NextFloat(0.05f, 0.1f);
+        var direction = new Vector2(0, 16).RotatedBy(angle);
+        var start = t_sandTile.ToWorldCoordinates();
+
+        // Side
+        for (int j = (int)t_sandTile.Y; j < (int)t_sandTile.Y + Depth; j++)
+        {
+            start += direction;
+
+            t_edgeTiles.Add(new EdgeTile()
+            {
+                X = (int)start.X / 16,
+                Y = (int)start.Y / 16,
+                DirectionCreated = direction,
+                Type = EdgeType.Side,
+            });
+
+            var adjust = WorldGen.genRand.NextFloat(-0.01f, 0.01f);
+            var currentAngle = direction.ToRotation();
+
+            // Make sure it stays in the bounds
+            if (currentAngle + adjust < 0.04f + MathHelper.PiOver2)
+            {
+                adjust = 0.01f;
+            }
+
+            direction = direction.RotatedBy(adjust);
+        }
+
+        // Corner
+        angle = direction.ToRotation();
+        var diff = 0 - angle;
+        start = t_edgeTiles.Last().ToWorldCoordinates();
+        var smooth = WorldGen.genRand.Next(64, 96);
+
+        for (int i = 0; i < smooth; i++)
+        {
+            start += direction;
+
+            t_edgeTiles.Add(new EdgeTile()
+            {
+                X = (int)start.X / 16,
+                Y = (int)start.Y / 16,
+                DirectionCreated = direction,
+                Type = EdgeType.Corner,
+            });
+
+            var adjust = diff / smooth;
+            direction = direction.RotatedBy(adjust);
+        }
+
+        // Bottom
+        angle = WorldGen.genRand.NextFloat(-0.1f, 0.1f);
+        direction = new Vector2(16, 0).RotatedBy(angle);
+        start = t_edgeTiles.Last().ToWorldCoordinates();
+
+        for (int i = (int)start.X / 16; i < (int)Main.maxTilesX; i++)
+        {
+            start += direction;
+
+            t_edgeTiles.Add(new EdgeTile()
+            {
+                X = (int)start.X / 16,
+                Y = (int)start.Y / 16,
+                DirectionCreated = direction,
+                Type = EdgeType.Bottom,
+            });
+
+            var adjust = WorldGen.genRand.NextFloat(-0.01f, 0.01f);
+            var currentAngle = direction.ToRotation();
+
+            // Make sure it stays in bounds
+            if (currentAngle + adjust > 0.1f)
+            {
+                adjust = -0.01f;
+            }
+            else if (currentAngle + adjust < -0.1f)
+            {
+                adjust = 0.01f;
+            }
+
+            direction = direction.RotatedBy(adjust);
+        }
+    }
+
+    private void PlaceWater(int x, int y)
+    {
+        WorldGen.KillTile(x, y, noItem: true);
+        Tile tile = Main.tile[x, y];
+        tile.LiquidAmount = 255;
+        tile.LiquidType = LiquidID.Water;
+    }
+
+    private void ClearInside()
+    {
+        foreach (var edge in t_edgeTiles)
+        {
+            if (edge.Type == EdgeType.Side || edge.Type == EdgeType.Corner)
+            {
+                for (int i = edge.X; i < Main.maxTilesX; i++)
+                {
+                    if (t_edgeTiles.Any(e => e.Y == edge.Y && edge.X == i && e != edge))
+                    {
+                        continue;
+                    }
+
+                    PlaceWater(i, edge.Y);
+                }
+            }
+            else
+            {
+                var firstEdge = t_edgeTiles.First();
+
+                for (int j = edge.Y; j > firstEdge.Y; j--)
+                {
+                    if (t_edgeTiles.Any(e => e.X == edge.X && edge.Y == j && e != edge))
+                    {
+                        continue;
+                    }
+
+                    PlaceWater(edge.X, j);
+                }
+            }
+        }
+    }
+
     private void PlaceRoundSplotch(ushort tileId, Point position, int size)
     {
         WorldUtils.Gen(position, new Shapes.Circle(size, size),
                        Actions.Chain(new Actions.ClearTile(), new Actions.SetTile(tileId)));
     }
 
-    protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+    private void PlaceOutline()
     {
-        // t_* means tile coordinates, w_* means world cooridantes
-        // Dig a square in the middle of the ocean down, with curved edges
-        const int ReefOffset = 50;
-        const int ReefDepth = 200;
-        const int Depth = ReefDepth + ReefOffset;
-        const int CurveAmount = 50;
-
-        var t_edge_tiles = new List<Point>();
-
-        var reefWidth = WorldGen.oceanDistance / 1.2f;
-        var t_oceanX = Main.maxTilesX - reefWidth;
-        var w_scanFrom = new Vector2(t_oceanX * 16, 0);
-        var t_sandTile = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
-
-        // Mark as protected structure, because "Spreading Grass" step interferes with reef generation
-        GenVars.structures.AddProtectedStructure(
-            new Rectangle(t_sandTile.X, t_sandTile.Y + ReefOffset, (int)reefWidth, ReefDepth), 4);
-
-        var round = new Animation<int>((int)reefWidth / 2, Ease.Out);
-        var back_round = new Animation<int>((int)reefWidth / 2, Ease.In, [round]);
-
-        for (int i = (int)t_oceanX; i < Main.maxTilesX; i++)
-        {
-            var round_rate = round.Animate(0, CurveAmount) ?? CurveAmount;
-            var back_rate = back_round.Animate(0, CurveAmount) ?? 0;
-            int last_j = 0;
-
-            for (int j = t_sandTile.Y; j < t_sandTile.Y + (Depth - CurveAmount) + round_rate - back_rate; j++)
-            {
-                last_j = j;
-
-                if (i == (int)t_oceanX && j > t_sandTile.Y + ReefOffset)
-                {
-                    t_edge_tiles.Add(new Point(i, j));
-                }
-
-                WorldGen.KillTile(i, j, noItem: true);
-                Tile tile = Main.tile[i, j];
-                tile.LiquidAmount = 255;
-                tile.LiquidType = LiquidID.Water;
-            }
-
-            t_edge_tiles.Add(new Point(i, last_j));
-        }
-
-        // Place "coral" splotches along the edges
-        var tendrilsAmount = WorldGen.genRand.Next(5, 10);
-        var tendrilsCount = 0;
-        var tendrilsPos = new List<int>();
-
-        for (int i = 0; i < tendrilsAmount; i++)
-        {
-            tendrilsPos.Add(WorldGen.genRand.Next(t_sandTile.Y + ReefOffset, t_sandTile.Y + ReefOffset + ReefDepth));
-        }
-
-        foreach (var t_tile in t_edge_tiles)
+        foreach (var edge in t_edgeTiles)
         {
             // Place some sand on under the coral tiles
-            var offset = new Point(0, 0);
+            var offset = edge.DirectionCreated.SafeNormalize(Vector2.Zero) * 6;
+            offset = offset.RotatedBy(MathHelper.PiOver2);
 
-            if (t_tile.X == (int)t_oceanX)
+            PlaceRoundSplotch(TileID.Sand, new Point(edge.X + (int)offset.X, edge.Y + (int)offset.Y),
+                              WorldGen.genRand.Next(3, 4));
+
+            var firstEdge = t_edgeTiles.First();
+
+            if (edge.Y > firstEdge.Y + ReefOffset)
             {
-                offset.X = -6;
+                PlaceRoundSplotch((ushort)ModContent.TileType<CoralTile>(), new Point(edge.X, edge.Y),
+                                  WorldGen.genRand.Next(3, 4));
             }
             else
             {
-                offset.Y = 6;
+                PlaceRoundSplotch(TileID.Sand, new Point(edge.X, edge.Y), WorldGen.genRand.Next(3, 4));
             }
+        }
+    }
 
-            PlaceRoundSplotch(TileID.Sand, new Point(t_tile.X + offset.X, t_tile.Y + offset.Y),
-                              WorldGen.genRand.Next(3, 4));
+    private void GenerateTendrils()
+    {
+        var tendrilsAmount = WorldGen.genRand.Next(5, 10);
+        var tendrilsPos = new List<EdgeTile>();
 
-            PlaceRoundSplotch((ushort)ModContent.TileType<CoralTile>(), new Point(t_tile.X, t_tile.Y),
-                              WorldGen.genRand.Next(3, 4));
+        var firstEdge = t_edgeTiles.First();
+        var sideEdges =
+            t_edgeTiles
+                .Where(e => (e.Type == EdgeType.Side || e.Type == EdgeType.Corner) && e.Y > firstEdge.Y + ReefOffset)
+                .ToList();
 
-            // Randomly spawn tendrils from one side to the other
-            if (t_tile.X == (int)t_oceanX && tendrilsPos.Contains(t_tile.Y))
+        for (int i = 0; i < tendrilsAmount; i++)
+        {
+            var count = sideEdges.Count();
+            var randIndex = WorldGen.genRand.Next(0, count);
+            var edge = sideEdges[randIndex];
+
+            tendrilsPos.Add(edge);
+        }
+
+        for (int i = 0; i < tendrilsAmount; i++)
+        {
+            var angle = WorldGen.genRand.NextFloat(-0.2f, 0.2f);
+            var direction = new Vector2(16, 0).RotatedBy(angle);
+            var start = new Vector2(tendrilsPos[i].X * 16, tendrilsPos[i].Y * 16);
+
+            var iters = 0;
+            var maxIters = 1000;
+
+            var coralType = WorldGen.genRand.NextFromList(ModContent.TileType<CoralTile>());
+            var highestBottom = t_edgeTiles.Where(e => e.Type == EdgeType.Bottom).MinBy(e => e.Y);
+
+            while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
             {
-                tendrilsCount += 1;
+                iters++;
 
-                var angle = WorldGen.genRand.NextFloat(-0.2f, 0.2f);
-                var direction = new Vector2(16, 0).RotatedBy(angle);
-                var start = t_tile.ToWorldCoordinates();
+                start += direction;
+                var adjust = WorldGen.genRand.NextFloat(-0.05f, 0.05f);
+                var currentAngle = direction.ToRotation();
 
-                var iters = 0;
-                var maxIters = 1000;
-
-                var coralType = WorldGen.genRand.NextFromList(ModContent.TileType<CoralTile>());
-
-                while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
+                // Make sure it stays in the coral reef bounds
+                if (start.Y / 16 < firstEdge.Y + ReefOffset)
                 {
-                    iters++;
-
-                    start += direction;
-                    var adjust = WorldGen.genRand.NextFloat(-0.05f, 0.05f);
-                    var current_angle = direction.ToRotation();
-
-                    // Make sure it stays in the coral reef bounds
-                    if (start.Y / 16 < t_sandTile.Y + ReefOffset)
-                    {
-                        adjust = MathF.Abs(adjust);
-                    }
-                    // And doesnt get too crazy with curving
-                    else if (current_angle + adjust > MathHelper.PiOver4 ||
-                             current_angle + adjust < -MathHelper.PiOver4)
-                    {
-                        adjust = 0;
-                    }
-
-                    direction = direction.RotatedBy(adjust);
-
-                    PlaceRoundSplotch((ushort)coralType, new Point((int)(start.X / 16), (int)(start.Y / 16)),
-                                      WorldGen.genRand.Next(2, 3));
+                    adjust = 0.02f;
                 }
+                else if (start.Y / 16 > highestBottom.Y)
+                {
+                    adjust = -0.04f;
+                }
+                // And doesnt get too crazy with curving
+                else if (currentAngle + adjust > MathHelper.PiOver4)
+                {
+                    adjust = -0.02f;
+                }
+                else if (currentAngle + adjust < -MathHelper.PiOver4)
+                {
+                    adjust = 0.02f;
+                }
+
+                direction = direction.RotatedBy(adjust);
+
+                PlaceRoundSplotch((ushort)coralType, new Point((int)(start.X / 16), (int)(start.Y / 16)),
+                                  WorldGen.genRand.Next(2, 3));
             }
         }
     }

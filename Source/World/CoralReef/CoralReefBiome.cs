@@ -10,16 +10,6 @@ public class CoralReefBiome : ModBiome
 {
     public override int Music => MusicID.Ocean;
 
-    public override void OnEnter(Player player)
-    {
-        // ChatLog.Message("Player has entered the coral reef biome!");
-    }
-
-    public override void OnLeave(Player player)
-    {
-        // ChatLog.Message("Player has left the coral reef biome!");
-    }
-
     public override bool IsBiomeActive(Player player)
     {
         // If we are on the left ocean
