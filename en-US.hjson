@@ -212,6 +212,7 @@ Mods: {
 			OarfishBody.DisplayName: Oarfish Body
 			OarfishHead.DisplayName: Oarfish Head
 			OarfishTail.DisplayName: Oarfish Tail
+			Clownfish.DisplayName: Clownfish
 		}
 
 		Buffs: {
