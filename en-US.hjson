@@ -145,7 +145,7 @@ Mods: {
 			}
 
 			CoralTileItem: {
-				DisplayName: Coral Tile Item
+				DisplayName: Coral Block
 				Tooltip: ""
 			}
 		}
@@ -222,14 +222,9 @@ Mods: {
 		}
 
 		Biomes: {
-			CoralReef: {
+			CoralReefBiome: {
 				DisplayName: Coral Reef
 				TownNPCDialogueName: the Coral Reef
-			}
-
-			CoralReefBiome: {
-				DisplayName: Coral Reef Biome
-				TownNPCDialogueName: the Coral Reef Biome
 			}
 		}
 
@@ -238,10 +233,19 @@ Mods: {
 		Configs: {
 			AquaRegiaConfig: {
 				DisplayName: Aqua Regia Config
-				Headers.WorldGeneration: World Generation Header
+
+				Headers: {
+					WorldGeneration: World Generation
+					Debug: Debug
+				}
 
 				CoralReefGenEnabled: {
-					Label: Coral Reef Generation Enabled (Experimental)
+					Label: Generate Coral Reef (Experimental)
+					Tooltip: ""
+				}
+
+				DebugInfoEnabled: {
+					Label: Enable Debug Info
 					Tooltip: ""
 				}
 			}

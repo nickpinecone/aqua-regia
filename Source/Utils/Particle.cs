@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using AquaRegia.Config;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace AquaRegia.Utils;
 
@@ -16,12 +18,18 @@ public static class Particle
 {
     public static void Debug(Vector2 position, Color? color = null)
     {
-        Dust.QuickDust(position, color ?? Color.Red);
+        if (ModContent.GetInstance<AquaRegiaConfig>().DebugInfoEnabled)
+        {
+            Dust.QuickDust(position, color ?? Color.Red);
+        }
     }
 
     public static void Debug(Point point, Color? color = null)
     {
-        Dust.QuickDust(point, color ?? Color.Red);
+        if (ModContent.GetInstance<AquaRegiaConfig>().DebugInfoEnabled)
+        {
+            Dust.QuickDust(point, color ?? Color.Red);
+        }
     }
 
     public static Dust Single(int type, Vector2 position, Vector2 size, Vector2 velocity, float scale = 1f,

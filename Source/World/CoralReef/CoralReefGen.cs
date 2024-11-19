@@ -10,6 +10,7 @@ using Terraria.Localization;
 using Terraria.IO;
 using AquaRegia.World.CoralReef.Tiles;
 using System.Linq;
+using AquaRegia.Config;
 
 namespace AquaRegia.World.CoralReef;
 
@@ -91,8 +92,7 @@ public class CoralReefGenPass : GenPass
         var w_scanFrom = new Vector2(t_oceanX * 16, 0);
         var t_sandTile = TileHelper.FirstSolidFromTop(w_scanFrom, 512 * 16) ?? Point.Zero;
 
-        t_edgeTiles.Add(new EdgeTile()
-        {
+        t_edgeTiles.Add(new EdgeTile() {
             X = t_sandTile.X,
             Y = t_sandTile.Y,
             DirectionCreated = Vector2.UnitY,
@@ -108,8 +108,7 @@ public class CoralReefGenPass : GenPass
         {
             start += direction;
 
-            t_edgeTiles.Add(new EdgeTile()
-            {
+            t_edgeTiles.Add(new EdgeTile() {
                 X = (int)start.X / 16,
                 Y = (int)start.Y / 16,
                 DirectionCreated = direction,
@@ -138,8 +137,7 @@ public class CoralReefGenPass : GenPass
         {
             start += direction;
 
-            t_edgeTiles.Add(new EdgeTile()
-            {
+            t_edgeTiles.Add(new EdgeTile() {
                 X = (int)start.X / 16,
                 Y = (int)start.Y / 16,
                 DirectionCreated = direction,
@@ -151,16 +149,14 @@ public class CoralReefGenPass : GenPass
         }
 
         // Bottom
-        angle = WorldGen.genRand.NextFloat(-0.1f, 0.1f);
-        direction = new Vector2(16, 0).RotatedBy(angle);
+        direction = new Vector2(16, 0);
         start = t_edgeTiles.Last().ToWorldCoordinates();
 
         for (int i = (int)start.X / 16; i < (int)Main.maxTilesX; i++)
         {
             start += direction;
 
-            t_edgeTiles.Add(new EdgeTile()
-            {
+            t_edgeTiles.Add(new EdgeTile() {
                 X = (int)start.X / 16,
                 Y = (int)start.Y / 16,
                 DirectionCreated = direction,

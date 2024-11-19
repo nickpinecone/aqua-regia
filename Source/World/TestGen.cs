@@ -117,8 +117,7 @@ public class TestGen : ModSystem
         }
 
         // Bottom
-        angle = WorldGen.genRand.NextFloat(-0.1f, 0.1f);
-        direction = new Vector2(16, 0).RotatedBy(angle);
+        direction = new Vector2(16, 0);
         start = t_edgeTiles.Last().ToWorldCoordinates();
 
         for (int i = (int)start.X / 16; i < (int)Main.maxTilesX; i++)
