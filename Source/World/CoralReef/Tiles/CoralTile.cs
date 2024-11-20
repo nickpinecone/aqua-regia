@@ -18,6 +18,8 @@ public class CoralTile : ModTile
         TileID.Sets.ChecksForMerge[Type] = true;
         Main.tileMerge[TileID.Sand][Type] = true;
 
+        TileID.Sets.GeneralPlacementTiles[Type] = false;
+
         DustType = DustID.Coralstone;
 
         AddMapEntry(new Color(235, 114, 80));

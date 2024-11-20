@@ -152,6 +152,7 @@ public class TestGen : ModSystem
     private void PlaceWater(int x, int y)
     {
         WorldGen.KillTile(x, y, noItem: true);
+        WorldGen.KillWall(x, y);
         Tile tile = Main.tile[x, y];
         tile.LiquidAmount = 255;
         tile.LiquidType = LiquidID.Water;
@@ -193,7 +194,7 @@ public class TestGen : ModSystem
     private void PlaceRoundSplotch(ushort tileId, Point position, int size)
     {
         WorldUtils.Gen(position, new Shapes.Circle(size, size),
-                       Actions.Chain(new Actions.ClearTile(), new Actions.SetTile(tileId)));
+                       Actions.Chain(new Actions.ClearTile(), new Actions.ClearWall(), new Actions.SetTile(tileId)));
     }
 
     private void PlaceOutline()

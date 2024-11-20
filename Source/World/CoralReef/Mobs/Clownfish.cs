@@ -1,4 +1,6 @@
 using AquaRegia.Utils;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,14 +14,15 @@ public class Clownfish : ModNPC
     public override void SetDefaults()
     {
         NPC.noGravity = true;
-        NPC.width = 20;
-        NPC.height = 18;
+        NPC.width = 32;
+        NPC.height = 16;
         NPC.damage = 0;
         NPC.defense = 0;
         NPC.lifeMax = 5;
         NPC.HitSound = SoundID.NPCHit1;
         NPC.DeathSound = SoundID.NPCDeath1;
         NPC.knockBackResist = 0.5f;
+        NPC.aiStyle = 16;
 
         AIType = NPCID.Goldfish;
     }
@@ -43,5 +46,21 @@ public class Clownfish : ModNPC
                                         // Sets the description of this NPC that is listed in the bestiary.
                                         new FlavorTextBestiaryInfoElement("Found in the coral reef biome")
             });
+    }
+
+    public override void AI()
+    {
+        base.AI();
+
+        if (NPC.velocity.X > 0)
+        {
+            NPC.rotation = NPC.velocity.ToRotation();
+            NPC.spriteDirection = 1;
+        }
+        else
+        {
+            NPC.rotation = NPC.velocity.ToRotation() - MathHelper.Pi;
+            NPC.spriteDirection = -1;
+        }
     }
 }

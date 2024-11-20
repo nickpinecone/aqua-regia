@@ -83,6 +83,13 @@ public class CoralReefGenPass : GenPass
         ClearInside();
         PlaceOutline();
         GenerateTendrils();
+
+        var first = t_edgeTiles.First();
+        var left = t_edgeTiles.MinBy(e => e.X);
+        var bottom = t_edgeTiles.MaxBy(e => e.Y);
+        var right = t_edgeTiles.MaxBy(e => e.X);
+        var rect = new Rectangle(left.X, first.Y, right.X - left.X, bottom.Y - first.Y);
+        GenVars.structures.AddProtectedStructure(rect, 4);
     }
 
     private void GenerateOutline()
@@ -183,6 +190,7 @@ public class CoralReefGenPass : GenPass
     private void PlaceWater(int x, int y)
     {
         WorldGen.KillTile(x, y, noItem: true);
+        WorldGen.KillWall(x, y);
         Tile tile = Main.tile[x, y];
         tile.LiquidAmount = 255;
         tile.LiquidType = LiquidID.Water;
@@ -224,7 +232,7 @@ public class CoralReefGenPass : GenPass
     private void PlaceRoundSplotch(ushort tileId, Point position, int size)
     {
         WorldUtils.Gen(position, new Shapes.Circle(size, size),
-                       Actions.Chain(new Actions.ClearTile(), new Actions.SetTile(tileId)));
+                       Actions.Chain(new Actions.ClearTile(), new Actions.ClearWall(), new Actions.SetTile(tileId)));
     }
 
     private void PlaceOutline()
