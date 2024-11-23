@@ -42,6 +42,13 @@ public class CoralReefGen : ModSystem
         {
             tasks.Insert(OceanCavesIndex + 1, new CoralReefGenPass("Coral Reef Gen", 100f));
         }
+
+        int FinalCleanup = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+
+        if (FinalCleanup != -1)
+        {
+            tasks.Insert(FinalCleanup, new CoralCleanupPass("Coral Cleanup", 100f));
+        }
     }
 }
 
