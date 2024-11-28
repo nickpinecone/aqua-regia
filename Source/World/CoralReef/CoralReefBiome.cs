@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using AquaRegia.World.CoralReef.Mobs;
 
 namespace AquaRegia.World.CoralReef;
 
@@ -19,5 +21,18 @@ public class CoralReefBiome : ModBiome
                 // And we are below ocean level
                 // Then check for at least x amount of coral tiles
                 ModContent.GetInstance<CoralReefGen>().CoralTileCount >= 40);
+    }
+
+    public static void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+    {
+        if (spawnInfo.Player.InModBiome(ModContent.GetInstance<CoralReefBiome>()))
+        {
+            pool.Clear();
+
+            pool.Add(ModContent.NPCType<OarfishHead>(), 1);
+            pool.Add(ModContent.NPCType<Clownfish>(), 1);
+
+            pool.Add(NPCID.Goldfish, 1);
+        }
     }
 }

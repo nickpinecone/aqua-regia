@@ -1,4 +1,5 @@
 using AquaRegia.Utils;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
@@ -17,12 +18,26 @@ internal class OarfishHead : BaseSwimWormHead
     public override void SetDefaults()
     {
         NPC.defense = 10;
-        NPC.lifeMax = 20;
-        NPC.damage = 5;
+        NPC.lifeMax = 40;
+        NPC.damage = 20;
         NPC.width = 16;
         NPC.height = 16;
         NPC.waterMovementSpeed = 1f;
         NPC.noGravity = true;
+        NPC.value = 150f;
+
+        NPC.HitSound = SoundID.NPCHit1;
+        NPC.DeathSound = SoundID.NPCDeath1;
+    }
+
+    public override void OnKill()
+    {
+        base.OnKill();
+
+        foreach (var particle in Particle.Circle(DustID.Water, NPC.Center, new Vector2(6, 6), 4, 1f))
+        {
+            particle.noGravity = true;
+        }
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -48,8 +63,8 @@ internal class OarfishHead : BaseSwimWormHead
 
     public override void Init()
     {
-        MinSegmentLength = 6;
-        MaxSegmentLength = 12;
+        MinSegmentLength = 12;
+        MaxSegmentLength = 20;
 
         CommonWormInit(this);
     }
@@ -67,8 +82,7 @@ internal class OarfishBody : BaseSwimWormBody
 
     public override void SetStaticDefaults()
     {
-        NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
-        {
+        NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() {
             Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
         };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
@@ -77,13 +91,25 @@ internal class OarfishBody : BaseSwimWormBody
     public override void SetDefaults()
     {
         NPC.defense = 20;
-        NPC.lifeMax = 20;
-        NPC.damage = 5;
+        NPC.lifeMax = 40;
+        NPC.damage = 20;
         NPC.width = 16;
         NPC.height = 16;
         NPC.noTileCollide = true;
         NPC.noGravity = true;
         NPC.waterMovementSpeed = 1f;
+
+        NPC.HitSound = SoundID.NPCHit1;
+    }
+
+    public override void OnKill()
+    {
+        base.OnKill();
+
+        foreach (var particle in Particle.Circle(DustID.Water, NPC.Center, new Vector2(6, 6), 4, 1f))
+        {
+            particle.noGravity = true;
+        }
     }
 
     public override void Init()
@@ -98,8 +124,7 @@ internal class OarfishTail : BaseSwimWormTail
 
     public override void SetStaticDefaults()
     {
-        NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
-        {
+        NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() {
             Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
         };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
@@ -108,13 +133,25 @@ internal class OarfishTail : BaseSwimWormTail
     public override void SetDefaults()
     {
         NPC.defense = 30;
-        NPC.lifeMax = 20;
-        NPC.damage = 5;
+        NPC.lifeMax = 40;
+        NPC.damage = 20;
         NPC.width = 16;
         NPC.height = 16;
         NPC.noTileCollide = true;
         NPC.noGravity = true;
         NPC.waterMovementSpeed = 1f;
+
+        NPC.HitSound = SoundID.NPCHit1;
+    }
+
+    public override void OnKill()
+    {
+        base.OnKill();
+
+        foreach (var particle in Particle.Circle(DustID.Water, NPC.Center, new Vector2(6, 6), 4, 1f))
+        {
+            particle.noGravity = true;
+        }
     }
 
     public override void Init()

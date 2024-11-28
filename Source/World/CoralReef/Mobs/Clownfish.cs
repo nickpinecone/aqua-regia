@@ -24,7 +24,20 @@ public class Clownfish : ModNPC
         NPC.knockBackResist = 0.5f;
         NPC.aiStyle = 16;
 
+        NPC.HitSound = SoundID.NPCHit1;
+        NPC.DeathSound = SoundID.NPCDeath1;
+
         AIType = NPCID.Goldfish;
+    }
+
+    public override void OnKill()
+    {
+        base.OnKill();
+
+        foreach (var particle in Particle.Circle(DustID.RedStarfish, NPC.Center, new Vector2(4, 4), 4, 1f))
+        {
+            particle.noGravity = true;
+        }
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
