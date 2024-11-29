@@ -25,6 +25,14 @@ public class CoralTile : ModTile
         AddMapEntry(new Color(235, 114, 80));
     }
 
+    public override void DrawEffects(int i, int j, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch,
+                                     ref Terraria.DataStructures.TileDrawInfo drawData)
+    {
+        base.DrawEffects(i, j, spriteBatch, ref drawData);
+
+        Main.LocalPlayer.GetModPlayer<CoralPlayer>().AddBreathSpot(new Point(i, j));
+    }
+
     public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
     {
         r = 0.5f;
