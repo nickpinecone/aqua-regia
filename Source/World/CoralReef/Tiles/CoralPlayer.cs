@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AquaRegia.Utils;
-using AquaRegia.Weapons.Sea;
 using AquaRegia.World.CoralReef.Tiles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -9,8 +8,7 @@ using Terraria.ModLoader;
 
 public class CoralPlayer : ModPlayer
 {
-    private Dictionary<Point, bool> _breathSpots = new();
-    private Timer _timer = new(120);
+    private Dictionary<Point, (bool IsBreath, Timer Timer)> _breathSpots = new();
 
     public void AddBreathSpot(Point position)
     {
@@ -20,29 +18,31 @@ public class CoralPlayer : ModPlayer
 
             if (topTile.HasTile)
             {
-                _breathSpots.Add(new Point(position.X, position.Y), false);
+                _breathSpots.Add(new Point(position.X, position.Y), (false, null));
             }
             else
             {
-                _breathSpots.Add(position, Main.rand.Next(0, 15) == 0);
+                var isBreath = Main.rand.Next(0, 200) == 0;
+                var timer = isBreath ? new Timer(Main.rand.Next(30, 60)) : null;
+                _breathSpots.Add(position, (isBreath, timer));
             }
         }
     }
 
     public override void PreUpdate()
     {
-        _timer.Update();
-
-        if (_timer.Done)
+        foreach (var spot in _breathSpots.Where(b => b.Value.IsBreath))
         {
-            foreach (var spot in _breathSpots.Where(b => b.Value == true))
+            spot.Value.Timer.Update();
+
+            if (spot.Value.Timer.Done)
             {
+                spot.Value.Timer.WaitTime = Main.rand.Next(30, 60);
+                spot.Value.Timer.Restart();
 
                 Projectile.NewProjectile(Projectile.GetSource_NaturalSpawn(), spot.Key.ToWorldCoordinates(),
-                                         -Vector2.UnitY, ModContent.ProjectileType<BubbleProjectile>(), 0, 0f);
+                                         Vector2.Zero, ModContent.ProjectileType<BreathBubble>(), 0, 0f);
             }
-
-            _timer.Restart();
         }
     }
 }

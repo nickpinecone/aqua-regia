@@ -186,6 +186,7 @@ Mods: {
 			SeedExplosion.DisplayName: Seed Explosion
 			BloodVine.DisplayName: Blood Vine
 			RubberDuckProjectile.DisplayName: Rubber Duck Projectile
+			BreathBubble.DisplayName: Breath Bubble
 		}
 
 		NPCs: {
