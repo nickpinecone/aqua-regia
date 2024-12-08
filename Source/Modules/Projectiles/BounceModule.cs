@@ -22,7 +22,7 @@ public class BounceModule : BaseProjectileModule
 
     public Vector2? Update(BaseProjectile baseProjectile, Vector2 oldVelocity, Vector2 velocity)
     {
-        if (_current < MaxCount)
+        if (MaxCount == -1 || _current < MaxCount)
         {
             _current += 1;
 

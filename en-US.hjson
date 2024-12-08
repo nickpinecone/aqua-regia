@@ -148,6 +148,16 @@ Mods: {
 				DisplayName: Coral Block
 				Tooltip: ""
 			}
+
+			IceGun: {
+				DisplayName: Ice Glacier
+				Tooltip:
+					'''
+					Attack: Converts bottled water into frost shards, inflicts frostburn
+					Pumped: Throws a frozen bomb that freezes nearby enemies on explosion
+					Shoot at the bomb to explode it prematurely
+					'''
+			}
 		}
 
 		Projectiles: {
@@ -187,6 +197,9 @@ Mods: {
 			BloodVine.DisplayName: Blood Vine
 			RubberDuckProjectile.DisplayName: Rubber Duck Projectile
 			BreathBubble.DisplayName: Breath Bubble
+			FrostShard.DisplayName: Frost Shard
+			FrostExplosion.DisplayName: Frost Explosion
+			FrozenBomb.DisplayName: Frozen Bomb
 		}
 
 		NPCs: {
