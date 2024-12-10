@@ -13,8 +13,6 @@ public class FrostShard : BaseProjectile
 
     public PropertyModule Property { get; private set; }
 
-    public bool IsBombExploder { get; set; }
-
     public FrostShard() : base()
     {
         Property = new PropertyModule(this);
@@ -38,23 +36,11 @@ public class FrostShard : BaseProjectile
         base.OnSpawn(source);
 
         Projectile.frame = Main.rand.Next(0, 5);
-        Projectile.scale = 0.6f;
-
-        if (source is IceSource iceSource && iceSource.IsBombExploder == true)
-        {
-            Main.LocalPlayer.GetModPlayer<IcePlayer>().HasExploder = true;
-
-            IsBombExploder = true;
-            Projectile.tileCollide = false;
-            Projectile.friendly = false;
-        }
     }
 
     public override void OnKill(int timeLeft)
     {
         base.OnKill(timeLeft);
-
-        Main.LocalPlayer.GetModPlayer<IcePlayer>().HasExploder = false;
 
         foreach (var particle in Particle.Circle(DustID.Snow, Projectile.Center, new Vector2(4, 4), 6, 1f))
         {
@@ -79,27 +65,5 @@ public class FrostShard : BaseProjectile
         Projectile.rotation = Projectile.velocity.ToRotation() - MathHelper.PiOver2;
         var particle = Particle.Single(DustID.Snow, Projectile.Center, new Vector2(1, 1), Vector2.Zero, 0.8f);
         particle.noGravity = true;
-
-        if (IsBombExploder)
-        {
-            var icePlayer = Main.LocalPlayer.GetModPlayer<IcePlayer>();
-            var bomb = icePlayer.Bomb;
-
-            if (bomb == null)
-            {
-                Projectile.Kill();
-                return;
-            }
-
-            var dir = bomb.Projectile.Center - Projectile.Center;
-            var angle = Helper.AngleBetween(Projectile.velocity, dir);
-            Projectile.velocity = Projectile.velocity.RotatedBy(angle);
-
-            if (Projectile.getRect().Intersects(bomb.WorldRectangle))
-            {
-                bomb.Explode();
-                Projectile.Kill();
-            }
-        }
     }
 }

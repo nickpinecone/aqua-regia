@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -7,7 +8,7 @@ namespace AquaRegia.Weapons.Ice;
 
 public class IceSource : ProjectileSource
 {
-    public bool IsBombExploder;
+    public int ExplodeDelay = 0;
 
     public IceSource(IEntitySource source) : base(source)
     {
@@ -16,11 +17,10 @@ public class IceSource : ProjectileSource
 
 public class IcePlayer : ModPlayer
 {
-    public FrozenBomb Bomb { get; set; }
-    public bool HasExploder { get; set; }
+    public List<FrozenBomb> Bombs { get; set; } = new();
 
     public bool ListenForRelease { get; set; }
-    public bool ReleasedRight { get; set; }
+    public bool ReleasedRight { get; set; } = true;
 
     public override void PreUpdate()
     {

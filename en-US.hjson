@@ -154,8 +154,8 @@ Mods: {
 				Tooltip:
 					'''
 					Attack: Converts bottled water into frost shards, inflicts frostburn
-					Pumped: Throws a frozen bomb that freezes nearby enemies on explosion
-					Shoot at the bomb to explode it prematurely
+					Pumped: <right> to throw frozen bombs that freeze nearby enemies on explosion
+					<right> again while bombs are out to explode them prematurely
 					'''
 			}
 		}

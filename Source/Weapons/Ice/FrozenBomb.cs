@@ -16,18 +16,16 @@ public class FrozenBomb : BaseProjectile
 
     public PropertyModule Property { get; private set; }
     public SpriteModule Sprite { get; private set; }
-    public BounceModule Bounce { get; private set; }
 
-    public Vector2 Size { get; private set; }
-    public Rectangle WorldRectangle { get; private set; }
-
-    private bool _colliding = false;
+    private Timer _explodeDelay;
 
     public FrozenBomb() : base()
     {
         Property = new PropertyModule(this);
         Sprite = new SpriteModule(this);
-        Bounce = new BounceModule(this);
+
+        _explodeDelay = new Timer(0);
+        _explodeDelay.Paused = true;
     }
 
     public override void SetDefaults()
@@ -36,34 +34,27 @@ public class FrozenBomb : BaseProjectile
 
         Property.SetDefaults(this, 20, 20, 1, -1, 0, 0, 0, true, false, false);
         Property.SetTimeLeft(this, 240);
-        Property.SetGravity(0.02f, 0.01f);
 
-        Bounce.SetDefaults(null, -1);
+        DrawOriginOffsetY = -8;
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
 
-        Projectile.scale = 1.6f;
-        Size = new Vector2(Projectile.width * (Projectile.scale + 0.6f), Projectile.height * (Projectile.scale + 0.6f));
+        Main.LocalPlayer.GetModPlayer<IcePlayer>().Bombs.Add(this);
+        Projectile.rotation = Main.rand.NextFloat(0, MathHelper.Pi);
 
-        Main.LocalPlayer.GetModPlayer<IcePlayer>().Bomb = this;
+        if (source is IceSource iceSource)
+        {
+            _explodeDelay.WaitTime = iceSource.ExplodeDelay;
+            Projectile.timeLeft += iceSource.ExplodeDelay;
+        }
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
         base.OnTileCollide(oldVelocity);
-
-        _colliding = true;
-
-        Projectile.velocity = Bounce.Update(this, oldVelocity, Projectile.velocity) ?? Projectile.velocity;
-        Projectile.velocity.Y = Projectile.velocity.Y / 2f;
-
-        if (_colliding && Projectile.velocity.Y <= 0f && Projectile.velocity.Y > -3f)
-        {
-            Projectile.velocity.Y = 0;
-        }
 
         return false;
     }
@@ -74,7 +65,7 @@ public class FrozenBomb : BaseProjectile
 
         SpawnProjectile<FrostExplosion>(Projectile.Center, Vector2.Zero, Projectile.damage, Projectile.knockBack);
 
-        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 6);
+        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(4, 8);
         SoundEngine.PlaySound(SoundID.Item14);
 
         foreach (var particle in Particle.Circle(DustID.Ice, Projectile.Center, new Vector2(4, 4), 10, 3f))
@@ -87,34 +78,44 @@ public class FrozenBomb : BaseProjectile
             particle.noGravity = false;
         }
 
-        Main.LocalPlayer.GetModPlayer<IcePlayer>().Bomb = null;
+        if (!_explodeDelay.Done)
+        {
+            Main.LocalPlayer.GetModPlayer<IcePlayer>().Bombs.Remove(this);
+        }
     }
 
     public void Explode()
     {
-        Projectile.Kill();
+        _explodeDelay.Restart();
+    }
+
+    public override bool PreAI()
+    {
+        base.PreAI();
+
+        _explodeDelay.Update();
+
+        if (_explodeDelay.Done)
+        {
+            Projectile.Kill();
+        }
+
+        return !_explodeDelay.Done;
     }
 
     public override void AI()
     {
         base.AI();
 
-        Projectile.velocity.X *= 0.99f;
-        Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
-
-        if (_colliding && Projectile.velocity.Y >= 0f && Projectile.velocity.Y < 3f)
-        {
-            Projectile.velocity.Y = 0;
-        }
+        Projectile.velocity *= 0.98f;
 
         if (MathF.Abs(Projectile.velocity.X) > 0.2f)
         {
             Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, Math.Abs(Projectile.velocity.X / 32f));
         }
 
-        _colliding = false;
-
-        WorldRectangle = new Rectangle((int)(Projectile.Center.X - Size.X / 2), (int)(Projectile.Center.Y - Size.Y / 2),
-                                       (int)Size.X, (int)Size.Y);
+        var top = Projectile.Center + new Vector2(4, -18).RotatedBy(Projectile.rotation);
+        var particle = Particle.SinglePerfect(DustID.IceTorch, top, Main.rand.NextVector2Unit());
+        particle.noGravity = true;
     }
 }

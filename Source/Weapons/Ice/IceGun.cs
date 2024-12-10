@@ -28,7 +28,7 @@ public class IceGun : BaseGun
         base.SetDefaults();
 
         Property.SetProjectile<FrostShard>(this);
-        Pump.SetDefaults(2);
+        Pump.SetDefaults(16);
 
         Property.SetDefaults(this, 52, 26, 28, 3.0f, 1f, 16, 16, 32f, ItemRarityID.Green, Item.sellPrice(0, 8, 4, 0));
         Sprite.SefDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
@@ -41,33 +41,49 @@ public class IceGun : BaseGun
         base.HoldItem(player);
 
         Pump.DefaultUpdate();
+
+        DoAltUse(player);
     }
 
-    public override bool AltFunctionUse(Player player)
+    public override void AltUseAlways(Player player)
     {
-        base.AltFunctionUse(player);
+        var icePlayer = player.GetModPlayer<IcePlayer>();
 
-        return true;
-    }
-
-    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type,
-                                          ref int damage, ref float knockback)
-    {
-        base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
-
-        if (player.altFunctionUse == 2)
+        if (icePlayer.Bombs.Count > 0 && icePlayer.ReleasedRight)
         {
-            var icePlayer = Main.LocalPlayer.GetModPlayer<IcePlayer>();
-            var bomb = icePlayer.Bomb;
+            icePlayer.ReleasedRight = false;
 
-            if (bomb != null && !icePlayer.HasExploder && icePlayer.ReleasedRight)
+            foreach (var bomb in icePlayer.Bombs)
             {
-                var dir = bomb.Projectile.Center - player.Center;
-                dir.Normalize();
-                dir *= Item.shootSpeed * 1.5f;
-
-                velocity = dir;
+                bomb.Explode();
             }
+
+            icePlayer.ListenForRelease = true;
+            icePlayer.Bombs.Clear();
+        }
+
+        else if (Pump.Pumped && icePlayer.ReleasedRight)
+        {
+            icePlayer.ReleasedRight = false;
+
+            int startDelay = 0;
+
+            for (int i = -2; i <= 1; i++)
+            {
+                var dir = Main.MouseWorld - player.Center;
+                dir.Normalize();
+                dir *= 8f;
+                dir = dir.RotatedBy(Math.Sign(dir.X) * Main.rand.NextFloat(0.1f, 0.2f) * i);
+
+                var source = new IceSource(Projectile.GetSource_NaturalSpawn());
+                source.ExplodeDelay = startDelay;
+                startDelay += 4;
+
+                SpawnProjectile<FrozenBomb>(player, player.Center, dir, Item.damage, 0, source);
+            }
+
+            icePlayer.ListenForRelease = true;
+            Pump.Reset();
         }
     }
 
@@ -78,37 +94,10 @@ public class IceGun : BaseGun
 
         base.Shoot(player, source, position, velocity, type, damage, knockback);
 
-        var icePlayer = Main.LocalPlayer.GetModPlayer<IcePlayer>();
-        var bomb = icePlayer.Bomb;
+        velocity = Property.ApplyInaccuracy(velocity);
+        position = Sprite.ApplyOffset(position, velocity);
 
-        if (player.altFunctionUse == 2 && Pump.Pumped && bomb == null)
-        {
-            icePlayer.ListenForRelease = true;
-
-            var dir = Main.MouseWorld - player.Center;
-            dir.Normalize();
-            dir *= 12f;
-
-            SpawnProjectile<FrozenBomb>(player, player.Center, dir, Item.damage * 2, 0);
-
-            Pump.Reset();
-        }
-        else if (player.altFunctionUse == 2 && (bomb != null && !icePlayer.HasExploder && icePlayer.ReleasedRight))
-        {
-            icePlayer.ReleasedRight = false;
-
-            var iceSource = new IceSource(Projectile.GetSource_NaturalSpawn());
-            iceSource.IsBombExploder = true;
-            position = Sprite.ApplyOffset(position, velocity);
-            SpawnProjectile<FrostShard>(player, position, velocity, 0, 0, iceSource);
-        }
-        else
-        {
-            velocity = Property.ApplyInaccuracy(velocity);
-            position = Sprite.ApplyOffset(position, velocity);
-
-            ShootProjectile<FrostShard>(player, source, position, velocity, damage, knockback);
-        }
+        ShootProjectile<FrostShard>(player, source, position, velocity, damage, knockback);
 
         return false;
     }
