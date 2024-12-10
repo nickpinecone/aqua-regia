@@ -48,7 +48,7 @@ public class FrozenBomb : BaseProjectile
         Projectile.scale = 1.6f;
         Size = new Vector2(Projectile.width * (Projectile.scale + 0.6f), Projectile.height * (Projectile.scale + 0.6f));
 
-        Main.LocalPlayer.GetModPlayer<IcePlayer>().AddBomb(this);
+        Main.LocalPlayer.GetModPlayer<IcePlayer>().Bomb = this;
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
@@ -87,7 +87,7 @@ public class FrozenBomb : BaseProjectile
             particle.noGravity = false;
         }
 
-        Main.LocalPlayer.GetModPlayer<IcePlayer>().RemoveBomb(this);
+        Main.LocalPlayer.GetModPlayer<IcePlayer>().Bomb = null;
     }
 
     public void Explode()

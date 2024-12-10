@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using AquaRegia.Utils;
 using AquaRegia.Modules.Weapons;
 using AquaRegia.Modules;
+using System;
 
 namespace AquaRegia.Weapons.Ice;
 
@@ -40,14 +41,50 @@ public class IceGun : BaseGun
         base.HoldItem(player);
 
         Pump.DefaultUpdate();
-
-        DoAltUse(player);
     }
 
-    public override void AltUseAlways(Player player)
+    public override bool AltFunctionUse(Player player)
     {
-        if (Pump.Pumped)
+        base.AltFunctionUse(player);
+
+        return true;
+    }
+
+    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type,
+                                          ref int damage, ref float knockback)
+    {
+        base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
+
+        if (player.altFunctionUse == 2)
         {
+            var icePlayer = Main.LocalPlayer.GetModPlayer<IcePlayer>();
+            var bomb = icePlayer.Bomb;
+
+            if (bomb != null && !icePlayer.HasExploder && icePlayer.ReleasedRight)
+            {
+                var dir = bomb.Projectile.Center - player.Center;
+                dir.Normalize();
+                dir *= Item.shootSpeed * 1.5f;
+
+                velocity = dir;
+            }
+        }
+    }
+
+    public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source,
+                               Microsoft.Xna.Framework.Vector2 position, Microsoft.Xna.Framework.Vector2 velocity,
+                               int type, int damage, float knockback)
+    {
+
+        base.Shoot(player, source, position, velocity, type, damage, knockback);
+
+        var icePlayer = Main.LocalPlayer.GetModPlayer<IcePlayer>();
+        var bomb = icePlayer.Bomb;
+
+        if (player.altFunctionUse == 2 && Pump.Pumped && bomb == null)
+        {
+            icePlayer.ListenForRelease = true;
+
             var dir = Main.MouseWorld - player.Center;
             dir.Normalize();
             dir *= 12f;
@@ -56,18 +93,22 @@ public class IceGun : BaseGun
 
             Pump.Reset();
         }
-    }
+        else if (player.altFunctionUse == 2 && (bomb != null && !icePlayer.HasExploder && icePlayer.ReleasedRight))
+        {
+            icePlayer.ReleasedRight = false;
 
-    public override bool Shoot(Terraria.Player player, Terraria.DataStructures.EntitySource_ItemUse_WithAmmo source,
-                               Microsoft.Xna.Framework.Vector2 position, Microsoft.Xna.Framework.Vector2 velocity,
-                               int type, int damage, float knockback)
-    {
-        base.Shoot(player, source, position, velocity, type, damage, knockback);
+            var iceSource = new IceSource(Projectile.GetSource_NaturalSpawn());
+            iceSource.IsBombExploder = true;
+            position = Sprite.ApplyOffset(position, velocity);
+            SpawnProjectile<FrostShard>(player, position, velocity, 0, 0, iceSource);
+        }
+        else
+        {
+            velocity = Property.ApplyInaccuracy(velocity);
+            position = Sprite.ApplyOffset(position, velocity);
 
-        position = Sprite.ApplyOffset(position, velocity);
-        velocity = Property.ApplyInaccuracy(velocity);
-
-        ShootProjectile<FrostShard>(player, source, position, velocity, damage, knockback);
+            ShootProjectile<FrostShard>(player, source, position, velocity, damage, knockback);
+        }
 
         return false;
     }

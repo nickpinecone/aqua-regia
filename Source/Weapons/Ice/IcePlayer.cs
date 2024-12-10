@@ -1,36 +1,35 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
+using static AquaRegia.AquaRegia;
 
 namespace AquaRegia.Weapons.Ice;
 
+public class IceSource : ProjectileSource
+{
+    public bool IsBombExploder;
+
+    public IceSource(IEntitySource source) : base(source)
+    {
+    }
+}
+
 public class IcePlayer : ModPlayer
 {
-    private List<FrozenBomb> _bombs = new();
+    public FrozenBomb Bomb { get; set; }
+    public bool HasExploder { get; set; }
 
-    public void AddBomb(FrozenBomb bomb)
-    {
-        _bombs.Add(bomb);
-    }
+    public bool ListenForRelease { get; set; }
+    public bool ReleasedRight { get; set; }
 
-    public bool BombCollide(Rectangle rect)
+    public override void PreUpdate()
     {
-        foreach (var bomb in _bombs)
+        base.PreUpdate();
+
+        if (ListenForRelease && !Main.mouseRight)
         {
-            if (bomb.WorldRectangle.Intersects(rect))
-            {
-                bomb.Explode();
-
-                return true;
-            }
+            ListenForRelease = false;
+            ReleasedRight = true;
         }
-
-        return false;
-    }
-
-    public void RemoveBomb(FrozenBomb bomb)
-    {
-        _bombs.Remove(bomb);
     }
 }
