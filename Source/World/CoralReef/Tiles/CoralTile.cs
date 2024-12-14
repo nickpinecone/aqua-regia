@@ -28,9 +28,18 @@ public class CoralTile : ModTile
     public override void DrawEffects(int i, int j, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch,
                                      ref Terraria.DataStructures.TileDrawInfo drawData)
     {
-        base.DrawEffects(i, j, spriteBatch, ref drawData);
+        var top = new Point(i, j - 1);
 
-        Main.LocalPlayer.GetModPlayer<CoralPlayer>().AddBreathSpot(new Point(i, j));
+        if (!TileHelper.IsSolid(top) && Main.rand.Next(0, 1000) == 0)
+        {
+            var position = new Point(i, j - 1).ToWorldCoordinates();
+            var amount = Main.rand.Next(4, 8);
+            var velocity = (-Vector2.UnitY * Main.rand.NextFloat(4f, 16f)).RotatedByRandom(0.4f);
+            var scale = Main.rand.NextFloat(1f, 1.6f);
+            var particle = Particle.Single(ParticleID.BreathBubble, position, new Vector2(4, 4), velocity, scale);
+            particle.noGravity = true;
+            particle.fadeIn = Main.rand.NextFloat(-12f, -24f);
+        }
     }
 
     public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

@@ -12,6 +12,7 @@ namespace AquaRegia.Utils;
 public static class ParticleID
 {
     public static short Wood = 7;
+    public static short BreathBubble = 34;
 }
 
 public static class Particle
