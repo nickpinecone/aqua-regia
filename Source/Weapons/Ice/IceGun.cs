@@ -30,7 +30,7 @@ public class IceGun : BaseGun
         Property.SetProjectile<IceProjectile>(this);
         Pump.SetDefaults(16);
 
-        Property.SetDefaults(this, 52, 26, 28, 3.0f, 1f, 18, 18, 22f, ItemRarityID.Green, Item.sellPrice(0, 8, 4, 0));
+        Property.SetDefaults(this, 52, 26, 28, 3.0f, 1f, 32, 32, 22f, ItemRarityID.Green, Item.sellPrice(0, 8, 4, 0));
         Sprite.SefDefaults(new Vector2(46f, 46f), new Vector2(0, 6));
 
         Item.UseSound = SoundID.Item20;
