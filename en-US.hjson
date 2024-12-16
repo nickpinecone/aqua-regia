@@ -135,12 +135,13 @@ Mods: {
 				DisplayName: Clown's Sunflower
 				Tooltip:
 					'''
-					[c/f6c177:Day Time:]
+					[c/ffffff:Day Time:]
 					Attack: Shoots four innacurate short-lived water streams
 					Pumped: <right> to spawn a sunflower which collects sun power to boost stats
 					[c/eb6f92:Night Time:]
 					Attack: Shoots four innacurate short-lived blood streams
 					Pumped: <right> to spawn a sunflower which absorbs moon power to attack your enemies
+					[c/F6C177:Drops from Blood Moon enemies]
 					'''
 			}
 
@@ -156,6 +157,7 @@ Mods: {
 					Attack: Converts bottled water into frost shards, inflicts frostburn
 					Pumped: <right> to throw frozen bombs that freeze nearby enemies on explosion
 					<right> again while bombs are out to explode them prematurely
+					[c/F6C177:Drops from Deerclops]
 					'''
 			}
 		}
