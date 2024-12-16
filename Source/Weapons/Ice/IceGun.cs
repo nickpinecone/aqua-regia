@@ -27,11 +27,11 @@ public class IceGun : BaseGun
     {
         base.SetDefaults();
 
-        Property.SetProjectile<FrostShard>(this);
+        Property.SetProjectile<IceProjectile>(this);
         Pump.SetDefaults(16);
 
-        Property.SetDefaults(this, 52, 26, 28, 3.0f, 1f, 16, 16, 32f, ItemRarityID.Green, Item.sellPrice(0, 8, 4, 0));
-        Sprite.SefDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
+        Property.SetDefaults(this, 52, 26, 28, 3.0f, 1f, 18, 18, 22f, ItemRarityID.Green, Item.sellPrice(0, 8, 4, 0));
+        Sprite.SefDefaults(new Vector2(46f, 46f), new Vector2(0, 6));
 
         Item.UseSound = SoundID.Item20;
     }
@@ -97,7 +97,7 @@ public class IceGun : BaseGun
         velocity = Property.ApplyInaccuracy(velocity);
         position = Sprite.ApplyOffset(position, velocity);
 
-        ShootProjectile<FrostShard>(player, source, position, velocity, damage, knockback);
+        ShootProjectile<IceProjectile>(player, source, position, velocity, damage, knockback);
 
         return false;
     }

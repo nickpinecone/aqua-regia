@@ -202,6 +202,7 @@ Mods: {
 			FrostShard.DisplayName: Frost Shard
 			FrostExplosion.DisplayName: Frost Explosion
 			FrozenBomb.DisplayName: Frozen Bomb
+			IceProjectile.DisplayName: Ice Projectile
 		}
 
 		NPCs: {

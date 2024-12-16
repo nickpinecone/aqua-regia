@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using AquaRegia.Utils;
+using System.Collections.Generic;
 
 namespace AquaRegia.Modules.Projectiles;
 
@@ -42,11 +43,13 @@ public class WaterModule : BaseProjectileModule
         Particle.Single(ParticleID, position, new Vector2(2, 2), velocity, 1.2f, 0, Color);
     }
 
-    public void CreateDust(Vector2 position, Vector2 velocity)
+    public List<Dust> CreateDust(Vector2 position, Vector2 velocity)
     {
         var offset = new Vector2(velocity.X, velocity.Y);
         offset.Normalize();
         offset *= Offset;
+
+        var dusts = new List<Dust>();
 
         for (int i = 0; i < Amount; i++)
         {
@@ -55,6 +58,10 @@ public class WaterModule : BaseProjectileModule
             particle.noGravity = true;
             particle.fadeIn = 1f;
             particle.velocity = velocity.SafeNormalize(Vector2.Zero);
+
+            dusts.Add(particle);
         }
+
+        return dusts;
     }
 }
