@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.ID;
 using System;
+using System.Linq;
 
 namespace AquaRegia.Weapons.Ice;
 
@@ -17,10 +18,17 @@ public class IceProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public WaterModule Water { get; private set; }
 
-    private List<Dust> _waterDusts;
-    private List<Dust> _removeQueue;
+    const int BatchSize = 4;
+    const int DustSize = 10;
+    const float DustScale = 0.8f;
 
+    const float Size = DustSize * DustScale * BatchSize;
+    const float HalfSize = Size / 2;
+
+    private List<(List<(Vector2 Position, Timer Timer)> Water, List<Dust> Ice)> _batches;
+    private List<Vector2> _currentBatch;
     private List<KeyValuePair<Rectangle, List<Dust>>> _areas;
+
     private bool _deactivated = false;
 
     public IceProjectile() : base()
@@ -30,8 +38,8 @@ public class IceProjectile : BaseProjectile
 
         IsAmmoRuntime = true;
 
-        _waterDusts = new();
-        _removeQueue = new();
+        _batches = new();
+        _currentBatch = new();
         _areas = new();
     }
 
@@ -45,12 +53,6 @@ public class IceProjectile : BaseProjectile
         Property.SetGravity();
     }
 
-    public void Deactivate()
-    {
-        Projectile.velocity = Vector2.Zero;
-        _deactivated = true;
-    }
-
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
@@ -60,7 +62,7 @@ public class IceProjectile : BaseProjectile
 
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        Deactivate();
+        _deactivated = true;
 
         return false;
     }
@@ -88,89 +90,130 @@ public class IceProjectile : BaseProjectile
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
-        var index = 0;
-
-        foreach (var (rect, batch) in _areas)
+        if (!_deactivated)
         {
-            if (rect.Intersects(targetHitbox))
+            if (projHitbox.Intersects(targetHitbox))
             {
-                foreach (var dust in batch)
+                return true;
+            }
+        }
+
+        var removeQueue = new List<KeyValuePair<Rectangle, List<Dust>>>();
+        var didCollide = false;
+
+        foreach (var tuple in _areas)
+        {
+            if (tuple.Key.Intersects(targetHitbox))
+            {
+                didCollide = true;
+
+                foreach (var dust in tuple.Value)
                 {
                     dust.active = false;
                     Particle.Single(DustID.Ice, dust.position, new Vector2(2, 2), Main.rand.NextVector2Unit(), 0.8f);
                 }
-                _areas.RemoveAt(index);
 
-                return true;
+                removeQueue.Add(tuple);
             }
-            index++;
         }
 
-        return false;
+        foreach (var tuple in removeQueue)
+        {
+            _areas.Remove(tuple);
+        }
+
+        return didCollide;
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
     {
-        Deactivate();
+        base.OnHitNPC(target, hit, damageDone);
+
+        if (Main.rand.Next(0, 8) == 0)
+        {
+            target.AddBuff(BuffID.Frostburn, 120);
+            target.AddBuff(BuffID.Slow, 120);
+        }
+
+        _deactivated = true;
     }
-
-    const int BatchSize = 5;
-    const int DustSize = 10;
-    const float Scale = 0.8f;
-
-    const float Size = DustSize * Scale * BatchSize;
-    const float HalfSize = Size / 2;
-
-    List<Dust> batch = new List<Dust>();
 
     public override void AI()
     {
         base.AI();
 
-        foreach (var dust in _waterDusts)
+        var markQueue = new List<(List<(Vector2, Timer)>, List<Dust>)>();
+
+        foreach (var batch in _batches)
         {
-            // if (dust.active == false)
-            // {
-            var particle = Particle.SinglePerfect(ModContent.DustType<IceDust>(), dust.position, Vector2.Zero, 0.8f,
-                                                  color: Color.White);
-
-            batch.Add(particle);
-
-            if (batch.Count >= BatchSize)
+            if (batch.Water.Count <= 0)
             {
-                var middle = (batch[(int)MathF.Floor(batch.Count / 2)].position +
-                              batch[(int)MathF.Ceiling(batch.Count / 2)].position) /
+                var middle = (batch.Ice[(int)MathF.Floor(batch.Ice.Count / 2)].position +
+                              batch.Ice[(int)MathF.Ceiling(batch.Ice.Count / 2)].position) /
                              2;
 
                 var batchCopy = new List<Dust>();
-                batchCopy.AddRange(batch);
+                batchCopy.AddRange(batch.Ice);
 
                 _areas.Add(KeyValuePair.Create(
                     new Rectangle((int)(middle.X - HalfSize), (int)(middle.Y - HalfSize), (int)Size, (int)Size),
                     batchCopy));
 
-                batch.Clear();
+                markQueue.Add(batch);
             }
+            else
+            {
+                var removeQueue = new List<(Vector2, Timer)>();
 
-            _removeQueue.Add(dust);
-            // }
+                foreach (var dust in batch.Water)
+                {
+                    dust.Timer.Update();
+
+                    if (dust.Timer.Done)
+                    {
+                        var particle = Particle.SinglePerfect(ModContent.DustType<IceDust>(), dust.Position,
+                                                              Vector2.Zero, DustScale, color: Color.White);
+
+                        batch.Ice.Add(particle);
+                        removeQueue.Add(dust);
+                    }
+                }
+
+                foreach (var dust in removeQueue)
+                {
+                    batch.Water.Remove(dust);
+                }
+                removeQueue.Clear();
+            }
         }
 
-        foreach (var dust in _removeQueue)
+        foreach (var batch in markQueue)
         {
-            _waterDusts.Remove(dust);
+            _batches.Remove(batch);
         }
-        _removeQueue.Clear();
 
-        if (_deactivated || Projectile.timeLeft <= Property.DefaultTime - 35)
-        {
-            Deactivate();
-        }
-        else
+        if (!_deactivated && Projectile.timeLeft >= Property.DefaultTime - 35)
         {
             Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
             var dusts = Water.CreateDust(Projectile.Center, Projectile.velocity);
-            _waterDusts.AddRange(dusts);
+
+            foreach (var dust in dusts)
+            {
+                _currentBatch.Add(dust.position);
+
+                if (_currentBatch.Count >= BatchSize)
+                {
+                    var batchCopy = new List<Vector2>();
+                    batchCopy.AddRange(_currentBatch);
+                    _batches.Add((batchCopy.Select(b => (b, new Timer(15))).ToList(), new List<Dust>()));
+                    _currentBatch.Clear();
+                }
+            }
+        }
+        else
+        {
+            Projectile.velocity = Vector2.Zero;
+            _deactivated = true;
         }
     }
 }
