@@ -117,13 +117,6 @@ public class Shotgun : BaseGun
         return false;
     }
 
-    public override void AddRecipes()
-    {
-        Recipe recipe = CreateRecipe();
-        recipe.AddCondition(LocalizedText.Empty, () => false);
-        recipe.Register();
-    }
-
     public override void ModifyTooltips(List<TooltipLine> tooltip)
     {
         base.ModifyTooltips(tooltip);

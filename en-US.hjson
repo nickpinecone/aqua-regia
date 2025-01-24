@@ -48,7 +48,6 @@ Mods: {
 					Attack: Shoots four inaccurate and short-lived water streams
 					Pumped: <right> to throw a chain that pulls you closer to the enemy
 					Shooting while being pulled switches attack to water balloons and knocks you back
-					[c/F6C177:Bought from the Swimmer after defeating King Slime]
 					'''
 			}
 
@@ -141,7 +140,6 @@ Mods: {
 					[c/eb6f92:Night Time:]
 					Attack: Shoots four innacurate short-lived blood streams
 					Pumped: <right> to spawn a sunflower which absorbs moon power to attack your enemies
-					[c/F6C177:Drops from Blood Moon enemies]
 					'''
 			}
 
@@ -154,10 +152,9 @@ Mods: {
 				DisplayName: Ice Glacier
 				Tooltip:
 					'''
-					Attack: Converts bottled water into frost shards, inflicts frostburn
-					Pumped: <right> to throw frozen bombs that freeze nearby enemies on explosion
+					Attack: Shoots a water stream, that freezes and lingers in place for a bit
+					Pumped: <right> to throw frozen bombs that explode and apply frostburn
 					<right> again while bombs are out to explode them prematurely
-					[c/F6C177:Drops from Deerclops]
 					'''
 			}
 		}
