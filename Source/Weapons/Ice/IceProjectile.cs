@@ -26,7 +26,7 @@ public class IceProjectile : BaseProjectile
     const float HalfSize = Size / 2;
 
     private List<(List<(Vector2 Position, Timer Timer)> Water, List<Dust> Ice)> _batches;
-    private List<Vector2> _currentBatch;
+    private List<(Vector2, float)> _currentBatch;
     private List<KeyValuePair<Rectangle, List<Dust>>> _areas;
 
     private bool _deactivated = false;
@@ -199,13 +199,14 @@ public class IceProjectile : BaseProjectile
 
             foreach (var dust in dusts)
             {
-                _currentBatch.Add(dust.position);
+                _currentBatch.Add((dust.position, dust.scale));
 
                 if (_currentBatch.Count >= BatchSize)
                 {
-                    var batchCopy = new List<Vector2>();
+                    var batchCopy = new List<(Vector2, float)>();
                     batchCopy.AddRange(_currentBatch);
-                    _batches.Add((batchCopy.Select(b => (b, new Timer(15))).ToList(), new List<Dust>()));
+                    _batches.Add(
+                        (batchCopy.Select(b => (b.Item1, new Timer((int)(15 * b.Item2)))).ToList(), new List<Dust>()));
                     _currentBatch.Clear();
                 }
             }

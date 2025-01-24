@@ -297,9 +297,9 @@ public class TestGen : ModSystem
 
     public override void PostUpdateWorld()
     {
-        if (JustPressed(Keys.D0))
-        {
-            TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
-        }
+        // if (JustPressed(Keys.D0))
+        // {
+        //     TestMethod((int)Main.MouseWorld.X / 16, (int)Main.MouseWorld.Y / 16);
+        // }
     }
 }
