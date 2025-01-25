@@ -1,6 +1,5 @@
 using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Accessories.FrogHat;
@@ -8,7 +7,7 @@ namespace AquaRegia.Accessories.FrogHat;
 public class FrogPlayer : ModPlayer
 {
     public bool Active = false;
-    public FrogMinion Minion = null;
+    public FrogMinion? Minion = null;
 
     public override void DrawEffects(Terraria.DataStructures.PlayerDrawSet drawInfo, ref float r, ref float g,
                                      ref float b, ref float a, ref bool fullBright)

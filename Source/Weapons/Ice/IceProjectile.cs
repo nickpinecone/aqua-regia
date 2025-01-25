@@ -57,7 +57,7 @@ public class IceProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Water.ApplyAmmo(_source.Ammo);
+        Water.ApplyAmmo(_source?.Ammo);
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)

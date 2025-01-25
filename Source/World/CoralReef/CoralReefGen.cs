@@ -16,7 +16,7 @@ namespace AquaRegia.World.CoralReef;
 
 public class CoralReefGen : ModSystem
 {
-    public static LocalizedText CoralReefGenMessage { get; private set; }
+    public static LocalizedText CoralReefGenMessage { get; private set; } = LocalizedText.Empty;
     public int CoralTileCount { get; set; }
 
     public override void SetStaticDefaults()
@@ -92,9 +92,9 @@ public class CoralReefGenPass : GenPass
         GenerateTendrils();
 
         var first = t_edgeTiles.First();
-        var left = t_edgeTiles.MinBy(e => e.X);
-        var bottom = t_edgeTiles.MaxBy(e => e.Y);
-        var right = t_edgeTiles.MaxBy(e => e.X);
+        var left = t_edgeTiles.MinBy(e => e.X)!;
+        var bottom = t_edgeTiles.MaxBy(e => e.Y)!;
+        var right = t_edgeTiles.MaxBy(e => e.X)!;
         var rect = new Rectangle(left.X, first.Y, right.X - left.X, bottom.Y - first.Y);
         GenVars.structures.AddProtectedStructure(rect, 4);
     }
@@ -297,7 +297,7 @@ public class CoralReefGenPass : GenPass
             var maxIters = 1000;
 
             var coralType = WorldGen.genRand.NextFromList(ModContent.TileType<CoralTile>());
-            var highestBottom = t_edgeTiles.Where(e => e.Type == EdgeType.Bottom).MinBy(e => e.Y);
+            var highestBottom = t_edgeTiles.Where(e => e.Type == EdgeType.Bottom).MinBy(e => e.Y)!;
 
             while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
             {

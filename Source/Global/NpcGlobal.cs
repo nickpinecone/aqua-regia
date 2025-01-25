@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using AquaRegia.Weapons.Ice;
 using AquaRegia.Weapons.Sunflower;
 using AquaRegia.World.CoralReef;
-using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;

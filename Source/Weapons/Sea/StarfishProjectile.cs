@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -28,6 +27,7 @@ public class StarfishProjectile : BaseProjectile
         Stick = new StickModule(this);
         Sprite = new SpriteModule(this);
         Boomerang = new BoomerangModule(this);
+        Home = new HomeModule(this);
 
         StickTimer = new Timer(10);
     }
@@ -39,9 +39,7 @@ public class StarfishProjectile : BaseProjectile
         Property.SetDefaults(this, 20, 18, 1, -1);
         Property.SetTimeLeft(this, 600);
 
-        Home = new HomeModule(this);
         Home.SetDefaults(0.2f);
-
         Boomerang.SetDefaults(Home, new Animation<Vector2>(20, Ease.Out), 512f);
     }
 
@@ -72,7 +70,7 @@ public class StarfishProjectile : BaseProjectile
         var invert = Projectile.velocity.RotatedBy(MathHelper.Pi);
         var start = invert.RotatedBy(-MathHelper.PiOver4);
         var end = invert.RotatedBy(MathHelper.PiOver4);
-        Particle.Arc(DustID.Blood, Stick.HitPoint, new Vector2(8, 8), start, end, 6, 2f, 1.2f);
+        Particle.Arc(DustID.Blood, (Vector2)Stick.HitPoint!, new Vector2(8, 8), start, end, 6, 2f, 1.2f);
     }
 
     public override void OnKill(int timeLeft)

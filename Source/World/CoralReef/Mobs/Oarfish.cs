@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 
 namespace AquaRegia.World.CoralReef.Mobs;
 

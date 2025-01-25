@@ -17,7 +17,7 @@ public class HugeBubble : BaseProjectile
     public PropertyModule Property { get; private set; }
     public Animation<float> Scale { get; private set; }
 
-    public NPC Target { get; set; }
+    public NPC? Target { get; set; }
     public Vector2 Size { get; private set; }
     public Rectangle WorldRectangle { get; private set; }
 
@@ -33,7 +33,7 @@ public class HugeBubble : BaseProjectile
         }
     }
 
-    private SeaPlayer _seaPlayer = null;
+    private SeaPlayer? _seaPlayer = null;
     private bool _didDetach = false;
     private bool _didExplode = false;
 
@@ -63,7 +63,7 @@ public class HugeBubble : BaseProjectile
             Target = seaSource.Target;
         }
 
-        var wideSide = Math.Max(Target.width, Target.height);
+        var wideSide = Math.Max(Target!.width, Target.height);
         MaxScale = (float)wideSide / Projectile.width + 0.2f;
         Size = new Vector2(Projectile.width * (MaxScale + 1), Projectile.height * (MaxScale + 1));
 
@@ -100,7 +100,7 @@ public class HugeBubble : BaseProjectile
         Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
         Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 8, 4f, 1.5f);
 
-        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, (int)(_seaPlayer.ProjectileDamage * 1.5f),
+        SpawnProjectile<BubbleExplosion>(Projectile.Center, Vector2.Zero, (int)(_seaPlayer!.ProjectileDamage * 1.5f),
                                          1f);
 
         Projectile.Kill();
@@ -127,7 +127,7 @@ public class HugeBubble : BaseProjectile
             }
         }
 
-        _seaPlayer.RemoveBubble(Target);
+        _seaPlayer!.RemoveBubble(Target!);
     }
 
     public override void AI()

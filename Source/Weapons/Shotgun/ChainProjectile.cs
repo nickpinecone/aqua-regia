@@ -17,7 +17,7 @@ public class ChainProjectile : BaseProjectile
     public StickModule Stick { get; private set; }
     public SoundStyle ChainHit { get; private set; }
 
-    private ShotPlayer _shotPlayer;
+    private ShotPlayer? _shotPlayer;
     private bool _didCollide;
 
     public ChainProjectile() : base()
@@ -64,7 +64,7 @@ public class ChainProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        _shotPlayer.Chain = null;
+        _shotPlayer!.Chain = null;
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -73,7 +73,7 @@ public class ChainProjectile : BaseProjectile
 
         if (!Chain.IsFarAway && !_didCollide)
         {
-            _shotPlayer.Chain = this;
+            _shotPlayer!.Chain = this;
             _shotPlayer.IsPulling = true;
             _shotPlayer.Target = target;
 
@@ -106,9 +106,9 @@ public class ChainProjectile : BaseProjectile
         {
             Chain.Update(Projectile.Center);
         }
-        else if (_shotPlayer.IsPulling)
+        else if (_shotPlayer!.IsPulling)
         {
-            Projectile.Center = Stick.HitPoint;
+            Projectile.Center = Stick.HitPoint ?? Projectile.Center;
 
             Main.LocalPlayer.velocity =
                 Chain.ReturnToPlayer(Main.LocalPlayer.Center, Projectile.Center, Projectile.velocity)

@@ -34,7 +34,7 @@ public class ShotProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Water.ApplyAmmo(_source.Ammo);
+        Water.ApplyAmmo(_source?.Ammo);
     }
 
     public override void OnKill(int timeLeft)

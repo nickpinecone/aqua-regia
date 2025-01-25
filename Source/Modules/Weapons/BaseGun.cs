@@ -23,7 +23,7 @@ public abstract class BaseGun : ModItem, IComposite<BaseGunModule>
     }
 
     public T SpawnProjectile<T>(Player player, Vector2 position, Vector2 velocity, int damage, float knockback,
-                                ProjectileSource customSource = null)
+                                ProjectileSource? customSource = null)
         where T : BaseProjectile
     {
         var projSource = new AquaRegia.ProjectileSource(Projectile.GetSource_NaturalSpawn())
@@ -45,7 +45,7 @@ public abstract class BaseGun : ModItem, IComposite<BaseGunModule>
     }
 
     public T ShootProjectile<T>(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
-                                int damage, float knockback, ProjectileSource customSource = null)
+                                int damage, float knockback, ProjectileSource? customSource = null)
         where T : BaseProjectile
     {
         var ammo = (BaseAmmo)ModContent.GetModItem(source.AmmoItemIdUsed);

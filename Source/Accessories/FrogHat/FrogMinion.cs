@@ -1,8 +1,6 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using AquaRegia.Utils;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace AquaRegia.Accessories.FrogHat;
 
@@ -11,6 +9,11 @@ public class FrogMinion : ModProjectile
     public override string Texture => TexturesPath.Accessories + "FrogHat/FrogMinion";
 
     public Timer AttackTimer { get; private set; }
+
+    public FrogMinion()
+    {
+        AttackTimer = new Timer(120);
+    }
 
     public override void SetDefaults()
     {
@@ -29,8 +32,6 @@ public class FrogMinion : ModProjectile
         Projectile.friendly = true;
         Projectile.hostile = false;
         Projectile.hide = true;
-
-        AttackTimer = new Timer(120);
     }
 
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)

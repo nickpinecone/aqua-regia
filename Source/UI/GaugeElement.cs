@@ -9,7 +9,7 @@ namespace AquaRegia.UI;
 
 public class GaugeElement : UIImage
 {
-    public static Asset<Texture2D> Texture = null;
+    public static Asset<Texture2D>? Texture = null;
 
     public int Current { get; set; } = 0;
     public int Max { get; set; } = 0;

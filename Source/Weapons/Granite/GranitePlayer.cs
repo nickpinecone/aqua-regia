@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -8,7 +7,7 @@ namespace AquaRegia.Weapons.Granite;
 
 public class GraniteSource : ProjectileSource
 {
-    public NPC Target;
+    public NPC? Target;
 
     public GraniteSource(IEntitySource source) : base(source)
     {

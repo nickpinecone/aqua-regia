@@ -23,8 +23,8 @@ public abstract class BaseSwimWorm : ModNPC
     public float Acceleration { get; set; }
 
     public NPC HeadSegment => Main.npc[NPC.realLife];
-    public NPC FollowingNPC => SegmentType == WormSegmentType.Head ? null : Main.npc[(int)NPC.ai[1]];
-    public NPC FollowerNPC => SegmentType == WormSegmentType.Tail ? null : Main.npc[(int)NPC.ai[0]];
+    public NPC? FollowingNPC => SegmentType == WormSegmentType.Head ? null : Main.npc[(int)NPC.ai[1]];
+    public NPC? FollowerNPC => SegmentType == WormSegmentType.Tail ? null : Main.npc[(int)NPC.ai[0]];
 
     private bool _didInit = false;
 
@@ -451,7 +451,7 @@ public abstract class BaseSwimWormBody : BaseSwimWorm
         if (Main.player[worm.NPC.target].dead && worm.NPC.timeLeft > 30000)
             worm.NPC.timeLeft = 10;
 
-        NPC following = worm.NPC.ai[1] >= Main.maxNPCs ? null : worm.FollowingNPC;
+        NPC? following = worm.NPC.ai[1] >= Main.maxNPCs ? null : worm.FollowingNPC;
         if (Main.netMode != NetmodeID.MultiplayerClient)
         {
             if (following is null || !following.active || following.friendly || following.townNPC ||

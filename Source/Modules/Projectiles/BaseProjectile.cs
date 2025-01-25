@@ -11,7 +11,7 @@ namespace AquaRegia.Modules;
 
 public abstract class BaseProjectile : ModProjectile, IComposite<BaseProjectileModule>
 {
-    protected AquaRegia.ProjectileSource _source = null;
+    protected AquaRegia.ProjectileSource? _source = null;
 
     protected Dictionary<Type, BaseProjectileModule> _modules = new();
     Dictionary<Type, BaseProjectileModule> IComposite<BaseProjectileModule>.Modules => _modules;
@@ -26,8 +26,8 @@ public abstract class BaseProjectile : ModProjectile, IComposite<BaseProjectileM
         _immunity = new ImmunityModule(this);
     }
 
-    public T SpawnProjectile<T>(Vector2 position, Vector2 velocity, int damage, float knockback,
-                                ProjectileSource customSource = null)
+    public T? SpawnProjectile<T>(Vector2 position, Vector2 velocity, int damage, float knockback,
+                                 ProjectileSource? customSource = null)
         where T : BaseProjectile
     {
         if (Projectile.owner != Main.myPlayer)
@@ -35,7 +35,7 @@ public abstract class BaseProjectile : ModProjectile, IComposite<BaseProjectileM
 
         var type = ModContent.ProjectileType<T>();
 
-        if (customSource != null)
+        if (customSource is not null && _source is not null)
         {
             customSource.Inherit(_source);
         }
@@ -101,7 +101,7 @@ public abstract class BaseProjectile : ModProjectile, IComposite<BaseProjectileM
 
         if (IsAmmoRuntime)
         {
-            _source.Ammo.RuntimeHitNPC(target, hit);
+            _source?.Ammo?.RuntimeHitNPC(target, hit);
         }
 
         _immunity.Reset(target);
@@ -113,7 +113,7 @@ public abstract class BaseProjectile : ModProjectile, IComposite<BaseProjectileM
 
         if (IsAmmoRuntime)
         {
-            _source.Ammo.RuntimeKill();
+            _source?.Ammo?.RuntimeKill();
         }
     }
 

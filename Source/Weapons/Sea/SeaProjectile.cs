@@ -14,7 +14,7 @@ public class SeaProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public WaterModule Water { get; private set; }
 
-    private SeaPlayer _seaPlayer = null;
+    private SeaPlayer? _seaPlayer = null;
 
     public SeaProjectile() : base()
     {
@@ -37,7 +37,7 @@ public class SeaProjectile : BaseProjectile
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
-        Water.ApplyAmmo(_source.Ammo);
+        Water.ApplyAmmo(_source?.Ammo);
 
         _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
         _seaPlayer.ProjectileDamage = Projectile.damage;
@@ -79,7 +79,7 @@ public class SeaProjectile : BaseProjectile
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Water.CreateDust(Projectile.Center, Projectile.velocity);
 
-        if (_seaPlayer.BubbleCollide(Projectile.getRect()))
+        if (_seaPlayer!.BubbleCollide(Projectile.getRect()))
         {
             Projectile.Kill();
         }

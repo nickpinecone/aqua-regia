@@ -8,10 +8,12 @@ public class PumpModule : BaseGunModule
     private int _pumpLevel;
     public int PumpLevel
     {
-        get {
+        get
+        {
             return _pumpLevel;
         }
-        set {
+        set
+        {
             _pumpLevel = Math.Max(0, value);
         }
     }
@@ -19,10 +21,12 @@ public class PumpModule : BaseGunModule
     private int _maxPumpLevel;
     public int MaxPumpLevel
     {
-        get {
+        get
+        {
             return _maxPumpLevel;
         }
-        set {
+        set
+        {
             _maxPumpLevel = Math.Max(0, value);
         }
     }
@@ -33,12 +37,16 @@ public class PumpModule : BaseGunModule
 
     public PumpModule(BaseGun baseGun) : base(baseGun)
     {
+        UpdateTimer = new Timer(20);
     }
 
-    public void SetDefaults(int maxPumpLevel, Timer updateTimer = null)
+    public void SetDefaults(int maxPumpLevel, Timer? updateTimer = null)
     {
         MaxPumpLevel = maxPumpLevel;
-        UpdateTimer = updateTimer ?? new Timer(20);
+        if (updateTimer is not null)
+        {
+            UpdateTimer = updateTimer;
+        }
     }
 
     public void ApplyToProjectile(BaseProjectile baseProjectile)

@@ -25,7 +25,7 @@ public class BaseAnimation
 public class Animation<T> : BaseAnimation
     where T : struct
 {
-    public event EventHandler OnFinished;
+    public event EventHandler? OnFinished;
 
     public BaseAnimation[] Depends { get; set; }
     public Func<float, float> Easing { get; set; }
@@ -37,7 +37,7 @@ public class Animation<T> : BaseAnimation
     public T? Value { get; private set; } = null;
     public bool Initiate { get; set; } = true;
 
-    public Animation(int frames = 0, Func<float, float> ease = null, BaseAnimation[] depends = null) : base()
+    public Animation(int frames = 0, Func<float, float>? ease = null, BaseAnimation[]? depends = null) : base()
     {
         ease ??= Ease.Linear;
 
@@ -87,7 +87,7 @@ public class Animation<T> : BaseAnimation
         {
             CurrentFrame = Frames;
             Finished = true;
-            OnFinished?.Invoke(this, null);
+            OnFinished?.Invoke(this, EventArgs.Empty);
             return null;
         }
 
@@ -109,7 +109,7 @@ public class Animation<T> : BaseAnimation
         return Calculate(End, Start);
     }
 
-    public T Loop(T start, T end)
+    public T? Loop(T start, T end)
     {
         if (Initiate)
         {
@@ -134,7 +134,7 @@ public class Animation<T> : BaseAnimation
             Reset();
             Initiate = false;
 
-            return (T)Animate(Start, End);
+            return (T?)Animate(Start, End);
         }
     }
 }

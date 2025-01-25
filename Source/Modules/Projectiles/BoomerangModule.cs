@@ -18,6 +18,9 @@ public class BoomerangModule : BaseProjectileModule
 
     public BoomerangModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
+        Slow = new Animation<Vector2>(10);
+        Home = new HomeModule(baseProjectile);
+        Home.SetDefaults();
     }
 
     public void SetDefaults(HomeModule home, Animation<Vector2> slow, float maxDistance = 0f,

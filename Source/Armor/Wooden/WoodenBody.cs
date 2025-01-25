@@ -12,12 +12,18 @@ public class WoodenBody : ModItem
 {
     public static readonly int RangePercent = 3;
     public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
-    public static LocalizedText SetBonusText { get; private set; }
+    public static LocalizedText SetBonusText { get; private set; } = LocalizedText.Empty;
 
     public override string Texture => TexturesPath.Armor + "Wooden/WoodenBody";
 
     public Timer RootTimer { get; private set; }
     public Timer HealTimer { get; private set; }
+
+    public WoodenBody()
+    {
+        RootTimer = new Timer(30);
+        HealTimer = new Timer(300);
+    }
 
     public override void SetStaticDefaults()
     {
@@ -33,9 +39,6 @@ public class WoodenBody : ModItem
         Item.value = Item.sellPrice(silver: 1);
         Item.rare = ItemRarityID.White;
         Item.defense = 2;
-
-        RootTimer = new Timer(30);
-        HealTimer = new Timer(300);
     }
 
     public override void UpdateEquip(Player player)

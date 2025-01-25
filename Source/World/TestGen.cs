@@ -253,7 +253,7 @@ public class TestGen : ModSystem
             var maxIters = 1000;
 
             var coralType = WorldGen.genRand.NextFromList(ModContent.TileType<CoralTile>());
-            var highestBottom = t_edgeTiles.Where(e => e.Type == EdgeType.Bottom).MinBy(e => e.Y);
+            var highestBottom = t_edgeTiles.Where(e => e.Type == EdgeType.Bottom).MinBy(e => e.Y)!;
 
             while (((start + direction).X / 16) < Main.maxTilesX && iters < maxIters)
             {

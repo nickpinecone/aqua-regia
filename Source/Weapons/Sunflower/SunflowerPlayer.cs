@@ -8,10 +8,10 @@ namespace AquaRegia.Weapons.Sunflower;
 
 public class SunflowerPlayer : ModPlayer
 {
-    public Sunflower Sunflower = null;
-    public BloodVine BloodVine = null;
+    public Sunflower? Sunflower = null;
+    public BloodVine? BloodVine = null;
 
-    private GaugeElement _gauge = null;
+    private GaugeElement? _gauge = null;
     private Timer _updateTimer = new Timer(20);
 
     public void SpawnSunflower(int damage, float knockback)
@@ -39,7 +39,7 @@ public class SunflowerPlayer : ModPlayer
     {
         base.PreUpdate();
 
-        if (_gauge != null)
+        if (_gauge is not null && Sunflower is not null)
         {
             Sunflower.Projectile.timeLeft = 11;
 

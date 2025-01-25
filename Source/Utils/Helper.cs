@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -47,12 +46,12 @@ public static class Helper
         return new Vector2((int)vector.X, (int)vector.Y);
     }
 
-    public static NPC FindNearestNPC(Vector2 position, float radius, Func<NPC, bool> canHome = null)
+    public static NPC? FindNearestNPC(Vector2 position, float radius, Func<NPC, bool>? canHome = null)
     {
         canHome ??= (_) => true;
 
         float nearestDistance = float.PositiveInfinity;
-        NPC nearestNpc = null;
+        NPC? nearestNpc = null;
         float detectRange = MathF.Pow(radius, 2);
 
         for (int i = 0; i < Main.npc.Length; i++)

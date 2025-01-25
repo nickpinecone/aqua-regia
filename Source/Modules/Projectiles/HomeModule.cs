@@ -7,7 +7,7 @@ namespace AquaRegia.Modules.Projectiles;
 
 public class HomeModule : BaseProjectileModule
 {
-    public NPC Target { get; private set; }
+    public NPC? Target { get; private set; }
     public float Curve { get; set; }
     public float CurveChange { get; set; }
     public float Speed { get; set; }
@@ -45,7 +45,7 @@ public class HomeModule : BaseProjectileModule
         return newVelocity;
     }
 
-    public Vector2? Default(Vector2 position, Vector2 velocity, Func<NPC, bool> canHome = null)
+    public Vector2? Default(Vector2 position, Vector2 velocity, Func<NPC, bool>? canHome = null)
     {
         Target = Helper.FindNearestNPC(position, Radius, canHome);
 
