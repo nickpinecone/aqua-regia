@@ -1,5 +1,5 @@
 # Aqua Regia
-Terraria mod that brings more water-themed items to the game
+Terraria mod that brings more water themed items to the game
 
 # Community
 Feedback or issues should go to
