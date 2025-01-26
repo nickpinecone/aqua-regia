@@ -1,3 +1,4 @@
+using System;
 using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +13,7 @@ namespace AquaRegia.Modules.Projectiles;
 public class LaserModule : BaseProjectileModule
 {
     public float MaxDistance { get; set; } = 2200f;
-    public Texture2D? Texture { get; private set; }
+    public Texture2D Texture { get; private set; }
 
     private Vector2 _start = Vector2.Zero;
     private Vector2 _direction = Vector2.Zero;

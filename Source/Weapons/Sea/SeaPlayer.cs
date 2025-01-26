@@ -9,7 +9,7 @@ namespace AquaRegia.Weapons.Sea;
 
 public class SeaSource : ProjectileSource
 {
-    public NPC? Target;
+    public NPC Target;
 
     public SeaSource(IEntitySource source) : base(source)
     {
@@ -40,7 +40,7 @@ public class SeaPlayer : ModPlayer
             var projectile = Projectile.NewProjectileDirect(
                 source, target.Center, Vector2.Zero, ModContent.ProjectileType<HugeBubble>(), 0, 0, Main.myPlayer);
 
-            _bubbles[target] = (projectile.ModProjectile as HugeBubble)!;
+            _bubbles[target] = projectile.ModProjectile as HugeBubble;
         }
 
         _bubbles[target].Enlarge();

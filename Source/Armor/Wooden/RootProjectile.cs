@@ -35,7 +35,7 @@ public class RootProjectile : BaseProjectile
 
         var woodenSource = source as WoodenSource;
 
-        var side = MathHelper.PiOver4 * woodenSource!.Direction;
+        var side = MathHelper.PiOver4 * woodenSource.Direction;
         side += Main.rand.NextFloat(-0.1f, 0.1f);
         Projectile.rotation = side;
         Projectile.Center += new Vector2(Main.rand.Next(-2, 2), 0);
@@ -68,7 +68,7 @@ public class RootProjectile : BaseProjectile
         else
         {
             Projectile.timeLeft = 10;
-            Projectile.scale = Scale.Loop(Projectile.scale, Projectile.scale + 0.1f) ?? Projectile.scale;
+            Projectile.scale = Scale.Loop(Projectile.scale, Projectile.scale + 0.1f);
         }
     }
 }

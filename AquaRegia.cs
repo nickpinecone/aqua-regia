@@ -8,8 +8,8 @@ public class AquaRegia : Mod
 {
     public class ProjectileSource : IEntitySource
     {
-        public BaseGun? Weapon;
-        public BaseAmmo? Ammo;
+        public BaseGun Weapon;
+        public BaseAmmo Ammo;
 
         public void Inherit(ProjectileSource original)
         {
@@ -18,7 +18,7 @@ public class AquaRegia : Mod
             Ammo = original.Ammo;
         }
 
-        public string? Context { get; set; }
+        public string Context { get; set; }
         public ProjectileSource(IEntitySource source)
         {
             Context = source.Context;

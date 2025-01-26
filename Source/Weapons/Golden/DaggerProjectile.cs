@@ -70,7 +70,7 @@ public class DaggerProjectile : BaseProjectile
             var end = invert.RotatedBy(MathHelper.PiOver4);
 
             var offset = Stick.BeforeVelocity.SafeNormalize(Vector2.Zero);
-            Particle.Arc(DustID.Blood, (Vector2)Stick.HitPoint! + offset * (Projectile.height / 2), new Vector2(6, 6), start, end,
+            Particle.Arc(DustID.Blood, Stick.HitPoint + offset * (Projectile.height / 2), new Vector2(6, 6), start, end,
                          3, 2f, 1f);
         }
         else
@@ -121,7 +121,7 @@ public class DaggerProjectile : BaseProjectile
                 }
                 else
                 {
-                    Projectile.Center = Stick.HitPoint ?? Projectile.Center;
+                    Projectile.Center = Stick.HitPoint;
                 }
             }
         }

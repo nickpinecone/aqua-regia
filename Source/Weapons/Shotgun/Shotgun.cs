@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using AquaRegia.Modules;
 using AquaRegia.Modules.Weapons;
@@ -104,13 +105,13 @@ public class Shotgun : BaseGun
 
             var direction = Main.LocalPlayer.Center - Main.MouseWorld;
             direction.Normalize();
-            var dist = (Main.LocalPlayer.Center - shotPlayer!.Target!.Center).Length();
+            var dist = (Main.LocalPlayer.Center - shotPlayer.Target.Center).Length();
             dist = (1 / dist) * Main.ViewSize.X;
             dist = MathHelper.Clamp(dist, 3f, 10f);
             direction *= dist;
             Main.LocalPlayer.velocity = direction;
 
-            shotPlayer!.Chain!.Projectile.Kill();
+            shotPlayer.Chain.Projectile.Kill();
         }
 
         return false;

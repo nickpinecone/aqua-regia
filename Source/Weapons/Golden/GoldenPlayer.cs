@@ -28,8 +28,8 @@ public class GoldenPlayer : ModPlayer
 
         var relative = Main.MouseWorld - position;
         var velocity = (new Vector2(1, 0) * 16f).RotatedBy(relative.ToRotation());
-        sword!.InitialVelocity = velocity;
-        sword!.Projectile.rotation = velocity.ToRotation() + MathHelper.PiOver4;
+        sword.InitialVelocity = velocity;
+        sword.Projectile.rotation = velocity.ToRotation() + MathHelper.PiOver4;
 
         _swords.Add(sword);
     }

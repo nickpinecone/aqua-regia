@@ -20,7 +20,7 @@ public class BubbleProjectile : BaseProjectile
 
     public StickModule Stick { get; private set; }
 
-    private SeaPlayer? _seaPlayer = null;
+    private SeaPlayer _seaPlayer = null;
     private bool _wasConsumed = false;
 
     public BubbleProjectile() : base()
@@ -55,7 +55,7 @@ public class BubbleProjectile : BaseProjectile
     public override bool? CanHitNPC(NPC target)
     {
         if (Stick.Target == null && !target.friendly && target.getRect().Intersects(Projectile.getRect()) &&
-            _seaPlayer!.CanHome(target))
+            _seaPlayer.CanHome(target))
         {
             Projectile.friendly = false;
 
@@ -86,7 +86,7 @@ public class BubbleProjectile : BaseProjectile
         if (Appear.Finished && Stick.Target == null)
         {
             Projectile.velocity =
-                Home.Default(Projectile.Center, Projectile.velocity, (target) => _seaPlayer!.CanHome(target)) ??
+                Home.Default(Projectile.Center, Projectile.velocity, (target) => _seaPlayer.CanHome(target)) ??
                 Projectile.velocity;
         }
 
@@ -98,7 +98,7 @@ public class BubbleProjectile : BaseProjectile
             {
                 _wasConsumed = true;
                 SoundEngine.PlaySound(SoundID.Item85);
-                _seaPlayer!.AddBubble(Stick.Target);
+                _seaPlayer.AddBubble(Stick.Target);
                 Projectile.Kill();
             }
         }

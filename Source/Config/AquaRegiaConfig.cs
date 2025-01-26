@@ -3,7 +3,6 @@ using Terraria.ModLoader.Config;
 
 namespace AquaRegia.Config;
 
-#pragma warning disable 612, 618
 public class AquaRegiaConfig : ModConfig
 {
     public override ConfigScope Mode => ConfigScope.ServerSide;
@@ -21,4 +20,3 @@ public class AquaRegiaConfig : ModConfig
         get; set;
     }
 }
-#pragma warning restore 612, 618

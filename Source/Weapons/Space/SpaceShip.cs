@@ -16,7 +16,7 @@ public class SpaceShip : BaseProjectile
     public HomeModule Home { get; private set; }
 
     private int _direction = 0;
-    private SpaceLaser? _laser = null;
+    private SpaceLaser _laser = null;
     private Vector2 _start = Vector2.Zero;
     private Vector2 _end = Vector2.Zero;
     private float _distance = 320f;
@@ -120,7 +120,7 @@ public class SpaceShip : BaseProjectile
             }
 
             Projectile.Center += Vector2.UnitX * _direction * 2f;
-            _laser!.Projectile.Top = Projectile.Bottom + Vector2.UnitY * 12f;
+            _laser.Projectile.Top = Projectile.Bottom + Vector2.UnitY * 12f;
 
             if (Projectile.Center.DistanceSQ(_start) > _distance * _distance)
             {

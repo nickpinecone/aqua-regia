@@ -79,7 +79,7 @@ public class SwordProjectile : BaseProjectile
         var end = invert.RotatedBy(MathHelper.PiOver4);
 
         var offset = Stick.BeforeVelocity.SafeNormalize(Vector2.Zero);
-        Particle.Arc(DustID.Blood, (Vector2)Stick.HitPoint! + offset * (Projectile.height / 2), new Vector2(6, 6), start, end, 6,
+        Particle.Arc(DustID.Blood, Stick.HitPoint + offset * (Projectile.height / 2), new Vector2(6, 6), start, end, 6,
                      3f, 1.4f);
     }
 
@@ -146,7 +146,7 @@ public class SwordProjectile : BaseProjectile
                 }
                 else
                 {
-                    Projectile.Center = (Stick.HitPoint) ?? Projectile.Center + _localShift;
+                    Projectile.Center = Stick.HitPoint + _localShift;
                 }
             }
         }

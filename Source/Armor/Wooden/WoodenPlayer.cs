@@ -7,7 +7,7 @@ public class WoodenSource : IEntitySource
 {
     public int Direction;
 
-    public string? Context { get; set; }
+    public string Context { get; set; }
     public WoodenSource(IEntitySource source)
     {
         Context = source.Context;
@@ -16,5 +16,5 @@ public class WoodenSource : IEntitySource
 
 public class WoodenPlayer : ModPlayer
 {
-    public RootProjectile? Root = null;
+    public RootProjectile Root = null;
 }

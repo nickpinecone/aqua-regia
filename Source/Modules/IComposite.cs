@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace AquaRegia.Modules;
 
 public interface IComposite<TModule>
-    where TModule : notnull
 {
     protected Dictionary<Type, TModule> Modules { get; }
     protected List<TModule> RuntimeModules { get; }

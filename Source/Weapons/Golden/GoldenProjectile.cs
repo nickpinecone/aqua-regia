@@ -36,7 +36,7 @@ public class GoldenProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Water.ApplyAmmo(_source?.Ammo);
+        Water.ApplyAmmo(_source.Ammo);
     }
 
     public override void OnKill(int timeLeft)
@@ -60,8 +60,8 @@ public class GoldenProjectile : BaseProjectile
                                                            Projectile.knockBack / 2);
             offsetVector.Normalize();
             offsetVector = offsetVector.RotatedBy(MathHelper.Pi);
-            dagger!.InitialVelocity = offsetVector * 10f;
-            dagger!.Projectile.rotation = offsetVector.ToRotation() + MathHelper.PiOver2;
+            dagger.InitialVelocity = offsetVector * 10f;
+            dagger.Projectile.rotation = offsetVector.ToRotation() + MathHelper.PiOver2;
         }
     }
 

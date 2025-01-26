@@ -28,7 +28,7 @@ public class PropertyModule : BaseGunModule
                             float inaccuracy = 0f, int useTime = 0, int useAnimation = 0, float shootSpeed = 0f,
                             int rarity = ItemRarityID.White, int sellPrice = 0, int maxStack = 1, bool noMelee = true,
                             bool autoReuse = true, int useStyle = ItemUseStyleID.Shoot, int? useAmmo = null,
-                            DamageClass? damageType = null)
+                            DamageClass damageType = null)
     {
         baseGun.Item.width = width;
         baseGun.Item.height = height;

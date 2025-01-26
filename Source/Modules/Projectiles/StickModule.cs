@@ -7,14 +7,14 @@ public class StickModule : BaseProjectileModule
 {
     private Vector2 _localHit = Vector2.Zero;
 
-    public NPC? Target { get; private set; }
+    public NPC Target { get; private set; }
     public Vector2 BeforeVelocity { get; set; }
 
-    public Vector2? HitPoint
+    public Vector2 HitPoint
     {
         get
         {
-            return Target?.Center - _localHit ?? null;
+            return Target.Center - _localHit;
         }
     }
 

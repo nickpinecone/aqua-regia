@@ -7,15 +7,14 @@ public class BounceModule : BaseProjectileModule
 {
     public int MaxCount { get; set; }
 
-    private PropertyModule? _property;
+    private PropertyModule _property;
     private int _current;
 
     public BounceModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
-        _property = null;
     }
 
-    public void SetDefaults(PropertyModule? property = null, int maxCount = 3)
+    public void SetDefaults(PropertyModule property = null, int maxCount = 3)
     {
         _property = property;
         MaxCount = maxCount;

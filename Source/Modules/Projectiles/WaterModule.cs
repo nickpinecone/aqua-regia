@@ -30,12 +30,9 @@ public class WaterModule : BaseProjectileModule
         Color = color ?? Color.White;
     }
 
-    public void ApplyAmmo(BaseAmmo? baseAmmo)
+    public void ApplyAmmo(BaseAmmo baseAmmo)
     {
-        if (baseAmmo is not null)
-        {
-            Color = baseAmmo.AccentColor;
-        }
+        Color = baseAmmo.AccentColor;
     }
 
     public void KillEffect(Vector2 position, Vector2 velocity)

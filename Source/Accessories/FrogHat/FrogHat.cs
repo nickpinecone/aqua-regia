@@ -9,6 +9,7 @@ namespace AquaRegia.Accessories.FrogHat;
 public class FrogHat : ModItem
 {
     public override string Texture => TexturesPath.Accessories + "FrogHat/FrogHat";
+    public Timer AttackTimer { get; private set; }
 
     public override void SetDefaults()
     {

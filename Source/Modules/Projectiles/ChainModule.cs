@@ -8,7 +8,7 @@ namespace AquaRegia.Modules.Projectiles;
 
 public class ChainModule : BaseProjectileModule
 {
-    public Asset<Texture2D>? Texture { get; private set; }
+    public Asset<Texture2D> Texture { get; private set; }
     public Rectangle Source { get; private set; }
 
     public float MaxDistance { get; set; }
@@ -78,7 +78,7 @@ public class ChainModule : BaseProjectileModule
         {
             var color = Lighting.GetColor(from.ToTileCoordinates());
 
-            Main.spriteBatch.Draw(Texture?.Value, from - Main.screenPosition, source, color, rotation, origin, 1f,
+            Main.spriteBatch.Draw(Texture.Value, from - Main.screenPosition, source, color, rotation, origin, 1f,
                                   SpriteEffects.None, 0f);
 
             from += unitDirection * segmentLength;

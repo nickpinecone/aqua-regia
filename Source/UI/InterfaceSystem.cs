@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -8,9 +12,9 @@ namespace AquaRegia.UI;
 
 class InterfaceSystem : ModSystem
 {
-    internal UserInterface? _interface;
-    internal GaugeState? _gaugeState;
-    private GameTime? _lastUpdateUI;
+    internal UserInterface _interface;
+    internal GaugeState _gaugeState;
+    private GameTime _lastUpdateUI;
 
     public override void Load()
     {
@@ -40,12 +44,12 @@ class InterfaceSystem : ModSystem
 
     public void AddGauge(GaugeElement gauge)
     {
-        _gaugeState?.Add(gauge);
+        _gaugeState.Add(gauge);
     }
 
     public void RemoveGauge(GaugeElement gauge)
     {
-        _gaugeState?.Remove(gauge);
+        _gaugeState.Remove(gauge);
     }
 
     public override void UpdateUI(GameTime gameTime)

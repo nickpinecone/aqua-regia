@@ -3,6 +3,7 @@ using System.Linq;
 using AquaRegia.Config;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Utils;

@@ -11,7 +11,6 @@ public class HeadBounceModule : BaseProjectileModule
 
     public HeadBounceModule(BaseProjectile baseProjectile) : base(baseProjectile)
     {
-        _property = new PropertyModule(baseProjectile);
     }
 
     public void Initialize(PropertyModule property)

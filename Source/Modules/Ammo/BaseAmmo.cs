@@ -20,7 +20,7 @@ public abstract class BaseAmmo : ModItem
 
     protected void SetProperties(int damage = 0, float knockBack = 0f, int rarity = 0, int sellPrice = 0,
                                Color? accentColor = null, int width = 14, int height = 28, int? maxStack = null,
-                               bool consumable = true, int? ammo = null, DamageClass? damageType = null)
+                               bool consumable = true, int? ammo = null, DamageClass damageType = null)
     {
         Item.damage = damage;
         Item.knockBack = knockBack;

@@ -13,11 +13,11 @@ public class DiverBody : ModItem
 {
     public static readonly int RangePercent = 5;
     public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(RangePercent);
-    public static LocalizedText SetBonusText { get; private set; } = LocalizedText.Empty;
+    public static LocalizedText SetBonusText { get; private set; }
 
     public override string Texture => TexturesPath.Armor + "Diver/DiverBody";
 
-    private Projectile? _bubble = null;
+    private Projectile _bubble = null;
 
     public override void SetStaticDefaults()
     {
