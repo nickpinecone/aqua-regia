@@ -2,7 +2,6 @@ using Terraria;
 using AquaRegia.Modules;
 using AquaRegia.Modules.Projectiles;
 using AquaRegia.Utils;
-using Microsoft.Xna.Framework;
 using Terraria.ID;
 
 namespace AquaRegia.Weapons.Sunflower;

@@ -1,15 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent;
-using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using AquaRegia.Modules;
 using AquaRegia.Modules.Weapons;
 using AquaRegia.Utils;
 using System.Collections.Generic;
-using ReLogic.Content;
 
 namespace AquaRegia.UI;
 

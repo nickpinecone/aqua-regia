@@ -1,4 +1,3 @@
-using System;
 using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
