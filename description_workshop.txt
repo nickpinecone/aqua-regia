@@ -2,8 +2,7 @@
 
 A mod that brings more water themed items, weapons, accessories, pets and more to the game
 Currently features a unique spin on the water guns, making them actually useful
-
-New coral reef biome (alpha state, very experimental) can be enabled in the mod config
+And a brand new coral reef biome along with new mobs
 
 This mod is in DEMO
 More items, enhancements and better sprites are coming
@@ -16,6 +15,6 @@ More items, enhancements and better sprites are coming
 [*]Te234, Spriting
 [*]Someone with a short username, Spriting
 [*]StormdaHusky, Ideas
+[*]communistsnake, Ideas
 [*]TunaMilkShake, Emotional Support
-[*]communistsnake, Random Hobo We Found On The Streets
 [/list] 
