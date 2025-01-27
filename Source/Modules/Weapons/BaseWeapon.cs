@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Modules.Weapons;
@@ -16,5 +17,26 @@ public abstract class BaseWeapon : ModItem, IComposite<IWeaponRuntime>
     protected BaseWeapon()
     {
         Composite = ((IComposite<IWeaponRuntime>)this);
+    }
+
+    public override bool AltFunctionUse(Player player)
+    {
+        base.AltFunctionUse(player);
+
+        AltUseAlways(player);
+
+        return false;
+    }
+
+    public void DoAltUse(Player player)
+    {
+        if (Main.mouseLeft && Main.mouseRight)
+        {
+            AltUseAlways(player);
+        }
+    }
+
+    public virtual void AltUseAlways(Player player)
+    {
     }
 }
