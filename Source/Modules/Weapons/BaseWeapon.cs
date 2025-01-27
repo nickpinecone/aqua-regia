@@ -10,10 +10,11 @@ public abstract class BaseWeapon : ModItem, IComposite<IWeaponRuntime>
     Dictionary<Type, IModule> IComposite<IWeaponRuntime>.Modules => _modules;
     private List<IWeaponRuntime> _runtime = new();
     List<IWeaponRuntime> IComposite<IWeaponRuntime>.RuntimeModules => _runtime;
-    protected IComposite<IWeaponRuntime> _composite;
+
+    public IComposite<IWeaponRuntime> Composite { get; init; }
 
     protected BaseWeapon()
     {
-        _composite = ((IComposite<IWeaponRuntime>)this);
+        Composite = ((IComposite<IWeaponRuntime>)this);
     }
 }

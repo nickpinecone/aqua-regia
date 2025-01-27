@@ -10,10 +10,11 @@ public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRunt
     Dictionary<Type, IModule> IComposite<IProjectileRuntime>.Modules => _modules;
     private List<IProjectileRuntime> _runtime = new();
     List<IProjectileRuntime> IComposite<IProjectileRuntime>.RuntimeModules => _runtime;
-    protected IComposite<IProjectileRuntime> _composite;
+
+    public IComposite<IProjectileRuntime> Composite { get; init; }
 
     protected BaseProjectile()
     {
-        _composite = ((IComposite<IProjectileRuntime>)this);
+        Composite = ((IComposite<IProjectileRuntime>)this);
     }
 }
