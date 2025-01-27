@@ -36,10 +36,10 @@ public class PumpModule : IModule
         UpdateTimer = new Timer(0);
     }
 
-    public void SetDefaults(int maxPumpLevel, Timer updateTimer)
+    public void SetDefaults(int maxPumpLevel, Timer? updateTimer = null)
     {
         MaxPumpLevel = maxPumpLevel;
-        UpdateTimer = updateTimer;
+        UpdateTimer = updateTimer ?? new Timer(20);
     }
 
     public void Reset()

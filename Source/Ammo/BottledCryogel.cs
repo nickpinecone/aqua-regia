@@ -16,7 +16,7 @@ public class BottledCryogel : BaseAmmo
     {
         base.SetDefaults();
 
-        SetProperties(2, 0.2f, ItemRarityID.White, Item.sellPrice(0, 0, 0, 8), Color.Cyan);
+        SetProperties(2, 0.2f, ItemRarityID.White, Item.sellPrice(0, 0, 0, 8));
     }
 
     public override void AddRecipes()
@@ -30,6 +30,11 @@ public class BottledCryogel : BaseAmmo
     public override void ApplyToProjectile(BaseProjectile projectile)
     {
         base.ApplyToProjectile(projectile);
+
+        if (projectile.Composite.TryGetModule(out WaterModule? water))
+        {
+            water.Color = Color.Cyan;
+        }
 
         var frostburn = new BuffModule();
         frostburn.SetDefaults(BuffID.Frostburn, 4f, 15);

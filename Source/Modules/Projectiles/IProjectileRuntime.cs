@@ -5,8 +5,8 @@ namespace AquaRegia.Modules.Projectiles;
 
 public interface IProjectileRuntime
 {
-    public abstract bool RuntimeTileCollide(BaseProjectile baseProjectile, Vector2 oldVelocity);
-    public abstract void RuntimeHitNPC(BaseProjectile baseProjectile, NPC target, NPC.HitInfo hit);
-    public abstract void RuntimeAI(BaseProjectile baseProjectile);
-    public abstract void RuntimeKill(BaseProjectile baseProjectile, int timeLeft);
+    public abstract bool RuntimeTileCollide(BaseProjectile projectile, Vector2 oldVelocity);
+    public abstract void RuntimeHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit);
+    public abstract void RuntimeAI(BaseProjectile projectile);
+    public abstract void RuntimeKill(BaseProjectile projectile, int timeLeft);
 }

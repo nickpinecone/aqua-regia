@@ -30,11 +30,7 @@ public class BuffModule : IModule, IProjectileRuntime
         Percent = percent;
     }
 
-    public void RuntimeAI(BaseProjectile baseProjectile)
-    {
-    }
-
-    public void RuntimeHitNPC(BaseProjectile baseProjectile, NPC target, NPC.HitInfo hit)
+    public void RuntimeHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit)
     {
         if (Main.rand.Next(0, 100) < Percent)
         {
@@ -42,11 +38,15 @@ public class BuffModule : IModule, IProjectileRuntime
         }
     }
 
-    public void RuntimeKill(BaseProjectile baseProjectile, int timeLeft)
+    public void RuntimeAI(BaseProjectile projectile)
     {
     }
 
-    public bool RuntimeTileCollide(BaseProjectile baseProjectile, Vector2 oldVelocity)
+    public void RuntimeKill(BaseProjectile projectile, int timeLeft)
+    {
+    }
+
+    public bool RuntimeTileCollide(BaseProjectile projectile, Vector2 oldVelocity)
     {
         return true;
     }
