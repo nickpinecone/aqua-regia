@@ -14,7 +14,7 @@ public interface IComposite<TRuntime>
         return Modules.ContainsKey(typeof(T));
     }
 
-    protected void AddModule(params IModule[] modules)
+    public void AddModule(params IModule[] modules)
     {
         foreach (var module in modules)
         {
@@ -22,7 +22,7 @@ public interface IComposite<TRuntime>
         }
     }
 
-    protected bool TryAddModule(IModule module)
+    public bool TryAddModule(IModule module)
     {
         if (Modules.ContainsKey(module.GetType()))
         {

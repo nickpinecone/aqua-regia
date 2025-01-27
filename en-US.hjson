@@ -264,6 +264,25 @@ Mods: {
 					Tooltip: ""
 				}
 			}
+
+			Configuration: {
+				DisplayName: Configuration
+
+				Headers: {
+					WorldGeneration: World Generation Header
+					Debug: Debug Header
+				}
+
+				CoralReefGenEnabled: {
+					Label: Generate Coral Reef (Experimental)
+					Tooltip: ""
+				}
+
+				DebugInfoEnabled: {
+					Label: Enable Debug Info
+					Tooltip: ""
+				}
+			}
 		}
 	}
 }
