@@ -57,8 +57,8 @@ public class WoodenProjectile : BaseProjectile
         {
             var position = target.Center - new Vector2(0, target.height * 1.5f + Main.rand.NextFloat(0f, 6f));
 
-            Helper.SpawnProjectile<AcornProjectile>(Projectile.GetSource_FromThis(), Main.player[Projectile.owner],
-                                                    position, Vector2.Zero, hit.Damage, hit.Knockback);
+            Helper.SpawnProjectile<AcornProjectile>(Projectile.GetSource_FromThis(), Owner, position, Vector2.Zero,
+                                                    hit.Damage, hit.Knockback);
         }
     }
 

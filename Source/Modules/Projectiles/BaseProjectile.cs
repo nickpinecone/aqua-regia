@@ -14,6 +14,7 @@ public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRunt
     List<IProjectileRuntime> IComposite<IProjectileRuntime>.RuntimeModules => _runtime;
 
     public IComposite<IProjectileRuntime> Composite { get; init; }
+    public Player Owner => Main.player[Projectile.owner];
 
     protected BaseProjectile()
     {

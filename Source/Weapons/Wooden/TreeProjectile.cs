@@ -47,12 +47,11 @@ public class TreeProjectile : BaseProjectile
         {
             _didCollide = true;
 
-            Main.player[Projectile.owner].GetModPlayer<ScreenShake>().Activate(6, 2);
+            Owner.GetModPlayer<ScreenShake>().Activate(6, 2);
 
             SoundEngine.PlaySound(SoundID.Item14);
-            Helper.SpawnProjectile<TreeExplosion>(Projectile.GetSource_FromThis(), Main.player[Projectile.owner],
-                                                  Projectile.Center, Vector2.Zero, Projectile.damage,
-                                                  Projectile.knockBack);
+            Helper.SpawnProjectile<TreeExplosion>(Projectile.GetSource_FromThis(), Owner, Projectile.Center,
+                                                  Vector2.Zero, Projectile.damage, Projectile.knockBack);
 
             foreach (var particle in Particle.Arc(DustID.Cloud, Projectile.Bottom, new Vector2(2, 2),
                                                   Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-150)),
