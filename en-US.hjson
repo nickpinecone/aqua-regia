@@ -243,11 +243,11 @@ Mods: {
 			}
 		}
 
-		WorldGen.CoralReefGenMessage: Mods.AquaRegia.WorldGen.CoralReefGenMessage
+		WorldGen.CoralReefGenMessage: Growing corals in the ocean
 
 		Configs: {
-			AquaRegiaConfig: {
-				DisplayName: Aqua Regia Config
+			Configuration: {
+				DisplayName: Configuration
 
 				Headers: {
 					WorldGeneration: World Generation
@@ -256,31 +256,12 @@ Mods: {
 
 				CoralReefGenEnabled: {
 					Label: Generate Coral Reef (Experimental)
-					Tooltip: ""
+					Tooltip: When enabled, generates a coral reef biome during world creation
 				}
 
 				DebugInfoEnabled: {
 					Label: Enable Debug Info
-					Tooltip: ""
-				}
-			}
-
-			Configuration: {
-				DisplayName: Configuration
-
-				Headers: {
-					WorldGeneration: World Generation Header
-					Debug: Debug Header
-				}
-
-				CoralReefGenEnabled: {
-					Label: Generate Coral Reef (Experimental)
-					Tooltip: ""
-				}
-
-				DebugInfoEnabled: {
-					Label: Enable Debug Info
-					Tooltip: ""
+					Tooltip: When enabled, logs debug information
 				}
 			}
 		}
