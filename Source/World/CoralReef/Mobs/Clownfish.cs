@@ -29,7 +29,7 @@ public class Clownfish : BaseMob
 
     public override void SetDefaults()
     {
-        Property.SetProperties(this, 32, 16, 0, 0, 5, 0.5f, true);
+        Property.SetProperties(this, 24, 12, 0, 0, 5, 0.5f, true);
         Swim.SetGravity(gravityCap: 9);
     }
 
@@ -66,6 +66,11 @@ public class Clownfish : BaseMob
 
         NPC.velocity = Swim.ApplyGravity(NPC.getRect(), NPC.velocity);
 
+        if (Swim.IsOnLand(NPC.getRect()))
+        {
+            NPC.velocity = (-Vector2.UnitY).RotatedByRandom(MathHelper.PiOver2) * Main.rand.NextFloat(0.5f, 3f);
+        }
+
         if (Swim.IsInWater(NPC.getRect()))
         {
             NPC.velocity.X = 2f * _swimDirection;
@@ -99,6 +104,14 @@ public class Clownfish : BaseMob
             {
                 NPC.rotation = NPC.velocity.ToRotation() - MathHelper.Pi;
                 NPC.spriteDirection = -1;
+            }
+        }
+        else
+        {
+            if (NPC.velocity.Y < 0)
+            {
+                var angle = Helper.AngleBetween(-Vector2.UnitY, NPC.velocity);
+                NPC.rotation = angle * 0.1f;
             }
         }
     }

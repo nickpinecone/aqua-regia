@@ -28,6 +28,11 @@ public class SwimModule : IModule
         return true;
     }
 
+    public bool IsOnLand(Rectangle rect)
+    {
+        return !IsInWater(rect) && Collision.SolidCollision(rect.BottomLeft(), rect.Width, rect.Height);
+    }
+
     public void SetGravity(float gravity = 0.01f, float gravityChange = 0.02f, float gravityCap = 8f)
     {
         DefaultGravity = gravity;
@@ -46,6 +51,11 @@ public class SwimModule : IModule
 
     public Vector2 ApplyGravity(Rectangle rect, Vector2 velocity)
     {
+        if (IsOnLand(rect))
+        {
+            Gravity = 0f;
+        }
+
         if (!IsInWater(rect))
         {
             if (velocity.Y < GravityCap)
