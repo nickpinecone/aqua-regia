@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AquaRegia.Global;
+using AquaRegia.World.CoralReef.Mobs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,7 +34,7 @@ public class CoralReefBiome : ModBiome
         {
             pool.Clear();
 
-            pool.Add(NPCID.Goldfish, 1);
+            pool.Add(ModContent.NPCType<Clownfish>(), 1);
         }
     }
 }
