@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using AquaRegia.Utils;
 using Terraria.ID;
 using System;
+using Terraria;
 
 namespace AquaRegia.Modules.Mobs;
 
@@ -13,10 +14,18 @@ public class SwimModule : IModule
     public float GravityChange { get; set; }
     public float GravityCap { get; set; }
 
-    public bool IsInWater(Vector2 position)
+    public bool IsInWater(Rectangle rect)
     {
-        var tile = TileHelper.GetTile(position);
-        return tile.LiquidAmount > 0 && tile.LiquidType == LiquidID.Water;
+        foreach (var point in Collision.GetTilesIn(rect.TopLeft(), rect.BottomRight()))
+        {
+            var tile = TileHelper.GetTile(point);
+            if (!(tile.LiquidAmount > 0 && tile.LiquidType == LiquidID.Water))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void SetGravity(float gravity = 0.01f, float gravityChange = 0.02f, float gravityCap = 8f)
@@ -35,9 +44,9 @@ public class SwimModule : IModule
         GravityChange = DefaultChange;
     }
 
-    public Vector2 ApplyGravity(Vector2 position, Vector2 velocity)
+    public Vector2 ApplyGravity(Rectangle rect, Vector2 velocity)
     {
-        if (!IsInWater(position))
+        if (!IsInWater(rect))
         {
             if (velocity.Y < GravityCap)
             {

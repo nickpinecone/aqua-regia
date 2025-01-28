@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
 namespace AquaRegia.Modules.Mobs;
 
-public abstract class BaseMob : IComposite<IMobRuntime>
+public abstract class BaseMob : ModNPC, IComposite<IMobRuntime>
 {
     private Dictionary<Type, IModule> _modules = new();
     Dictionary<Type, IModule> IComposite<IMobRuntime>.Modules => _modules;
