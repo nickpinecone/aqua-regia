@@ -40,9 +40,9 @@ public class HomeModule : IModule, IProjectileRuntime
         else
         {
             newVelocity = velocity.RotatedBy(MathF.Sign(angle) * MathF.Min(Curve, MathF.Abs(angle)));
+            newVelocity.Normalize();
+            newVelocity *= Speed;
         }
-        newVelocity.Normalize();
-        newVelocity *= Speed;
 
         Curve *= CurveChange;
 
