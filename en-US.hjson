@@ -6,7 +6,7 @@ Mods: {
 					'''
 					Passive: Boosted damage when near trees
 					Attack: Sometimes spawns an acorn that bounces on enemy heads
-					Pumped: <right> to tree slam at the cursor position
+					Pumped: <right> to slam a tree at the cursor position
 					'''
 				DisplayName: Wooden Sprinkler
 			}

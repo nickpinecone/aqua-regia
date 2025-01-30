@@ -68,8 +68,11 @@ public class Swimmer : ModNPC
 
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
     {
-        bestiaryEntry.Info.AddRange(
-            new IBestiaryInfoElement[] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean });
+        bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
+            new FlavorTextBestiaryInfoElement(
+                "The Swimmer loves everything about the ocean, that's why she sells aquatic items!")
+        });
     }
 
     public override bool CanChat()

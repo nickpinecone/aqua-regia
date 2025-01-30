@@ -55,9 +55,10 @@ public class Clownfish : BaseMob
 
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
     {
-        bestiaryEntry.Info.AddRange(
-            new IBestiaryInfoElement[] { BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
-                                         new FlavorTextBestiaryInfoElement("Found in the coral reef biome") });
+        bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
+            new FlavorTextBestiaryInfoElement("A simple clownfish found in the Coral Reef")
+        });
     }
 
     public override void AI()

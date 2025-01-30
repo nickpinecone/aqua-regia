@@ -30,7 +30,8 @@ public class SwimModule : IModule
 
     public bool IsOnLand(Rectangle rect)
     {
-        return !IsInWater(rect) && Collision.SolidCollision(rect.BottomLeft(), rect.Width, rect.Height);
+        return !IsInWater(rect) &&
+               Collision.SolidCollision(rect.TopLeft() - new Vector2(2, 2), rect.Width + 4, rect.Height + 4);
     }
 
     public void SetGravity(float gravity = 0.01f, float gravityChange = 0.02f, float gravityCap = 8f)
