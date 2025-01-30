@@ -16,6 +16,11 @@ public class ImmunityModule : IModule
         ImmunityTime = time;
     }
 
+    public void Reset(NPC target)
+    {
+        _immunity[target] = ImmunityTime;
+    }
+
     public bool CanHit(NPC target)
     {
         if (_immunity.ContainsKey(target))

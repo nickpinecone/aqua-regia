@@ -66,6 +66,7 @@ public class StarfishProjectile : BaseProjectile
     {
         base.OnHitNPC(target, hit, damageDone);
 
+        Immunity.Reset(target);
         SoundEngine.PlaySound(SoundID.NPCHit9);
 
         if (Stick.Target == null)
@@ -134,6 +135,11 @@ public class StarfishProjectile : BaseProjectile
 
         if (StickTimer.Done && Stick.Target != null)
         {
+            if (_reachedFar && !Reverse.Finished)
+            {
+                return;
+            }
+
             Stick.Detach();
             Projectile.velocity = _beforeHit;
         }
