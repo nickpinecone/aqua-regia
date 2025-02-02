@@ -14,7 +14,6 @@ public class DaggerProjectile : BaseProjectile
     public Animation<int> Appear { get; private set; }
     public PropertyModule Property { get; private set; }
     public StickModule Stick { get; private set; }
-    public ImmunityModule Immunity { get; private set; }
 
     public SoundStyle SlashSound { get; private set; }
     public Vector2 InitialVelocity { get; set; } = Vector2.Zero;
@@ -25,15 +24,19 @@ public class DaggerProjectile : BaseProjectile
 
     public DaggerProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Stick = new StickModule();
-        Immunity = new ImmunityModule();
 
-        Composite.AddModule(Property, Stick, Immunity);
+        Composite.AddModule(Property, Stick);
 
         Appear = new Animation<int>(10);
 
-        SlashSound = new SoundStyle(AudioPath.Impact + "Slash") {
+        SlashSound = new SoundStyle(AudioPath.Impact + "Slash")
+        {
             Volume = 0.5f,
             PitchVariance = 0.1f,
         };
@@ -45,7 +48,6 @@ public class DaggerProjectile : BaseProjectile
 
         Property.SetProperties(this, 10, 24, 1, -1, 0, 255, 0, false);
         Property.SetTimeLeft(this, 60);
-        Immunity.SetDefaults(20);
     }
 
     public override bool? CanHitNPC(NPC target)
@@ -59,14 +61,12 @@ public class DaggerProjectile : BaseProjectile
             Stick.ToTarget(target, Projectile.Center);
         }
 
-        return Immunity.CanHit(target) ? null : false;
+        return base.CanHitNPC(target);
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
-
-        Immunity.Reset(target);
 
         if (_penetrateAmount < _penetrateMax)
         {
@@ -101,8 +101,6 @@ public class DaggerProjectile : BaseProjectile
     public override void AI()
     {
         base.AI();
-
-        Immunity.Update();
 
         if (_penetrateAmount >= _penetrateMax)
         {

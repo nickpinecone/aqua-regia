@@ -13,14 +13,16 @@ public class SpaceLaser : BaseProjectile
 
     public LaserModule Laser { get; private set; }
     public SoundStyle LaserShot { get; private set; }
-    public ImmunityModule Immunity { get; private set; }
 
     public SpaceLaser() : base()
     {
-        Laser = new LaserModule();
-        Immunity = new ImmunityModule();
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults(10);
+        Composite.AddRuntimeModule(immunity);
 
-        Composite.AddModule(Laser, Immunity);
+        Laser = new LaserModule();
+
+        Composite.AddModule(Laser);
 
         LaserShot = new SoundStyle(AudioPath.Spawn + "LaserShot") with
         {
@@ -32,8 +34,6 @@ public class SpaceLaser : BaseProjectile
     public override void SetDefaults()
     {
         base.SetDefaults();
-
-        Immunity.SetDefaults(10);
 
         Laser.SetDefaults(this);
         Laser.SetTexture(TexturesPath.Weapons + "Space/SpaceLaser");
@@ -49,13 +49,6 @@ public class SpaceLaser : BaseProjectile
         return Laser.Colliding(projHitbox, targetHitbox);
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-    {
-        base.OnHitNPC(target, hit, damageDone);
-
-        Immunity.Reset(target);
-    }
-
     public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
     {
         base.OnSpawn(source);
@@ -66,7 +59,6 @@ public class SpaceLaser : BaseProjectile
     public override void AI()
     {
         base.AI();
-        Immunity.Update();
 
         Laser.Update(Projectile.Center, Vector2.UnitY);
 

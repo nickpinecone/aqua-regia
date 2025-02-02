@@ -40,6 +40,25 @@ public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRunt
         return isDefault;
     }
 
+    public override bool? CanHitNPC(NPC target)
+    {
+        base.CanHitNPC(target);
+
+        bool isDefault = true;
+
+        foreach (var module in _runtime)
+        {
+            var status = module.RuntimeCanHitNPC(this, target);
+
+            if (status == false)
+            {
+                isDefault = false;
+            }
+        }
+
+        return isDefault ? null : false;
+    }
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);

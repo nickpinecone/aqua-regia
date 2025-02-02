@@ -22,6 +22,10 @@ public class TreeProjectile : BaseProjectile
 
     public TreeProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
 
         Appear = new Animation<int>(6);

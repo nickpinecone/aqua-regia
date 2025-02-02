@@ -19,11 +19,16 @@ public class AcornProjectile : BaseProjectile
 
     public AcornProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Sprite = new SpriteModule();
         HeadBounce = new HeadBounceModule();
 
-        BonkSound = new SoundStyle(AudioPath.Impact + "Bonk") {
+        BonkSound = new SoundStyle(AudioPath.Impact + "Bonk")
+        {
             Volume = 0.4f,
             PitchVariance = 0.1f,
         };

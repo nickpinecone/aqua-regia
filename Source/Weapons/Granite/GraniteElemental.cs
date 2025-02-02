@@ -20,6 +20,10 @@ public class GraniteElemental : BaseProjectile
 
     public GraniteElemental()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Sprite = new SpriteModule();
 

@@ -17,7 +17,6 @@ public class StarfishProjectile : BaseProjectile
     public StickModule Stick { get; private set; }
     public SpriteModule Sprite { get; private set; }
     public BoomerangModule Boomerang { get; private set; }
-    public ImmunityModule Immunity { get; private set; }
 
     public Timer StickTimer { get; private set; }
     public Animation<Vector2> Reverse { get; private set; }
@@ -27,12 +26,15 @@ public class StarfishProjectile : BaseProjectile
 
     public StarfishProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults(10);
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Stick = new StickModule();
         Home = new HomeModule();
         Sprite = new SpriteModule();
         Boomerang = new BoomerangModule();
-        Immunity = new ImmunityModule();
 
         Composite.AddModule(Property, Stick, Home, Sprite, Boomerang);
 
@@ -44,7 +46,6 @@ public class StarfishProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Immunity.SetDefaults(10);
         Property.SetProperties(this, 20, 18, 1, -1);
         Property.SetTimeLeft(this, 600);
         Boomerang.SetDefaults(512f);
@@ -57,16 +58,10 @@ public class StarfishProjectile : BaseProjectile
         Boomerang.SpawnPosition = Projectile.Center;
     }
 
-    public override bool? CanHitNPC(NPC target)
-    {
-        return Immunity.CanHit(target) ? null : false;
-    }
-
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
 
-        Immunity.Reset(target);
         SoundEngine.PlaySound(SoundID.NPCHit9);
 
         if (Stick.Target == null)
@@ -97,7 +92,6 @@ public class StarfishProjectile : BaseProjectile
     public override bool PreAI()
     {
         StickTimer.Update();
-        Immunity.Update();
 
         return true;
     }

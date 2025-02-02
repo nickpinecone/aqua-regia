@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace AquaRegia.Modules.Projectiles;
 
-public class ImmunityModule : IModule
+public class ImmunityModule : IModule, IProjectileRuntime
 {
     private Dictionary<NPC, int> _immunity = new();
     private List<NPC> _removeQueue = new();
@@ -51,5 +52,29 @@ public class ImmunityModule : IModule
             _immunity.Remove(npc);
         }
         _removeQueue.Clear();
+    }
+
+    public bool RuntimeTileCollide(BaseProjectile projectile, Vector2 oldVelocity)
+    {
+        return true;
+    }
+
+    public void RuntimeHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit)
+    {
+        Reset(target);
+    }
+
+    public void RuntimeAI(BaseProjectile projectile)
+    {
+        Update();
+    }
+
+    public void RuntimeKill(BaseProjectile projectile, int timeLeft)
+    {
+    }
+
+    public bool RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    {
+        return CanHit(target) ? true : false;
     }
 }

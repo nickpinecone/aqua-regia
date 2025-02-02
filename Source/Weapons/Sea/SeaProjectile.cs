@@ -18,6 +18,10 @@ public class SeaProjectile : BaseProjectile
 
     public SeaProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Water = new WaterModule();
 

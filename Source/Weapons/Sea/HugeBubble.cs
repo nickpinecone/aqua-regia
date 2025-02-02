@@ -38,6 +38,10 @@ public class HugeBubble : BaseProjectile
 
     public HugeBubble() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
 
         Composite.AddModule(Property);

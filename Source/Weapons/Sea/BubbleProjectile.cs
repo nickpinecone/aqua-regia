@@ -23,6 +23,10 @@ public class BubbleProjectile : BaseProjectile
 
     public BubbleProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Home = new HomeModule();
         Stick = new StickModule();

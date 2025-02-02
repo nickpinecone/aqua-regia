@@ -50,4 +50,9 @@ public class BuffModule : IModule, IProjectileRuntime
     {
         return true;
     }
+
+    public bool RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    {
+        return true;
+    }
 }

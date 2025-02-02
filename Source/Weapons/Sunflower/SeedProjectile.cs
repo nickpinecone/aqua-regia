@@ -14,6 +14,10 @@ public class SeedProjectile : BaseProjectile
 
     public SeedProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
 
         Composite.AddModule(Property);

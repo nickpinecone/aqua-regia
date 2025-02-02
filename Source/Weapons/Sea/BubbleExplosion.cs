@@ -11,6 +11,10 @@ public class BubbleExplosion : BaseProjectile
 
     public BubbleExplosion()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
 
         Composite.AddModule(Property);

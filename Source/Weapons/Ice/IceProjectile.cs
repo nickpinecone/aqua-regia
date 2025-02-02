@@ -34,6 +34,10 @@ public class IceProjectile : BaseProjectile
 
     public IceProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Water = new WaterModule();
 

@@ -24,6 +24,10 @@ public class ChainProjectile : BaseProjectile
 
     public ChainProjectile() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
         Chain = new ChainModule();
         Stick = new StickModule();

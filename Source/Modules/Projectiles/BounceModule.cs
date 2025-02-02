@@ -58,4 +58,9 @@ public class BounceModule : IModule, IProjectileRuntime
     public void RuntimeKill(BaseProjectile projectile, int timeLeft)
     {
     }
+
+    public bool RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    {
+        return true;
+    }
 }

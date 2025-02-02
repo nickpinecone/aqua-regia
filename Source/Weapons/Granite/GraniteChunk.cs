@@ -24,6 +24,10 @@ public class GraniteChunk : BaseProjectile
 
     public GraniteChunk() : base()
     {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults();
+        Composite.AddRuntimeModule(immunity);
+
         Property = new PropertyModule();
 
         Composite.AddModule(Property);
