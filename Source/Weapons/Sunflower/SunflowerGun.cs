@@ -7,6 +7,9 @@ using AquaRegia.Utils;
 using AquaRegia.Modules.Weapons;
 using AquaRegia.Modules;
 using static AquaRegia.AquaRegia;
+using AquaRegia.Global;
+using System;
+using Terraria.GameContent.ItemDropRules;
 
 namespace AquaRegia.Weapons.Sunflower;
 
@@ -19,6 +22,11 @@ public class SunflowerGun : BaseWeapon
     public PumpModule Pump { get; private set; }
     public SpriteModule Sprite { get; private set; }
 
+    static SunflowerGun()
+    {
+        NpcGlobal.ModifyNPCLootEvent += ModifyNPCLoot;
+    }
+
     public SunflowerGun() : base()
     {
         Sound = new SoundModule();
@@ -27,6 +35,14 @@ public class SunflowerGun : BaseWeapon
         Sprite = new SpriteModule();
 
         Composite.AddModule(Sound, Property, Pump, Sprite);
+    }
+
+    private static void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
+    {
+        if (npc.type == NPCID.BloodZombie || npc.type == NPCID.Drippler)
+        {
+            npcLoot.Add(ItemDropRule.ByCondition(new DownedEvilCondition(), ModContent.ItemType<SunflowerGun>(), 50));
+        }
     }
 
     public override void SetDefaults()

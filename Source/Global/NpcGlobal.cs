@@ -13,7 +13,7 @@ public class NpcGlobal : GlobalNPC
         EditSpawnPoolEvent?.Invoke(pool, spawnInfo);
     }
 
-    public delegate void ModifyNPCLootDelegate(NPC npc, NPCLoot npcloot);
+    public delegate void ModifyNPCLootDelegate(NPC npc, NPCLoot npcLoot);
     public static event ModifyNPCLootDelegate? ModifyNPCLootEvent;
     public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
     {
