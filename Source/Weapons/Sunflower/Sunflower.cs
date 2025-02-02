@@ -56,14 +56,14 @@ public class Sunflower : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().Sunflower = this;
+        Owner.GetModPlayer<SunflowerPlayer>().Sunflower = this;
     }
 
     public override void OnKill(int timeLeft)
     {
         base.OnKill(timeLeft);
 
-        Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().Sunflower = null;
+        Owner.GetModPlayer<SunflowerPlayer>().Sunflower = null;
     }
 
     public override void AI()
@@ -99,7 +99,7 @@ public class Sunflower : BaseProjectile
             Helper.SpawnProjectile<SeedProjectile>(Projectile.GetSource_FromThis(), Owner, Projectile.Top, Vector2.One, Projectile.damage, Projectile.knockBack);
         }
 
-        if (Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().BloodVine == null)
+        if (Owner.GetModPlayer<SunflowerPlayer>().BloodVine == null)
         {
             VineTimer.Update();
 

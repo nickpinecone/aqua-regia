@@ -44,7 +44,7 @@ public class FrozenBomb : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Main.LocalPlayer.GetModPlayer<IcePlayer>().Bombs.Add(this);
+        Owner.GetModPlayer<IcePlayer>().Bombs.Add(this);
         Projectile.rotation = Main.rand.NextFloat(0, MathHelper.Pi);
 
         if (source is IceSource iceSource)
@@ -67,7 +67,7 @@ public class FrozenBomb : BaseProjectile
 
         Helper.SpawnProjectile<FrostExplosion>(Projectile.GetSource_FromThis(), Owner, Projectile.Center, Vector2.Zero, Projectile.damage, Projectile.knockBack);
 
-        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(4, 8);
+        Owner.GetModPlayer<ScreenShake>().Activate(4, 8);
         SoundEngine.PlaySound(SoundID.Item14);
 
         foreach (var particle in Particle.Circle(DustID.Ice, Projectile.Center, new Vector2(4, 4), 10, 3f))
@@ -82,7 +82,7 @@ public class FrozenBomb : BaseProjectile
 
         if (!_explodeDelay.Done)
         {
-            Main.LocalPlayer.GetModPlayer<IcePlayer>().Bombs.Remove(this);
+            Owner.GetModPlayer<IcePlayer>().Bombs.Remove(this);
         }
     }
 

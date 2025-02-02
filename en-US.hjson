@@ -157,6 +157,11 @@ Mods: {
 					<right> again while bombs are out to explode them prematurely
 					'''
 			}
+
+			CoruptedGun: {
+				DisplayName: Demonic Flow
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -200,6 +205,7 @@ Mods: {
 			FrostExplosion.DisplayName: Frost Explosion
 			FrozenBomb.DisplayName: Frozen Bomb
 			IceProjectile.DisplayName: Ice Projectile
+			CoruptedProjectile.DisplayName: Corupted Projectile
 		}
 
 		NPCs: {

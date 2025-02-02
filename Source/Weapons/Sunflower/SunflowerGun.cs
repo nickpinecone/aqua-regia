@@ -73,7 +73,7 @@ public class SunflowerGun : BaseWeapon
     {
         if (Pump.Pumped && Pump.Active)
         {
-            Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().SpawnSunflower(Item.damage, Item.knockBack);
+            player.GetModPlayer<SunflowerPlayer>().SpawnSunflower(Item.damage, Item.knockBack);
 
             Pump.Reset();
         }

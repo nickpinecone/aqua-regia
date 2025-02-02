@@ -16,9 +16,9 @@ public class SunflowerPlayer : ModPlayer
 
     public void SpawnSunflower(int damage, float knockback)
     {
-        var proj = Projectile.NewProjectileDirect(Projectile.GetSource_None(), Main.LocalPlayer.Center, Vector2.Zero,
+        var proj = Projectile.NewProjectileDirect(Projectile.GetSource_None(), Player.Center, Vector2.Zero,
                                                   ModContent.ProjectileType<Sunflower>(), damage, knockback,
-                                                  Main.LocalPlayer.whoAmI);
+                                                  Player.whoAmI);
         Sunflower = proj.ModProjectile as Sunflower;
 
         _gauge = ModContent.GetInstance<InterfaceSystem>().CreateGauge("Sunflower Gauge", 60, 60);
@@ -75,8 +75,8 @@ public class SunflowerPlayer : ModPlayer
     {
         if (Sunflower != null && Main.IsItDay())
         {
-            Main.LocalPlayer.statDefense += 8;
-            Main.LocalPlayer.GetDamage(DamageClass.Ranged) += 0.2f;
+            Player.statDefense += 8;
+            Player.GetDamage(DamageClass.Ranged) += 0.2f;
         }
     }
 }

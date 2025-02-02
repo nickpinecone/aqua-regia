@@ -41,7 +41,7 @@ public class BloodVine : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Main.LocalPlayer.GetModPlayer<SunflowerPlayer>().BloodVine = this;
+        Owner.GetModPlayer<SunflowerPlayer>().BloodVine = this;
     }
 
     public override void OnKill(int timeLeft)
@@ -50,7 +50,7 @@ public class BloodVine : BaseProjectile
 
         Owner.GetModPlayer<SunflowerPlayer>().BloodVine = null;
 
-        var direction = Projectile.Center - Main.LocalPlayer.Top;
+        var direction = Projectile.Center - Owner.Top;
         var unit = direction.SafeNormalize(Vector2.Zero);
         for (int i = 0; i < (direction.Length() / 26); i++)
         {
