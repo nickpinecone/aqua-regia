@@ -33,7 +33,7 @@ public class GranitePlayer : ModPlayer
     {
         _active = true;
 
-        var direction = Main.MouseWorld - Main.LocalPlayer.Center;
+        var direction = Main.MouseWorld - Player.Center;
         direction.Normalize();
         var velocity = direction * 24f;
 

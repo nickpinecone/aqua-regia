@@ -54,15 +54,15 @@ public class GraniteElemental : BaseProjectile
         SoundEngine.PlaySound(RockCrush);
         Particle.Circle(DustID.Granite, Projectile.Center, new Vector2(12, 12), 6, 3f, 0.8f);
 
-        Main.LocalPlayer.GetModPlayer<GranitePlayer>().Deactivate();
-        Main.LocalPlayer.velocity = Projectile.velocity / 3f;
+        Owner.GetModPlayer<GranitePlayer>().Deactivate();
+        Owner.velocity = Projectile.velocity / 3f;
     }
 
     public override void AI()
     {
         base.AI();
 
-        Main.LocalPlayer.Center = Projectile.Center;
+        Owner.Center = Projectile.Center;
         Projectile.rotation += Sprite.RotateOnMove(Projectile.velocity, 0.2f);
         Sprite.Animate(this, 4);
     }

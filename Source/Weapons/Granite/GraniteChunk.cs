@@ -63,7 +63,7 @@ public class GraniteChunk : BaseProjectile
             var tile = tileSurface[0];
 
             SoundEngine.PlaySound(SoundID.NPCDeath43);
-            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 6);
+            Owner.GetModPlayer<ScreenShake>().Activate(6, 6);
 
             Projectile.Center = tile.ToWorldCoordinates();
 

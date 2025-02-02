@@ -74,7 +74,7 @@ public class SpaceShip : BaseProjectile
     {
         base.OnSpawn(source);
 
-        _direction = Math.Sign((Projectile.Center - Main.LocalPlayer.Center).X);
+        _direction = Math.Sign((Projectile.Center - Owner.Center).X);
         _start = Projectile.Center - new Vector2(_distance / 2f * _direction, _offsetY);
 
         if (_start.Y < Main.screenPosition.Y)
@@ -115,7 +115,7 @@ public class SpaceShip : BaseProjectile
         }
         else if (_laserPhase)
         {
-            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(2, 2);
+            Owner.GetModPlayer<ScreenShake>().Activate(2, 2);
 
             if (_laser == null)
             {
