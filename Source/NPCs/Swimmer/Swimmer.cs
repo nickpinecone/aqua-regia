@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using AquaRegia.Utils;
 using Terraria.GameContent.ItemDropRules;
+using AquaRegia.Weapons.Shotgun;
 
 namespace AquaRegia.NPCs.Swimmer;
 
@@ -119,7 +120,7 @@ public class Swimmer : ModNPC
 
     public override void AddShops()
     {
-        new NPCShop(Type).Add(ItemID.BottledWater).Register();
+        new NPCShop(Type).Add(ItemID.BottledWater).Add<Shotgun>(Condition.DownedKingSlime).Register();
     }
 
     public override string GetChat()

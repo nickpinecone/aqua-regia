@@ -54,7 +54,7 @@ public class GoldenGun : BaseWeapon
     {
         if (Pump.Pumped)
         {
-            Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SpawnSword(player, (int)(Item.damage * 1.3f), Item.knockBack);
+            player.GetModPlayer<GoldenPlayer>().SpawnSword(player, (int)(Item.damage * 1.3f), Item.knockBack);
 
             Pump.Reset();
         }

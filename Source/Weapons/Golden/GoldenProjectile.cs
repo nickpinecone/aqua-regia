@@ -76,7 +76,7 @@ public class GoldenProjectile : BaseProjectile
         Projectile.velocity = Property.ApplyGravity(Projectile.velocity);
         Water.CreateDust(Projectile.Center, Projectile.velocity);
 
-        if (Main.LocalPlayer.GetModPlayer<GoldenPlayer>().SwordCollide(Projectile.getRect()))
+        if (Owner.GetModPlayer<GoldenPlayer>().SwordCollide(Projectile.getRect()))
         {
             Projectile.Kill();
         }

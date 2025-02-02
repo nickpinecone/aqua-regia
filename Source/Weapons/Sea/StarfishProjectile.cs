@@ -71,7 +71,7 @@ public class StarfishProjectile : BaseProjectile
 
         if (Stick.Target == null)
         {
-            Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(4, 2);
+            Owner.GetModPlayer<ScreenShake>().Activate(4, 2);
 
             Stick.ToTarget(target, Projectile.Center);
 
@@ -116,7 +116,7 @@ public class StarfishProjectile : BaseProjectile
                 Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, Owner.Center);
             }
 
-            if (Boomerang.IsReturned(Owner.Center, Projectile.Center))
+            if (Boomerang.IsClose(Owner.Center, Projectile.Center))
             {
                 Projectile.Kill();
             }

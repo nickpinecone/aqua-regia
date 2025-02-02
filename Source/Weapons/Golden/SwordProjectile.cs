@@ -34,7 +34,8 @@ public class SwordProjectile : BaseProjectile
 
         Appear = new Animation<int>(10);
 
-        MetalHitSound = new SoundStyle(AudioPath.Impact + "MetalHit") {
+        MetalHitSound = new SoundStyle(AudioPath.Impact + "MetalHit")
+        {
             Volume = 0.7f,
             PitchVariance = 0.1f,
         };
@@ -74,7 +75,7 @@ public class SwordProjectile : BaseProjectile
         base.OnHitNPC(target, hit, damageDone);
 
         Projectile.friendly = false;
-        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
+        Owner.GetModPlayer<ScreenShake>().Activate(6, 4);
 
         var invert = _beforeHit.RotatedBy(MathHelper.Pi);
         var start = invert.RotatedBy(-MathHelper.PiOver4);
@@ -108,7 +109,7 @@ public class SwordProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        Main.LocalPlayer.GetModPlayer<GoldenPlayer>().RemoveSword(this);
+        Owner.GetModPlayer<GoldenPlayer>().RemoveSword(this);
 
         if (timeLeft > 0)
         {

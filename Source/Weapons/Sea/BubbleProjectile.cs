@@ -46,7 +46,7 @@ public class BubbleProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
+        _seaPlayer = Owner.GetModPlayer<SeaPlayer>();
 
         Projectile.scale += Main.rand.NextFloat(-0.2f, 0.2f);
         Projectile.rotation = Main.rand.NextFloat(0f, MathHelper.TwoPi);

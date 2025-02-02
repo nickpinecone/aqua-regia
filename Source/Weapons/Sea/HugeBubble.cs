@@ -26,7 +26,8 @@ public class HugeBubble : BaseProjectile
 
     public bool IsMaxStage
     {
-        get {
+        get
+        {
             return Stage >= MaxStage;
         }
     }
@@ -67,7 +68,7 @@ public class HugeBubble : BaseProjectile
         MaxScale = (float)wideSide / Projectile.width + 0.2f;
         Size = new Vector2(Projectile.width * (MaxScale + 1), Projectile.height * (MaxScale + 1));
 
-        _seaPlayer = Main.LocalPlayer.GetModPlayer<SeaPlayer>();
+        _seaPlayer = Owner.GetModPlayer<SeaPlayer>();
     }
 
     public void Enlarge()
@@ -97,7 +98,7 @@ public class HugeBubble : BaseProjectile
         _didExplode = true;
 
         SoundEngine.PlaySound(SoundID.Item96);
-        Main.LocalPlayer.GetModPlayer<ScreenShake>().Activate(6, 4);
+        Owner.GetModPlayer<ScreenShake>().Activate(6, 4);
         Particle.Circle(DustID.BubbleBurst_Blue, Projectile.Center, new Vector2(8, 8), 8, 4f, 1.5f);
 
         Helper.SpawnProjectile<BubbleExplosion>(Projectile.GetSource_FromThis(), Owner, Projectile.Center, Vector2.Zero,

@@ -10,7 +10,10 @@ public class BoomerangModule : IModule
     public float PlayerClose { get; set; }
     public Vector2? SpawnPosition { get; set; }
 
-    public void SetDefaults(float maxDistance = 500f, float backSpeed = 12f, float playerClose = 16f)
+    public bool DidReachFar { get; private set; }
+    public bool DidReturn { get; private set; }
+
+    public void SetDefaults(float maxDistance = 500f, float playerClose = 16f)
     {
         MaxDistance = maxDistance;
         PlayerClose = playerClose;
@@ -28,8 +31,34 @@ public class BoomerangModule : IModule
         return position.DistanceSQ((Vector2)SpawnPosition) > MaxDistance * MaxDistance;
     }
 
-    public bool IsReturned(Vector2 returnTo, Vector2 position)
+    public bool CheckFar(Vector2 position)
+    {
+        if (!DidReachFar)
+        {
+            if (IsFar(position))
+            {
+                DidReachFar = true;
+            }
+        }
+
+        return DidReachFar;
+    }
+
+    public bool IsClose(Vector2 returnTo, Vector2 position)
     {
         return returnTo.DistanceSQ(position) < PlayerClose * PlayerClose;
+    }
+
+    public bool CheckReturn(Vector2 returnTo, Vector2 position)
+    {
+        if (!DidReturn)
+        {
+            if (IsClose(returnTo, position))
+            {
+                DidReturn = true;
+            }
+        }
+
+        return DidReturn;
     }
 }

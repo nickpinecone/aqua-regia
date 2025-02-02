@@ -36,6 +36,11 @@ public class HomeModule : IModule, IProjectileRuntime
         if (Curve == 0)
         {
             newVelocity = velocity.RotatedBy(angle);
+            if (Speed != 0)
+            {
+                newVelocity.Normalize();
+                newVelocity *= Speed;
+            }
         }
         else
         {
