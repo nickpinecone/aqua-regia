@@ -206,6 +206,8 @@ Mods: {
 			FrozenBomb.DisplayName: Frozen Bomb
 			IceProjectile.DisplayName: Ice Projectile
 			CoruptedProjectile.DisplayName: Corupted Projectile
+			CoruptedWormBody.DisplayName: Corupted Worm Body
+			CoruptedWormHead.DisplayName: Corupted Worm Head
 		}
 
 		NPCs: {

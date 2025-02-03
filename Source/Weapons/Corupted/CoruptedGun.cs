@@ -58,6 +58,8 @@ public class CoruptedGun : BaseWeapon
         {
             Pump.Reset();
         }
+
+        Helper.SpawnProjectile<CoruptedWormHead>(Item.GetSource_FromThis(), player, Main.MouseWorld, Vector2.Zero, 10, 1f);
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
@@ -67,7 +69,8 @@ public class CoruptedGun : BaseWeapon
 
         position = Sprite.ApplyOffset(position, velocity);
         velocity = Property.ApplyInaccuracy(velocity);
-        var custom = new WeaponWithAmmoSource(source, this);
+        var weaponSource = new WeaponWithAmmoSource(source, this);
+        var custom = new CoruptedSource(weaponSource, 0);
 
         Helper.SpawnProjectile<CoruptedProjectile>(custom, player, position, velocity, damage, knockback);
 

@@ -14,6 +14,9 @@ public class CoruptedProjectile : BaseProjectile
     public PropertyModule Property { get; private set; }
     public WaterModule Water { get; private set; }
 
+    private int _splitCount = 0;
+    private CoruptedSource? _source;
+
     public CoruptedProjectile() : base()
     {
         var immunity = new ImmunityModule();
@@ -30,9 +33,9 @@ public class CoruptedProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Water.SetDefaults();
+        Water.SetDefaults(color: Color.DarkMagenta);
         Property.SetProperties(this, 16, 16, 1, 1);
-        Property.SetTimeLeft(this, 35);
+        Property.SetTimeLeft(this, 16);
         Property.SetGravity(0.01f, 0.015f);
     }
 
@@ -40,9 +43,11 @@ public class CoruptedProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        if (source is WeaponWithAmmoSource custom)
+        if (source is CoruptedSource custom)
         {
+            _source = custom;
             custom.Ammo?.ApplyToProjectile(this);
+            _splitCount = custom.SplitCount;
         }
     }
 
@@ -50,7 +55,22 @@ public class CoruptedProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        Water.KillEffect(Projectile.Center, Projectile.velocity);
+        if (_splitCount < 2 && timeLeft <= 0)
+        {
+            _source!.SplitCount += 1;
+
+            for (int i = -1; i < 2; i += 2)
+            {
+                var velocity = Projectile.velocity.RotatedBy(0.16f * i).RotatedByRandom(0.08f);
+                var proj = Helper.SpawnProjectile<CoruptedProjectile>(_source!, Owner, Projectile.Center, velocity, Projectile.damage, Projectile.knockBack);
+                proj.Projectile.timeLeft -= 4 * _splitCount;
+            }
+        }
+
+        else
+        {
+            Water.KillEffect(Projectile.Center, Projectile.velocity);
+        }
     }
 
     public override void OnHitNPC(Terraria.NPC target, Terraria.NPC.HitInfo hit, int damageDone)

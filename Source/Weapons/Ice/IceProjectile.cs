@@ -52,20 +52,10 @@ public class IceProjectile : BaseProjectile
     {
         base.SetDefaults();
 
-        Water.SetDefaults();
+        Water.SetDefaults(color: Color.Cyan);
         Property.SetProperties(this, 16, 16, 1, -1);
         Property.SetTimeLeft(this, 70);
         Property.SetGravity();
-    }
-
-    public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
-    {
-        base.OnSpawn(source);
-
-        if (source is WeaponWithAmmoSource custom)
-        {
-            custom.Ammo?.ApplyToProjectile(this);
-        }
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
@@ -140,7 +130,6 @@ public class IceProjectile : BaseProjectile
         if (Main.rand.Next(0, 8) == 0)
         {
             target.AddBuff(BuffID.Frostburn, 120);
-            target.AddBuff(BuffID.Slow, 120);
         }
 
         _deactivated = true;
