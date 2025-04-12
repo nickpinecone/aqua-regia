@@ -1,1 +1,189 @@
+Items: {
+	WoodenGun: {
+		Tooltip:
+			'''
+			Passive: Boosted damage when near trees
+			Attack: Sometimes spawns an acorn that bounces on enemy heads
+			Pumped: <right> to slam a tree at the cursor position
+			'''
+		DisplayName: Wooden Sprinkler
+	}
 
+	BottledWater: {
+		DisplayName: Bottled Water
+		Tooltip: ""
+	}
+
+	EmptyBottle: {
+		DisplayName: Empty Bottle
+		Tooltip: ""
+	}
+
+	SeaGun: {
+		DisplayName: Sea Splasher
+		Tooltip:
+			'''
+			Attack: Spawns bubbles that attach to enemies, expanding with each hit
+			When fully expanded floats up the enemy, shooting the bubble explodes it
+			Pumped: <right> to shoot a starfish boomerang that slashes through enemies
+			'''
+	}
+
+	GoldenGun: {
+		DisplayName: Golden Tide
+		Tooltip:
+			'''
+			Attack: Sometimes spawns a dagger that sticks to enemies making them bleed
+			Pumped: <right> to shoot a sword at cursor position that sticks to enemies
+			Shooting at the sword drives it further into the enemy, increasing damage
+			'''
+	}
+
+	Shotgun: {
+		DisplayName: Water Blunderbuss
+		Tooltip:
+			'''
+			Attack: Shoots four inaccurate and short-lived water streams
+			Pumped: <right> to throw a chain that pulls you closer to the enemy
+			Shooting while being pulled switches attack to water balloons and knocks you back
+			'''
+	}
+
+	GraniteGun: {
+		DisplayName: Granite Flood
+		Tooltip:
+			'''
+			Attack: Ocassionaly granite chunks come from the ground to knock enemies up
+			Pumped: <right> to turn into a granite elemental and dash through enemies at the cursor
+			"Granite, In My Chest"
+			'''
+	}
+
+	SwimmerGun: {
+		DisplayName: Swimmer Gun
+		Tooltip: ""
+	}
+
+	BottledCryogel: {
+		Tooltip: ""
+		DisplayName: Bottled Cryogel
+	}
+
+	SpaceGun: {
+		DisplayName: Space Oxide
+		Tooltip:
+			'''
+			Attack: Shoots a piercing and bouncing water stream
+			Pumped: Call a spaceship that uses a powerful laser to annihilate your enemies
+			'''
+	}
+
+	SunflowerGun: {
+		DisplayName: Clown's Sunflower
+		Tooltip:
+			'''
+			[c/ffffff:Day Time:]
+			Attack: Shoots four innacurate short-lived water streams
+			Pumped: <right> to spawn a sunflower which collects sun power to boost stats
+			[c/eb6f92:Night Time:]
+			Attack: Shoots four innacurate short-lived blood streams
+			Pumped: <right> to spawn a sunflower which absorbs moon power to attack your enemies
+			'''
+	}
+
+	IceGun: {
+		DisplayName: Ice Glacier
+		Tooltip:
+			'''
+			Attack: Shoots a water stream, that freezes and lingers in place for a bit
+			Pumped: <right> to throw frozen bombs that explode and apply frostburn
+			<right> again while bombs are out to explode them prematurely
+			'''
+	}
+
+	CoruptedGun: {
+		DisplayName: Demonic Flow
+		Tooltip: ""
+	}
+}
+
+Projectiles: {
+	WoodenProjectile.DisplayName: Wooden Projectile
+	AcornProjectile.DisplayName: Acorn Projectile
+	TreeProjectile.DisplayName: Tree Projectile
+	SeaProjectile.DisplayName: Sea Projectile
+	BubbleProjectile.DisplayName: Bubble Projectile
+	HugeBubble.DisplayName: Huge Bubble
+	BubbleExplosion.DisplayName: Bubble Explosion
+	StarfishProjectile.DisplayName: Starfish Projectile
+	GoldenProjectile.DisplayName: Golden Projectile
+	DaggerProjectile.DisplayName: Dagger Projectile
+	TreeExplosion.DisplayName: Tree Explosion
+	SwordProjectile.DisplayName: Sword Projectile
+	ShotProjectile.DisplayName: Shot Projectile
+	ChainProjectile.DisplayName: Chain Projectile
+	WaterBalloon.DisplayName: Water Balloon
+	GraniteProjecitle.DisplayName: Granite Projecitle
+	SwimmerProjectile.DisplayName: Swimmer Projectile
+	GraniteChunk.DisplayName: Granite Chunk
+	FloatBubble.DisplayName: Float Bubble
+	GraniteElemental.DisplayName: Granite Elemental
+	SpaceProjectile.DisplayName: Space Projectile
+	DuckProjectile.DisplayName: Duck Projectile
+	SpaceLaser.DisplayName: Space Laser
+	SpaceShip.DisplayName: Space Ship
+	SunflowerProjectile.DisplayName: Sunflower Projectile
+	Sunflower.DisplayName: Sunflower
+	BloodProjectile.DisplayName: Blood Projectile
+	SeedProjectile.DisplayName: Seed Projectile
+	SeedExplosion.DisplayName: Seed Explosion
+	BloodVine.DisplayName: Blood Vine
+	BreathBubble.DisplayName: Breath Bubble
+	FrostShard.DisplayName: Frost Shard
+	FrostExplosion.DisplayName: Frost Explosion
+	FrozenBomb.DisplayName: Frozen Bomb
+	IceProjectile.DisplayName: Ice Projectile
+	CoruptedProjectile.DisplayName: Corupted Projectile
+	CoruptedWormBody.DisplayName: Corupted Worm Body
+	CoruptedWormHead.DisplayName: Corupted Worm Head
+}
+
+NPCs: {
+	Swimmer: {
+		DisplayName: Swimmer
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LikeBiome: I like {BiomeName}.
+			DislikeBiome: I dislike {BiomeName}.
+			LoveNPC: I love {NPCName}.
+			LikeNPC: I like {NPCName}.
+			DislikeNPC: I dislike {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
+	}
+}
+
+Buffs: {
+}
+
+Biomes: {
+}
+
+Configs: {
+	Configuration: {
+		DisplayName: Configuration
+		Headers.Debug: Debug
+
+		DebugInfoEnabled: {
+			Label: Enable Debug Info
+			Tooltip: When enabled, logs debug information
+		}
+	}
+}
