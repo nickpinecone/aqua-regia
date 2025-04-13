@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using AquaRegia.Modules.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Utils;
 
@@ -47,15 +44,6 @@ public static class Helper
     public static Vector2 ToVector2I(Vector2 vector)
     {
         return new Vector2((int)vector.X, (int)vector.Y);
-    }
-
-    public static T SpawnProjectile<T>(IEntitySource source, Player player, Vector2 position, Vector2 velocity,
-                                       int damage, float knockback)
-        where T : BaseProjectile
-    {
-        var type = ModContent.ProjectileType<T>();
-        var proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-        return (T)proj.ModProjectile;
     }
 
     public static NPC? FindNearestNPC(Vector2 position, float radius, Func<NPC, bool>? canHome = null)

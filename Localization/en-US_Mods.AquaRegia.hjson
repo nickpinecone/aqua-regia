@@ -1,0 +1,13 @@
+WorldGen.FloodGenMessage: Mods.AquaRegia.WorldGen.FloodGenMessage
+
+Configs: {
+	Configuration: {
+		DisplayName: Configuration
+		Headers.Debug: Debug Header
+
+		DebugInfoEnabled: {
+			Label: Enable Debug Info
+			Tooltip: When enabled, logs debug information
+		}
+	}
+}
