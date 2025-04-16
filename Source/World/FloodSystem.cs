@@ -26,7 +26,7 @@ public class FloodSystem : ModSystem
 
         if (FinalCleanupIndex != -1)
         {
-            tasks.Insert(FinalCleanupIndex, new FloodGenPass("Flood", 100f));
+            tasks.Insert(FinalCleanupIndex + 1, new FloodGenPass("Flood", 100f));
         }
     }
 
@@ -122,6 +122,6 @@ public class FloodGenPass : GenPass
 
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
-        // FloodWorld();
+        FloodWorld();
     }
 }

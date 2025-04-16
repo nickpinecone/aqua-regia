@@ -21,8 +21,5 @@ public class DebugSystem : ModSystem
 
     private void TestMethod(int x, int y)
     {
-        // Logger.Message(Main.worldSurface.ToString());
-
-        // FloodGenPass.FloodWorld();
     }
 }

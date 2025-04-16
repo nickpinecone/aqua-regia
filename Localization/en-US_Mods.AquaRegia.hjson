@@ -1,4 +1,7 @@
-WorldGen.FloodGenMessage: Mods.AquaRegia.WorldGen.FloodGenMessage
+WorldGen: {
+	FloodGenMessage: Mods.AquaRegia.WorldGen.FloodGenMessage
+	DefloatIslandsGenMessage: Mods.AquaRegia.WorldGen.DefloatIslandsGenMessage
+}
 
 Configs: {
 	Configuration: {
