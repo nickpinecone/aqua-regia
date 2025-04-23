@@ -1,10 +1,10 @@
-using AquaRegia.Source.Utils;
+using AquaRegia.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Source.Players;
+namespace AquaRegia.Players;
 
 public class SwimPlayer : ModPlayer
 {

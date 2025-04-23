@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using AquaRegia.Source.World;
+using AquaRegia.World;
 
-namespace AquaRegia.Source.Players;
+namespace AquaRegia.Players;
 
 public class LightingPlayer : ModPlayer
 {

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework.Input;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Source.Systems;
+namespace AquaRegia.Systems;
 
 public class DebugSystem : ModSystem
 {

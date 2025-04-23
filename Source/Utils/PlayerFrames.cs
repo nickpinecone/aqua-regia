@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace AquaRegia.Source.Utils;
+namespace AquaRegia.Utils;
 
 public enum PlayerFrames
 {

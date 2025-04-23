@@ -7,7 +7,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
-namespace AquaRegia.Source.World;
+namespace AquaRegia.World;
 
 public class FloodSystem : ModSystem
 {
