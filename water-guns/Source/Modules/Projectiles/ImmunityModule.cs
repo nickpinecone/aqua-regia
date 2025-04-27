@@ -12,6 +12,13 @@ public class ImmunityModule : IModule, IProjectileRuntime
 
     public int ImmunityTime { get; set; }
 
+    public static ImmunityModule New(int time = 20)
+    {
+        var immunity = new ImmunityModule();
+        immunity.SetDefaults(time);
+        return immunity;
+    }
+
     public void SetDefaults(int time = 20)
     {
         ImmunityTime = time;

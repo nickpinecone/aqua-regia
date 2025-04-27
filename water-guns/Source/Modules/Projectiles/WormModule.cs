@@ -33,7 +33,28 @@ public class WormModule<TBody, TTail> : IModule
         TailSegment = Helper.SpawnProjectile<TTail>(source, player, position, Vector2.Zero, damage, knockBack);
     }
 
-    // TODO implement collision detection on all parts, instead of individually
+    public bool? Colliding(Rectangle projectileHitbox, Rectangle targetHitbox)
+    {
+        if (projectileHitbox.Intersects(targetHitbox))
+        {
+            return true;
+        }
+
+        foreach (var body in BodySegments)
+        {
+            if (body.Projectile.getRect().Intersects(targetHitbox))
+            {
+                return true;
+            }
+        }
+
+        if (TailSegment!.Projectile.getRect().Intersects(targetHitbox))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     public void PostUpdate(Vector2 headCenter)
     {

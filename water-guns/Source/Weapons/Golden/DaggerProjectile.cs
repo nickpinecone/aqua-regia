@@ -24,9 +24,7 @@ public class DaggerProjectile : BaseProjectile
 
     public DaggerProjectile() : base()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults();
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New(20));
 
         Property = new PropertyModule();
         Stick = new StickModule();

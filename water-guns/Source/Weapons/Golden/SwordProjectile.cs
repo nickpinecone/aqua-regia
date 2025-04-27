@@ -27,9 +27,7 @@ public class SwordProjectile : BaseProjectile
 
     public SwordProjectile() : base()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults();
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New());
 
         Property = new PropertyModule();
         Stick = new StickModule();

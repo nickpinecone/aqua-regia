@@ -22,9 +22,7 @@ public class TreeProjectile : BaseProjectile
 
     public TreeProjectile() : base()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults();
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New());
 
         Property = new PropertyModule();
 

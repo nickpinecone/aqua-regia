@@ -26,9 +26,7 @@ public class StarfishProjectile : BaseProjectile
 
     public StarfishProjectile() : base()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults(10);
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New(10));
 
         Property = new PropertyModule();
         Stick = new StickModule();

@@ -16,9 +16,7 @@ public class GoldenProjectile : BaseProjectile
 
     public GoldenProjectile() : base()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults();
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New());
 
         Property = new PropertyModule();
         Water = new WaterModule();

@@ -19,6 +19,8 @@ public class CoruptedWormHead : BaseProjectile
 
     public CoruptedWormHead()
     {
+        Composite.AddRuntimeModule(ImmunityModule.New());
+
         Worm = new();
         Property = new PropertyModule();
         Home = new HomeModule();
@@ -34,6 +36,11 @@ public class CoruptedWormHead : BaseProjectile
         Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
         Property.SetTimeLeft(this, 600);
         Worm.SetDefaults(SegmentAmount, SegmentSpace);
+    }
+
+    public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+    {
+        return Worm.Colliding(projHitbox, targetHitbox);
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -72,7 +79,7 @@ public class CoruptedWormBody : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
+        Property.SetProperties(this, 28, 28, 10, -1, 1f, friendly: false, tileCollide: false);
         Property.SetTimeLeft(this, 600);
     }
 }
@@ -94,7 +101,7 @@ public class CoruptedWormTail : BaseProjectile
     {
         base.SetDefaults();
 
-        Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
+        Property.SetProperties(this, 28, 28, 10, -1, 1f, friendly: false, tileCollide: false);
         Property.SetTimeLeft(this, 600);
     }
 }

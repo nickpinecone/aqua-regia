@@ -16,9 +16,7 @@ public class SpaceLaser : BaseProjectile
 
     public SpaceLaser() : base()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults(10);
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New(10));
 
         Laser = new LaserModule();
 

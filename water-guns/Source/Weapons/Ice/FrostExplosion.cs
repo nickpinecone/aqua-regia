@@ -13,9 +13,7 @@ public class FrostExplosion : BaseProjectile
 
     public FrostExplosion()
     {
-        var immunity = new ImmunityModule();
-        immunity.SetDefaults();
-        Composite.AddRuntimeModule(immunity);
+        Composite.AddRuntimeModule(ImmunityModule.New());
 
         Property = new PropertyModule();
         Composite.AddModule(Property);
