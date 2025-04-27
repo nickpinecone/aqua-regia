@@ -146,6 +146,7 @@ Projectiles: {
 	CoruptedProjectile.DisplayName: Corupted Projectile
 	CoruptedWormBody.DisplayName: Corupted Worm Body
 	CoruptedWormHead.DisplayName: Corupted Worm Head
+	CoruptedWormTail.DisplayName: Corupted Worm Tail
 }
 
 NPCs: {

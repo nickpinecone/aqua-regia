@@ -8,18 +8,18 @@ namespace WaterGuns.Weapons.Corupted;
 
 public class CoruptedWormHead : BaseProjectile
 {
-    public static int SegmentSpace => 16;
-    public static int SegmentAmount => 5;
+    public static int SegmentSpace => 14;
+    public static int SegmentAmount => 6;
 
     public override string Texture => TexturesPath.Weapons + "Corupted/WormHead";
 
-    public WormModule<CoruptedWormBody, CoruptedWormBody> Worm { get; private set; }
+    public WormModule<CoruptedWormBody, CoruptedWormTail> Worm { get; private set; }
     public PropertyModule Property { get; private set; }
     public HomeModule Home { get; private set; }
 
     public CoruptedWormHead()
     {
-        Worm = new WormModule<CoruptedWormBody, CoruptedWormBody>();
+        Worm = new();
         Property = new PropertyModule();
         Home = new HomeModule();
 
@@ -30,7 +30,7 @@ public class CoruptedWormHead : BaseProjectile
     {
         base.SetDefaults();
 
-        Home.SetDefaults(curveChange: 1f, speed: 2);
+        Home.SetDefaults(curve: 0.15f, curveChange: 1f, speed: 6);
         Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
         Property.SetTimeLeft(this, 600);
         Worm.SetDefaults(SegmentAmount, SegmentSpace);
@@ -39,8 +39,6 @@ public class CoruptedWormHead : BaseProjectile
     public override void OnSpawn(IEntitySource source)
     {
         base.OnSpawn(source);
-
-        Logger.Message("I was spawned");
 
         Worm.SpawnSegments(Projectile.GetSource_FromThis(), Owner, Projectile.Center, Projectile.damage, Projectile.knockBack);
         Projectile.velocity = Vector2.UnitX * 8;
@@ -53,7 +51,7 @@ public class CoruptedWormHead : BaseProjectile
         Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, Main.MouseWorld);
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-        Worm.PostUpdate(this, Projectile.velocity);
+        Worm.PostUpdate(Projectile.Center);
     }
 }
 
@@ -64,6 +62,28 @@ public class CoruptedWormBody : BaseProjectile
     public PropertyModule Property { get; private set; }
 
     public CoruptedWormBody()
+    {
+        Property = new PropertyModule();
+
+        Composite.AddModule(Property);
+    }
+
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+
+        Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
+        Property.SetTimeLeft(this, 600);
+    }
+}
+
+public class CoruptedWormTail : BaseProjectile
+{
+    public override string Texture => TexturesPath.Weapons + "Corupted/WormTail";
+
+    public PropertyModule Property { get; private set; }
+
+    public CoruptedWormTail()
     {
         Property = new PropertyModule();
 

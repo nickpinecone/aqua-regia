@@ -33,28 +33,43 @@ public class WormModule<TBody, TTail> : IModule
         TailSegment = Helper.SpawnProjectile<TTail>(source, player, position, Vector2.Zero, damage, knockBack);
     }
 
-    public void PostUpdate(BaseProjectile head, Vector2 velocity)
+    // TODO implement collision detection on all parts, instead of individually
+
+    public void PostUpdate(Vector2 headCenter)
     {
-        var parent = head;
+        var parentCenter = headCenter;
 
-        foreach (var body in BodySegments)
+        for (int i = 0; i < BodySegments.Count; i++)
         {
-            if (body.Projectile.Center.Distance(parent.Projectile.Center) > SegmentSpace)
+            TBody body = BodySegments[i];
+            var segmentSpace = SegmentSpace;
+
+            if (i == 0)
             {
-                var position = parent.Projectile.position - (Vector2.UnitY.RotatedBy(parent.Projectile.rotation).RotatedBy(MathHelper.Pi) * SegmentSpace);
-                var angle = (parent.Projectile.Center - body.Projectile.Center).ToRotation();
-
-                body.Projectile.rotation = angle + MathHelper.PiOver2;
-                body.Projectile.position = position;
-
-                parent = body;
+                segmentSpace /= 2;
             }
+
+            var diff = (parentCenter - body.Projectile.Center).SafeNormalize(Vector2.Zero);
+            var angle = diff.ToRotation();
+
+            body.Projectile.rotation = angle + MathHelper.PiOver2;
+
+            if (body.Projectile.Center.Distance(parentCenter) > segmentSpace)
+            {
+                body.Projectile.Center = parentCenter - diff * segmentSpace;
+            }
+
+            parentCenter = body.Projectile.Center;
         }
 
-        var positionTail = parent.Projectile.position - (Vector2.UnitY.RotatedBy(parent.Projectile.rotation).RotatedBy(MathHelper.Pi) * SegmentSpace);
-        var angleTail = (parent.Projectile.Center - TailSegment!.Projectile.Center).ToRotation();
+        var diffTail = (parentCenter - TailSegment!.Projectile.Center).SafeNormalize(Vector2.Zero);
+        var angleTail = diffTail.ToRotation();
 
         TailSegment.Projectile.rotation = angleTail + MathHelper.PiOver2;
-        TailSegment.Projectile.position = positionTail;
+
+        if (TailSegment.Projectile.Center.Distance(parentCenter) > SegmentSpace)
+        {
+            TailSegment.Projectile.Center = parentCenter - diffTail * SegmentSpace;
+        }
     }
 }
