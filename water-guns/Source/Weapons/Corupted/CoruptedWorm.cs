@@ -17,6 +17,8 @@ public class CoruptedWormHead : BaseProjectile
     public PropertyModule Property { get; private set; }
     public HomeModule Home { get; private set; }
 
+    private float _curveAmount = 0f;
+
     public CoruptedWormHead()
     {
         Composite.AddRuntimeModule(ImmunityModule.New());
@@ -34,8 +36,10 @@ public class CoruptedWormHead : BaseProjectile
 
         Home.SetDefaults(curve: 0.15f, curveChange: 1f, speed: 6);
         Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
-        Property.SetTimeLeft(this, 600);
+        Property.SetTimeLeft(this, 2);
         Worm.SetDefaults(SegmentAmount, SegmentSpace);
+
+        _curveAmount = Home.Curve;
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -48,17 +52,21 @@ public class CoruptedWormHead : BaseProjectile
         base.OnSpawn(source);
 
         Worm.SpawnSegments(Projectile.GetSource_FromThis(), Owner, Projectile.Center, Projectile.damage, Projectile.knockBack);
-        Projectile.velocity = Vector2.UnitX * 8;
+        Owner.GetModPlayer<CoruptedPlayer>().AddWorm(this);
     }
 
     public override void AI()
     {
         base.AI();
 
-        Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, Main.MouseWorld);
+        var target = Helper.FindNearestNPC(Projectile.Center, 600f);
+        var targetPos = target?.Center ?? Main.MouseWorld;
+
+        Home.Curve = _curveAmount + Main.rand.NextFloat(-0.1f, 0.1f);
+        Projectile.velocity = Home.Calculate(Projectile.Center, Projectile.velocity, targetPos);
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-        Worm.PostUpdate(Projectile.Center);
+        Worm.PostUpdate(Projectile.Center, Projectile.timeLeft);
     }
 }
 
@@ -80,7 +88,7 @@ public class CoruptedWormBody : BaseProjectile
         base.SetDefaults();
 
         Property.SetProperties(this, 28, 28, 10, -1, 1f, friendly: false, tileCollide: false);
-        Property.SetTimeLeft(this, 600);
+        Property.SetTimeLeft(this, 2);
     }
 }
 
@@ -102,6 +110,6 @@ public class CoruptedWormTail : BaseProjectile
         base.SetDefaults();
 
         Property.SetProperties(this, 28, 28, 10, -1, 1f, friendly: false, tileCollide: false);
-        Property.SetTimeLeft(this, 600);
+        Property.SetTimeLeft(this, 2);
     }
 }

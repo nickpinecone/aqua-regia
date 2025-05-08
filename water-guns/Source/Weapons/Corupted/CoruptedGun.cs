@@ -35,10 +35,10 @@ public class CoruptedGun : BaseWeapon
 
         Sound.SetWater(this);
         Property.SetProjectile<CoruptedProjectile>(this);
-        Pump.SetDefaults(8);
+        Pump.SetDefaults(30);
 
-        Property.SetProperties(this, 80, 26, 14, 2f, 2.6f, 20, 20, 22f, ItemRarityID.Blue,
-                               Item.sellPrice(0, 0, 8, 0));
+        Property.SetProperties(this, 80, 26, 18, 2f, 2.6f, 20, 20, 22f, ItemRarityID.Blue,
+            Item.sellPrice(0, 0, 8, 0));
 
         Sprite.SefDefaults(new Vector2(58f, 58f), new Vector2(-12, 3));
     }
@@ -46,6 +46,8 @@ public class CoruptedGun : BaseWeapon
     public override void HoldItem(Terraria.Player player)
     {
         base.HoldItem(player);
+
+        Pump.Active = !player.GetModPlayer<CoruptedPlayer>().AnyWorms();
 
         Pump.Update();
 
@@ -56,14 +58,26 @@ public class CoruptedGun : BaseWeapon
     {
         if (Pump.Pumped)
         {
+            var amount = Main.rand.Next(2, 4);
+
+            var screenBottom = Main.MouseWorld;
+            screenBottom.Y += Main.ScreenSize.Y - Main.MouseScreen.Y + 64f;
+            var velocity = Vector2.UnitY * 16f;
+
+            for (var i = 0; i < amount; i++)
+            {
+                var position = screenBottom - new Vector2(Main.rand.Next(-64, 64), 0f);
+
+                Helper.SpawnProjectile<CoruptedWormHead>(Item.GetSource_FromThis(), player, position, velocity,
+                    Item.damage, 1f);
+            }
+
             Pump.Reset();
         }
-
-        Helper.SpawnProjectile<CoruptedWormHead>(Item.GetSource_FromThis(), player, Main.MouseWorld, Vector2.Zero, 10, 1f);
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
-                               int type, int damage, float knockback)
+        int type, int damage, float knockback)
     {
         base.Shoot(player, source, position, velocity, type, damage, knockback);
 

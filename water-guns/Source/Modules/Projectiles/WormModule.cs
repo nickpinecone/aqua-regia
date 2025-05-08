@@ -56,13 +56,14 @@ public class WormModule<TBody, TTail> : IModule
         return false;
     }
 
-    public void PostUpdate(Vector2 headCenter)
+    public void PostUpdate(Vector2 headCenter, int timeLeft)
     {
         var parentCenter = headCenter;
 
-        for (int i = 0; i < BodySegments.Count; i++)
+        for (var i = 0; i < BodySegments.Count; i++)
         {
-            TBody body = BodySegments[i];
+            var body = BodySegments[i];
+            body.Projectile.timeLeft = timeLeft;
             var segmentSpace = SegmentSpace;
 
             if (i == 0)
@@ -83,7 +84,9 @@ public class WormModule<TBody, TTail> : IModule
             parentCenter = body.Projectile.Center;
         }
 
-        var diffTail = (parentCenter - TailSegment!.Projectile.Center).SafeNormalize(Vector2.Zero);
+        TailSegment!.Projectile.timeLeft = timeLeft;
+
+        var diffTail = (parentCenter - TailSegment.Projectile.Center).SafeNormalize(Vector2.Zero);
         var angleTail = diffTail.ToRotation();
 
         TailSegment.Projectile.rotation = angleTail + MathHelper.PiOver2;
