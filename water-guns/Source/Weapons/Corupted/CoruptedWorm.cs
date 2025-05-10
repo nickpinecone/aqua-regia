@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using WaterGuns.Modules.Projectiles;
 using WaterGuns.Utils;
 
@@ -21,9 +22,9 @@ public class CoruptedWormHead : BaseProjectile
 
     public CoruptedWormHead()
     {
-        Composite.AddRuntimeModule(ImmunityModule.New());
+        Composite.AddRuntimeModule(ImmunityModule.New(30));
 
-        Worm = new();
+        Worm = new WormModule<CoruptedWormBody, CoruptedWormTail>();
         Property = new PropertyModule();
         Home = new HomeModule();
 
@@ -34,12 +35,19 @@ public class CoruptedWormHead : BaseProjectile
     {
         base.SetDefaults();
 
-        Home.SetDefaults(curve: 0.15f, curveChange: 1f, speed: 6);
+        Home.SetDefaults(0.15f, 1f, 6);
         Property.SetProperties(this, 28, 28, 10, -1, 1f, tileCollide: false);
         Property.SetTimeLeft(this, 2);
         Worm.SetDefaults(SegmentAmount, SegmentSpace);
 
         _curveAmount = Home.Curve;
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        base.OnKill(timeLeft);
+
+        Particle.Circle(DustID.Corruption, Projectile.Center, new Vector2(12, 12), 6, 1f, 0.8f);
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -51,8 +59,8 @@ public class CoruptedWormHead : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Worm.SpawnSegments(Projectile.GetSource_FromThis(), Owner, Projectile.Center, Projectile.damage, Projectile.knockBack);
-        Owner.GetModPlayer<CoruptedPlayer>().AddWorm(this);
+        Worm.SpawnSegments(Projectile.GetSource_FromThis(), Owner, Projectile.Center, Projectile.damage,
+            Projectile.knockBack);
     }
 
     public override void AI()

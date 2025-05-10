@@ -43,7 +43,7 @@ public class CoruptedGun : BaseWeapon
         Sprite.SefDefaults(new Vector2(58f, 58f), new Vector2(-12, 3));
     }
 
-    public override void HoldItem(Terraria.Player player)
+    public override void HoldItem(Player player)
     {
         base.HoldItem(player);
 
@@ -58,19 +58,7 @@ public class CoruptedGun : BaseWeapon
     {
         if (Pump.Pumped)
         {
-            var amount = Main.rand.Next(2, 4);
-
-            var screenBottom = Main.MouseWorld;
-            screenBottom.Y += Main.ScreenSize.Y - Main.MouseScreen.Y + 64f;
-            var velocity = Vector2.UnitY * 16f;
-
-            for (var i = 0; i < amount; i++)
-            {
-                var position = screenBottom - new Vector2(Main.rand.Next(-64, 64), 0f);
-
-                Helper.SpawnProjectile<CoruptedWormHead>(Item.GetSource_FromThis(), player, position, velocity,
-                    Item.damage, 1f);
-            }
+            player.GetModPlayer<CoruptedPlayer>().SpawnWorms();
 
             Pump.Reset();
         }
@@ -93,7 +81,7 @@ public class CoruptedGun : BaseWeapon
 
     public override void AddRecipes()
     {
-        Recipe recipe = CreateRecipe();
+        var recipe = CreateRecipe();
         recipe.AddIngredient(ItemID.ShadowScale, 5);
         recipe.AddIngredient(ItemID.DemoniteBar, 10);
         recipe.AddTile(TileID.WorkBenches);

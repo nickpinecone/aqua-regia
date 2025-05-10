@@ -103,7 +103,11 @@ Items: {
 
 	CoruptedGun: {
 		DisplayName: Demonic Flow
-		Tooltip: ""
+		Tooltip:
+			'''
+			Attack: Shoots a water stream, that splits up to two times
+			Pumped: Unleashes worms that attack enemies, if no in sight, hover near the cursor
+			'''
 	}
 }
 
