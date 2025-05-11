@@ -6,7 +6,7 @@ Feedback or issues should go to
 [Discord Server](https://discord.gg/nZ4JM9DhzQ)
 
 Latest stable verison available at
-[Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3310666120)
+[Steam Workshop](https://store.steampowered.com/)
 
 # Credits
 Sounds obtained from [Zapsplat](https://www.zapsplat.com)
