@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using WaterGuns.Modules.Projectiles;
 using Microsoft.Xna.Framework;
+using MonoMod.Utils;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Personalities;
 using Terraria.ModLoader;
+using Helpers = Stubble.Core.Helpers.Helpers;
 
 namespace WaterGuns.Utils;
 
@@ -61,7 +65,7 @@ public static class Helper
     public static NPC? FindNearestNPC(Vector2 position, float radius, Func<NPC, bool>? canHome = null)
     {
         canHome ??= (_) => true;
-
+        
         float nearestDistance = float.PositiveInfinity;
         NPC? nearestNpc = null;
         float detectRange = MathF.Pow(radius, 2);
