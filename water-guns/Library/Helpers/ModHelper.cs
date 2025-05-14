@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using WaterGuns.Modules.Projectiles;
 
 namespace WaterGuns.Library.Helpers;
 
@@ -11,7 +10,7 @@ public static class ModHelper
 {
     public static T SpawnProjectile<T>(IEntitySource source, Player player, Vector2 position, Vector2 velocity,
                                        int damage, float knockback)
-        where T : BaseProjectile
+        where T : ModProjectile
     {
         var type = ModContent.ProjectileType<T>();
         var proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);

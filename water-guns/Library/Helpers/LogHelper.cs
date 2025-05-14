@@ -11,7 +11,7 @@ public static class LogHelper
     {
         if (!ModContent.GetInstance<Configuration>().DebugInfoEnabled) return;
         
-        color = color ?? Color.White;
+        color ??= Color.White;
         Main.NewText(label + text, color);
     }
 

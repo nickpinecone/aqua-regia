@@ -1,22 +1,19 @@
-using System;
-
-namespace WaterGuns.Library;
+namespace WaterGuns.Library.Timer;
 
 public class Timer
 {
     public bool Done { get; private set; }
     public bool Paused { get; set; }
-    public bool OneShot { get; set; }
 
     public int Current { get; private set; }
     public int WaitTime { get; set; }
 
     public int TimeLeft => WaitTime - Current;
 
-    public Timer(int waitTime, bool oneShot = true)
+    public Timer(int waitTime, bool paused = false)
     {
         WaitTime = waitTime;
-        OneShot = oneShot;
+        Paused = paused;
     }
 
     public void Restart()
@@ -26,23 +23,17 @@ public class Timer
         Current = 0;
     }
 
-    public void Update(Action? onDone = null)
+    public Timer Update()
     {
-        if (Paused) return;
+        if (Paused || Done) return this;
+        
+        Current += 1;
 
-        if (Current < WaitTime)
+        if (Current >= WaitTime)
         {
-            Current += 1;
-        }
-        else
-        {
-            onDone?.Invoke();
             Done = true;
-
-            if (!OneShot)
-            {
-                Restart();
-            }
         }
+
+        return this;
     }
 }
