@@ -9,7 +9,7 @@ using WaterGuns.Library.Extensions;
 namespace WaterGuns.Library.Helpers;
 
 // DustID does not have these
-public static class ParticleID
+public static class DustExID
 {
     public const short Wood = 7;
     public const short BreathBubble = 34;
