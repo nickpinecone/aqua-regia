@@ -11,22 +11,22 @@ public abstract class InterfaceSystem : ModSystem
 {
     private UserInterface? _interface;
     private GameTime? _lastUpdateUI;
-    protected UIState? _state;
+    private UIState? _state;
 
-    protected string _afterLayer;
-    protected string _layerName;
+    private string _afterLayer = "";
+    private string _layerName = "";
 
-    protected abstract void Initialize();
+    protected abstract void Initialize(out UIState state, out string afterLayer, out string layerName);
 
     public override void Load()
     {
         if (Main.dedServ) return;
         
         base.Load();
-        Initialize();
+        Initialize(out _state, out _afterLayer, out _layerName);
 
         _interface = new UserInterface();
-        _state!.Activate();
+        _state.Activate();
         _interface.SetState(_state);
     }
 
@@ -45,11 +45,11 @@ public abstract class InterfaceSystem : ModSystem
     {
         base.ModifyInterfaceLayers(layers);
 
-        int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals(_afterLayer));
+        var layerIndex = layers.FindIndex(layer => layer.Name.Equals(_afterLayer));
 
-        if (mouseTextIndex == -1) throw new Exception($"Could not find layer: {_afterLayer}");
+        if (layerIndex == -1) throw new Exception($"Could not find layer: {_afterLayer}");
 
-        layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(_layerName, delegate
+        layers.Insert(layerIndex, new LegacyGameInterfaceLayer(_layerName, delegate
         {
             if (_lastUpdateUI != null && _interface?.CurrentState != null)
             {

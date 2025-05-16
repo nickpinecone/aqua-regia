@@ -1,6 +1,7 @@
-using System.Security.Cryptography.Pkcs;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.GameContent;
 using Terraria.UI;
 
@@ -17,20 +18,29 @@ public class FillBox : UIElement
         Count
     }
 
-    public int Current { get; set; }
+    private int _current;
+    public int Current
+    {
+        get => _current;
+        set => _current = Math.Clamp(value, 0, Max);
+    }
+    
     public int Max { get; set; }
     public int BorderWidth { get; set; }
+
+    public string Tooltip { get; set; }
     
     public Color ColorA { get; set; } = Color.Blue;
     public Color ColorB { get; set; } = Color.Cyan;
     public Color ColorBorder { get; set; } = Color.White;
 
-    public FillBox(StyleDimension width, StyleDimension height, int max, int borderWidth)
+    public FillBox(StyleDimension width, StyleDimension height, int max, int borderWidth, string tooltip)
     {
         Width = width;
         Height = height;
-        Max = max;
+        Max = Math.Max(0, max);
         BorderWidth = borderWidth;
+        Tooltip = tooltip;
     }
 
     private new Rectangle GetInnerDimensions()
@@ -43,6 +53,14 @@ public class FillBox : UIElement
             (int)(inner.Width - BorderWidth * 2),
             (int)(inner.Height - BorderWidth * 2)
         );
+    }
+    
+    private void DisplayTooltip()
+    {
+        if (IsMouseHovering)
+        {
+            Main.hoverItemName = Tooltip;
+        }
     }
 
     private void DrawBorder(SpriteBatch spriteBatch)
@@ -94,10 +112,11 @@ public class FillBox : UIElement
         }
     }
 
-    public override void Draw(SpriteBatch spriteBatch)
+    protected override void DrawSelf(SpriteBatch spriteBatch)
     {
-        base.Draw(spriteBatch);
+        base.DrawSelf(spriteBatch);
 
+        DisplayTooltip();
         DrawBorder(spriteBatch);
         DrawFill(spriteBatch);
     }
