@@ -19,28 +19,34 @@ public class FillBox : UIElement
     }
 
     private int _current;
+
     public int Current
     {
         get => _current;
         set => _current = Math.Clamp(value, 0, Max);
     }
-    
+
     public int Max { get; set; }
     public int BorderWidth { get; set; }
 
     public string Tooltip { get; set; }
-    
-    public Color ColorA { get; set; } = Color.Blue;
-    public Color ColorB { get; set; } = Color.Cyan;
-    public Color ColorBorder { get; set; } = Color.White;
 
-    public FillBox(StyleDimension width, StyleDimension height, int max, int borderWidth, string tooltip)
+    public Color ColorA { get; set; }
+    public Color ColorB { get; set; }
+    public Color ColorBorder { get; set; }
+
+    public FillBox(StyleDimension width, StyleDimension height, int max, int borderWidth, string tooltip,
+        Color? colorA = null, Color? colorB = null, Color? colorBorder = null)
     {
         Width = width;
         Height = height;
         Max = Math.Max(0, max);
         BorderWidth = borderWidth;
         Tooltip = tooltip;
+
+        ColorA = colorA ?? Color.Blue;
+        ColorB = colorB ?? Color.Cyan;
+        ColorBorder = colorBorder ?? Color.White;
     }
 
     private new Rectangle GetInnerDimensions()
@@ -54,7 +60,7 @@ public class FillBox : UIElement
             (int)(inner.Height - BorderWidth * 2)
         );
     }
-    
+
     private void DisplayTooltip()
     {
         if (IsMouseHovering)
@@ -103,7 +109,7 @@ public class FillBox : UIElement
         for (var i = 0; i < steps; i += 1)
         {
             var gradient = (float)i / (rect.Bottom - rect.Top);
-            
+
             spriteBatch.Draw(
                 TextureAssets.MagicPixel.Value,
                 new Rectangle(rect.X, rect.Y + rect.Height - i, rect.Width, 1),
