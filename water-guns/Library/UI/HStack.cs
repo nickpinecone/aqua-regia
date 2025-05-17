@@ -5,11 +5,6 @@ using Terraria.UI;
 
 namespace WaterGuns.Library.UI;
 
-public interface IHaveHStack
-{
-    public HStack HStack { get; set; }
-}
-
 public class HStack : UIElement
 {
     public int Gap { get; set; }

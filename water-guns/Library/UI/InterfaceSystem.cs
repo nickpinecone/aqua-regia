@@ -7,6 +7,12 @@ using Terraria.UI;
 
 namespace WaterGuns.Library.UI;
 
+public interface IProgressState
+{
+    public HStack BoxContainer { get; set; }
+    public FillBox PrimaryBox { get; set; }
+}
+
 public abstract class InterfaceSystem : ModSystem
 {
     private UserInterface? _interface;

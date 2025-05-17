@@ -36,11 +36,12 @@ public class FillBox : UIElement
     public Color ColorBorder { get; set; }
 
     public FillBox(StyleDimension width, StyleDimension height, int max, int borderWidth, string tooltip,
-        Color? colorA = null, Color? colorB = null, Color? colorBorder = null)
+        int start = 0, Color? colorA = null, Color? colorB = null, Color? colorBorder = null)
     {
         Width = width;
         Height = height;
         Max = Math.Max(0, max);
+        Current = Math.Clamp(start, 0, Max);
         BorderWidth = borderWidth;
         Tooltip = tooltip;
 

@@ -39,6 +39,16 @@ public abstract class BaseWeapon : ModItem, IComposite<IWeaponRuntime>
     {
     }
 
+    public override void SetStaticDefaults()
+    {
+        base.SetStaticDefaults();
+        
+        foreach (var module in RuntimeModules)
+        {
+            module.RuntimeSetStaticDefaults(this);
+        }
+    }
+
     public override Vector2? HoldoutOffset()
     {
         var defaultValue = base.HoldoutOffset();
@@ -66,10 +76,24 @@ public abstract class BaseWeapon : ModItem, IComposite<IWeaponRuntime>
             module.RuntimeModifyTooltips(this, tooltips);
         }
     }
+
+    public override void HoldItem(Player player)
+    {
+        base.HoldItem(player);
+        
+        foreach (var module in RuntimeModules)
+        {
+            module.RuntimeHoldItem(this, player);
+        }
+    }
 }
 
 public interface IWeaponRuntime
 {
+    public void RuntimeSetStaticDefaults(BaseWeapon weapon)
+    {
+    }
+    
     public void RuntimeModifyTooltips(BaseWeapon weapon, List<TooltipLine> tooltip)
     {
     }
@@ -77,5 +101,9 @@ public interface IWeaponRuntime
     public Vector2? RuntimeHoldoutOffset(BaseWeapon weapon)
     {
         return null;
+    }
+    
+    public void RuntimeHoldItem(BaseWeapon weapon, Player player)
+    {
     }
 }
