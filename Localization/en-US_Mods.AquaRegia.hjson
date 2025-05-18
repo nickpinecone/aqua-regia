@@ -1,0 +1,11 @@
+Configs: {
+	AquaConfig: {
+		DisplayName: Aqua Config
+		Headers.Debug: Debug Header
+
+		DebugInfoEnabled: {
+			Label: Enable Debug Info
+			Tooltip: ""
+		}
+	}
+}

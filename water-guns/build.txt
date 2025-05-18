@@ -1,3 +1,0 @@
-displayName = More Water Guns
-author = ThreeDots
-version = 0.1
