@@ -9,3 +9,5 @@ Configs: {
 		}
 	}
 }
+
+World.SpawnIslandGenMessage: Spawning you on a stranded island...
