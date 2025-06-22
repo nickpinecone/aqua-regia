@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace AquaRegia.Players;
 
+// TODO refactor into a LightingSystem
 public class SwimPlayer : ModPlayer
 {
     public override void PostUpdateMiscEffects()
@@ -19,22 +20,55 @@ public class SwimPlayer : ModPlayer
         LightArea();
     }
 
+    float GetVanillaBrightnessScale()
+    {
+        if (Main.dayTime)
+        {
+            var normalizedTime = (float)(Main.time / Main.dayLength);
+            return MathHelper.Lerp(0.5f, 1.0f, Math.Abs(normalizedTime - 0.5f) * -2f + 1f);
+        }
+        else
+        {
+            var normalizedTime = (float)(Main.time / Main.nightLength);
+            return MathHelper.Lerp(0.5f, 0.2f, Math.Abs(normalizedTime - 0.5f) * -2f + 1f);
+        }
+    }
+
+    // Maybe to optimise i'll actually hook into a lighting check
     private void LightArea()
     {
         var area = ScreenRectangle();
+        const int depth = 200;
+        const float throughSolid = 20f;
 
         for (var x = area.Left; x < area.Right; x++)
         {
-            for (var y = area.Top; y < area.Bottom; y++)
+            var startY = (int)WorldConstants.FloodLevel;
+            var lightStrength = GetVanillaBrightnessScale();
+
+            for (var y = 0; y < depth; y++)
             {
-                var tile = Main.tile[x, y];
+                // How much solid tiles will impact light strength, the deeper we are the more
+                var solidImpact = ((float)y / depth) * (throughSolid / depth);
+                var tile = Main.tile[x, startY + y];
 
-                if (tile.LiquidType != LiquidID.Water || tile.LiquidAmount != 255 || TileHelper.IsSolid(tile)) continue;
+                if (TileHelper.IsSolid(tile) && Main.tileBlockLight[tile.TileType])
+                {
+                    lightStrength -= solidImpact;
+                }
+                else
+                {
+                    // Natural light fall off
+                    lightStrength -= 1f / depth;
 
-                var lightAmount = (float)(1f - ((float)y - WorldConstants.FloodLevel) / Main.maxTilesY * 5);
-                lightAmount = Math.Max(0, lightAmount);
+                    Lighting.AddLight(new Vector2(x * 16, (startY + y) * 16), lightStrength, lightStrength,
+                        lightStrength);
+                }
 
-                Lighting.AddLight(new Vector2(x * 16, y * 16), lightAmount, lightAmount, lightAmount);
+                if (lightStrength <= 0.01f)
+                {
+                    break;
+                }
             }
         }
     }

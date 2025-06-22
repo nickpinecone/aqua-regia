@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 
 namespace AquaRegia.Library.Helpers;
 
@@ -16,6 +17,21 @@ public static class TileHelper
     public static Tile GetTile(Vector2 position)
     {
         return GetTile(position.ToTileCoordinates());
+    }
+
+    public static bool IsWater(Tile tile, int amount = 255)
+    {
+        return tile.LiquidType == LiquidID.Water && tile.LiquidAmount == 255;
+    }
+
+    public static bool IsWater(Point point, int amount = 255)
+    {
+        return IsWater(Main.tile[point.X, point.Y], amount);
+    }
+
+    public static bool IsWater(Vector2 position, int amount = 255)
+    {
+        return IsWater(position.ToTileCoordinates(), amount);
     }
 
     public static bool IsSolid(Tile tile, bool alsoSolidTop = false)
@@ -92,7 +108,7 @@ public static class TileHelper
             for (var dy = 0; Math.Abs(dy) <= height; dy += yDirection)
             {
                 var position = center + new Vector2(0, dy * 16);
-                
+
                 if (IsSolid(position, alsoSolidTop))
                 {
                     surface.Add(position.ToTileCoordinates());
@@ -106,7 +122,7 @@ public static class TileHelper
                         position = center + new Vector2(dx * 16, dy * 16);
 
                         if (!IsSolid(position, alsoSolidTop)) continue;
-                        
+
                         surface.Add(position.ToTileCoordinates());
                         break;
                     }
@@ -132,7 +148,7 @@ public static class TileHelper
                         position = center + new Vector2(dx * 16, dy * 16);
 
                         if (!IsSolid(position, alsoSolidTop)) continue;
-                        
+
                         surface.Add(position.ToTileCoordinates());
                         break;
                     }
