@@ -52,7 +52,7 @@ public class IslandGenPass : GenPass
     {
         progress.Message = IslandSystem.IslandGenMessage?.Value;
         
-        var position = new Vector2((int)(Main.maxTilesX / 2), (int)WorldConstants.FloodLevel);
+        var position = new Vector2((int)(Main.maxTilesX / 2), (int)UnderwaterSystem.TileSeaLevel);
         WorldGen.FloatingIsland((int)position.X, (int)position.Y);
     }
 }
@@ -67,7 +67,7 @@ public class SpawnGenPass : GenPass
     {
         progress.Message = IslandSystem.SpawnGenMessage?.Value;
         
-        var position = new Point(Main.spawnTileX, (int)WorldConstants.FloodLevel);
+        var position = new Point(Main.spawnTileX, (int)UnderwaterSystem.TileSeaLevel);
         while (TileHelper.IsSolid(position))
         {
             position.Y -= 1;
