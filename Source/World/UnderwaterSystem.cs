@@ -22,7 +22,17 @@ public class UnderwaterSystem : ModSystem
 
     public static bool IsUnderwater(Player player)
     {
-        return (player.Center.Y / 16f) >= TileSeaLevel;
+        return IsUnderwater(player.Center);
+    }
+
+    public static bool IsUnderwater(Vector2 position)
+    {
+        return (position.Y / 16f) >= TileSeaLevel;
+    }
+
+    public static bool IsUnderwater(Point point)
+    {
+        return point.Y >= TileSeaLevel;
     }
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
@@ -62,6 +72,12 @@ public class UnderwaterSystem : ModSystem
             {
                 var tile = Main.tile[x, y];
 
+                if (!IsUnderwater(new Point(x, y)))
+                {
+                    tile.LiquidAmount = 0;
+                    continue;
+                }
+
                 if (tile.LiquidAmount == 255) continue;
 
                 tile.LiquidType = LiquidID.Water;
@@ -75,7 +91,7 @@ public class UnderwaterSystem : ModSystem
     private Rectangle ClampToWorld(Rectangle area)
     {
         area.X = (int)MathHelper.Clamp(area.X, 0, Main.maxTilesX);
-        area.Y = (int)MathHelper.Clamp(area.Y, (int)TileSeaLevel, Main.maxTilesY);
+        area.Y = (int)MathHelper.Clamp(area.Y, 0, Main.maxTilesY);
         return area;
     }
 

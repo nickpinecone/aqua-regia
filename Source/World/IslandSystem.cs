@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using AquaRegia.Library.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.IO;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -23,8 +24,23 @@ public class IslandSystem : ModSystem
             Language.GetOrRegister(Mod.GetLocalizationKey($"World.{nameof(SpawnGenMessage)}"));
     }
 
+    // TODO this could also be in WorldGenHelper
+    private void RemovePass(List<GenPass> tasks, string name)
+    {
+        var index = tasks.FindIndex(genpass => genpass.Name.Equals(name));
+
+        if (index != -1)
+        {
+            tasks.RemoveAt(index);
+        }
+    }
+
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
+        RemovePass(tasks, "Jungle Trees");
+        RemovePass(tasks, "Planting Trees");
+        RemovePass(tasks, "Cactus, Palm Trees, & Coral");
+
         var floatingIslands = tasks.FindIndex(genpass => genpass.Name.Equals("Floating Islands"));
 
         if (floatingIslands != -1)
@@ -51,7 +67,7 @@ public class IslandGenPass : GenPass
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
         progress.Message = IslandSystem.IslandGenMessage?.Value;
-        
+
         var position = new Vector2((int)(Main.maxTilesX / 2), (int)UnderwaterSystem.TileSeaLevel);
         WorldGen.FloatingIsland((int)position.X, (int)position.Y);
     }
@@ -63,17 +79,28 @@ public class SpawnGenPass : GenPass
     {
     }
 
+    // TODO Probably make a WorldGenHelper
+    private static void PlaceTree(int x, int y)
+    {
+        WorldGen.PlaceTile(x, y, TileID.Saplings);
+        WorldGen.GrowTree(x, y);
+    }
+
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
         progress.Message = IslandSystem.SpawnGenMessage?.Value;
-        
+
         var position = new Point(Main.spawnTileX, (int)UnderwaterSystem.TileSeaLevel);
         while (TileHelper.IsSolid(position))
         {
             position.Y -= 1;
         }
 
-        Main.spawnTileX = (int)position.X;
-        Main.spawnTileY = (int)position.Y;
+        // TODO place them randomly on the island
+        // also should be moved to an earlier stage, probably replace with Placing Trees step
+        PlaceTree(position.X, position.Y);
+
+        Main.spawnTileX = position.X;
+        Main.spawnTileY = position.Y;
     }
 }

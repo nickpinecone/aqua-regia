@@ -25,6 +25,7 @@ public class LightingSystem : ModSystem
         }
     }
 
+    // TODO account for potions (night vision), events (blood moon) and potentially other stuff
     private float GetBrightnessScale()
     {
         if (Main.dayTime)
