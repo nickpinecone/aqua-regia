@@ -19,7 +19,7 @@ public class LightingSystem : ModSystem
     {
         base.PostDrawTiles();
 
-        if (UnderwaterSystem.IsUnderwater(Main.LocalPlayer))
+        if (UnderwaterSystem.IsUnderwater(Main.LocalPlayer.Center))
         {
             LightArea();
         }

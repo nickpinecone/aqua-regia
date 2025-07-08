@@ -10,8 +10,12 @@ Configs: {
 	}
 }
 
+Conditions: {
+    DownedEvilCondition: After either Brain of Cthulhu or Eater of Worlds is defeated
+}
+
 World: {
-	IslandGenMessage: Placing a stranded island...
+	IslandGenMessage: Generating a stranded island...
 	SpawnGenMessage: Spawning you on a stranded island...
 	FloodGenMessage: Flooding your world...
 }

@@ -17,44 +17,15 @@ public class IslandSystem : ModSystem
 
     public override void SetStaticDefaults()
     {
-        IslandGenMessage =
-            Language.GetOrRegister(Mod.GetLocalizationKey($"World.{nameof(IslandGenMessage)}"));
-
-        SpawnGenMessage =
-            Language.GetOrRegister(Mod.GetLocalizationKey($"World.{nameof(SpawnGenMessage)}"));
-    }
-
-    // TODO this could also be in WorldGenHelper
-    private void RemovePass(List<GenPass> tasks, string name)
-    {
-        var index = tasks.FindIndex(genpass => genpass.Name.Equals(name));
-
-        if (index != -1)
-        {
-            tasks.RemoveAt(index);
-        }
+        IslandGenMessage = LocalizationHelper.GetLocalization($"World.{nameof(IslandGenMessage)}");
+        SpawnGenMessage = LocalizationHelper.GetLocalization($"World.{nameof(SpawnGenMessage)}");
     }
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
-        RemovePass(tasks, "Jungle Trees");
-        RemovePass(tasks, "Planting Trees");
-        RemovePass(tasks, "Cactus, Palm Trees, & Coral");
-
-        var floatingIslands = tasks.FindIndex(genpass => genpass.Name.Equals("Floating Islands"));
-
-        if (floatingIslands != -1)
-        {
-            tasks.Insert(floatingIslands, new IslandGenPass("Spawn Island", 100f));
-            tasks.RemoveAt(floatingIslands + 1);
-        }
-
-        var spawnPoint = tasks.FindIndex(genpass => genpass.Name.Equals("Spawn Point"));
-
-        if (spawnPoint != -1)
-        {
-            tasks.Insert(spawnPoint + 1, new SpawnGenPass("Island Spawn Point", 100f));
-        }
+        WorldGenHelper.ReplaceGenPass(tasks, "Floating Islands", new IslandGenPass("Spawn Island", 100f));
+        
+        WorldGenHelper.InsertAfterGenPass(tasks, "Spawn Point", new SpawnGenPass("Island Spawn Point", 100f));
     }
 }
 
@@ -79,13 +50,6 @@ public class SpawnGenPass : GenPass
     {
     }
 
-    // TODO Probably make a WorldGenHelper
-    private static void PlaceTree(int x, int y)
-    {
-        WorldGen.PlaceTile(x, y, TileID.Saplings);
-        WorldGen.GrowTree(x, y);
-    }
-
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
         progress.Message = IslandSystem.SpawnGenMessage?.Value;
@@ -98,7 +62,9 @@ public class SpawnGenPass : GenPass
 
         // TODO place them randomly on the island
         // also should be moved to an earlier stage, probably replace with Placing Trees step
-        PlaceTree(position.X, position.Y);
+        // probably do a separate gen pass for removing all the flora, and replacing it with new
+        // underwater plants
+        WorldGenHelper.PlaceTree(position.X, position.Y);
 
         Main.spawnTileX = position.X;
         Main.spawnTileY = position.Y;

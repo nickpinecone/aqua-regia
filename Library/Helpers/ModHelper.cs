@@ -57,4 +57,11 @@ public static class ModHelper
 
         return rect;
     }
+
+    public static Rectangle ClampToTileWorld(Rectangle area)
+    {
+        area.X = (int)MathHelper.Clamp(area.X, 0, Main.maxTilesX);
+        area.Y = (int)MathHelper.Clamp(area.Y, 0, Main.maxTilesY);
+        return area;
+    }
 }

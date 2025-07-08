@@ -1,10 +1,19 @@
+using AquaRegia.Library.Helpers;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.Localization;
 
 namespace AquaRegia.Library.Conditions;
 
 public class DownedEvilCondition : IItemDropRuleCondition
 {
+    public static LocalizedText Description { get; private set; }
+
+    static DownedEvilCondition()
+    {
+        Description = LocalizationHelper.GetLocalization($"Conditions.{nameof(DownedEvilCondition)}");
+    }
+
     public bool CanDrop(DropAttemptInfo info)
     {
         return Condition.DownedBrainOfCthulhu.IsMet() || Condition.DownedEaterOfWorlds.IsMet();
@@ -17,6 +26,6 @@ public class DownedEvilCondition : IItemDropRuleCondition
 
     public string GetConditionDescription()
     {
-        return "After either Brain of Cthulhu or Eater of Worlds is defeated";
+        return Description.Value;
     }
 }
