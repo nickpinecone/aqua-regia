@@ -1,6 +1,7 @@
 using AquaRegia.World;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Players;
@@ -23,6 +24,13 @@ public class SwimPlayer : ModPlayer
 
             Main.LocalPlayer.breathEffectiveness += (float)depth;
         }
+    }
+
+    // Remove crates from fish catching
+    public override void ModifyFishingAttempt(ref FishingAttempt attempt)
+    {
+        base.ModifyFishingAttempt(ref attempt);
+        attempt.crate = false;
     }
 
     public override void PreUpdateMovement()
