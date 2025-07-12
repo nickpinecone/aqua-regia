@@ -35,6 +35,13 @@ public partial class UnderwaterSystem : ModSystem
     {
         WorldGenHelper.RemoveGenPass(tasks, "Underworld");
         WorldGenHelper.RemoveGenPass(tasks, "Hellforge");
+        WorldGenHelper.RemoveGenPass(tasks, "Dungeon");
+        WorldGenHelper.RemoveGenPass(tasks, "Pyramids");
+        WorldGenHelper.RemoveGenPass(tasks, "Jungle Temple");
+        WorldGenHelper.RemoveGenPass(tasks, "Hives");
+        WorldGenHelper.RemoveGenPass(tasks, "Temple");
+        WorldGenHelper.RemoveGenPass(tasks, "Larva");
+        WorldGenHelper.RemoveGenPass(tasks, "Lihzahrd Altars");
 
         // TODO also need to test this in other places, see how it behaves
         // the only weird thing right now is how plants interact with water
@@ -81,7 +88,7 @@ public partial class UnderwaterSystem : ModSystem
                 tile.LiquidType = LiquidID.Water;
                 tile.LiquidAmount = 255;
 
-                WorldGen.SquareTileFrame(x, y, resetFrame: true);
+                // WorldGen.SquareTileFrame(x, y, resetFrame: true);
             }
         }
     }
@@ -111,7 +118,7 @@ public class FloodGenPass : GenPass
                 tile.LiquidType = LiquidID.Water;
                 tile.LiquidAmount = 255;
 
-                WorldGen.SquareTileFrame(x, y, resetFrame: true);
+                // WorldGen.SquareTileFrame(x, y, resetFrame: true);
             }
         }
     }

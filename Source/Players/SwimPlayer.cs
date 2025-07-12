@@ -1,5 +1,6 @@
 using AquaRegia.World;
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Players;
@@ -10,9 +11,18 @@ public class SwimPlayer : ModPlayer
 {
     public Vector2 SwimVelocity { get; set; } = Vector2.Zero;
 
-    public override void Load()
+    public override void PostUpdateEquips()
     {
-        base.Load();
+        // Consume more oxygen the deeper we go
+        if (UnderwaterSystem.IsUnderwater(Main.LocalPlayer.Center))
+        {
+            var depth = 1f - (Main.LocalPlayer.Center.ToTileCoordinates().Y - UnderwaterSystem.TileSeaLevel) /
+                LightingSystem.TileDepth;
+
+            depth = MathHelper.Clamp((float)depth, -0.5f, 1f);
+
+            Main.LocalPlayer.breathEffectiveness += (float)depth;
+        }
     }
 
     public override void PreUpdateMovement()
