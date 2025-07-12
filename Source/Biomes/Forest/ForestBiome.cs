@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Biomes.Surface;
+namespace AquaRegia.Biomes.Forest;
 
-public class SurfaceBiome : ModSystem
+public class ForestBiome : ModSystem
 {
     public override void Load()
     {

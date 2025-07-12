@@ -21,17 +21,6 @@ public class FloraSystem : ModSystem
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
-        WorldGenHelper.RemoveGenPass(tasks, "Jungle Trees");
-        WorldGenHelper.RemoveGenPass(tasks, "Sunflowers");
-        WorldGenHelper.RemoveGenPass(tasks, "Herbs");
-        WorldGenHelper.RemoveGenPass(tasks, "Dye Plants");
-        WorldGenHelper.RemoveGenPass(tasks, "Weeds");
-        WorldGenHelper.RemoveGenPass(tasks, "Glowing Mushrooms and Jungle Plants");
-        WorldGenHelper.RemoveGenPass(tasks, "Jungle Plants");
-        WorldGenHelper.RemoveGenPass(tasks, "Flowers");
-        WorldGenHelper.RemoveGenPass(tasks, "Mushrooms");
-        WorldGenHelper.RemoveGenPass(tasks, "Cactus, Palm Trees, & Coral");
-
         WorldGenHelper.ReplaceGenPass(tasks, "Planting Trees",
             new PlantIslandTressGenPass("Planting Island Trees", 100f));
     }
@@ -51,7 +40,8 @@ public class PlantIslandTressGenPass : GenPass
         var treeCount = WorldGen.genRand.Next(3, 6);
         var start = islandCenter - new Point(0, 8);
 
-        for (var i = 0; i < treeCount; i++)
+        var i = 0;
+        while (i < treeCount)
         {
             var point = start + new Point(WorldGen.genRand.Next(-24, 24), 0);
             var depth = 0;
@@ -63,7 +53,8 @@ public class PlantIslandTressGenPass : GenPass
             }
 
             point -= new Point(0, 1);
-            WorldGenHelper.PlaceTree(point.X, point.Y);
+            var success = WorldGenHelper.PlaceTree(point.X, point.Y);
+            i += success ? 1 : 0;
         }
     }
 }

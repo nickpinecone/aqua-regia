@@ -4,4 +4,8 @@
     <PropertyGroup>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\" />
+    </ItemGroup>
 </Project>

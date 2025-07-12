@@ -26,13 +26,6 @@ public class SwimPlayer : ModPlayer
         }
     }
 
-    // Remove crates from fish catching
-    public override void ModifyFishingAttempt(ref FishingAttempt attempt)
-    {
-        base.ModifyFishingAttempt(ref attempt);
-        attempt.crate = false;
-    }
-
     public override void PreUpdateMovement()
     {
         base.PreUpdateMovement();

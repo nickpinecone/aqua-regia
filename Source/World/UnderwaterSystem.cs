@@ -12,19 +12,15 @@ namespace AquaRegia.World;
 
 public partial class UnderwaterSystem : ModSystem
 {
-    public static double TileSeaLevel => Main.worldSurface - (Main.worldSurface * 0.5f);
+    // TODO determine sea level by a gen pass after general world gen is done
+    // Just scan from the middle top to the first solid tile, elevate that by 50 or so tiles
+    public static double TileSeaLevel => Main.worldSurface - 150f;
 
     public static LocalizedText? FloodGenMessage { get; private set; }
 
     public override void SetStaticDefaults()
     {
         FloodGenMessage = LocalizationHelper.GetLocalization($"World.{nameof(FloodGenMessage)}");
-
-        // Disable town npc spawns
-        for (var i = 0; i < NPCID.Count; i++)
-        {
-            Main.townNPCCanSpawn[i] = false;
-        }
     }
 
     public static bool IsUnderwater(Point point)
@@ -37,47 +33,8 @@ public partial class UnderwaterSystem : ModSystem
         return IsUnderwater(position.ToTileCoordinates());
     }
 
-    // Disable vanilla recipes
-    public override void PostAddRecipes()
-    {
-        base.PostAddRecipes();
-
-        for (var i = 0; i < Recipe.numRecipes; i++)
-        {
-            var recipe = Main.recipe[i];
-            
-            if (recipe.Mod is not AquaRegia)
-            {
-                recipe.DisableRecipe();
-            }
-        }
-    }
-
-    // Remove vanilla generation
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
-        WorldGenHelper.RemoveGenPass(tasks, "Underworld");
-        WorldGenHelper.RemoveGenPass(tasks, "Hellforge");
-        WorldGenHelper.RemoveGenPass(tasks, "Dungeon");
-        WorldGenHelper.RemoveGenPass(tasks, "Pyramids");
-        WorldGenHelper.RemoveGenPass(tasks, "Jungle Temple");
-        WorldGenHelper.RemoveGenPass(tasks, "Hives");
-        WorldGenHelper.RemoveGenPass(tasks, "Temple");
-        WorldGenHelper.RemoveGenPass(tasks, "Larva");
-        WorldGenHelper.RemoveGenPass(tasks, "Lihzahrd Altars");
-        WorldGenHelper.RemoveGenPass(tasks, "Generate Ice Biome");
-        WorldGenHelper.RemoveGenPass(tasks, "Jungle");
-        WorldGenHelper.RemoveGenPass(tasks, "Full Desert");
-        WorldGenHelper.RemoveGenPass(tasks, "Corruption");
-        WorldGenHelper.RemoveGenPass(tasks, "Wet Jungle");
-        WorldGenHelper.RemoveGenPass(tasks, "Ice");
-        WorldGenHelper.RemoveGenPass(tasks, "Gems In Ice Biome");
-        WorldGenHelper.RemoveGenPass(tasks, "Jungle Chests");
-        WorldGenHelper.RemoveGenPass(tasks, "Buried Chests");
-        WorldGenHelper.RemoveGenPass(tasks, "Surface Chests");
-        WorldGenHelper.RemoveGenPass(tasks, "Jungle Chests Placement");
-        WorldGenHelper.RemoveGenPass(tasks, "Water Chests");
-
         // TODO also need to test this in other places, see how it behaves
         // the only weird thing right now is how plants interact with water
         // some break, others dont, once i remove them though, it's not gonna be a problem

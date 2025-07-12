@@ -59,6 +59,8 @@ public static class WorldGenHelper
     public static bool PlaceTree(int x, int y)
     {
         WorldGen.PlaceTile(x, y, TileID.Saplings);
-        return WorldGen.GrowTree(x, y);
+        var success = WorldGen.GrowTree(x, y);
+        if (!success) WorldGen.KillTile(x, y);
+        return success;
     }
 }
