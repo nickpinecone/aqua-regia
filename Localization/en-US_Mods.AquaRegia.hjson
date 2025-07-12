@@ -10,12 +10,11 @@ Configs: {
 	}
 }
 
-Conditions: {
-    DownedEvilCondition: After either Brain of Cthulhu or Eater of Worlds is defeated
-}
+Conditions.DownedEvilCondition: After either Brain of Cthulhu or Eater of Worlds is defeated
 
 World: {
 	IslandGenMessage: Generating a stranded island...
 	SpawnGenMessage: Spawning you on a stranded island...
 	FloodGenMessage: Flooding your world...
+	PlantIslandTreesGenMessage: Planting trees on a stranded island...
 }

@@ -11,4 +11,9 @@ public class ItemGlobal : GlobalItem
     {
         ModifyItemLootEvent?.Invoke(item, itemLoot);
     }
+
+    public override void Unload()
+    {
+        ModifyItemLootEvent = null;
+    }
 }

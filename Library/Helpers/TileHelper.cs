@@ -74,31 +74,6 @@ public static class TileHelper
         return Area(center, width, height).Any(tile => IsSolid(tile, alsoSolidTop));
     }
 
-    public static IEnumerable<Point> FromTop(Vector2 from, float amount)
-    {
-        var tileAmount = amount / 16;
-
-        for (var i = 0; i < tileAmount; i++)
-        {
-            var position = (from + new Vector2(0, 16 * i));
-
-            yield return position.ToTileCoordinates();
-        }
-    }
-
-    public static Point? FirstSolidFromTop(Vector2 from, float amount, bool alsoSolidTop = false)
-    {
-        foreach (var tile in FromTop(from, amount))
-        {
-            if (IsSolid(tile, alsoSolidTop))
-            {
-                return tile;
-            }
-        }
-
-        return null;
-    }
-
     public static IEnumerable<Point> ScanSolidSurface(Vector2 center, int width, int height, bool alsoSolidTop = false)
     {
         List<Point> surface = [];

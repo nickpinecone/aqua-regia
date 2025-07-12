@@ -23,8 +23,9 @@ public class IslandSystem : ModSystem
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
-        WorldGenHelper.ReplaceGenPass(tasks, "Floating Islands", new IslandGenPass("Spawn Island", 100f));
+        WorldGenHelper.RemoveGenPass(tasks, "Floating Island Houses");
         
+        WorldGenHelper.ReplaceGenPass(tasks, "Floating Islands", new IslandGenPass("Spawn Island", 100f));
         WorldGenHelper.InsertAfterGenPass(tasks, "Spawn Point", new SpawnGenPass("Island Spawn Point", 100f));
     }
 }
@@ -59,12 +60,6 @@ public class SpawnGenPass : GenPass
         {
             position.Y -= 1;
         }
-
-        // TODO place them randomly on the island
-        // also should be moved to an earlier stage, probably replace with Placing Trees step
-        // probably do a separate gen pass for removing all the flora, and replacing it with new
-        // underwater plants
-        WorldGenHelper.PlaceTree(position.X, position.Y);
 
         Main.spawnTileX = position.X;
         Main.spawnTileY = position.Y;

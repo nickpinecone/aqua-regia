@@ -25,7 +25,7 @@ public partial class UnderwaterSystem : ModSystem
     {
         return point.Y >= TileSeaLevel;
     }
-    
+
     public static bool IsUnderwater(Vector2 position)
     {
         return IsUnderwater(position.ToTileCoordinates());
@@ -33,6 +33,9 @@ public partial class UnderwaterSystem : ModSystem
 
     public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
     {
+        WorldGenHelper.RemoveGenPass(tasks, "Underworld");
+        WorldGenHelper.RemoveGenPass(tasks, "Hellforge");
+
         // TODO also need to test this in other places, see how it behaves
         // the only weird thing right now is how plants interact with water
         // some break, others dont, once i remove them though, it's not gonna be a problem
