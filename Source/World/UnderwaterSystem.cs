@@ -10,11 +10,9 @@ using Terraria.WorldBuilding;
 
 namespace AquaRegia.World;
 
-public partial class UnderwaterSystem : ModSystem
+public class UnderwaterSystem : ModSystem
 {
-    // TODO determine sea level by a gen pass after general world gen is done
-    // Just scan from the middle top to the first solid tile, elevate that by 50 or so tiles
-    public static double TileSeaLevel => Main.worldSurface - 150f;
+    public static double TileSeaLevel => Main.worldSurface - (Main.worldSurface * 0.5f);
 
     public static LocalizedText? FloodGenMessage { get; private set; }
 
@@ -109,46 +107,5 @@ public class FloodGenPass : GenPass
                 tile.LiquidAmount = 255;
             }
         }
-    }
-}
-
-// Disable default water behaviour
-// to optimise load times and general performance
-public partial class UnderwaterSystem
-{
-    public override void Load()
-    {
-        base.Load();
-
-        On_Liquid.Update += On_LiquidOnUpdate;
-        On_Liquid.UpdateLiquid += On_LiquidOnUpdateLiquid;
-        On_Liquid.SettleWaterAt += On_LiquidOnSettleWaterAt;
-        On_Liquid.DelWater += On_LiquidOnDelWater;
-    }
-
-    public override void Unload()
-    {
-        base.Unload();
-
-        On_Liquid.Update -= On_LiquidOnUpdate;
-        On_Liquid.UpdateLiquid -= On_LiquidOnUpdateLiquid;
-        On_Liquid.SettleWaterAt -= On_LiquidOnSettleWaterAt;
-        On_Liquid.DelWater -= On_LiquidOnDelWater;
-    }
-
-    private void On_LiquidOnDelWater(On_Liquid.orig_DelWater orig, int l)
-    {
-    }
-
-    private void On_LiquidOnSettleWaterAt(On_Liquid.orig_SettleWaterAt orig, int originX, int originY)
-    {
-    }
-
-    private void On_LiquidOnUpdateLiquid(On_Liquid.orig_UpdateLiquid orig)
-    {
-    }
-
-    private void On_LiquidOnUpdate(On_Liquid.orig_Update orig, Liquid self)
-    {
     }
 }
