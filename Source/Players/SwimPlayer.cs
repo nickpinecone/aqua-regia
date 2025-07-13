@@ -1,8 +1,10 @@
 using System;
 using AquaRegia.Library.Data;
+using AquaRegia.Library.Tween;
 using AquaRegia.World;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Players;
@@ -12,6 +14,9 @@ public class SwimPlayer : ModPlayer
     public Vector2 SwimVelocity { get; set; } = Vector2.Zero;
     public float SwimSpeed { get; set; } = 0.2f;
     public float MaxSwimSpeed { get; set; } = 6f;
+
+    public Tween<int> SwimTimer { get; } = new Tween<int>(60);
+    public int CurrentFrame { get; set; } = PlayerFrames.Idle;
 
     public override void Load()
     {
@@ -36,6 +41,37 @@ public class SwimPlayer : ModPlayer
         }
 
         ApplySwimVelocity();
+    }
+
+    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+    {
+        if (!UnderwaterSystem.IsUnderwater(Player.Center)) return;
+
+        drawInfo.rotation = MathHelper.Clamp(Player.velocity.X * 0.05f, -0.1f, 0.1f);
+
+        if (SwimTimer.Delay().Done)
+        {
+            SwimTimer.Restart();
+
+            CurrentFrame = CurrentFrame == PlayerFrames.Idle
+                ? PlayerFrames.Jump
+                : PlayerFrames.Idle;
+        }
+
+        if (SwimVelocity.Length() >= 0.01f)
+        {
+            Player.legFrame.Y = Player.legFrame.Height * CurrentFrame;
+        }
+
+        if (Player.bodyFrame.Y / Player.bodyFrame.Height
+            is not PlayerFrames.Use1
+            and not PlayerFrames.Use2
+            and not PlayerFrames.Use3
+            and not PlayerFrames.Use4
+           )
+        {
+            Player.bodyFrame.Y = Player.bodyFrame.Height * CurrentFrame;
+        }
     }
 
     private void DetermineOxygenConsumption()
