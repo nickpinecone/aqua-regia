@@ -6,14 +6,14 @@ using Terraria.ModLoader;
 
 namespace AquaRegia.Library.Modules;
 
-public abstract class BaseWeapon : ModItem, IComposite<IWeaponRuntime>
+public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
 {
     public Dictionary<Type, IModule> Modules => new();
-    public List<IWeaponRuntime> RuntimeModules => new();
+    public List<IItemRuntime> RuntimeModules => new();
 
-    public IComposite<IWeaponRuntime> Composite { get; init; }
+    public IComposite<IItemRuntime> Composite { get; init; }
 
-    protected BaseWeapon()
+    protected BaseItem()
     {
         Composite = this;
     }
@@ -88,22 +88,22 @@ public abstract class BaseWeapon : ModItem, IComposite<IWeaponRuntime>
     }
 }
 
-public interface IWeaponRuntime
+public interface IItemRuntime
 {
-    public void RuntimeSetStaticDefaults(BaseWeapon weapon)
+    public void RuntimeSetStaticDefaults(BaseItem item)
     {
     }
     
-    public void RuntimeModifyTooltips(BaseWeapon weapon, List<TooltipLine> tooltip)
+    public void RuntimeModifyTooltips(BaseItem item, List<TooltipLine> tooltip)
     {
     }
 
-    public Vector2? RuntimeHoldoutOffset(BaseWeapon weapon)
+    public Vector2? RuntimeHoldoutOffset(BaseItem item)
     {
         return null;
     }
     
-    public void RuntimeHoldItem(BaseWeapon weapon, Player player)
+    public void RuntimeHoldItem(BaseItem item, Player player)
     {
     }
 }

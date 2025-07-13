@@ -92,6 +92,12 @@ public class SwimPlayer : ModPlayer
         SwimVelocity = SwimVelocity.SafeNormalize(Vector2.Zero) * length;
         SwimVelocity = SwimVelocity.MoveTowards(Vector2.Zero, SwimSpeed / 2);
         Player.velocity = SwimVelocity;
+
+        // TODO need to think about items that alter these values, need to reset it somewhere
+        // ideally at the end or the start of all updates
+        // TODO also probably need separate Max Speed for vertical and horizontal
+        // too many items specifically for vertical movement
+        MaxSwimSpeed = 6f;
     }
 
     private static void On_PlayerOnKeyHoldDown(On_Player.orig_KeyHoldDown orig, Player self, int keyDir, int holdTime)

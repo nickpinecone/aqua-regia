@@ -18,3 +18,10 @@ World: {
 	FloodGenMessage: Flooding your world...
 	PlantIslandTreesGenMessage: Planting trees on a stranded island...
 }
+
+Items: {
+	SurfBoard: {
+		DisplayName: Surf Board
+		Tooltip: ""
+	}
+}
