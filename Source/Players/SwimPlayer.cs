@@ -32,6 +32,12 @@ public class SwimPlayer : ModPlayer
         DetermineOxygenConsumption();
     }
 
+    public bool HijackVerticalMovement { get; set; }
+
+    public delegate void PreUpdateMovementDelegate(SwimPlayer player);
+
+    public static event PreUpdateMovementDelegate? PreUpdateMovementEvent;
+
     public override void PreUpdateMovement()
     {
         if (!UnderwaterSystem.IsUnderwater(Player.Center))
@@ -39,6 +45,8 @@ public class SwimPlayer : ModPlayer
             SwimVelocity = Player.velocity;
             return;
         }
+
+        PreUpdateMovementEvent?.Invoke(this);
 
         ApplySwimVelocity();
     }
@@ -100,14 +108,16 @@ public class SwimPlayer : ModPlayer
         MaxSwimSpeed = 6f;
     }
 
+    public delegate void KeyHoldDownDelegate(SwimPlayer player, ref Vector2 velocity);
+    public static event KeyHoldDownDelegate? KeyHoldDownEvent;
     private static void On_PlayerOnKeyHoldDown(On_Player.orig_KeyHoldDown orig, Player self, int keyDir, int holdTime)
     {
         orig(self, keyDir, holdTime);
 
         if (!UnderwaterSystem.IsUnderwater(self.Center)) return;
-
         var swimPlayer = self.GetModPlayer<SwimPlayer>();
-        swimPlayer.SwimVelocity += keyDir switch
+
+        var velocity = keyDir switch
         {
             CardinalDirections.Down => new Vector2(0, swimPlayer.SwimSpeed),
             CardinalDirections.Up => new Vector2(0, -swimPlayer.SwimSpeed),
@@ -115,5 +125,8 @@ public class SwimPlayer : ModPlayer
             CardinalDirections.Left => new Vector2(-swimPlayer.SwimSpeed, 0),
             _ => Vector2.Zero
         };
+
+        KeyHoldDownEvent?.Invoke(swimPlayer, ref velocity);
+        swimPlayer.SwimVelocity += velocity;
     }
 }
