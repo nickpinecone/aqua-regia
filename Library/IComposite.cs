@@ -4,10 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AquaRegia.Library;
 
-public interface IModule
-{
-}
-
 public interface IComposite<TRuntime>
 {
     protected Dictionary<Type, IModule> Modules { get; }

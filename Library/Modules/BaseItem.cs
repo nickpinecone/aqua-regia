@@ -42,7 +42,7 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
     public override void SetStaticDefaults()
     {
         base.SetStaticDefaults();
-        
+
         foreach (var module in RuntimeModules)
         {
             module.RuntimeSetStaticDefaults(this);
@@ -80,30 +80,10 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
     public override void HoldItem(Player player)
     {
         base.HoldItem(player);
-        
+
         foreach (var module in RuntimeModules)
         {
             module.RuntimeHoldItem(this, player);
         }
-    }
-}
-
-public interface IItemRuntime
-{
-    public void RuntimeSetStaticDefaults(BaseItem item)
-    {
-    }
-    
-    public void RuntimeModifyTooltips(BaseItem item, List<TooltipLine> tooltip)
-    {
-    }
-
-    public Vector2? RuntimeHoldoutOffset(BaseItem item)
-    {
-        return null;
-    }
-    
-    public void RuntimeHoldItem(BaseItem item, Player player)
-    {
     }
 }

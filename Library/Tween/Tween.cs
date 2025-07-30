@@ -2,6 +2,8 @@ using System;
 
 namespace AquaRegia.Library.Tween;
 
+// TODO needs a little rewrite, i have a better idea for it
+// Maybe make a separate library
 public class Tween<T>
 {
     public bool Done { get; private set; }

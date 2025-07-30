@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 
 namespace AquaRegia.Library.Modules;
 
+// TODO Maybe remake this to IComposite as well
+// Just for future proofing
 public abstract class BaseAmmo : ModItem
 {
     protected void SetProperties(int damage = 0, float knockBack = 0f, int rarity = 0, int sellPrice = 0,

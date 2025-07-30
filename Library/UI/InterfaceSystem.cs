@@ -7,6 +7,8 @@ using Terraria.UI;
 
 namespace AquaRegia.Library.UI;
 
+// TODO think about this some more
+// Need a robust system for manipulating progress bars
 public interface IProgressState
 {
     public HStack BoxContainer { get; set; }
