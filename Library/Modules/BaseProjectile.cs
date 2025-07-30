@@ -9,8 +9,8 @@ namespace AquaRegia.Library.Modules;
 
 public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRuntime>
 {
-    public Dictionary<Type, IModule> Modules => [];
-    public List<IProjectileRuntime> RuntimeModules => [];
+    public Dictionary<Type, IModule> Modules { get; } = [];
+    public List<IProjectileRuntime> RuntimeModules { get; } = [];
 
     public IComposite<IProjectileRuntime> Composite { get; init; }
     public Player Owner => Main.player[Projectile.owner];

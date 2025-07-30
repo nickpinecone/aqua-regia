@@ -8,8 +8,8 @@ namespace AquaRegia.Library.Modules;
 
 public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
 {
-    public Dictionary<Type, IModule> Modules => new();
-    public List<IItemRuntime> RuntimeModules => new();
+    public Dictionary<Type, IModule> Modules { get; } = [];
+    public List<IItemRuntime> RuntimeModules { get; } = [];
 
     public IComposite<IItemRuntime> Composite { get; init; }
 
