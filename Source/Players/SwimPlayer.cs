@@ -32,8 +32,6 @@ public class SwimPlayer : ModPlayer
         DetermineOxygenConsumption();
     }
 
-    public bool HijackVerticalMovement { get; set; }
-
     public delegate void PreUpdateMovementDelegate(SwimPlayer player);
 
     public static event PreUpdateMovementDelegate? PreUpdateMovementEvent;
@@ -47,6 +45,8 @@ public class SwimPlayer : ModPlayer
         }
 
         PreUpdateMovementEvent?.Invoke(this);
+        // Simulate holding surf-board
+        // SwimVelocity += new Vector2(0, -SwimSpeed);
 
         ApplySwimVelocity();
     }
@@ -109,7 +109,9 @@ public class SwimPlayer : ModPlayer
     }
 
     public delegate void KeyHoldDownDelegate(SwimPlayer player, ref Vector2 velocity);
+
     public static event KeyHoldDownDelegate? KeyHoldDownEvent;
+
     private static void On_PlayerOnKeyHoldDown(On_Player.orig_KeyHoldDown orig, Player self, int keyDir, int holdTime)
     {
         orig(self, keyDir, holdTime);

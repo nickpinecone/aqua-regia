@@ -24,6 +24,22 @@ public class SurfBoard : BaseItem
         Composite.AddModule(Property);
     }
 
+    public override void Load()
+    {
+        base.Load();
+
+        SwimPlayer.PreUpdateMovementEvent += SwimPlayerOnPreUpdateMovementEvent;
+        SwimPlayer.KeyHoldDownEvent += SwimPlayerOnKeyHoldDownEvent;
+    }
+
+    public override void Unload()
+    {
+        base.Unload();
+
+        SwimPlayer.PreUpdateMovementEvent -= SwimPlayerOnPreUpdateMovementEvent;
+        SwimPlayer.KeyHoldDownEvent -= SwimPlayerOnKeyHoldDownEvent;
+    }
+
     public override void SetDefaults()
     {
         // TODO Kinda like that
@@ -35,9 +51,6 @@ public class SurfBoard : BaseItem
         Item.maxStack = 1;
         Item.value = 100;
         Item.rare = ItemRarityID.Blue;
-
-        SwimPlayer.PreUpdateMovementEvent += SwimPlayerOnPreUpdateMovementEvent;
-        SwimPlayer.KeyHoldDownEvent += SwimPlayerOnKeyHoldDownEvent;
     }
 
     private void SwimPlayerOnKeyHoldDownEvent(SwimPlayer player, ref Vector2 velocity)
@@ -45,7 +58,7 @@ public class SurfBoard : BaseItem
         // Hijack vertical movement
         if (player.Player.HeldItem.ModItem is SurfBoard surfBoard)
         {
-            // velocity = new Vector2(velocity.X, 0);
+            velocity = new Vector2(velocity.X, 0);
         }
     }
 
