@@ -1,9 +1,9 @@
 namespace AquaRegia.Library.Data;
 
-public static class CardinalDirections
+public enum CardinalDirections
 {
-    public const int Down = 0;
-    public const int Up = 1;
-    public const int Right = 2;
-    public const int Left = 3;
+    Down = 0,
+    Up = 1,
+    Right = 2,
+    Left = 3,
 }

@@ -1,5 +1,4 @@
-using System;
-using AquaRegia.Library.Helpers;
+using AquaRegia.Library.Global;
 using AquaRegia.Library.Modules;
 using AquaRegia.Library.Modules.Items;
 using AquaRegia.Players;
@@ -28,6 +27,7 @@ public class SurfBoard : BaseItem
     {
         base.Load();
 
+        PlayerGlobal.PostUpdateRunSpeedsEvent += PlayerGlobalOnPostUpdateRunSpeedsEvent;
         SwimPlayer.PreUpdateMovementEvent += SwimPlayerOnPreUpdateMovementEvent;
         SwimPlayer.KeyHoldDownEvent += SwimPlayerOnKeyHoldDownEvent;
     }
@@ -36,6 +36,7 @@ public class SurfBoard : BaseItem
     {
         base.Unload();
 
+        PlayerGlobal.PostUpdateRunSpeedsEvent -= PlayerGlobalOnPostUpdateRunSpeedsEvent;
         SwimPlayer.PreUpdateMovementEvent -= SwimPlayerOnPreUpdateMovementEvent;
         SwimPlayer.KeyHoldDownEvent -= SwimPlayerOnKeyHoldDownEvent;
     }
@@ -51,6 +52,16 @@ public class SurfBoard : BaseItem
         Item.maxStack = 1;
         Item.value = 100;
         Item.rare = ItemRarityID.Blue;
+    }
+
+    private void PlayerGlobalOnPostUpdateRunSpeedsEvent(Player player)
+    {
+        var boardPlayer = player.GetModPlayer<SurfBoardPlayer>();
+
+        if (player.HeldItem.ModItem is SurfBoard surfBoard && boardPlayer.IsBoarding)
+        {
+            player.maxRunSpeed *= 1.5f;
+        }
     }
 
     private void SwimPlayerOnKeyHoldDownEvent(SwimPlayer player, ref Vector2 velocity)
@@ -77,19 +88,18 @@ public class SurfBoard : BaseItem
     {
         base.HoldItem(player);
 
-        // var swimPlayer = player.GetModPlayer<SwimPlayer>();
-        //
-        // // TODO need to think about this, right now im fried
-        // if (UnderwaterSystem.IsUnderwater(player.Bottom))
-        // {
-        //     if (player.velocity.Y >= 0f)
-        //         player.velocity = new Vector2(player.velocity.X, -player.gravity);
-        //
-        //     // TODO hooks on players GlobalItem event style
-        //     player.maxRunSpeed *= 1.5f;
-        //
-        //     swimPlayer.SwimVelocity += new Vector2(0, -swimPlayer.SwimSpeed - 0.1f);
-        //     swimPlayer.MaxSwimSpeed = 12f;
-        // }
+        var boardPlayer = player.GetModPlayer<SurfBoardPlayer>();
+        boardPlayer.IsBoarding = false;
+
+        if (
+            UnderwaterSystem.IsUnderwater(player.Bottom) &&
+            !UnderwaterSystem.IsUnderwater(player.Center) &&
+            player.velocity.Y >= 0f && player.velocity.Y <= 1f
+        )
+        {
+            boardPlayer.IsBoarding = true;
+            player.Bottom = new Vector2(player.Bottom.X, (float)(UnderwaterSystem.TileSeaLevel * 16) + 8);
+            player.velocity = new Vector2(player.velocity.X, 0);
+        }
     }
 }

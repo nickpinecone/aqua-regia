@@ -1,5 +1,6 @@
 using System;
 using AquaRegia.Library.Data;
+using AquaRegia.Library.Extended.Extensions;
 using AquaRegia.Library.Tween;
 using AquaRegia.World;
 using Microsoft.Xna.Framework;
@@ -16,7 +17,7 @@ public class SwimPlayer : ModPlayer
     public float MaxSwimSpeed { get; set; } = 6f;
 
     public Tween<int> SwimTimer { get; } = new Tween<int>(60);
-    public int CurrentFrame { get; set; } = PlayerFrames.Idle;
+    public PlayerFrames CurrentFrame { get; set; } = PlayerFrames.Idle;
 
     public override void Load()
     {
@@ -45,8 +46,6 @@ public class SwimPlayer : ModPlayer
         }
 
         PreUpdateMovementEvent?.Invoke(this);
-        // Simulate holding surf-board
-        // SwimVelocity += new Vector2(0, -SwimSpeed);
 
         ApplySwimVelocity();
     }
@@ -68,17 +67,18 @@ public class SwimPlayer : ModPlayer
 
         if (SwimVelocity.Length() >= 0.01f)
         {
-            Player.legFrame.Y = Player.legFrame.Height * CurrentFrame;
+            Player.SetLegFrame(CurrentFrame);
         }
 
-        if (Player.bodyFrame.Y / Player.bodyFrame.Height
+        if (
+            Player.GetBodyFrame()
             is not PlayerFrames.Use1
             and not PlayerFrames.Use2
             and not PlayerFrames.Use3
             and not PlayerFrames.Use4
-           )
+        )
         {
-            Player.bodyFrame.Y = Player.bodyFrame.Height * CurrentFrame;
+            Player.SetBodyFrame(CurrentFrame);
         }
     }
 
@@ -98,8 +98,8 @@ public class SwimPlayer : ModPlayer
         length = Math.Min(length, MaxSwimSpeed);
 
         SwimVelocity = SwimVelocity.SafeNormalize(Vector2.Zero) * length;
-        SwimVelocity = SwimVelocity.MoveTowards(Vector2.Zero, SwimSpeed / 2);
         Player.velocity = SwimVelocity;
+        SwimVelocity = SwimVelocity.MoveTowards(Vector2.Zero, SwimSpeed / 2);
 
         // TODO need to think about items that alter these values, need to reset it somewhere
         // ideally at the end or the start of all updates
@@ -121,10 +121,10 @@ public class SwimPlayer : ModPlayer
 
         var velocity = keyDir switch
         {
-            CardinalDirections.Down => new Vector2(0, swimPlayer.SwimSpeed),
-            CardinalDirections.Up => new Vector2(0, -swimPlayer.SwimSpeed),
-            CardinalDirections.Right => new Vector2(swimPlayer.SwimSpeed, 0),
-            CardinalDirections.Left => new Vector2(-swimPlayer.SwimSpeed, 0),
+            (int)CardinalDirections.Down => new Vector2(0, swimPlayer.SwimSpeed),
+            (int)CardinalDirections.Up => new Vector2(0, -swimPlayer.SwimSpeed),
+            (int)CardinalDirections.Right => new Vector2(swimPlayer.SwimSpeed, 0),
+            (int)CardinalDirections.Left => new Vector2(-swimPlayer.SwimSpeed, 0),
             _ => Vector2.Zero
         };
 
