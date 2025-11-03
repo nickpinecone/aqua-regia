@@ -64,7 +64,7 @@ public class SurfBoard : BaseItem
     {
         var boardPlayer = player.GetModPlayer<SurfBoardPlayer>();
 
-        if (player.HeldItem.ModItem is SurfBoard surfBoard && boardPlayer.IsBoarding)
+        if (player.HeldItem.ModItem is SurfBoard surfBoard && boardPlayer.IsSurfing)
         {
             player.maxRunSpeed *= 1.25f;
         }
@@ -94,7 +94,7 @@ public class SurfBoard : BaseItem
         base.HoldItem(player);
 
         var boardPlayer = player.GetModPlayer<SurfBoardPlayer>();
-        boardPlayer.IsBoarding = false;
+        boardPlayer.IsSurfing = false;
 
         if (
             UnderwaterSystem.IsUnderwater(player.Bottom) &&
@@ -102,7 +102,7 @@ public class SurfBoard : BaseItem
             player.velocity.Y >= 0f && player.velocity.Y <= 1f
         )
         {
-            boardPlayer.IsBoarding = true;
+            boardPlayer.IsSurfing = true;
             player.Bottom = new Vector2(player.Bottom.X, (float)(UnderwaterSystem.TileSeaLevel * 16) + 8);
             player.velocity = new Vector2(player.velocity.X, 0);
         }

@@ -1,6 +1,6 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Extensions;
-using AquaRegia.Library.Extended.Modules.Items;
+using AquaRegia.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -22,18 +22,20 @@ public class SurfBoardDrawLayer : PlayerDrawLayer
 
         if (drawInfo.drawPlayer.HeldItem.ModItem is not SurfBoard surfBoard)
         {
-            boardPlayer.IsBoarding = false;
+            boardPlayer.IsSurfing = false;
             return;
         }
 
-        if (boardPlayer.IsBoarding)
+        if (boardPlayer.IsSurfing || UnderwaterSystem.IsUnderwater(boardPlayer.Player.Center))
         {
             var texture = ModContent.Request<Texture2D>(
                 Assets.Sprites + "SurfBoard",
                 ReLogic.Content.AssetRequestMode.ImmediateLoad
             ).Value;
 
-            var position = (drawInfo.drawPlayer.Bottom - Main.screenPosition).ToVector2I();
+            var position = ((boardPlayer.IsSurfing
+                ? drawInfo.drawPlayer.Bottom
+                : (drawInfo.drawPlayer.Top + new Vector2(0, -2))) - Main.screenPosition).ToVector2I();
 
             var drawData = new DrawData(
                 texture,

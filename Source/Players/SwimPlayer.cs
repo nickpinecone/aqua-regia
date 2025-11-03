@@ -30,6 +30,17 @@ public class SwimPlayer : ModPlayer
         On_Player.KeyHoldDown += On_PlayerOnKeyHoldDown;
     }
 
+    public override void Unload()
+    {
+        base.Unload();
+
+        On_Player.KeyHoldDown -= On_PlayerOnKeyHoldDown;
+
+        CanModifyDrawInfoEvent = null;
+        PreUpdateMovementEvent = null;
+        KeyHoldDownEvent = null;
+    }
+
     public override void PostUpdateEquips()
     {
         if (!UnderwaterSystem.IsUnderwater(Player.Center)) return;
@@ -54,9 +65,27 @@ public class SwimPlayer : ModPlayer
         ApplySwimVelocity();
     }
 
+
+    public delegate bool CanModifyDrawInfoDelegate(PlayerDrawSet drawInfo);
+
+    public static event CanModifyDrawInfoDelegate? CanModifyDrawInfoEvent;
+
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
         if (!UnderwaterSystem.IsUnderwater(Player.Center)) return;
+
+        if (CanModifyDrawInfoEvent is not null)
+        {
+            var result = true;
+
+            foreach (var @delegate in CanModifyDrawInfoEvent.GetInvocationList())
+            {
+                var del = (CanModifyDrawInfoDelegate)@delegate;
+                result &= del(drawInfo);
+            }
+
+            if (!result) return;
+        }
 
         drawInfo.rotation = MathHelper.Clamp(Player.velocity.X * 0.05f, -0.1f, 0.1f);
 
