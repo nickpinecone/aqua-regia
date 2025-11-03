@@ -12,9 +12,13 @@ namespace AquaRegia.Players;
 
 public class SwimPlayer : ModPlayer
 {
+    public const float DefaultSwimSpeed = 0.2f;
+    public const float DefaultMaxSwimSpeed = 6f;
+
     public Vector2 SwimVelocity { get; set; } = Vector2.Zero;
-    public float SwimSpeed { get; set; } = 0.2f;
-    public float MaxSwimSpeed { get; set; } = 6f;
+    public float SwimSpeedX { get; set; } = DefaultSwimSpeed;
+    public float SwimSpeed { get; set; } = DefaultSwimSpeed;
+    public float MaxSwimSpeed { get; set; } = DefaultMaxSwimSpeed;
 
     public Tween<int> SwimTimer { get; } = TweenManager.Create<int>(60);
     public PlayerFrames CurrentFrame { get; set; } = PlayerFrames.Idle;
@@ -101,11 +105,8 @@ public class SwimPlayer : ModPlayer
         Player.velocity = SwimVelocity;
         SwimVelocity = SwimVelocity.MoveTowards(Vector2.Zero, SwimSpeed / 2);
 
-        // TODO need to think about items that alter these values, need to reset it somewhere
-        // ideally at the end or the start of all updates
-        // TODO also probably need separate Max Speed for vertical and horizontal
-        // too many items specifically for vertical movement
-        MaxSwimSpeed = 6f;
+        SwimSpeed = DefaultSwimSpeed;
+        MaxSwimSpeed = DefaultMaxSwimSpeed;
     }
 
     public delegate void KeyHoldDownDelegate(SwimPlayer player, ref Vector2 velocity);
@@ -123,12 +124,13 @@ public class SwimPlayer : ModPlayer
         {
             (int)CardinalDirections.Down => new Vector2(0, swimPlayer.SwimSpeed),
             (int)CardinalDirections.Up => new Vector2(0, -swimPlayer.SwimSpeed),
-            (int)CardinalDirections.Right => new Vector2(swimPlayer.SwimSpeed, 0),
-            (int)CardinalDirections.Left => new Vector2(-swimPlayer.SwimSpeed, 0),
+            (int)CardinalDirections.Right => new Vector2(swimPlayer.SwimSpeedX, 0),
+            (int)CardinalDirections.Left => new Vector2(-swimPlayer.SwimSpeedX, 0),
             _ => Vector2.Zero
         };
 
         KeyHoldDownEvent?.Invoke(swimPlayer, ref velocity);
         swimPlayer.SwimVelocity += velocity;
+        swimPlayer.SwimSpeedX = DefaultSwimSpeed;
     }
 }

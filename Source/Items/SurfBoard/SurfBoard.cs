@@ -18,9 +18,8 @@ public class SurfBoard : BaseItem
 
     public SurfBoard()
     {
-        // TODO dont know if we should have the parent on all modules, or just on ones that need it
-        // i kinda like pure modules, but sometimes it's annoying
         Property = new PropertyModule(this);
+
         Composite.AddModule(Property);
     }
 
@@ -44,15 +43,21 @@ public class SurfBoard : BaseItem
 
     public override void SetDefaults()
     {
-        // TODO Kinda like that
-        // Property
-        //     .Size(28, 18)
-        //     .Rarity(ItemRarityID.Blue);
-        Item.width = 28;
-        Item.height = 18;
-        Item.maxStack = 1;
-        Item.value = 100;
-        Item.rare = ItemRarityID.Blue;
+        Property
+            .Size(28, 28)
+            .MaxStack(1)
+            .Price(Item.sellPrice(copper: 50))
+            .Rarity(ItemRarityID.White);
+    }
+
+    public override void AddRecipes()
+    {
+        base.AddRecipes();
+
+        CreateRecipe()
+            .AddIngredient(ItemID.Wood, 20)
+            .AddTile(TileID.WorkBenches)
+            .Register();
     }
 
     private void PlayerGlobalOnPostUpdateRunSpeedsEvent(Player player)
@@ -61,7 +66,7 @@ public class SurfBoard : BaseItem
 
         if (player.HeldItem.ModItem is SurfBoard surfBoard && boardPlayer.IsBoarding)
         {
-            player.maxRunSpeed *= 1.5f;
+            player.maxRunSpeed *= 1.25f;
         }
     }
 
@@ -74,14 +79,13 @@ public class SurfBoard : BaseItem
         }
     }
 
-    // TODO So that works as well, kinda nice, no need to guess what executes where
-    // only problem is, no way to access item's state
     private static void SwimPlayerOnPreUpdateMovementEvent(SwimPlayer player)
     {
         if (player.Player.HeldItem.ModItem is SurfBoard surfBoard)
         {
-            // player.MaxSwimSpeed = 12f;
-            player.SwimVelocity += new Vector2(0, -player.SwimSpeed);
+            player.MaxSwimSpeed = 8f;
+            player.SwimSpeedX = SwimPlayer.DefaultSwimSpeed / 4;
+            player.SwimVelocity += new Vector2(0, -SwimPlayer.DefaultSwimSpeed);
         }
     }
 
