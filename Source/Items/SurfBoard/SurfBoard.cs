@@ -1,3 +1,4 @@
+using AquaRegia.Library;
 using AquaRegia.Library.Global;
 using AquaRegia.Library.Modules;
 using AquaRegia.Library.Modules.Items;
@@ -11,7 +12,7 @@ namespace AquaRegia.Items.SurfBoard;
 
 public class SurfBoard : BaseItem
 {
-    public override string Texture => "AquaRegia/Assets/Sprites/SurfBoard";
+    public override string Texture => Assets.Sprites + "SurfBoard";
 
     public PropertyModule Property { get; }
 

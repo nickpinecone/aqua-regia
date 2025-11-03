@@ -5,6 +5,11 @@ namespace AquaRegia.Library.Extensions;
 
 public static class VectorExtensions
 {
+    public static Vector2 ToVector2I(this Vector2 vec)
+    {
+        return new Vector2((int)vec.X, (int)vec.Y);
+    }
+
     public static float AngleBetween(this Vector2 u, Vector2 v)
     {
         var dot = u.X * v.X + u.Y * v.Y;
@@ -16,7 +21,7 @@ public static class VectorExtensions
     public static float AngleOne(this Vector2 u, Vector2 v)
     {
         var angle = u.AngleBetween(v);
-        
+
         if (angle <= 0)
         {
             angle = MathHelper.TwoPi + angle;
