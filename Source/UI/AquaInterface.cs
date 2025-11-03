@@ -1,4 +1,4 @@
-using AquaRegia.Library.UI;
+using AquaRegia.Library.Extended.UI;
 using Terraria.ModLoader;
 using Terraria.UI;
 

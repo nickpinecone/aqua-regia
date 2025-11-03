@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Modules;
+namespace AquaRegia.Library.Extended.Modules;
 
 public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRuntime>
 {

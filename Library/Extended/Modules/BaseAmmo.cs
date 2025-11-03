@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Modules;
+namespace AquaRegia.Library.Extended.Modules;
 
 // TODO Maybe remake this to IComposite as well
 // Just for future proofing

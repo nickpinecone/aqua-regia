@@ -1,4 +1,4 @@
-using AquaRegia.Library.Global;
+using AquaRegia.Library.Extended.Global;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;

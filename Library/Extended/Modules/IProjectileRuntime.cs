@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 
-namespace AquaRegia.Library.Modules;
+namespace AquaRegia.Library.Extended.Modules;
 
 public interface IProjectileRuntime
 {

@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.DataStructures;
 
-namespace AquaRegia.Library.Modules.Sources;
+namespace AquaRegia.Library.Extended.Modules.Sources;
 
 public class ProjectileSource : IEntitySource
 {

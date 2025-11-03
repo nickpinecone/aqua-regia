@@ -1,8 +1,7 @@
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Modules.Projectiles;
+namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
 public class DataModule<TSource, TPlayer> : IModule, IProjectileRuntime
     where TSource : IEntitySource

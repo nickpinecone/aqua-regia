@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AquaRegia.Library;
+namespace AquaRegia.Library.Extended;
 
 public interface IComposite<TRuntime>
 {

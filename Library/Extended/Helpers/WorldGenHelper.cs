@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.WorldBuilding;
 
-namespace AquaRegia.Library.Helpers;
+namespace AquaRegia.Library.Extended.Helpers;
 
 public static class WorldGenHelper
 {

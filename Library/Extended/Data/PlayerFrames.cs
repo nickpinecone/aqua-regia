@@ -1,4 +1,4 @@
-namespace AquaRegia.Library.Data;
+namespace AquaRegia.Library.Extended.Data;
 
 public enum PlayerFrames
 {

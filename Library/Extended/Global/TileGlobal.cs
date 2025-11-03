@@ -1,6 +1,6 @@
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Global;
+namespace AquaRegia.Library.Extended.Global;
 
 public class TileGlobal : GlobalTile
 {

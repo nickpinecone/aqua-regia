@@ -1,6 +1,4 @@
-using Terraria.ID;
-
-namespace AquaRegia.Library.Modules.Items;
+namespace AquaRegia.Library.Extended.Modules.Items;
 
 public class PropertyModule : IModule
 {

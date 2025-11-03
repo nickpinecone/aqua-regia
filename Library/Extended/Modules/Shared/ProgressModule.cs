@@ -1,11 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
+using AquaRegia.Library.Extended.UI;
 using AquaRegia.Library.Tween;
-using AquaRegia.Library.UI;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace AquaRegia.Library.Modules.Shared;
+namespace AquaRegia.Library.Extended.Modules.Shared;
 
 public class ProgressModule<TState> : IModule
     where TState : UIState, IProgressState

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace AquaRegia.Library.Helpers;
+namespace AquaRegia.Library.Extended.Helpers;
 
 public static class TileHelper
 {

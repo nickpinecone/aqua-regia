@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AquaRegia.Library.Helpers;
+using AquaRegia.Library.Extended.Helpers;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 

@@ -1,6 +1,5 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Extensions;
-using AquaRegia.Library.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;

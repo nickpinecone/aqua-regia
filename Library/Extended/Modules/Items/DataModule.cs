@@ -1,8 +1,7 @@
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Modules.Items;
+namespace AquaRegia.Library.Extended.Modules.Items;
 
 // TODO seems like there's no reason for this to exist
 // either make it more useful somehow, or remove it entirely

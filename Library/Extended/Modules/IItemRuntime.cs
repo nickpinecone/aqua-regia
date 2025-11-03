@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Modules;
+namespace AquaRegia.Library.Extended.Modules;
 
 public interface IItemRuntime
 {

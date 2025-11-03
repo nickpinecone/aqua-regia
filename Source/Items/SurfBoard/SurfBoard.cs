@@ -1,7 +1,7 @@
 using AquaRegia.Library;
-using AquaRegia.Library.Global;
-using AquaRegia.Library.Modules;
-using AquaRegia.Library.Modules.Items;
+using AquaRegia.Library.Extended.Global;
+using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Items;
 using AquaRegia.Players;
 using AquaRegia.World;
 using Microsoft.Xna.Framework;

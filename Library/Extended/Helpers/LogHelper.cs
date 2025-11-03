@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Helpers;
+namespace AquaRegia.Library.Extended.Helpers;
 
 public static class LogHelper
 {

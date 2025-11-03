@@ -1,9 +1,9 @@
-using AquaRegia.Library.Helpers;
+using AquaRegia.Library.Extended.Helpers;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Localization;
 
-namespace AquaRegia.Library.Conditions;
+namespace AquaRegia.Library.Extended.Conditions;
 
 public class DownedEvilCondition : IItemDropRuleCondition
 {

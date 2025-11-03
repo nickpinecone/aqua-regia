@@ -1,5 +1,5 @@
 using System;
-using AquaRegia.Library.Helpers;
+using AquaRegia.Library.Extended.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;

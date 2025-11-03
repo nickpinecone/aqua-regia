@@ -1,5 +1,5 @@
 using System;
-using AquaRegia.Library.Data;
+using AquaRegia.Library.Extended.Data;
 using AquaRegia.Library.Extended.Extensions;
 using AquaRegia.Library.Tween;
 using AquaRegia.World;
@@ -16,7 +16,7 @@ public class SwimPlayer : ModPlayer
     public float SwimSpeed { get; set; } = 0.2f;
     public float MaxSwimSpeed { get; set; } = 6f;
 
-    public Tween<int> SwimTimer { get; } = new Tween<int>(60);
+    public Tween<int> SwimTimer { get; } = TweenManager.Create<int>(60);
     public PlayerFrames CurrentFrame { get; set; } = PlayerFrames.Idle;
 
     public override void Load()

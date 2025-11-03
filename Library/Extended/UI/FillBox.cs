@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.UI;
 
-namespace AquaRegia.Library.UI;
+namespace AquaRegia.Library.Extended.UI;
 
 public class FillBox : UIElement
 {

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using AquaRegia.Config;
+using AquaRegia.Library.Extended.Extensions;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using AquaRegia.Library.Extensions;
 
-namespace AquaRegia.Library.Helpers;
+namespace AquaRegia.Library.Extended.Helpers;
 
 // DustID does not have these
 public static class DustExID

@@ -1,4 +1,4 @@
-using AquaRegia.Library.Data;
+using AquaRegia.Library.Extended.Data;
 using AquaRegia.Library.Extended.Extensions;
 using Microsoft.Xna.Framework;
 using Terraria;

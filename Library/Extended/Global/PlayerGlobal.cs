@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Global;
+namespace AquaRegia.Library.Extended.Global;
 
 // TODO Something like this, can extend
 // maybe, dont know if we even need that

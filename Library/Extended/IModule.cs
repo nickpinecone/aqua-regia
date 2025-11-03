@@ -1,4 +1,4 @@
-namespace AquaRegia.Library;
+namespace AquaRegia.Library.Extended;
 
 public interface IModule
 {

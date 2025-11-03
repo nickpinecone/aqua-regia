@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria.UI;
 
-namespace AquaRegia.Library.UI;
+namespace AquaRegia.Library.Extended.UI;
 
 public class HStack : UIElement
 {

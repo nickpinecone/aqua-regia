@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace AquaRegia.Library.Extensions;
+namespace AquaRegia.Library.Extended.Extensions;
 
 public static class VectorExtensions
 {

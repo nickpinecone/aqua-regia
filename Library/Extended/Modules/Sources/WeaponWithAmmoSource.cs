@@ -1,7 +1,7 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Modules.Sources;
+namespace AquaRegia.Library.Extended.Modules.Sources;
 
 public class WeaponWithAmmoSource : IEntitySource
 {

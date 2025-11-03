@@ -2,9 +2,7 @@ using System;
 
 namespace AquaRegia.Library.Tween;
 
-// TODO needs a little rewrite, i have a better idea for it
-// Maybe make a separate library
-public class Tween<T>
+public abstract class Tween<T>
 {
     public bool Done { get; private set; }
     public bool Paused { get; set; }
@@ -53,7 +51,7 @@ public class Tween<T>
     public Tween<T> Transition(T start, T end, bool capture = false)
     {
         if (Paused) return this;
-        
+
         switch (capture)
         {
             case true when Start is null:
@@ -70,25 +68,27 @@ public class Tween<T>
 
         return Delay();
     }
-    
+
+    protected abstract T Transition(T start, T end, float percent);
+
     public Tween<T> OnTransition(Func<float, float> ease, Action<T> action)
     {
         if (Paused) return this;
-        
+
         ArgumentNullException.ThrowIfNull(Start);
         ArgumentNullException.ThrowIfNull(End);
-        
+
         var percent = Current / (float)Duration;
-        
-        action(TransitionFactory.Transition<T>(Start, End, ease(percent)));
-        
+
+        action(Transition(Start, End, ease(percent)));
+
         return this;
     }
 
     public Tween<T> OnTransition(Action<T> action)
     {
-        var ease = Ease.Linear;
-        
+        var ease = Ease.Ease.Linear;
+
         return OnTransition(ease, action);
     }
 

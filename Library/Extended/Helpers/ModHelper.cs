@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Helpers;
+namespace AquaRegia.Library.Extended.Helpers;
 
 public static class ModHelper
 {

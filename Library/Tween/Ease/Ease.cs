@@ -1,6 +1,6 @@
 using System;
 
-namespace AquaRegia.Library.Tween;
+namespace AquaRegia.Library.Tween.Ease;
 
 public static class Ease
 {

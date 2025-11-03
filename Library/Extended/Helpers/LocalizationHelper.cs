@@ -1,6 +1,6 @@
 using Terraria.Localization;
 
-namespace AquaRegia.Library.Helpers;
+namespace AquaRegia.Library.Extended.Helpers;
 
 public static class LocalizationHelper
 {

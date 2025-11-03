@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AquaRegia.Library;
+namespace AquaRegia.Library.Extended;
 
 public interface IState<T>
     where T : Enum

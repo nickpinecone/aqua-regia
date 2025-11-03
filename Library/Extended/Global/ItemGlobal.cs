@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace AquaRegia.Library.Global;
+namespace AquaRegia.Library.Extended.Global;
 
 public class ItemGlobal : GlobalItem
 {

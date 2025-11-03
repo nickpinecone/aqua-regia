@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AquaRegia.Library.Global;
+using AquaRegia.Library.Extended.Global;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

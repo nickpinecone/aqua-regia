@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Terraria;
 
-namespace AquaRegia.Library.Extensions;
+namespace AquaRegia.Library.Extended.Extensions;
 
 public static class CollectionExtensions
 {
