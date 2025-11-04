@@ -13,7 +13,7 @@ public class SurfBoardDrawLayer : PlayerDrawLayer
 {
     public override Position GetDefaultPosition()
     {
-        return PlayerDrawLayers.BeforeFirstVanillaLayer;
+        return PlayerDrawLayers.AfterLastVanillaLayer;
     }
 
     protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -29,7 +29,7 @@ public class SurfBoardDrawLayer : PlayerDrawLayer
         if (boardPlayer.IsSurfing || UnderwaterSystem.IsUnderwater(boardPlayer.Player.Center))
         {
             var texture = ModContent.Request<Texture2D>(
-                Assets.Sprites + "SurfBoard",
+                Assets.Items + nameof(SurfBoard),
                 ReLogic.Content.AssetRequestMode.ImmediateLoad
             ).Value;
 
@@ -49,7 +49,14 @@ public class SurfBoardDrawLayer : PlayerDrawLayer
                 0
             );
 
-            drawInfo.DrawDataCache.Add(drawData);
+            if (boardPlayer.IsSurfing)
+            {
+                drawInfo.DrawDataCache.Insert(0, drawData);
+            }
+            else
+            {
+                drawInfo.DrawDataCache.Add(drawData);
+            }
         }
     }
 }

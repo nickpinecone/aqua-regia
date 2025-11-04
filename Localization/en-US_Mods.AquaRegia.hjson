@@ -22,6 +22,6 @@ World: {
 Items: {
 	SurfBoard: {
 		DisplayName: Surf Board
-		Tooltip: ""
+		Tooltip: Lets you surf, also propels you up when in water
 	}
 }

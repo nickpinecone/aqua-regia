@@ -12,7 +12,7 @@ namespace AquaRegia.Items.SurfBoard;
 
 public class SurfBoard : BaseItem
 {
-    public override string Texture => Assets.Sprites + "SurfBoard";
+    public override string Texture => Assets.Items + nameof(SurfBoard);
 
     public PropertyModule Property { get; }
 

@@ -17,7 +17,7 @@ public class SwimPlayer : ModPlayer
 
     public Vector2 SwimVelocity { get; set; } = Vector2.Zero;
     public float SwimSpeedX { get; set; } = DefaultSwimSpeed;
-    public float SwimSpeed { get; set; } = DefaultSwimSpeed;
+    public float SwimSpeedY { get; set; } = DefaultSwimSpeed;
     public float MaxSwimSpeed { get; set; } = DefaultMaxSwimSpeed;
 
     public Tween<int> SwimTimer { get; } = TweenManager.Create<int>(60);
@@ -46,6 +46,16 @@ public class SwimPlayer : ModPlayer
         if (!UnderwaterSystem.IsUnderwater(Player.Center)) return;
 
         DetermineOxygenConsumption();
+    }
+
+    private void DetermineOxygenConsumption()
+    {
+        var depth = 1f - (Main.LocalPlayer.Center.ToTileCoordinates().Y - UnderwaterSystem.TileSeaLevel) /
+            LightingSystem.TileDepth;
+
+        depth = MathHelper.Clamp((float)depth, -0.5f, 1f);
+
+        Player.breathEffectiveness += (float)depth;
     }
 
     public delegate void PreUpdateMovementDelegate(SwimPlayer player);
@@ -115,16 +125,6 @@ public class SwimPlayer : ModPlayer
         }
     }
 
-    private void DetermineOxygenConsumption()
-    {
-        var depth = 1f - (Main.LocalPlayer.Center.ToTileCoordinates().Y - UnderwaterSystem.TileSeaLevel) /
-            LightingSystem.TileDepth;
-
-        depth = MathHelper.Clamp((float)depth, -0.5f, 1f);
-
-        Player.breathEffectiveness += (float)depth;
-    }
-
     private void ApplySwimVelocity()
     {
         var length = SwimVelocity.Length();
@@ -132,9 +132,8 @@ public class SwimPlayer : ModPlayer
 
         SwimVelocity = SwimVelocity.SafeNormalize(Vector2.Zero) * length;
         Player.velocity = SwimVelocity;
-        SwimVelocity = SwimVelocity.MoveTowards(Vector2.Zero, SwimSpeed / 2);
+        SwimVelocity = SwimVelocity.MoveTowards(Vector2.Zero, (SwimSpeedX + SwimSpeedY) / 4);
 
-        SwimSpeed = DefaultSwimSpeed;
         MaxSwimSpeed = DefaultMaxSwimSpeed;
     }
 
@@ -151,8 +150,8 @@ public class SwimPlayer : ModPlayer
 
         var velocity = keyDir switch
         {
-            (int)CardinalDirections.Down => new Vector2(0, swimPlayer.SwimSpeed),
-            (int)CardinalDirections.Up => new Vector2(0, -swimPlayer.SwimSpeed),
+            (int)CardinalDirections.Down => new Vector2(0, swimPlayer.SwimSpeedY),
+            (int)CardinalDirections.Up => new Vector2(0, -swimPlayer.SwimSpeedY),
             (int)CardinalDirections.Right => new Vector2(swimPlayer.SwimSpeedX, 0),
             (int)CardinalDirections.Left => new Vector2(-swimPlayer.SwimSpeedX, 0),
             _ => Vector2.Zero
@@ -160,6 +159,8 @@ public class SwimPlayer : ModPlayer
 
         KeyHoldDownEvent?.Invoke(swimPlayer, ref velocity);
         swimPlayer.SwimVelocity += velocity;
+
         swimPlayer.SwimSpeedX = DefaultSwimSpeed;
+        swimPlayer.SwimSpeedY = DefaultSwimSpeed;
     }
 }
