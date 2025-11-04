@@ -18,7 +18,7 @@ public static class VectorExtensions
         return MathF.Atan2(det, dot);
     }
 
-    public static float AngleOne(this Vector2 u, Vector2 v)
+    public static float AnglePositive(this Vector2 u, Vector2 v)
     {
         var angle = u.AngleBetween(v);
 

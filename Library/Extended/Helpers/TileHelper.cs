@@ -21,7 +21,7 @@ public static class TileHelper
 
     public static bool IsWater(Tile tile, int amount = 255)
     {
-        return tile.LiquidType == LiquidID.Water && tile.LiquidAmount == 255;
+        return tile.LiquidType == LiquidID.Water && tile.LiquidAmount == amount;
     }
 
     public static bool IsWater(Point point, int amount = 255)

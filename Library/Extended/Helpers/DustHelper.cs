@@ -51,7 +51,7 @@ public static class DustHelper
         startVector.Normalize();
         endVector.Normalize();
 
-        var angle = startVector.AngleOne(endVector);
+        var angle = startVector.AnglePositive(endVector);
         var angleStep = angle / (amount - (isEven ? 1 : 0));
 
         for (int i = 0; i < amount; i++)
