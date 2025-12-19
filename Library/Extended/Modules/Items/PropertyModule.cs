@@ -57,4 +57,10 @@ public class PropertyModule : IModule
         _item.Item.ammo = ammo;
         return this;
     }
+
+    public void Projectile<T>()
+        where T : BaseProjectile
+    {
+        _item.Item.shoot = ModContent.ProjectileType<T>();
+    }
 }

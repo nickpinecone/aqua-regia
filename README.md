@@ -1,5 +1,5 @@
 # Aqua Regia
-Subnautica inspired mod for Terraria
+Mod that brings more water themed items to the game
 
 # Community
 Feedback or issues should go to

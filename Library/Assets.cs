@@ -6,5 +6,5 @@ public static class Assets
 
     public static string Sprites => Base + "Sprites/";
 
-    public static string Items => Sprites + "Items/";
+    public static string Weapons => Sprites + "Weapons/";
 }
