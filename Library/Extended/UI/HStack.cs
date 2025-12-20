@@ -64,6 +64,8 @@ public class HStack : UIElement
     
     public override void Update(GameTime gameTime)
     {
+        if (_children.Count <= 0) return;
+        
         base.Update(gameTime);
         
         AdjustHeight();

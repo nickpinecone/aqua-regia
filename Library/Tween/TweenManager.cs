@@ -17,7 +17,7 @@ public static class TweenManager
             return (new Vector2Tween(duration, paused) as Tween<T>)!;
         }
 
-        if (typeof(T) == typeof(IntTween))
+        if (typeof(T) == typeof(int))
         {
             return (new IntTween(duration, paused) as Tween<T>)!;
         }

@@ -7,14 +7,7 @@ using Terraria.UI;
 
 namespace AquaRegia.Library.Extended.UI;
 
-// TODO think about this some more
-// Need a robust system for manipulating progress bars
-public interface IProgressState
-{
-    public HStack BoxContainer { get; set; }
-    public FillBox PrimaryBox { get; set; }
-}
-
+[Autoload(Side = ModSide.Client)]
 public abstract class InterfaceSystem : ModSystem
 {
     private UserInterface? _interface;
@@ -29,7 +22,7 @@ public abstract class InterfaceSystem : ModSystem
     public override void Load()
     {
         if (Main.dedServ) return;
-        
+
         base.Load();
         Initialize(out _state, out _afterLayer, out _layerName);
 

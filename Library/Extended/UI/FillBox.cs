@@ -35,6 +35,8 @@ public class FillBox : UIElement
     public Color ColorB { get; set; }
     public Color ColorBorder { get; set; }
 
+    public bool Hidden { get; set; }
+
     public FillBox(StyleDimension width, StyleDimension height, int max, int borderWidth, string tooltip,
         int start = 0, Color? colorA = null, Color? colorB = null, Color? colorBorder = null)
     {
@@ -121,6 +123,11 @@ public class FillBox : UIElement
 
     protected override void DrawSelf(SpriteBatch spriteBatch)
     {
+        if (Hidden)
+        {
+            return;
+        }
+
         base.DrawSelf(spriteBatch);
 
         DisplayTooltip();

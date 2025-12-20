@@ -11,3 +11,10 @@ Configs: {
 }
 
 Conditions.DownedEvilCondition: After either Brain of Cthulhu or Eater of Worlds is defeated
+
+Items: {
+	WoodenWaterGun: {
+		DisplayName: Wooden Water Gun
+		Tooltip: ""
+	}
+}

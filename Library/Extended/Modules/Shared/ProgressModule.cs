@@ -1,61 +1,24 @@
-using System.Diagnostics.CodeAnalysis;
-using AquaRegia.Library.Extended.UI;
 using AquaRegia.Library.Tween;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace AquaRegia.Library.Extended.Modules.Shared;
 
-public class ProgressModule<TState> : IModule
-    where TState : UIState, IProgressState
+public class ProgressModule : IModule
 {
-    private TState? _state;
-    
-    public FillBox? Box { get; private set; }
-    public Tween<int>? Timer { get; private set; }
+    public Tween<int> Timer { get; private set; } = null!;
+    public bool Done => Timer.Done;
 
-    public TState GetState()
-    {
-        return _state ??= ModContent.GetInstance<TState>();
-    }
-    
-    [MemberNotNull(nameof(Box), nameof(Timer))]
-    public void Initialize(FillBox fillBox, Tween<int> timer)
-    {
-        Box = fillBox;
-        Timer = timer;
-        GetState().BoxContainer.AddElement(Box);
-    }
-
-    [MemberNotNull(nameof(Box), nameof(Timer))]
     public void Initialize(Tween<int> timer)
     {
         Timer = timer;
-        Box = GetState().PrimaryBox;
     }
 
     public void Update()
     {
-        if (Box is null || Timer is null) return;
-        
-        Box.Current = 0;
-        Box.ColorBorder = Color.White;
-
-        Timer.Delay().OnTransition((_) =>
-        {
-            Box.Current = Timer.Current;
-            Box.ColorBorder = Timer.Done ? Color.Gold : Color.White;
-        });
+        Timer.Delay();
     }
 
-    public void Remove()
+    public void Reset()
     {
-        if (Box is null || Timer is null) return;
-        
-        GetState().BoxContainer.RemoveElement(Box);
-        
-        Timer = null;
-        Box = null;
+        Timer.Restart();
     }
 }
