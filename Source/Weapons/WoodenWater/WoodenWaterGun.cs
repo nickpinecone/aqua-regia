@@ -1,9 +1,12 @@
+using AquaRegia.Ammo;
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Items;
-using AquaRegia.Library.Extended.Modules.Shared;
 using AquaRegia.Library.Tween;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
@@ -11,39 +14,52 @@ public class WoodenWaterGun : BaseItem
 {
     public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(WoodenWaterGun)}";
 
-    public readonly PropertyModule Property;
-    public readonly ProgressModule Pump;
+    private PropertyModule Property { get; }
+    private SpriteModule Sprite { get; }
+    private AccuracyModule Accuracy { get; }
+    private ProgressModule Progress { get; }
 
-    public WoodenWaterGun() : base()
+    public WoodenWaterGun()
     {
         Property = new PropertyModule(this);
-        Pump = new ProgressModule();
+        Sprite = new SpriteModule();
+        Accuracy = new AccuracyModule();
+        Progress = new ProgressModule();
 
-        Composite.AddModule(Property, Pump);
+        Composite.AddModule(Property, Sprite, Accuracy, Progress);
+        Composite.AddRuntimeModule(Sprite, Accuracy);
     }
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Pump.Initialize(TweenManager.Create<int>(5 * 60));
-        Property.Size(38, 22);
+        Sprite.SetDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
+        Progress.SetDefaults(Tween.Create<int>(5 * 60));
+        Accuracy.SetInaccuracy(3.5f);
+
+        Property.Size(38, 22)
+            .Damage(4, 0.8f, DamageClass.Ranged)
+            .UseStyle(ItemUseStyleID.Shoot, 20, 20)
+            .Shoot<WoodenWaterProjectile>(ModContent.ItemType<BottledWater>(), 22f)
+            .Rarity(ItemRarityID.White)
+            .Price(Item.sellPrice(0, 0, 0, 20));
     }
 
     public override void HoldItem(Player player)
     {
         base.HoldItem(player);
 
-        Pump.Update();
+        Progress.Timer.Delay();
     }
 
     public override void AltUseAlways(Player player)
     {
         base.AltUseAlways(player);
 
-        if (Pump.Done)
+        if (Progress.Timer.Done)
         {
-            Pump.Reset();
+            Progress.Timer.Restart();
         }
     }
 }

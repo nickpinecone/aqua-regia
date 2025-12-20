@@ -1,5 +1,5 @@
 using AquaRegia.Library.Extended.Modules;
-using AquaRegia.Library.Extended.Modules.Shared;
+using AquaRegia.Library.Extended.Modules.Items;
 using AquaRegia.Library.Extended.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,8 +10,8 @@ namespace AquaRegia.UI;
 
 public class AquaStateUI : UIState
 {
-    public HStack BoxContainer { get; set; } = null!;
-    public FillBox PrimaryBox { get; set; } = null!;
+    private HStack BoxContainer { get; set; } = null!;
+    private FillBox PrimaryBox { get; set; } = null!;
 
     public override void OnInitialize()
     {
@@ -43,9 +43,13 @@ public class AquaStateUI : UIState
             PrimaryBox.Hidden = false;
 
             PrimaryBox.Max = progressModule.Timer.Duration;
-            PrimaryBox.ColorBorder = Color.White;
             PrimaryBox.Current = progressModule.Timer.Current;
-            PrimaryBox.ColorBorder = progressModule.Done ? Color.Gold : Color.White;
+
+            PrimaryBox.ColorA = progressModule.ColorA ?? Color.Blue;
+            PrimaryBox.ColorB = progressModule.ColorB ?? Color.Cyan;
+            PrimaryBox.ColorBorder = progressModule.Timer.Done
+                ? progressModule.ColorBorderActive ?? Color.Gold
+                : progressModule.ColorBorder ?? Color.White;
         }
         else
         {

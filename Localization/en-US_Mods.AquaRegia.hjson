@@ -14,7 +14,29 @@ Conditions.DownedEvilCondition: After either Brain of Cthulhu or Eater of Worlds
 
 Items: {
 	WoodenWaterGun: {
-		DisplayName: Wooden Water Gun
+		DisplayName: Wooden Sprinkler
+		Tooltip:
+			'''
+			Passive: Boosted damage when near trees
+			Attack: Spawns an acorn that bounces on enemy heads
+			Pumped: <right> to slam a tree at the cursor position
+			'''
+	}
+
+	BottledWater: {
+		DisplayName: Bottled Water
 		Tooltip: ""
 	}
+
+	EmptyBottle: {
+		DisplayName: Empty Bottle
+		Tooltip: ""
+	}
+
+	BottledCryogel: {
+		DisplayName: Bottled Cryogel
+		Tooltip: Inflicts frostburn
+	}
 }
+
+Projectiles.WoodenWaterProjectile.DisplayName: Wooden Water Projectile

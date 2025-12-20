@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace AquaRegia.Library.Tween;
 
-public static class TweenManager
+public static class Tween
 {
     public static Tween<T> Create<T>(int duration, bool paused = false)
     {

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using AquaRegia.Library.Extended.Helpers;
+using AquaRegia.Library.Extended.Modules.Sources;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Library.Extended.Modules;
@@ -39,6 +42,27 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
     {
     }
 
+    public virtual bool PreShoot(out WeaponWithAmmoSource weaponSource, Player player,
+        EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    {
+        weaponSource = new WeaponWithAmmoSource(source, this);
+        return true;
+    }
+
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity,
+        int type, int damage, float knockback)
+    {
+        base.Shoot(player, source, position, velocity, type, damage, knockback);
+
+        if (PreShoot(out var weaponSource, player, source, position, velocity, type, damage, knockback))
+        {
+            Projectile.NewProjectileDirect(weaponSource, position, velocity, Item.shoot, damage, knockback,
+                player.whoAmI);
+        }
+
+        return false;
+    }
+
     public override void SetStaticDefaults()
     {
         base.SetStaticDefaults();
@@ -46,6 +70,18 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
         foreach (var module in RuntimeModules)
         {
             module.RuntimeSetStaticDefaults(this);
+        }
+    }
+
+    public override void HoldItem(Player player)
+    {
+        base.HoldItem(player);
+
+        DoAltUse(player);
+
+        foreach (var module in RuntimeModules)
+        {
+            module.RuntimeHoldItem(this, player);
         }
     }
 
@@ -77,13 +113,16 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
         }
     }
 
-    public override void HoldItem(Player player)
+    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type,
+        ref int damage,
+        ref float knockback)
     {
-        base.HoldItem(player);
+        base.ModifyShootStats(player, ref position, ref velocity, ref type, ref damage, ref knockback);
 
         foreach (var module in RuntimeModules)
         {
-            module.RuntimeHoldItem(this, player);
+            module.RuntimeModifyShootStats(this, player, ref position, ref velocity, ref type, ref damage,
+                ref knockback);
         }
     }
 }
