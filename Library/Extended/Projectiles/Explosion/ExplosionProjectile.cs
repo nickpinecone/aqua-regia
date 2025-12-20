@@ -12,15 +12,17 @@ public class ExplosionProjectile : BaseProjectile
     public override string Texture => Assets.Empty;
 
     public PropertyModule Property { get; }
+    public ImmunityModule Immunity { get; }
     public DataModule<ExplosionSource> Data { get; }
 
     public ExplosionProjectile()
     {
         Property = new PropertyModule(this);
+        Immunity = new ImmunityModule();
         Data = new DataModule<ExplosionSource>();
 
         Composite.AddModule(Data, Property);
-        Composite.AddRuntimeModule(Data, new ImmunityModule());
+        Composite.AddRuntimeModule(Data, Immunity);
     }
 
     public override void SetDefaults()
@@ -38,7 +40,8 @@ public class ExplosionProjectile : BaseProjectile
     {
         // TODO right now check only to Center, could miss even if it actually interlaps with the bounding rect
         // Need to check a circle with bounding rect collision instead
-        return Projectile.Center.DistanceSQ(target.Center) < Math.Pow(Data.Source.Radius, 2);
+        return Projectile.Center.DistanceSQ(target.Center) < Math.Pow(Data.Source.Radius, 2) &&
+               Immunity.CanHit(target) is null;
     }
 
     public override void OnSpawn(IEntitySource source)

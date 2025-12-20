@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AquaRegia.Library.Extended.Modules.Shared;
 
-public class StateModule<T> : IProjectileRuntime
+public class StateModule<T> : IModule, IProjectileRuntime
     where T : Enum
 {
     public T Current { get; set; }
@@ -19,10 +19,6 @@ public class StateModule<T> : IProjectileRuntime
         if (Handlers.TryGetValue(Current, out var handler))
         {
             handler();
-        }
-        else
-        {
-            throw new Exception($"Handler for state {Current} was not found");
         }
     }
 

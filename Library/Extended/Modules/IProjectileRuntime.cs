@@ -11,9 +11,9 @@ public interface IProjectileRuntime
         return true;
     }
 
-    public bool RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    public bool? RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
     {
-        return true;
+        return null;
     }
 
     public void RuntimeOnHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit, int damageDone)

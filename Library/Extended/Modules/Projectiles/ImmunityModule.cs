@@ -21,17 +21,15 @@ public class ImmunityModule : IModule, IProjectileRuntime
         _immunity[target] = ImmunityTime;
     }
 
-    private bool CanHit(NPC target)
+    public bool? CanHit(NPC target)
     {
         if (_immunity.ContainsKey(target))
         {
             return false;
         }
-        else
-        {
-            _immunity[target] = 0;
-            return true;
-        }
+
+        _immunity[target] = 0;
+        return null;
     }
 
     private void Update()
@@ -64,7 +62,7 @@ public class ImmunityModule : IModule, IProjectileRuntime
         Update();
     }
 
-    public bool RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    public bool? RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
     {
         return CanHit(target);
     }

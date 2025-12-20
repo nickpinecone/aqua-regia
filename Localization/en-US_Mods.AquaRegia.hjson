@@ -42,4 +42,6 @@ Items: {
 Projectiles: {
 	WoodenWaterProjectile.DisplayName: Wooden Water Projectile
 	AcornProjectile.DisplayName: Acorn Projectile
+	ExplosionProjectile.DisplayName: Explosion Projectile
+	TreeProjectile.DisplayName: Tree Projectile
 }
