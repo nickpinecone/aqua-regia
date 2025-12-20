@@ -8,7 +8,7 @@ public interface IProjectileRuntime
 {
     public bool RuntimeTileCollide(BaseProjectile projectile, Vector2 oldVelocity)
     {
-        return false;
+        return true;
     }
 
     public bool RuntimeCanHitNPC(BaseProjectile projectile, NPC target)

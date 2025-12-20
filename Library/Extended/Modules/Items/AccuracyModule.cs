@@ -5,16 +5,16 @@ namespace AquaRegia.Library.Extended.Modules.Items;
 
 public class AccuracyModule : IModule, IItemRuntime
 {
-    private float _inaccuracy;
+    public float Inaccuracy { get; set; }
 
     public void SetInaccuracy(float value)
     {
-        _inaccuracy = value;
+        Inaccuracy = value;
     }
 
     public Vector2 ApplyInaccuracy(Vector2 velocity)
     {
-        return velocity.RotatedByRandom(MathHelper.ToRadians(_inaccuracy));
+        return velocity.RotatedByRandom(MathHelper.ToRadians(Inaccuracy));
     }
 
     public void RuntimeModifyShootStats(BaseItem baseItem, Player player, ref Vector2 position, ref Vector2 velocity,

@@ -1,4 +1,5 @@
 using System;
+using AquaRegia.Library.Extended.Extensions;
 using Terraria;
 
 namespace AquaRegia.Library.Extended.Modules.Ammo;
@@ -24,7 +25,7 @@ public class BuffModule : IModule, IProjectileRuntime
 
     public void ApplyToTarget(NPC target)
     {
-        if (Main.rand.Next(0, 100) < Percent)
+        if (Main.rand.Percent(Percent))
         {
             target.AddBuff(_buff, (int)(_seconds * 60));
         }

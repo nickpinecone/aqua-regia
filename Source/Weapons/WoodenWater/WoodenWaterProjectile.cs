@@ -1,7 +1,11 @@
 using AquaRegia.Library;
+using AquaRegia.Library.Extended.Extensions;
+using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Extended.Modules.Sources;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -44,5 +48,18 @@ public class WoodenWaterProjectile : BaseProjectile
         base.OnSpawn(source);
 
         Data.Source.Ammo?.ApplyToProjectile(this);
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        base.OnHitNPC(target, hit, damageDone);
+
+        if (Main.rand.Percent(25))
+        {
+            var position = target.Center - new Vector2(0, target.height * 1.5f + Main.rand.NextFloat(0f, 6f));
+
+            ModHelper.SpawnProjectile<AcornProjectile>(Projectile.GetSource_FromThis(), Owner, position, Vector2.Zero,
+                hit.Damage, hit.Knockback);
+        }
     }
 }

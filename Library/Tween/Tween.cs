@@ -73,7 +73,7 @@ public abstract class Tween<T>
 
     public Tween<T> OnTransition(Func<float, float> ease, Action<T> action)
     {
-        if (Paused) return this;
+        if (Paused || Done) return this;
 
         ArgumentNullException.ThrowIfNull(Start);
         ArgumentNullException.ThrowIfNull(End);

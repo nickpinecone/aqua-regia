@@ -4,21 +4,21 @@ namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
 public class GravityModule : IModule, IProjectileRuntime
 {
-    public float DefaultGravity { get; private set; }
-    public float Gravity { get; set; }
-    public float GravityChange { get; set; }
+    public float Default { get; private set; }
+    public float Value { get; set; }
+    public float Change { get; set; }
 
     public void SetDefaults(float gravity = 0.01f, float gravityChange = 0.02f)
     {
-        DefaultGravity = gravity;
-        Gravity = DefaultGravity;
-        GravityChange = gravityChange;
+        Default = gravity;
+        Value = Default;
+        Change = gravityChange;
     }
 
     public Vector2 ApplyGravity(Vector2 velocity)
     {
-        Gravity += GravityChange;
-        velocity.Y += Gravity;
+        Value += Change;
+        velocity.Y += Value;
 
         return velocity;
     }
