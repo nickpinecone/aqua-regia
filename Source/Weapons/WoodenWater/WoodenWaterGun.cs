@@ -16,6 +16,7 @@ public class WoodenWaterGun : BaseItem
 
     private PropertyModule Property { get; }
     private SpriteModule Sprite { get; }
+    private WaterModule Water { get; }
     private AccuracyModule Accuracy { get; }
     private ProgressModule Progress { get; }
 
@@ -23,10 +24,11 @@ public class WoodenWaterGun : BaseItem
     {
         Property = new PropertyModule(this);
         Sprite = new SpriteModule();
+        Water = new WaterModule();
         Accuracy = new AccuracyModule();
         Progress = new ProgressModule();
 
-        Composite.AddModule(Property, Sprite, Accuracy, Progress);
+        Composite.AddModule(Property, Sprite, Water, Accuracy, Progress);
         Composite.AddRuntimeModule(Sprite, Accuracy);
     }
 
@@ -35,6 +37,7 @@ public class WoodenWaterGun : BaseItem
         base.SetDefaults();
 
         Sprite.SetDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
+        Water.SetUseSound(this);
         Progress.SetDefaults(Tween.Create<int>(5 * 60));
         Accuracy.SetInaccuracy(3.5f);
 

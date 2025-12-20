@@ -148,4 +148,23 @@ public static class TileHelper
 
         return false;
     }
+
+    public static Rectangle GetScreenTileRectangle()
+    {
+        var screenTilePosition = Main.screenPosition.ToTileCoordinates();
+
+        return new Rectangle(
+            screenTilePosition.X - 5,
+            screenTilePosition.Y - 5,
+            (Main.ScreenSize.X / 16) + 10,
+            (Main.ScreenSize.Y / 16) + 10
+        );
+    }
+
+    public static Rectangle ClampToTileWorld(Rectangle area)
+    {
+        area.X = (int)MathHelper.Clamp(area.X, 0, Main.maxTilesX);
+        area.Y = (int)MathHelper.Clamp(area.Y, 0, Main.maxTilesY);
+        return area;
+    }
 }

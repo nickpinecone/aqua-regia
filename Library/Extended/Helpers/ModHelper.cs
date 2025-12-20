@@ -1,4 +1,5 @@
 using System;
+using AquaRegia.Library.Extended.Projectiles.Explosion;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -15,6 +16,14 @@ public static class ModHelper
         var type = ModContent.ProjectileType<T>();
         var proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
         return (T)proj.ModProjectile;
+    }
+
+    public static ExplosionProjectile SpawnExplosion(ExplosionSource source, Player player, Vector2 position)
+    {
+        var type = ModContent.ProjectileType<ExplosionProjectile>();
+        var proj = Projectile.NewProjectileDirect(source, position, Vector2.Zero, type, source.Damage, source.KnockBack,
+            player.whoAmI);
+        return (ExplosionProjectile)proj.ModProjectile;
     }
 
     public static NPC? FindNearestNPC(Vector2 position, float radius, Func<NPC, bool>? canHome = null)
@@ -42,26 +51,5 @@ public static class ModHelper
         }
 
         return nearestNpc;
-    }
-
-    public static Rectangle GetScreenTileRectangle()
-    {
-        var screenTilePosition = Main.screenPosition.ToTileCoordinates();
-
-        var rect = new Rectangle(
-            screenTilePosition.X - 5,
-            screenTilePosition.Y - 5,
-            (Main.ScreenSize.X / 16) + 10,
-            (Main.ScreenSize.Y / 16) + 10
-        );
-
-        return rect;
-    }
-
-    public static Rectangle ClampToTileWorld(Rectangle area)
-    {
-        area.X = (int)MathHelper.Clamp(area.X, 0, Main.maxTilesX);
-        area.Y = (int)MathHelper.Clamp(area.Y, 0, Main.maxTilesY);
-        return area;
     }
 }

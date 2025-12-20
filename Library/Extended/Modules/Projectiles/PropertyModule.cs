@@ -18,11 +18,9 @@ public class PropertyModule : IModule
         return this;
     }
 
-    public PropertyModule Damage(int damage, float knockBack, DamageClass type, int penetrate = 0, int critChance = 0)
+    public PropertyModule Damage(DamageClass damageType, int penetrate, int critChance = 0)
     {
-        _base.Projectile.damage = damage;
-        _base.Projectile.knockBack = knockBack;
-        _base.Projectile.DamageType = type;
+        _base.Projectile.DamageType = damageType;
         _base.Projectile.penetrate = penetrate;
         _base.Projectile.CritChance = critChance;
         return this;

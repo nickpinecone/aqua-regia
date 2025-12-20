@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules.Sources;
 using Microsoft.Xna.Framework;
 using Terraria;

@@ -20,11 +20,11 @@ public class PropertyModule : IModule
         return this;
     }
 
-    public PropertyModule Damage(int damage, float knockBack, DamageClass type)
+    public PropertyModule Damage(int damage, float knockBack, DamageClass damageType)
     {
         _base.Item.damage = damage;
         _base.Item.knockBack = knockBack;
-        _base.Item.DamageType = type;
+        _base.Item.DamageType = damageType;
         return this;
     }
 

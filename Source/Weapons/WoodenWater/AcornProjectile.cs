@@ -47,7 +47,8 @@ public class AcornProjectile : BaseProjectile
         base.SetDefaults();
 
         Property.Size(20, 20)
-            .Damage(1, 0f, DamageClass.Ranged, 5)
+            .Damage(DamageClass.Ranged, 5)
+            .Friendly(true, false)
             .Alpha(255)
             .TimeLeft(120);
 

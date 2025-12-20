@@ -39,7 +39,8 @@ public class WoodenWaterProjectile : BaseProjectile
         Gravity.SetDefaults();
 
         Property.Size(16, 16)
-            .Damage(1, 0f, DamageClass.Ranged, 1)
+            .Damage(DamageClass.Ranged, 1)
+            .Friendly(true, false)
             .TimeLeft(35);
     }
 
