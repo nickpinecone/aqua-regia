@@ -24,4 +24,9 @@ public static class Tween
 
         return (new DynamicTween<T>(duration, paused));
     }
+
+    public static Tween<T> PingPong<T>(int duration, bool paused = false)
+    {
+        return new PingPongTween<T>(duration, paused);
+    }
 }

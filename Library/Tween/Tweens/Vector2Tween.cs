@@ -8,7 +8,7 @@ public class Vector2Tween : Tween<Vector2>
     {
     }
 
-    protected override Vector2 Transition(Vector2 start, Vector2 end, float percent)
+    public override Vector2 Transition(Vector2 start, Vector2 end, float percent)
     {
         return (start + (end - start) * percent);
     }

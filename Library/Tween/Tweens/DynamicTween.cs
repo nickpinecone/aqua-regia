@@ -6,7 +6,7 @@ public class DynamicTween<T> : Tween<T>
     {
     }
 
-    protected override T Transition(T start, T end, float percent)
+    public override T Transition(T start, T end, float percent)
     {
         return (start + ((dynamic)end! - start) * percent);
     }

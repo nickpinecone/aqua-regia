@@ -12,8 +12,8 @@ public abstract class Tween<T>
 
     public int TimeLeft => Duration - Current;
 
-    public T? Start { get; private set; }
-    public T? End { get; private set; }
+    public T? Start { get; protected set; }
+    public T? End { get; protected set; }
 
     public Tween(int duration, bool paused = false)
     {
@@ -34,7 +34,7 @@ public abstract class Tween<T>
         }
     }
 
-    public Tween<T> Delay()
+    public virtual Tween<T> Delay()
     {
         if (Paused || Done) return this;
 
@@ -69,7 +69,7 @@ public abstract class Tween<T>
         return Delay();
     }
 
-    protected abstract T Transition(T start, T end, float percent);
+    public abstract T Transition(T start, T end, float percent);
 
     public Tween<T> OnTransition(Func<float, float> ease, Action<T> action)
     {

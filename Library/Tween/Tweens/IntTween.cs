@@ -6,7 +6,7 @@ public class IntTween : Tween<int>
     {
     }
 
-    protected override int Transition(int start, int end, float percent)
+    public override int Transition(int start, int end, float percent)
     {
         return (int)(start + (end - start) * percent);
     }

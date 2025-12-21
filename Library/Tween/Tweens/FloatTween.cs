@@ -6,7 +6,7 @@ public class FloatTween : Tween<float>
     {
     }
 
-    protected override float Transition(float start, float end, float percent)
+    public override float Transition(float start, float end, float percent)
     {
         return (start + (end - start) * percent);
     }
