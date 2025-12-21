@@ -55,6 +55,15 @@ public class WoodenWaterGun : BaseItem
         TreeBoost.SetDefaults(Item.damage, 2);
     }
 
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.Wood, 20)
+            .AddIngredient(ItemID.Acorn, 5)
+            .AddTile(TileID.WorkBenches)
+            .Register();
+    }
+
     public override void HoldItem(Player player)
     {
         base.HoldItem(player);

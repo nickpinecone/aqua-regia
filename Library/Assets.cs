@@ -8,6 +8,7 @@ public static class Assets
     public static string Empty => Sprites + "Empty";
     public static string Weapons => Sprites + "Weapons/";
     public static string Ammo => Sprites + "Ammo/";
+    public static string Items => Sprites + "Items/";
 
     public static class Audio
     {

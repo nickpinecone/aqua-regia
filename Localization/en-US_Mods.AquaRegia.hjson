@@ -37,6 +37,11 @@ Items: {
 		DisplayName: Bottled Cryogel
 		Tooltip: Inflicts frostburn
 	}
+
+	SurfBoard: {
+		DisplayName: Surf Board
+		Tooltip: Lets you surf on water
+	}
 }
 
 Projectiles: {
