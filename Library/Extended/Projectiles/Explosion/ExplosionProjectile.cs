@@ -1,6 +1,7 @@
 using System;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -11,18 +12,16 @@ public class ExplosionProjectile : BaseProjectile
 {
     public override string Texture => Assets.Empty;
 
-    public PropertyModule Property { get; }
-    public ImmunityModule Immunity { get; }
-    public DataModule<ExplosionSource> Data { get; }
+    private PropertyModule Property { get; }
+    private DataModule<ExplosionSource> Data { get; }
 
     public ExplosionProjectile()
     {
         Property = new PropertyModule(this);
-        Immunity = new ImmunityModule();
         Data = new DataModule<ExplosionSource>();
 
         Composite.AddModule(Data, Property);
-        Composite.AddRuntimeModule(Data, Immunity);
+        Composite.AddRuntimeModule(Data, new ImmunityModule());
     }
 
     public override void SetDefaults()
@@ -36,12 +35,9 @@ public class ExplosionProjectile : BaseProjectile
             .TileCollide(false);
     }
 
-    public override bool? CanHitNPC(NPC target)
+    public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
-        // TODO right now check only to Center, could miss even if it actually interlaps with the bounding rect
-        // Need to check a circle with bounding rect collision instead
-        return Projectile.Center.DistanceSQ(target.Center) < Math.Pow(Data.Source.Radius, 2) &&
-               Immunity.CanHit(target) is null;
+        return projHitbox.Center().DistanceSQ(targetHitbox.Center()) < Math.Pow(Data.Source.Radius, 2);
     }
 
     public override void OnSpawn(IEntitySource source)

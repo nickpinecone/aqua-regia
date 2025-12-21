@@ -102,13 +102,14 @@ public class TreeProjectile : BaseProjectile
 
         if (TileHelper.AnySolidInArea(Projectile.Center, 3, 3))
         {
+            State.Current = TreeState.End;
             Projectile.Kill();
         }
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        if (State.Current is TreeState.Slam or TreeState.Appear)
+        if (State.Current is TreeState.Slam)
         {
             State.Current = TreeState.Collide;
 
@@ -116,7 +117,7 @@ public class TreeProjectile : BaseProjectile
             SoundEngine.PlaySound(SoundID.Item14);
 
             ModHelper.SpawnExplosion(
-                new ExplosionSource(this, Projectile.DamageType, 100, Projectile.damage, Projectile.knockBack, 100),
+                new ExplosionSource(this, Projectile.DamageType, 60, Projectile.damage, Projectile.knockBack, 100),
                 Owner, Projectile.Center
             );
 
