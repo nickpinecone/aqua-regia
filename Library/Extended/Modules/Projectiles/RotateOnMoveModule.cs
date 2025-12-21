@@ -7,7 +7,7 @@ public class RotateOnMoveModule : IModule, IProjectileRuntime
 {
     public float Amount { get; set; }
 
-    public void SetDefaults(float amount = 0.1f)
+    public void SetAmount(float amount = 0.1f)
     {
         Amount = amount;
     }

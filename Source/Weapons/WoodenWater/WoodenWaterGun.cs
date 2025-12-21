@@ -40,9 +40,9 @@ public class WoodenWaterGun : BaseItem
     {
         base.SetDefaults();
 
-        Sprite.SetDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
+        Sprite.SetOffsets(new Vector2(26f, 26f), new Vector2(0, 6));
         Water.SetUseSound(this);
-        Progress.SetDefaults(Tween.Create<int>(5 * 60));
+        Progress.SetTimer(Tween.Create<int>(5 * 60));
         Accuracy.SetInaccuracy(3.5f);
 
         Property.Size(38, 22)

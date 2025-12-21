@@ -6,8 +6,9 @@ namespace AquaRegia.Library.Extended.Modules.Ammo;
 
 public class BuffModule : IModule, IProjectileRuntime
 {
-    private int _buff;
-    private float _seconds;
+    public int Buff { get; set; }
+    public float Seconds { get; set; }
+
     private int _percent;
 
     private int Percent
@@ -18,8 +19,8 @@ public class BuffModule : IModule, IProjectileRuntime
 
     public void SetDefaults(int buff, float seconds, int percent)
     {
-        _buff = buff;
-        _seconds = seconds;
+        Buff = buff;
+        Seconds = seconds;
         Percent = percent;
     }
 
@@ -27,7 +28,7 @@ public class BuffModule : IModule, IProjectileRuntime
     {
         if (Main.rand.Percent(Percent))
         {
-            target.AddBuff(_buff, (int)(_seconds * 60));
+            target.AddBuff(Buff, (int)(Seconds * 60));
         }
     }
 

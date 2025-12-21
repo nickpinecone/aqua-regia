@@ -12,8 +12,16 @@ public class ProgressModule : IModule
     public Color? ColorBorder { get; set; }
     public Color? ColorBorderActive { get; set; }
 
-    public void SetDefaults(Tween<int> timer)
+    public void SetTimer(Tween<int> timer)
     {
         Timer = timer;
+    }
+
+    public void SetColors(Color colorA, Color colorB, Color colorBorder, Color colorBorderActive)
+    {
+        ColorA = colorA;
+        ColorB = colorB;
+        ColorBorder = colorBorder;
+        ColorBorderActive = colorBorderActive;
     }
 }

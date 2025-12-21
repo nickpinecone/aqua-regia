@@ -6,8 +6,9 @@ namespace AquaRegia.Library.Extended.Modules.Shared;
 public class StateModule<T> : IModule, IProjectileRuntime
     where T : Enum
 {
+    private readonly Dictionary<T, Action> _handlers = new();
+
     public T Current { get; set; }
-    private Dictionary<T, Action> Handlers { get; } = new();
 
     public StateModule(T current)
     {
@@ -16,7 +17,7 @@ public class StateModule<T> : IModule, IProjectileRuntime
 
     public void UpdateState()
     {
-        if (Handlers.TryGetValue(Current, out var handler))
+        if (_handlers.TryGetValue(Current, out var handler))
         {
             handler();
         }
@@ -24,7 +25,7 @@ public class StateModule<T> : IModule, IProjectileRuntime
 
     public void AddState(T state, Action handler)
     {
-        Handlers[state] = handler;
+        _handlers[state] = handler;
     }
 
     public void RuntimeAI(BaseProjectile projectile)
