@@ -55,7 +55,8 @@ public class WoodenWaterProjectile : BaseProjectile
             new ProjectileSpawner<AcornProjectile>()
                 .Context(Projectile.GetSource_FromThis(), Owner)
                 .Position(position)
-                .Damage(hit.Damage, hit.Knockback);
+                .Damage(hit.Damage, hit.Knockback)
+                .Spawn();
         }
     }
 }

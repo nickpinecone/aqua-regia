@@ -12,6 +12,7 @@ public abstract class Tween<T>
 
     public int TimeLeft => Duration - Current;
 
+    private bool _isCaptured = false;
     public T? Start { get; protected set; }
     public T? End { get; protected set; }
 
@@ -29,6 +30,7 @@ public abstract class Tween<T>
 
         if (resetValues)
         {
+            _isCaptured = false;
             Start = default;
             End = default;
         }
@@ -54,7 +56,8 @@ public abstract class Tween<T>
 
         switch (capture)
         {
-            case true when Start is null:
+            case true when !_isCaptured:
+                _isCaptured = true;
                 Start = start;
                 End = end;
                 break;
