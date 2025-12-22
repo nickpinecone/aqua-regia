@@ -4,6 +4,7 @@ using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Items;
+using AquaRegia.Library.Extended.Modules.Shared;
 using AquaRegia.Library.Extended.Modules.Sources;
 using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;
@@ -65,7 +66,7 @@ public class WoodenWaterGun : BaseItem
     {
         base.AltUseAlways(player);
 
-        if (Progress.Timer.Done)
+        if (Progress.Done)
         {
             new ProjectileSpawner<TreeProjectile>()
                 .Context(new WeaponWithAmmoSource(this), player)
@@ -73,7 +74,7 @@ public class WoodenWaterGun : BaseItem
                 .Damage(Item.damage * 2, Item.knockBack * 2)
                 .Spawn();
 
-            Progress.Timer.Restart();
+            Progress.Restart();
         }
     }
 }

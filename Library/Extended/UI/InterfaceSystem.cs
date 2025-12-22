@@ -12,7 +12,7 @@ public abstract class InterfaceSystem : ModSystem
 {
     private UserInterface? _interface;
     private GameTime? _lastUpdateUI;
-    private UIState? _state;
+    protected UIState? _state;
 
     private string _afterLayer = "";
     private string _layerName = "";

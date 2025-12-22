@@ -6,7 +6,11 @@ namespace AquaRegia.Library.Extended.Modules.Items;
 
 public class ProgressModule : IModule, IItemRuntime
 {
-    public Tween<int> Timer { get; private set; } = null!;
+    private Tween<int> _timer = null!;
+
+    public bool Done => _timer.Done;
+    public int Duration => _timer.Duration;
+    public int Current => _timer.Current;
 
     public Color? ColorA { get; set; }
     public Color? ColorB { get; set; }
@@ -15,7 +19,7 @@ public class ProgressModule : IModule, IItemRuntime
 
     public void SetTimer(Tween<int> timer)
     {
-        Timer = timer;
+        _timer = timer;
     }
 
     public void SetColors(Color colorA, Color colorB, Color colorBorder, Color colorBorderActive)
@@ -26,8 +30,18 @@ public class ProgressModule : IModule, IItemRuntime
         ColorBorderActive = colorBorderActive;
     }
 
+    public void Update()
+    {
+        _timer.Delay();
+    }
+
+    public void Restart()
+    {
+        _timer.Restart();
+    }
+
     public void RuntimeHoldItem(BaseItem item, Player player)
     {
-        Timer.Delay();
+        Update();
     }
 }

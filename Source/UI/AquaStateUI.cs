@@ -10,7 +10,7 @@ namespace AquaRegia.UI;
 
 public class AquaStateUI : UIState
 {
-    private HStack BoxContainer { get; set; } = null!;
+    public HStack BoxContainer { get; private set; } = null!;
     private FillBox PrimaryBox { get; set; } = null!;
 
     public override void OnInitialize()
@@ -42,12 +42,12 @@ public class AquaStateUI : UIState
         {
             PrimaryBox.Hidden = false;
 
-            PrimaryBox.Max = progressModule.Timer.Duration;
-            PrimaryBox.Current = progressModule.Timer.Current;
+            PrimaryBox.Max = progressModule.Duration;
+            PrimaryBox.Current = progressModule.Current;
 
             PrimaryBox.ColorA = progressModule.ColorA ?? Color.Blue;
             PrimaryBox.ColorB = progressModule.ColorB ?? Color.Cyan;
-            PrimaryBox.ColorBorder = progressModule.Timer.Done
+            PrimaryBox.ColorBorder = progressModule.Done
                 ? progressModule.ColorBorderActive ?? Color.Gold
                 : progressModule.ColorBorder ?? Color.White;
         }
