@@ -1,4 +1,5 @@
 using AquaRegia.Library;
+using AquaRegia.Library.Extended.Fluent.DustSpawner;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
@@ -67,8 +68,11 @@ public class AcornProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        var particle = DustHelper.Single(DustExID.Wood, Projectile.Center, new Vector2(10, 10), Vector2.Zero);
-        particle.noGravity = true;
+        new DustSpawner(DustExID.Wood).Single()
+            .Position(Projectile.Center)
+            .Size(new Vector2(10, 10))
+            .Velocity(Vector2.Zero, true)
+            .Spawn();
     }
 
     public override bool? CanHitNPC(NPC target)
@@ -93,6 +97,7 @@ public class AcornProjectile : BaseProjectile
     {
         base.AI();
 
-        Appear.Transition(255, 0).OnTransition((value) => { Projectile.alpha = value; });
+        Appear.Transition(255, 0)
+            .OnTransition((value) => { Projectile.alpha = value; });
     }
 }

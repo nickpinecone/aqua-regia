@@ -48,9 +48,9 @@ public abstract class Tween<T>
         return this;
     }
 
-    public Tween<T> Transition(T start, T end, bool capture = false)
+    public Tween<T> Transition(T start, T end, bool capture = true)
     {
-        if (Paused) return this;
+        if (Paused || Done) return this;
 
         switch (capture)
         {

@@ -1,5 +1,6 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Extensions;
+using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
@@ -59,8 +60,10 @@ public class WoodenWaterProjectile : BaseProjectile
         {
             var position = target.Center - new Vector2(0, target.height * 1.5f + Main.rand.NextFloat(0f, 6f));
 
-            ModHelper.SpawnProjectile<AcornProjectile>(Projectile.GetSource_FromThis(), Owner, position, Vector2.Zero,
-                hit.Damage, hit.Knockback);
+            new ProjectileSpawner<AcornProjectile>()
+                .Context(Projectile.GetSource_FromThis(), Owner)
+                .Position(position)
+                .Damage(hit.Damage, hit.Knockback);
         }
     }
 }

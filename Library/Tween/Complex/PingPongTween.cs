@@ -1,4 +1,4 @@
-namespace AquaRegia.Library.Tween.Tweens;
+namespace AquaRegia.Library.Tween.Complex;
 
 public class PingPongTween<T> : Tween<T>
 {

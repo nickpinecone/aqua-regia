@@ -44,8 +44,6 @@ public class ExplosionProjectile : BaseProjectile
     {
         base.OnSpawn(source);
 
-        Projectile.damage = Data.Source.Damage;
-        Projectile.knockBack = Data.Source.KnockBack;
         Projectile.CritChance = Data.Source.CritChance;
         Projectile.DamageType = Data.Source.DamageType;
     }

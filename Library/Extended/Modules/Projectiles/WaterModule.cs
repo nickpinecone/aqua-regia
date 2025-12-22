@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AquaRegia.Library.Extended.Fluent.DustSpawner;
 using AquaRegia.Library.Extended.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -31,7 +32,12 @@ public class WaterModule : IModule, IProjectileRuntime
         velocity.Normalize();
         velocity *= 2f;
 
-        DustHelper.Single(Dust, position, new Vector2(2, 2), velocity, 1.2f, 0, Color);
+        new DustSpawner(Dust).Single()
+            .Position(position)
+            .Size(new Vector2(2, 2), 1.2f)
+            .Velocity(velocity)
+            .Color(Color, 0)
+            .Spawn();
     }
 
     public List<Dust> CreateDust(Vector2 position, Vector2 velocity)
@@ -45,12 +51,16 @@ public class WaterModule : IModule, IProjectileRuntime
         for (var i = 0; i < Amount; i++)
         {
             var offsetPosition = new Vector2(position.X + offset.X * i, position.Y + offset.Y * i);
-            var particle = DustHelper.SinglePerfect(Dust, offsetPosition, Vector2.Zero, Scale, Alpha, Color);
-            particle.noGravity = true;
-            particle.fadeIn = 1f;
-            particle.velocity = velocity.SafeNormalize(Vector2.Zero);
 
-            dusts.Add(particle);
+            var dust = new DustSpawner(Dust).Single()
+                .Perfect(true)
+                .Position(offsetPosition)
+                .Size(Vector2.Zero, Scale)
+                .Velocity(velocity.SafeNormalize(Vector2.Zero), true)
+                .Color(Color, Alpha, 1f)
+                .Spawn();
+
+            dusts.Add(dust);
         }
 
         return dusts;

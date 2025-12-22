@@ -76,12 +76,12 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
     {
         base.HoldItem(player);
 
-        DoAltUse(player);
-
         foreach (var module in RuntimeModules)
         {
             module.RuntimeHoldItem(this, player);
         }
+
+        DoAltUse(player);
     }
 
     public override Vector2? HoldoutOffset()

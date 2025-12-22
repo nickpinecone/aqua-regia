@@ -1,5 +1,6 @@
 using AquaRegia.Ammo;
 using AquaRegia.Library;
+using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Items;
@@ -33,7 +34,7 @@ public class WoodenWaterGun : BaseItem
         Progress = new ProgressModule();
 
         Composite.AddModule(Property, TreeBoost, Sprite, Water, Accuracy, Progress);
-        Composite.AddRuntimeModule(Sprite, Accuracy);
+        Composite.AddRuntimeModule(Sprite, Accuracy, Progress);
     }
 
     public override void SetDefaults()
@@ -69,7 +70,6 @@ public class WoodenWaterGun : BaseItem
         base.HoldItem(player);
 
         Item.damage = TreeBoost.Apply(player);
-        Progress.Timer.Delay();
     }
 
     public override void AltUseAlways(Player player)
@@ -78,10 +78,11 @@ public class WoodenWaterGun : BaseItem
 
         if (Progress.Timer.Done)
         {
-            var weaponSource = new WeaponWithAmmoSource(this);
-
-            ModHelper.SpawnProjectile<TreeProjectile>(weaponSource, player, Main.MouseWorld, Vector2.Zero,
-                Item.damage * 2, Item.knockBack * 2);
+            new ProjectileSpawner<TreeProjectile>()
+                .Context(new WeaponWithAmmoSource(this), player)
+                .Position(Main.MouseWorld)
+                .Damage(Item.damage * 2, Item.knockBack * 2)
+                .Spawn();
 
             Progress.Timer.Restart();
         }

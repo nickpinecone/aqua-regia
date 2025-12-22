@@ -1,4 +1,6 @@
 using AquaRegia.Library;
+using AquaRegia.Library.Extended.Fluent;
+using AquaRegia.Library.Extended.Fluent.DustSpawner;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
@@ -100,7 +102,7 @@ public class TreeProjectile : BaseProjectile
         Projectile.rotation = MathHelper.ToRadians(-30 * _direction);
         Projectile.position -= new Vector2(90 * _direction, 160);
 
-        if (TileHelper.AnySolidInArea(Projectile.Center, 3, 3))
+        if (TileArea.AnySolidInArea(Projectile.Center, 3, 3))
         {
             State.Current = TreeState.End;
             Projectile.Kill();
@@ -116,17 +118,23 @@ public class TreeProjectile : BaseProjectile
             Owner.GetModPlayer<ScreenShake>().Activate(6, 2);
             SoundEngine.PlaySound(SoundID.Item14);
 
-            ModHelper.SpawnExplosion(
-                new ExplosionSource(this, Projectile.DamageType, 60, Projectile.damage, Projectile.knockBack, 100),
-                Owner, Projectile.Center
-            );
+            new ProjectileSpawner<ExplosionProjectile>()
+                .Context(new ExplosionSource(this, Projectile.DamageType, 60, 100), Owner)
+                .Position(Projectile.Center)
+                .Damage(Projectile.damage, Projectile.knockBack)
+                .Spawn();
 
-            foreach (var particle in DustHelper.Arc(DustID.Cloud, Projectile.Bottom, new Vector2(2, 2),
-                         Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-150)),
-                         Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-30)), 6, 9f, 5f, 0, 75))
-            {
-                particle.noGravity = true;
-            }
+            new DustSpawner(DustID.Cloud).Arc()
+                .Position(Projectile.Bottom)
+                .Size(new Vector2(2, 2), 5f)
+                .Speed(9f, true)
+                .Color(default, 75)
+                .Edges(
+                    Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-150)),
+                    Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-30)),
+                    6
+                )
+                .Spawn();
         }
 
         return base.OnTileCollide(oldVelocity);
@@ -136,7 +144,12 @@ public class TreeProjectile : BaseProjectile
     {
         base.OnKill(timeLeft);
 
-        DustHelper.Circle(DustID.GrassBlades, Projectile.Center, new Vector2(12, 12), 6, 2f, 1f);
+        new DustSpawner(DustID.GrassBlades).Arc()
+            .Position(Projectile.Center)
+            .Size(new Vector2(12, 12))
+            .Speed(2f)
+            .Circle(6)
+            .Spawn();
 
         if (State.Current != TreeState.Collide)
         {
