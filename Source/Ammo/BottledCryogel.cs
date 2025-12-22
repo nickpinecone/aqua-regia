@@ -12,7 +12,7 @@ namespace AquaRegia.Ammo;
 
 public class BottledCryogel : BaseAmmo
 {
-    public override string Texture => Assets.Ammo + nameof(BottledCryogel);
+    public override string Texture => Assets.Sprites.Ammo.BottledCryogel;
 
     private PropertyModule Property { get; } = new();
 

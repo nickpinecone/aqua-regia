@@ -1,4 +1,6 @@
-namespace AquaRegia.Library.Extended.Fluent.DustSpawner;
+using AquaRegia.Library.Extended.Fluent.Spawners;
+
+namespace AquaRegia.Library.Extended.Fluent;
 
 public class DustSpawner
 {

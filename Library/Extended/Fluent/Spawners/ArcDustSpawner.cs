@@ -3,7 +3,7 @@ using AquaRegia.Library.Extended.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace AquaRegia.Library.Extended.Fluent.DustSpawner;
+namespace AquaRegia.Library.Extended.Fluent.Spawners;
 
 public class ArcDustSpawner : BaseDustSpawner
 {
@@ -60,7 +60,7 @@ public class ArcDustSpawner : BaseDustSpawner
         return this;
     }
 
-    public new ArcDustSpawner Color(Color color, int alpha)
+    public new ArcDustSpawner Color(Color color, int alpha, float fadeIn = 0f)
     {
         base.Color(color, alpha);
         return this;

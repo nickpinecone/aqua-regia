@@ -1,19 +1,13 @@
+using System.IO;
+using TypedPath;
+
 namespace AquaRegia.Library;
 
-public static class Assets
+[TypedPath("Assets")]
+public partial class Assets : ITypedPath
 {
-    private static string Base => "AquaRegia/Assets/";
-
-    private static string Sprites => Base + "Sprites/";
-    public static string Empty => Sprites + "Empty";
-    public static string Weapons => Sprites + "Weapons/";
-    public static string Ammo => Sprites + "Ammo/";
-    public static string Items => Sprites + "Items/";
-
-    public static class Audio
+    public static string Wrap(string path)
     {
-        private static string AudioBase => Base + "Audio/";
-        public static string Impact => AudioBase + "Impact/";
-        public static string Use => AudioBase + "Use/";
+        return "AquaRegia/" + path.Replace(Path.GetFileName(path), Path.GetFileNameWithoutExtension(path));
     }
 }

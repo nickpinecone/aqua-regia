@@ -1,5 +1,5 @@
 using AquaRegia.Library;
-using AquaRegia.Library.Extended.Fluent.DustSpawner;
+using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Attributes;
@@ -15,7 +15,7 @@ namespace AquaRegia.Weapons.WoodenWater;
 
 public class AcornProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(AcornProjectile)}";
+    public override string Texture => Assets.Sprites.Weapons.WoodenWater.AcornProjectile;
 
     private PropertyModule Property { get; } = new();
     private HeadBounceModule HeadBounce { get; } = new();
@@ -25,7 +25,7 @@ public class AcornProjectile : BaseProjectile
 
     private Tween<int> Appear { get; } = Tween.Create<int>(10);
 
-    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact + "Bonk")
+    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact.Bonk)
     {
         Volume = 0.4f,
         PitchVariance = 0.1f,

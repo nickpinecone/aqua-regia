@@ -1,6 +1,5 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Fluent;
-using AquaRegia.Library.Extended.Fluent.DustSpawner;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Attributes;
@@ -28,7 +27,7 @@ public enum TreeState
 
 public class TreeProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(TreeProjectile)}";
+    public override string Texture => Assets.Sprites.Weapons.WoodenWater.TreeProjectile;
 
     private PropertyModule Property { get; } = new();
 

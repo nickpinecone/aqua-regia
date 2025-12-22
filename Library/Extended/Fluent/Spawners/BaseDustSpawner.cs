@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace AquaRegia.Library.Extended.Fluent.DustSpawner;
+namespace AquaRegia.Library.Extended.Fluent.Spawners;
 
 public abstract class BaseDustSpawner
 {

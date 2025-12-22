@@ -11,7 +11,7 @@ namespace AquaRegia.Library.Extended.Projectiles.Explosion;
 
 public class ExplosionProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Empty;
+    public override string Texture => Assets.Sprites.Empty;
 
     private PropertyModule Property { get; } = new();
 

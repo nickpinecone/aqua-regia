@@ -2,7 +2,7 @@ using AquaRegia.Library.Extended.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace AquaRegia.Library.Extended.Fluent.DustSpawner;
+namespace AquaRegia.Library.Extended.Fluent.Spawners;
 
 public class SingleDustSpawner : BaseDustSpawner
 {

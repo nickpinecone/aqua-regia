@@ -9,7 +9,7 @@ namespace AquaRegia.Ammo;
 
 public class BottledWater : BaseAmmo
 {
-    public override string Texture => Assets.Ammo + nameof(BottledWater);
+    public override string Texture => Assets.Sprites.Ammo.BottledWater;
 
     private PropertyModule Property { get; } = new();
 

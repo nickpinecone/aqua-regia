@@ -15,7 +15,7 @@ namespace AquaRegia.Weapons.WoodenWater;
 
 public class WoodenWaterGun : BaseItem
 {
-    public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(WoodenWaterGun)}";
+    public override string Texture => Assets.Sprites.Weapons.WoodenWater.WoodenWaterGun;
 
     private PropertyModule Property { get; } = new();
     private TreeBoostModule TreeBoost { get; } = new();

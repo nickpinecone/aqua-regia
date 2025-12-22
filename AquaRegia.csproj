@@ -4,4 +4,12 @@
     <PropertyGroup>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="Assets/**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Pinecone.TypedPath" Version="1.0.3" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    </ItemGroup>
 </Project>
