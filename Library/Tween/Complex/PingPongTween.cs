@@ -9,9 +9,9 @@ public class PingPongTween<T> : Tween<T>
         _tween = Tween.Create<T>(duration, paused);
     }
 
-    public override Tween<T> Delay()
+    public override Tween<T> Delay(int amount = 1)
     {
-        base.Delay();
+        base.Delay(amount);
 
         if (Done)
         {

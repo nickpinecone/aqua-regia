@@ -16,22 +16,22 @@ public class ExProgressModule : IModule
     public int Duration => _timer.Duration;
     public int Current => _timer.Current;
 
-    public ExProgressModule(Tween<int> timer, Color colorA, Color colorB, Color colorBorder, string tooltip)
+    public ExProgressModule(Tween<int> timer, int start, Color colorA, Color colorB, Color colorBorder, string tooltip)
     {
         _timer = timer;
 
         _box = new FillBox(
             StyleDimension.FromPixels(18), StyleDimension.FromPixels(90),
-            timer.Duration, 2, tooltip, 0,
+            timer.Duration, 2, tooltip, start,
             colorA, colorB, colorBorder
         );
 
         ModContent.GetInstance<AquaInterface>().State.BoxContainer.AddElement(_box);
     }
 
-    public void Update()
+    public void Update(int amount = 1)
     {
-        _timer.Delay();
+        _timer.Delay(amount);
         _box.Current = _timer.Current;
     }
 

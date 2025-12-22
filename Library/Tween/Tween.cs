@@ -36,11 +36,12 @@ public abstract class Tween<T>
         }
     }
 
-    public virtual Tween<T> Delay()
+    public virtual Tween<T> Delay(int amount = 1)
     {
         if (Paused || Done) return this;
 
-        Current += 1;
+        Current += amount;
+        Current = Math.Clamp(Current, 0, Duration);
 
         if (Current >= Duration)
         {
