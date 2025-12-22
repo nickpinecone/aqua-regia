@@ -1,8 +1,8 @@
 using AquaRegia.Ammo;
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Fluent;
-using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Items;
 using AquaRegia.Library.Extended.Modules.Sources;
 using AquaRegia.Library.Tween;
@@ -17,25 +17,13 @@ public class WoodenWaterGun : BaseItem
 {
     public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(WoodenWaterGun)}";
 
-    private PropertyModule Property { get; }
-    private TreeBoostModule TreeBoost { get; }
-    private SpriteModule Sprite { get; }
-    private WaterModule Water { get; }
-    private AccuracyModule Accuracy { get; }
-    private ProgressModule Progress { get; }
+    private PropertyModule Property { get; } = new();
+    private TreeBoostModule TreeBoost { get; } = new();
+    private WaterModule Water { get; } = new();
 
-    public WoodenWaterGun()
-    {
-        Property = new PropertyModule(this);
-        TreeBoost = new TreeBoostModule();
-        Sprite = new SpriteModule();
-        Water = new WaterModule();
-        Accuracy = new AccuracyModule();
-        Progress = new ProgressModule();
-
-        Composite.AddModule(Property, TreeBoost, Sprite, Water, Accuracy, Progress);
-        Composite.AddRuntimeModule(Sprite, Accuracy, Progress);
-    }
+    [RuntimeModule] private SpriteModule Sprite { get; } = new();
+    [RuntimeModule(1)] private AccuracyModule Accuracy { get; } = new();
+    [RuntimeModule] private ProgressModule Progress { get; } = new();
 
     public override void SetDefaults()
     {
@@ -46,7 +34,8 @@ public class WoodenWaterGun : BaseItem
         Progress.SetTimer(Tween.Create<int>(5 * 60));
         Accuracy.SetInaccuracy(3.5f);
 
-        Property.Size(38, 22)
+        Property.Set(this)
+            .Size(38, 22)
             .Damage(4, 0.8f, DamageClass.Ranged)
             .UseStyle(ItemUseStyleID.Shoot, 20, 20)
             .Shoot<WoodenWaterProjectile>(ModContent.ItemType<BottledWater>(), 22f)

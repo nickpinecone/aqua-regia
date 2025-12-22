@@ -1,8 +1,8 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Extensions;
 using AquaRegia.Library.Extended.Fluent;
-using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Extended.Modules.Sources;
 using Microsoft.Xna.Framework;
@@ -16,21 +16,12 @@ public class WoodenWaterProjectile : BaseProjectile
 {
     public override string Texture => Assets.Empty;
 
-    private DataModule<WeaponWithAmmoSource> Data { get; }
-    private PropertyModule Property { get; }
-    private WaterModule Water { get; }
-    private GravityModule Gravity { get; }
+    private PropertyModule Property { get; } = new();
 
-    public WoodenWaterProjectile()
-    {
-        Data = new DataModule<WeaponWithAmmoSource>();
-        Property = new PropertyModule(this);
-        Water = new WaterModule();
-        Gravity = new GravityModule();
-
-        Composite.AddModule(Data, Property, Water, Gravity);
-        Composite.AddRuntimeModule(Data, new ImmunityModule(), Water, Gravity);
-    }
+    [RuntimeModule] private DataModule<WeaponWithAmmoSource> Data { get; } = new();
+    [RuntimeModule] private GravityModule Gravity { get; } = new();
+    [RuntimeModule(1)] private WaterModule Water { get; } = new();
+    [RuntimeModule] private ImmunityModule Immunity { get; } = new();
 
     public override void SetDefaults()
     {
@@ -39,7 +30,8 @@ public class WoodenWaterProjectile : BaseProjectile
         Water.SetDefaults();
         Gravity.SetDefaults();
 
-        Property.Size(16, 16)
+        Property.Set(this)
+            .Size(16, 16)
             .Damage(DamageClass.Ranged, 1)
             .Friendly(true, false)
             .TimeLeft(35);

@@ -1,5 +1,6 @@
 using System;
 using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -12,23 +13,17 @@ public class ExplosionProjectile : BaseProjectile
 {
     public override string Texture => Assets.Empty;
 
-    private PropertyModule Property { get; }
-    private DataModule<ExplosionSource> Data { get; }
+    private PropertyModule Property { get; } = new();
 
-    public ExplosionProjectile()
-    {
-        Property = new PropertyModule(this);
-        Data = new DataModule<ExplosionSource>();
-
-        Composite.AddModule(Data, Property);
-        Composite.AddRuntimeModule(Data, new ImmunityModule());
-    }
+    [RuntimeModule] private DataModule<ExplosionSource> Data { get; } = new();
+    [RuntimeModule] private ImmunityModule Immunity { get; } = new();
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Property.Size(16, 16)
+        Property.Set(this)
+            .Size(16, 16)
             .Damage(DamageClass.Default, -1)
             .Friendly(true, false)
             .TimeLeft(15)

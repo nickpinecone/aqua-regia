@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
+using AquaRegia.Library.Extended.Modules.Attributes;
 
 namespace AquaRegia.Library.Extended;
 
@@ -8,6 +11,34 @@ public interface IComposite<TRuntime>
 {
     protected Dictionary<Type, IModule> Modules { get; }
     protected List<TRuntime> RuntimeModules { get; }
+
+    public void AddModules()
+    {
+        var moduleProps = GetType()
+            .GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+            .Where(x => typeof(IModule).IsAssignableFrom(x.PropertyType));
+
+        foreach (var property in moduleProps)
+        {
+            if (property.GetValue(this) != null)
+            {
+                AddModule((IModule)property.GetValue(this)!);
+            }
+        }
+
+        var runtimeModuleProps = GetType()
+            .GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+            .Where(x => x.GetCustomAttribute<RuntimeModuleAttribute>() != null)
+            .OrderBy(x => x.GetCustomAttribute<RuntimeModuleAttribute>()!.Order);
+
+        foreach (var property in runtimeModuleProps)
+        {
+            if (property.GetValue(this) != null)
+            {
+                AddRuntimeModule((TRuntime)property.GetValue(this)!);
+            }
+        }
+    }
 
     public bool HasModule<T>()
     {

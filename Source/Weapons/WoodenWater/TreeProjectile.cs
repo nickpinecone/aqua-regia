@@ -3,6 +3,7 @@ using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Fluent.DustSpawner;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Extended.Modules.Shared;
 using AquaRegia.Library.Extended.Players;
@@ -29,33 +30,23 @@ public class TreeProjectile : BaseProjectile
 {
     public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(TreeProjectile)}";
 
-    private PropertyModule Property { get; }
-    private StateModule<TreeState> State { get; }
+    private PropertyModule Property { get; } = new();
 
-    private Tween<int> Appear { get; }
-    private Tween<float> Rotate { get; }
-    private Tween<Vector2> Velocity { get; }
+    [RuntimeModule] private StateModule<TreeState> State { get; } = new(TreeState.Appear);
+    [RuntimeModule] private ImmunityModule Immunity { get; } = new();
+
+    private Tween<int> Appear { get; } = Tween.Create<int>(6);
+    private Tween<float> Rotate { get; } = Tween.Create<float>(20);
+    private Tween<Vector2> Velocity { get; } = Tween.Create<Vector2>(20);
 
     private int _direction = 0;
-
-    public TreeProjectile()
-    {
-        Property = new PropertyModule(this);
-        State = new StateModule<TreeState>(TreeState.Appear);
-
-        Composite.AddModule(Property, State);
-        Composite.AddRuntimeModule(new ImmunityModule(), State);
-
-        Appear = Tween.Create<int>(6);
-        Rotate = Tween.Create<float>(20);
-        Velocity = Tween.Create<Vector2>(20);
-    }
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Property.Size(76, 66)
+        Property.Set(this)
+            .Size(76, 66)
             .Damage(DamageClass.Ranged, -1)
             .Friendly(false, false)
             .TimeLeft(120)

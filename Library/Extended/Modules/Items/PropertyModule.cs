@@ -6,11 +6,12 @@ namespace AquaRegia.Library.Extended.Modules.Items;
 
 public class PropertyModule : IModule
 {
-    private readonly BaseItem _base;
+    private BaseItem _base = null!;
 
-    public PropertyModule(BaseItem item)
+    public PropertyModule Set(BaseItem item)
     {
         _base = item;
+        return this;
     }
 
     public PropertyModule Size(int width, int height)

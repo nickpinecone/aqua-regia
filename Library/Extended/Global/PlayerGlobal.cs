@@ -18,7 +18,7 @@ public class PlayerGlobal : ModPlayer
     {
         PreUpdateMovementEvent?.Invoke(Player);
     }
-    
+
     public override void Unload()
     {
         PreUpdateMovementEvent = null;

@@ -14,20 +14,14 @@ public class BottledCryogel : BaseAmmo
 {
     public override string Texture => Assets.Ammo + nameof(BottledCryogel);
 
-    private PropertyModule Property { get; }
-
-    public BottledCryogel()
-    {
-        Property = new PropertyModule(this);
-
-        Composite.AddModule(Property);
-    }
+    private PropertyModule Property { get; } = new();
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Property.Damage(2, 0.2f, DamageClass.Ranged)
+        Property.Set(this)
+            .Damage(2, 0.2f, DamageClass.Ranged)
             .Ammo(ModContent.ItemType<BottledWater>())
             .Rarity(ItemRarityID.White)
             .MaxStack(Item.CommonMaxStack, true)

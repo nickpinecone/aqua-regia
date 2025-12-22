@@ -13,11 +13,12 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
     public Dictionary<Type, IModule> Modules { get; } = [];
     public List<IItemRuntime> RuntimeModules { get; } = [];
 
-    public IComposite<IItemRuntime> Composite { get; init; }
+    public IComposite<IItemRuntime> Composite { get; }
 
     protected BaseItem()
     {
         Composite = this;
+        Composite.AddModules();
     }
 
     public override bool AltFunctionUse(Player player)

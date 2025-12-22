@@ -18,6 +18,7 @@ public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRunt
     protected BaseProjectile()
     {
         Composite = this;
+        Composite.AddModules();
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)

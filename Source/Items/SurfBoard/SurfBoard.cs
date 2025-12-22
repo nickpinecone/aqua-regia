@@ -13,14 +13,7 @@ public class SurfBoard : BaseItem
 {
     public override string Texture => Assets.Items + $"{nameof(SurfBoard)}/{nameof(SurfBoard)}";
 
-    private PropertyModule Property { get; }
-
-    public SurfBoard()
-    {
-        Property = new PropertyModule(this);
-
-        Composite.AddModule(Property);
-    }
+    private PropertyModule Property { get; } = new();
 
     public override void Load()
     {
@@ -41,8 +34,9 @@ public class SurfBoard : BaseItem
     public override void SetDefaults()
     {
         base.SetDefaults();
-        
-        Property.Size(28, 18)
+
+        Property.Set(this)
+            .Size(28, 18)
             .MaxStack(1)
             .Price(Item.sellPrice(copper: 50))
             .Rarity(ItemRarityID.White);

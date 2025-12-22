@@ -2,6 +2,7 @@ using AquaRegia.Library;
 using AquaRegia.Library.Extended.Fluent.DustSpawner;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;
@@ -16,38 +17,26 @@ public class AcornProjectile : BaseProjectile
 {
     public override string Texture => Assets.Weapons + $"{nameof(WoodenWater)}/{nameof(AcornProjectile)}";
 
-    private PropertyModule Property { get; }
-    private RotateOnMoveModule RotateOnMove { get; }
-    private GravityModule Gravity { get; }
-    private HeadBounceModule HeadBounce { get; }
+    private PropertyModule Property { get; } = new();
+    private HeadBounceModule HeadBounce { get; } = new();
 
-    private SoundStyle BonkSound { get; }
-    private Tween<int> Appear { get; }
+    [RuntimeModule] private GravityModule Gravity { get; } = new();
+    [RuntimeModule(1)] private RotateOnMoveModule RotateOnMove { get; } = new();
 
-    public AcornProjectile()
+    private Tween<int> Appear { get; } = Tween.Create<int>(10);
+
+    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact + "Bonk")
     {
-        Property = new PropertyModule(this);
-        RotateOnMove = new RotateOnMoveModule();
-        Gravity = new GravityModule();
-        HeadBounce = new HeadBounceModule();
-
-        Composite.AddModule(Property, RotateOnMove, Gravity, HeadBounce);
-        Composite.AddRuntimeModule(new ImmunityModule(), RotateOnMove, Gravity);
-
-        BonkSound = new SoundStyle(Assets.Audio.Impact + "Bonk")
-        {
-            Volume = 0.4f,
-            PitchVariance = 0.1f,
-        };
-
-        Appear = Tween.Create<int>(10);
-    }
+        Volume = 0.4f,
+        PitchVariance = 0.1f,
+    };
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Property.Size(20, 20)
+        Property.Set(this)
+            .Size(20, 20)
             .Damage(DamageClass.Ranged, 5)
             .Friendly(true, false)
             .Alpha(255)

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AquaRegia.Library.Extended.Fluent.DustSpawner;
-using AquaRegia.Library.Extended.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;

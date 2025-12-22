@@ -1,0 +1,6 @@
+[*]
+csharp_place_accessorholder_attribute_on_same_line = if_owner_is_single_line
+
+[Library/Extended/Global/*]
+blank_lines_around_single_line_type = 0
+blank_lines_around_invocable = 0

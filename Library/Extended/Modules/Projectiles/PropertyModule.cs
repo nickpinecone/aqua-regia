@@ -4,11 +4,12 @@ namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
 public class PropertyModule : IModule
 {
-    private readonly BaseProjectile _base;
+    private BaseProjectile _base = null!;
 
-    public PropertyModule(BaseProjectile projectile)
+    public PropertyModule Set(BaseProjectile projectile)
     {
         _base = projectile;
+        return this;
     }
 
     public PropertyModule Size(int width, int height)

@@ -25,7 +25,7 @@ public class TileGlobal : GlobalTile
         if (CanDropEvent is not null)
         {
             var result = true;
-            
+
             foreach (var @delegate in CanDropEvent.GetInvocationList())
             {
                 var del = (CanDropDelegate)@delegate;
