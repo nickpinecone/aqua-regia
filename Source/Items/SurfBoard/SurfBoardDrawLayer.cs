@@ -42,20 +42,21 @@ public class SurfBoardDrawLayer : PlayerDrawLayer
 
         if (boardPlayer.IsSurfing || boardPlayer.Player.wet)
         {
-            var position = ((boardPlayer.IsSurfing
+            var position = boardPlayer.IsSurfing
                 ? drawInfo.drawPlayer.Bottom
-                : (drawInfo.drawPlayer.Top + new Vector2(0, -2))) - Main.screenPosition).ToVector2I();
+                : drawInfo.drawPlayer.Top + new Vector2(0, -2);
+
+            var screenPosition = (position - Main.screenPosition).ToVector2I();
 
             var drawData = new DrawData(
                 _texture,
-                position,
+                screenPosition,
                 null,
-                Color.White,
+                Lighting.GetColor(position.ToTileCoordinates(), Color.White),
                 0f,
                 _texture.Size() * 0.5f,
                 1f,
-                drawInfo.drawPlayer.ToHorizontalFlip(),
-                0
+                drawInfo.drawPlayer.ToHorizontalFlip()
             );
 
             if (boardPlayer.IsSurfing)

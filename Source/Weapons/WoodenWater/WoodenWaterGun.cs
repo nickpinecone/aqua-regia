@@ -4,7 +4,6 @@ using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Items;
-using AquaRegia.Library.Extended.Modules.Shared;
 using AquaRegia.Library.Extended.Modules.Sources;
 using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;
