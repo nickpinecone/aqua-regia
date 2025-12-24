@@ -28,7 +28,7 @@ public class WaterModule : IModule, IProjectileRuntime
 
     public void KillEffect(Vector2 position, Vector2 velocity)
     {
-        velocity.Normalize();
+        velocity = velocity.SafeNormalize(Vector2.Zero);
         velocity *= 2f;
 
         new DustSpawner(Dust).Single()
@@ -42,7 +42,7 @@ public class WaterModule : IModule, IProjectileRuntime
     public List<Dust> CreateDust(Vector2 position, Vector2 velocity)
     {
         var offset = new Vector2(velocity.X, velocity.Y);
-        offset.Normalize();
+        offset = offset.SafeNormalize(Vector2.Zero);
         offset *= Offset;
 
         var dusts = new List<Dust>();

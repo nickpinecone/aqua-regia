@@ -48,8 +48,8 @@ public static class DustHelper
         Vector2 startVector, Vector2 endVector, int amount, float speed,
         float scale, float offset, int alpha, Color color)
     {
-        startVector.Normalize();
-        endVector.Normalize();
+        startVector = startVector.SafeNormalize(Vector2.Zero);
+        endVector = endVector.SafeNormalize(Vector2.Zero);
 
         var angle = startVector.AnglePositive(endVector);
         var angleStep = angle / (amount - (isEven ? 1 : 0));
