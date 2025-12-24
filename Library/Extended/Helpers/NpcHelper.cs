@@ -14,7 +14,7 @@ public static class NpcHelper
         NPC? nearestNpc = null;
         var detectRange = MathF.Pow(radius, 2);
 
-        foreach (var target in Main.npc)
+        foreach (var target in Main.ActiveNPCs)
         {
             if (!target.CanBeChasedBy() || !canHome(target))
             {

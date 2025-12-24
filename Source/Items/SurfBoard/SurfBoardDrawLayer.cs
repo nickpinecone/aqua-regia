@@ -18,7 +18,7 @@ public class SurfBoardDrawLayer : PlayerDrawLayer
         base.Load();
 
         _texture = ModContent.Request<Texture2D>(
-            Assets.Sprites.Items.SurfBoard,
+            Assets.Sprites.Items.SurfBoard.SurfBoardItem,
             AssetRequestMode.ImmediateLoad
         ).Value;
     }
