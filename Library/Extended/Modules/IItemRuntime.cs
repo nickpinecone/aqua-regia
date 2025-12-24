@@ -24,8 +24,22 @@ public interface IItemRuntime
     {
     }
 
-    public void RuntimeModifyShootStats(BaseItem baseItem, Player player, ref Vector2 position,
+    public void RuntimeModifyShootStats(BaseItem item, Player player, ref Vector2 position,
         ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+    {
+    }
+
+    public bool RuntimeCanUseItem(BaseItem item, Player player)
+    {
+        return true;
+    }
+
+    public bool? RuntimeUseItem(BaseItem item, Player player)
+    {
+        return null;
+    }
+
+    void RuntimeAltUseAlways(BaseItem item, Player player)
     {
     }
 }

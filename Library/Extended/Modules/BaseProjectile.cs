@@ -96,4 +96,16 @@ public abstract class BaseProjectile : ModProjectile, IComposite<IProjectileRunt
             module.RuntimeAI(this);
         }
     }
+    
+    public override bool PreAI()
+    {
+        var result = base.PreAI();
+
+        foreach (var module in RuntimeModules)
+        {
+            result &= module.RuntimePreAI(this);
+        }
+
+        return result;
+    }
 }

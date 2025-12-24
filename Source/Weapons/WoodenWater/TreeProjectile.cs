@@ -49,9 +49,8 @@ public class TreeProjectile : BaseProjectile
             .Damage(DamageClass.Ranged, -1)
             .Friendly(false, false)
             .TimeLeft(120)
+            .DrawOffset(38)
             .Alpha(255);
-
-        Projectile.gfxOffY = 38;
 
         State.AddState(TreeState.Appear, HandleAppear);
         State.AddState(TreeState.Slam, HandleSlam);

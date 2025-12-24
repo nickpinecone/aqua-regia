@@ -30,7 +30,7 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
         return false;
     }
 
-    public void DoAltUse(Player player)
+    protected void DoAltUse(Player player)
     {
         if (Main.mouseLeft && Main.mouseRight)
         {
@@ -40,6 +40,10 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
 
     public virtual void AltUseAlways(Player player)
     {
+        foreach (var module in RuntimeModules)
+        {
+            module.RuntimeAltUseAlways(this, player);
+        }
     }
 
     public virtual bool PreShoot(out WeaponWithAmmoSource weaponSource, Player player,
@@ -124,5 +128,35 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
             module.RuntimeModifyShootStats(this, player, ref position, ref velocity, ref type, ref damage,
                 ref knockback);
         }
+    }
+
+    public override bool CanUseItem(Player player)
+    {
+        var result = base.CanUseItem(player);
+
+        foreach (var module in RuntimeModules)
+        {
+            result &= module.RuntimeCanUseItem(this, player);
+        }
+
+        return result;
+    }
+
+    public override bool? UseItem(Player player)
+    {
+        var defaultValue = base.UseItem(player);
+        bool? custom = null;
+
+        foreach (var module in RuntimeModules)
+        {
+            var value = module.RuntimeUseItem(this, player);
+
+            if (value != defaultValue)
+            {
+                custom = value;
+            }
+        }
+
+        return custom ?? defaultValue;
     }
 }

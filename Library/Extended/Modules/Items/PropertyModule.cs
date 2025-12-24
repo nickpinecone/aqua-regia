@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -60,6 +61,12 @@ public class PropertyModule : IModule
         return this;
     }
 
+    public PropertyModule UseSound(SoundStyle useSound)
+    {
+        _base.Item.UseSound = useSound;
+        return this;
+    }
+
     /// <param name="rare">For rarity use <see cref="ItemRarityID"/></param>
     public PropertyModule Rarity(int rare)
     {
@@ -80,6 +87,12 @@ public class PropertyModule : IModule
     {
         _base.Item.maxStack = maxStack;
         _base.Item.consumable = consumable;
+        return this;
+    }
+
+    public PropertyModule Hide(bool noUseGraphic)
+    {
+        _base.Item.noUseGraphic = noUseGraphic;
         return this;
     }
 }

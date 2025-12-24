@@ -1,3 +1,5 @@
+using System.Collections.Specialized;
+using System.Numerics;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Library.Extended.Modules.Projectiles;
@@ -12,10 +14,11 @@ public class PropertyModule : IModule
         return this;
     }
 
-    public PropertyModule Size(int width, int height)
+    public PropertyModule Size(int width, int height, float scale = 1f)
     {
         _base.Projectile.width = width;
         _base.Projectile.height = height;
+        _base.Projectile.scale = scale;
         return this;
     }
 
@@ -46,9 +49,27 @@ public class PropertyModule : IModule
         return this;
     }
 
-    public PropertyModule TileCollide(bool tileCollide)
+    public PropertyModule TileCollide(bool tileCollide, bool ownerHitCheck = false)
     {
         _base.Projectile.tileCollide = tileCollide;
+        _base.Projectile.ownerHitCheck = ownerHitCheck;
+        return this;
+    }
+
+    public PropertyModule DrawOffset(float gfxOffY, int drawOffsetX = 0, Vector2? drawOriginOffset = null)
+    {
+        drawOriginOffset ??= Vector2.Zero;
+
+        _base.Projectile.gfxOffY = gfxOffY;
+        _base.DrawOffsetX = drawOffsetX;
+        _base.DrawOriginOffsetX = drawOriginOffset.Value.X;
+        _base.DrawOriginOffsetY = (int)drawOriginOffset.Value.Y;
+        return this;
+    }
+
+    public PropertyModule Hide(bool hide)
+    {
+        _base.Projectile.hide = hide;
         return this;
     }
 }

@@ -17,7 +17,7 @@ public class AccuracyModule : IModule, IItemRuntime
         return velocity.RotatedByRandom(MathHelper.ToRadians(Inaccuracy));
     }
 
-    public void RuntimeModifyShootStats(BaseItem baseItem, Player player, ref Vector2 position, ref Vector2 velocity,
+    public void RuntimeModifyShootStats(BaseItem item, Player player, ref Vector2 position, ref Vector2 velocity,
         ref int type,
         ref int damage, ref float knockback)
     {

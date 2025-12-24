@@ -28,7 +28,12 @@ public interface IProjectileRuntime
     {
     }
 
-    public void RuntimeOnSpawn(BaseProjectile baseProjectile, IEntitySource source)
+    public void RuntimeOnSpawn(BaseProjectile projectile, IEntitySource source)
     {
+    }
+
+    public bool RuntimePreAI(BaseProjectile projectile)
+    {
+        return true;
     }
 }

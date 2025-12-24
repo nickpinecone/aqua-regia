@@ -17,8 +17,6 @@ public class NpcGlobal : GlobalNPC
     public static event EditSpawnPoolDelegate? EditSpawnPoolEvent;
     public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
     {
-        pool.Clear();
-
         EditSpawnPoolEvent?.Invoke(pool, spawnInfo);
     }
 
