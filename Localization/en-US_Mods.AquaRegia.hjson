@@ -42,6 +42,11 @@ Items: {
 		DisplayName: Surf Board
 		Tooltip: Lets you surf on water
 	}
+
+	WoodenTrident: {
+		DisplayName: Wooden Trident
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -49,4 +54,6 @@ Projectiles: {
 	AcornProjectile.DisplayName: Acorn Projectile
 	ExplosionProjectile.DisplayName: Explosion Projectile
 	TreeProjectile.DisplayName: Tree Projectile
+	WoodenTridentProjectile.DisplayName: Wooden Trident Projectile
+	WoodenTridentThrow.DisplayName: Wooden Trident Throw
 }
