@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Remove="Tests/**" />
         <AdditionalFiles Include="Assets/**" />
     </ItemGroup>
 
