@@ -1,7 +1,6 @@
 using System.Numerics;
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
-using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using Terraria.ModLoader;
 

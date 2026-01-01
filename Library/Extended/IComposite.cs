@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using AquaRegia.Library.Extended.Modules.Attributes;
+using AquaRegia.Library.Extended.Modules;
 
 namespace AquaRegia.Library.Extended;
 

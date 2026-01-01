@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AquaRegia.Library.Extended.Modules.Sources;
+using AquaRegia.Library.Extended.Sources;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

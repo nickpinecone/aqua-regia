@@ -1,6 +1,6 @@
 using System;
 
-namespace AquaRegia.Library.Extended.Modules.Attributes;
+namespace AquaRegia.Library.Extended.Modules;
 
 [AttributeUsage(AttributeTargets.Property)]
 public class RuntimeModuleAttribute : Attribute

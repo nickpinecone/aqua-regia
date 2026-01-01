@@ -1,5 +1,5 @@
 using AquaRegia.Library.Extended.Modules;
-using AquaRegia.Library.Extended.Modules.Sources;
+using AquaRegia.Library.Extended.Sources;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Library.Extended.Projectiles.Explosion;

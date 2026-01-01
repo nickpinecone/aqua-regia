@@ -16,7 +16,7 @@ public abstract class Tween<T>
     public T? Start { get; protected set; }
     public T? End { get; protected set; }
 
-    public Tween(int duration, bool paused = false)
+    protected Tween(int duration, bool paused = false)
     {
         Duration = duration;
         Paused = paused;

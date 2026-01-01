@@ -2,7 +2,6 @@ using AquaRegia.Library;
 using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Helpers;
 using AquaRegia.Library.Extended.Modules;
-using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;

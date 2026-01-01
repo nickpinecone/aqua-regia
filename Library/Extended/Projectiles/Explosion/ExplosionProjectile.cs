@@ -1,6 +1,5 @@
 using System;
 using AquaRegia.Library.Extended.Modules;
-using AquaRegia.Library.Extended.Modules.Attributes;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
