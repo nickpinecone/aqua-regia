@@ -1,7 +1,7 @@
-using System.Numerics;
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenTrident;
@@ -16,6 +16,8 @@ public class WoodenTridentProjectile : BaseProjectile
 
     public override void SetDefaults()
     {
+        base.SetDefaults();
+
         Spear.SetDefaults();
 
         Property.Set(this)

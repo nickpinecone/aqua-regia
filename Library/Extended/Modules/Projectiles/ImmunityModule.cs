@@ -6,8 +6,8 @@ namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
 public class ImmunityModule : IModule, IProjectileRuntime
 {
-    private readonly Dictionary<NPC, int> _immunity = new();
-    private readonly List<NPC> _removeQueue = new();
+    private readonly Dictionary<NPC, int> _immunity = [];
+    private readonly List<NPC> _removeQueue = [];
 
     private int ImmunityTime { get; set; }
 

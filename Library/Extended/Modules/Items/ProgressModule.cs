@@ -1,4 +1,3 @@
-using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -6,7 +5,7 @@ namespace AquaRegia.Library.Extended.Modules.Items;
 
 public class ProgressModule : IModule, IItemRuntime
 {
-    private Tween<int> _timer = null!;
+    private Tween.Tween<int> _timer = null!;
 
     public bool Done => _timer.Done;
     public int Duration => _timer.Duration;
@@ -17,9 +16,9 @@ public class ProgressModule : IModule, IItemRuntime
     public Color? ColorBorder { get; set; }
     public Color? ColorBorderActive { get; set; }
 
-    public void SetTimer(Tween<int> timer)
+    public void SetDefaults(int time)
     {
-        _timer = timer;
+        _timer = Tween.Tween.Create<int>(time);
     }
 
     public void SetColors(Color colorA, Color colorB, Color colorBorder, Color colorBorderActive)

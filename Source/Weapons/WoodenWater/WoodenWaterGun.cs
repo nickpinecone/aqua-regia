@@ -4,7 +4,6 @@ using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Items;
 using AquaRegia.Library.Extended.Sources;
-using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -28,10 +27,10 @@ public class WoodenWaterGun : BaseItem
     {
         base.SetDefaults();
 
-        Sprite.SetOffsets(new Vector2(26f, 26f), new Vector2(0, 6));
-        Water.SetUseSound(this);
-        Progress.SetTimer(Tween.Create<int>(5 * 60));
-        Accuracy.SetInaccuracy(3.5f);
+        Sprite.SetDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
+        Water.SetDefaults(this);
+        Progress.SetDefaults(5 * 60);
+        Accuracy.SetDefaults(3.5f);
 
         Property.Set(this)
             .Size(38, 22)

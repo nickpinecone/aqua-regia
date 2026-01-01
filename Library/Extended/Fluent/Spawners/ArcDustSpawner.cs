@@ -62,7 +62,7 @@ public class ArcDustSpawner : BaseDustSpawner
 
     public new ArcDustSpawner Color(Color color, int alpha, float fadeIn = 0f)
     {
-        base.Color(color, alpha);
+        base.Color(color, alpha, fadeIn);
         return this;
     }
 

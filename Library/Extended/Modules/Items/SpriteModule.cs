@@ -9,7 +9,7 @@ public class SpriteModule : IModule, IItemRuntime
     public Vector2 Shift { get; set; } = Vector2.Zero;
     public Vector2 HoldoutOffset { get; set; } = Vector2.Zero;
 
-    public void SetOffsets(Vector2? offset = null, Vector2? holdoutOffset = null, Vector2? shift = null)
+    public void SetDefaults(Vector2? offset = null, Vector2? holdoutOffset = null, Vector2? shift = null)
     {
         Offset = offset ?? Vector2.Zero;
         HoldoutOffset = holdoutOffset ?? Vector2.Zero;

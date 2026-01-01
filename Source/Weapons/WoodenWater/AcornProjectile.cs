@@ -41,7 +41,7 @@ public class AcornProjectile : BaseProjectile
             .Alpha(255)
             .TimeLeft(120);
 
-        RotateOnMove.SetAmount();
+        RotateOnMove.SetDefaults();
         Gravity.SetDefaults();
     }
 

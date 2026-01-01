@@ -7,7 +7,7 @@ public class AccuracyModule : IModule, IItemRuntime
 {
     public float Inaccuracy { get; set; }
 
-    public void SetInaccuracy(float value)
+    public void SetDefaults(float value)
     {
         Inaccuracy = value;
     }

@@ -1,5 +1,6 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
+using AquaRegia.Library.Extended.Modules.Projectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -10,63 +11,48 @@ public class WoodenTridentThrow : BaseProjectile
 {
     public override string Texture => Assets.Sprites.Weapons.WoodenTrident.WoodenTridentProjectile;
 
-    public bool IsRecalled = false;
     public bool IsCollided = false;
+
+    private PropertyModule Property { get; } = new();
+    private GravityModule Gravity { get; } = new();
+
+    [RuntimeModule] private RecallModule Recall { get; } = new();
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
-        Projectile.width = 18;
-        Projectile.height = 18;
-        Projectile.friendly = true;
-        Projectile.penetrate = -1;
-        Projectile.tileCollide = true;
-        Projectile.scale = 1.2f;
-        Projectile.DamageType = DamageClass.Melee;
-        Projectile.timeLeft = 10;
+        Gravity.SetDefaults();
+        Recall.SetDefaults(36f);
 
-        DrawOriginOffsetX = -26;
+        Property.Set(this)
+            .Size(18, 18, 1.2f)
+            .Friendly(true, false)
+            .Damage(DamageClass.Melee, -1)
+            .TileCollide(true)
+            .TimeLeft(10)
+            .DrawOffset(0, drawOriginOffset: new Vector2(-26, 0));
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
+        base.OnTileCollide(oldVelocity);
+
         Projectile.velocity = Vector2.Zero;
         IsCollided = true;
 
         return false;
     }
 
-    public override bool PreAI()
-    {
-        Projectile.timeLeft = 10;
-
-        if (IsRecalled)
-        {
-            Projectile.tileCollide = false;
-            var velocity = (Owner.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 36f;
-            Projectile.velocity = Projectile.velocity.MoveTowards(velocity, 1f);
-
-            if (Owner.Center.DistanceSQ(Projectile.Center) < 32f * 32f)
-            {
-                Projectile.Kill();
-            }
-
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(-45f);
-
-            return false;
-        }
-
-        return base.PreAI();
-    }
-
     public override void AI()
     {
+        base.AI();
+
         if (!IsCollided)
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
 
-            Projectile.velocity.Y += 0.2f;
+            Gravity.RuntimeAI(this);
         }
     }
 }
