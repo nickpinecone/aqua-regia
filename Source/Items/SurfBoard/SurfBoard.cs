@@ -36,7 +36,7 @@ public class SurfBoard : BaseItem
         base.SetDefaults();
 
         Property.Set(this)
-            .Size(28, 18)
+            .Size(50, 18)
             .MaxStack(1)
             .Price(Item.sellPrice(copper: 50))
             .Rarity(ItemRarityID.White);

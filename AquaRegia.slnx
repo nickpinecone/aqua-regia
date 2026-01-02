@@ -1,4 +1,3 @@
 <Solution>
   <Project Path="AquaRegia.csproj" />
-  <Project Path="Tests/Tests.csproj" />
 </Solution>
