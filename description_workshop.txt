@@ -1,6 +1,6 @@
 [h1]Aqua Regia[/h1]
 
-Mod that brings more water themed items to the game
+Terraria mod that adds more water themed content
 
 [url=https://discord.gg/nZ4JM9DhzQ]Discord Server[/url]
 [url=https://github.com/nickpinecone/aqua-regia]Github Page[/url]
