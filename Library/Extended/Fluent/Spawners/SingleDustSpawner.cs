@@ -7,7 +7,6 @@ namespace AquaRegia.Library.Extended.Fluent.Spawners;
 public class SingleDustSpawner : DustSpawner<SingleDustSpawner>
 {
     private Vector2 _velocity = Vector2.Zero;
-    private bool _noGravity = false;
 
     public SingleDustSpawner(int dustType) : base(dustType)
     {

@@ -44,7 +44,7 @@ public static class DustHelper
         return Dust.NewDustPerfect(position, type, velocity, alpha, color, scale);
     }
 
-    private static IEnumerable<Dust> GenerateArc(bool isPerfect, bool isEven, int type, Vector2 position, Vector2 size,
+    public static IEnumerable<Dust> GenerateArc(bool isPerfect, bool isEven, int type, Vector2 position, Vector2 size,
         Vector2 startVector, Vector2 endVector, int amount, float speed,
         float scale, float offset, int alpha, Color color)
     {
@@ -54,58 +54,15 @@ public static class DustHelper
         var angle = startVector.AnglePositive(endVector);
         var angleStep = angle / (amount - (isEven ? 1 : 0));
 
-        for (int i = 0; i < amount; i++)
+        for (var i = 0; i < amount; i++)
         {
-            Dust dust;
-
-            if (isPerfect)
+            yield return isPerfect switch
             {
-                dust = SinglePerfect(type, position + startVector * offset, startVector * speed, scale, alpha,
-                    color);
-            }
-            else
-            {
-                dust = Single(type, position + startVector * offset, size, startVector * speed, scale, alpha,
-                    color);
-            }
-
-            yield return dust;
+                true => SinglePerfect(type, position + startVector * offset, startVector * speed, scale, alpha, color),
+                _ => Single(type, position + startVector * offset, size, startVector * speed, scale, alpha, color)
+            };
 
             startVector = startVector.RotatedBy(angleStep);
         }
-    }
-
-    public static List<Dust> Arc(int type, Vector2 position, Vector2 size, Vector2 startVector, Vector2 endVector,
-        int amount, float speed, float scale = 1f, float offset = 0, int alpha = 0,
-        Color color = default)
-    {
-        return GenerateArc(false, true, type, position, size, startVector, endVector, amount, speed, scale, offset,
-                alpha, color)
-            .ToList();
-    }
-
-    public static List<Dust> ArcPerfect(int type, Vector2 position, Vector2 startVector, Vector2 endVector, int amount,
-        float speed, float scale = 1f, float offset = 0, int alpha = 0,
-        Color color = default)
-    {
-        return GenerateArc(true, true, type, position, Vector2.Zero, startVector, endVector, amount, speed, scale,
-                offset, alpha, color)
-            .ToList();
-    }
-
-    public static List<Dust> Circle(int type, Vector2 position, Vector2 size, int amount, float speed, float scale = 1f,
-        float offset = 0, int alpha = 0, Color color = default)
-    {
-        return GenerateArc(false, false, type, position, size, Vector2.UnitX, Vector2.UnitX, amount, speed, scale,
-                offset, alpha, color)
-            .ToList();
-    }
-
-    public static List<Dust> CirclePerfect(int type, Vector2 position, int amount, float speed, float scale = 1f,
-        float offset = 0, int alpha = 0, Color color = default)
-    {
-        return GenerateArc(true, false, type, position, Vector2.Zero, Vector2.UnitX, Vector2.UnitX, amount, speed,
-                scale, offset, alpha, color)
-            .ToList();
     }
 }

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using AquaRegia.Library.Extended.Fluent.Spawners;
 using Microsoft.Xna.Framework;
 
@@ -23,6 +24,7 @@ public class DustSpawner
     }
 }
 
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public abstract class DustSpawner<T>
     where T : DustSpawner<T>
 {
@@ -31,7 +33,9 @@ public abstract class DustSpawner<T>
 
     protected Vector2 _size = Vector2.Zero;
     protected float _scale = 1f;
+
     protected Vector2 _position = Vector2.Zero;
+    protected bool _noGravity = false;
 
     protected Color _color = default;
     protected int _alpha = 0;
@@ -58,6 +62,12 @@ public abstract class DustSpawner<T>
     public T Position(Vector2 position)
     {
         _position = position;
+        return (T)this;
+    }
+
+    public T NoGravity(bool noGravity)
+    {
+        _noGravity = noGravity;
         return (T)this;
     }
 

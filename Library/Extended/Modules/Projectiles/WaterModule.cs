@@ -39,14 +39,13 @@ public class WaterModule : IModule, IProjectileRuntime
             .Spawn();
     }
 
-    public List<Dust> CreateDust(Vector2 position, Vector2 velocity)
+    public IEnumerable<Dust> CreateDust(Vector2 position, Vector2 velocity)
     {
         var offset = new Vector2(velocity.X, velocity.Y);
         offset = offset.SafeNormalize(Vector2.Zero);
         offset *= Offset;
 
         var dusts = new List<Dust>();
-
         for (var i = 0; i < Amount; i++)
         {
             var offsetPosition = new Vector2(position.X + offset.X * i, position.Y + offset.Y * i);

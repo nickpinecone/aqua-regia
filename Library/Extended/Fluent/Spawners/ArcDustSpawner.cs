@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AquaRegia.Library.Extended.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -14,30 +15,17 @@ public class ArcDustSpawner : DustSpawner<ArcDustSpawner>
     private Vector2 _startVector = Vector2.Zero;
     private Vector2 _endVector = Vector2.Zero;
     private int _amount = 0;
-    private bool _noGravity = false;
 
     public ArcDustSpawner(int dustType) : base(dustType)
     {
     }
 
-    public List<Dust> Spawn()
+    public IEnumerable<Dust> Spawn()
     {
-        List<Dust> dusts;
-
-        if (_isCircle)
-        {
-            dusts = _isPerfect
-                ? DustHelper.CirclePerfect(_dustType, _position, _amount, _speed, _scale, _offset, _alpha, _color)
-                : DustHelper.Circle(_dustType, _position, _size, _amount, _speed, _scale, _offset, _alpha, _color);
-        }
-        else
-        {
-            dusts = _isPerfect
-                ? DustHelper.ArcPerfect(_dustType, _position, _startVector, _endVector, _amount, _speed, _scale,
-                    _offset, _alpha, _color)
-                : DustHelper.Arc(_dustType, _position, _size, _startVector, _endVector, _amount, _speed, _scale,
-                    _offset, _alpha, _color);
-        }
+        var dusts = DustHelper.GenerateArc(
+            _isPerfect, !_isCircle, _dustType, _position, _size, _startVector,
+            _endVector, _amount, _speed, _scale, _offset, _alpha, _color
+        ).ToArray();
 
         foreach (var dust in dusts)
         {
@@ -74,6 +62,8 @@ public class ArcDustSpawner : DustSpawner<ArcDustSpawner>
     {
         _amount = amount;
         _isCircle = true;
+        _startVector = Vector2.UnitX;
+        _endVector = Vector2.UnitX;
         return this;
     }
 }
