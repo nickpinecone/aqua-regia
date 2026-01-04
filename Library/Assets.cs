@@ -3,7 +3,7 @@ using TypedPath;
 
 namespace AquaRegia.Library;
 
-[TypedPath("Assets")]
+[TypedPath("Assets", originalFilename: true)]
 public partial class Assets : ITypedPath
 {
     public static string Wrap(string path)

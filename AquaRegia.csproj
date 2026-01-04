@@ -11,6 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Pinecone.TypedPath" Version="1.0.3" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+        <PackageReference Include="Pinecone.TypedPath" Version="1.0.4" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     </ItemGroup>
 </Project>

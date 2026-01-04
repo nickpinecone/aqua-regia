@@ -14,7 +14,7 @@ namespace AquaRegia.Weapons.WoodenWater;
 
 public class AcornProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Sprites.Weapons.WoodenWater.AcornProjectile;
+    public override string Texture => Assets.Sprites.Weapons.WoodenWater.acorn_projectile;
 
     private PropertyModule Property { get; } = new();
     private HeadBounceModule HeadBounce { get; } = new();
@@ -24,7 +24,7 @@ public class AcornProjectile : BaseProjectile
 
     private Tween<int> Appear { get; } = Tween.Create<int>(10);
 
-    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact.Bonk)
+    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact.bonk)
     {
         Volume = 0.4f,
         PitchVariance = 0.1f,

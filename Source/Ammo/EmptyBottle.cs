@@ -7,7 +7,7 @@ namespace AquaRegia.Ammo;
 
 public class EmptyBottle : BaseItem
 {
-    public override string Texture => Assets.Sprites.Ammo.EmptyBottle;
+    public override string Texture => Assets.Sprites.Ammo.empty_bottle;
 
     public override void SetStaticDefaults()
     {

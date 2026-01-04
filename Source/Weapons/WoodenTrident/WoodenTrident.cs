@@ -9,7 +9,7 @@ namespace AquaRegia.Weapons.WoodenTrident;
 
 public class WoodenTrident : BaseItem
 {
-    public override string Texture => Assets.Sprites.Weapons.WoodenTrident.WoodenTridentItem;
+    public override string Texture => Assets.Sprites.Weapons.WoodenTrident.wooden_trident;
 
     private PropertyModule Property { get; } = new();
 

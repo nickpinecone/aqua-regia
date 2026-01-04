@@ -13,7 +13,7 @@ namespace AquaRegia.Weapons.WoodenWater;
 
 public class WoodenWaterGun : BaseItem
 {
-    public override string Texture => Assets.Sprites.Weapons.WoodenWater.WoodenWaterGun;
+    public override string Texture => Assets.Sprites.Weapons.WoodenWater.wooden_water_gun;
 
     private PropertyModule Property { get; } = new();
     private TreeBoostModule TreeBoost { get; } = new();

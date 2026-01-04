@@ -26,7 +26,7 @@ public enum TreeState
 
 public class TreeProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Sprites.Weapons.WoodenWater.TreeProjectile;
+    public override string Texture => Assets.Sprites.Weapons.WoodenWater.tree_projectile;
 
     private PropertyModule Property { get; } = new();
 

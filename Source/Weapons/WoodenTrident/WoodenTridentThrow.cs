@@ -9,7 +9,7 @@ namespace AquaRegia.Weapons.WoodenTrident;
 
 public class WoodenTridentThrow : BaseProjectile
 {
-    public override string Texture => Assets.Sprites.Weapons.WoodenTrident.WoodenTridentProjectile;
+    public override string Texture => Assets.Sprites.Weapons.WoodenTrident.wooden_trident_projectile;
 
     public bool IsCollided = false;
 

@@ -13,7 +13,7 @@ namespace AquaRegia.Weapons.WoodenWater;
 
 public class WoodenWaterProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Sprites.Empty;
+    public override string Texture => Assets.Sprites.empty;
 
     private PropertyModule Property { get; } = new();
 

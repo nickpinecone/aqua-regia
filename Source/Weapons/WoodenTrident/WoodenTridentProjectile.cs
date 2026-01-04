@@ -8,7 +8,7 @@ namespace AquaRegia.Weapons.WoodenTrident;
 
 public class WoodenTridentProjectile : BaseProjectile
 {
-    public override string Texture => Assets.Sprites.Weapons.WoodenTrident.WoodenTridentProjectile;
+    public override string Texture => Assets.Sprites.Weapons.WoodenTrident.wooden_trident_projectile;
 
     private PropertyModule Property { get; } = new();
 
