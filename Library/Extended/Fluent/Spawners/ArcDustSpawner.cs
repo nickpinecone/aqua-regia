@@ -5,7 +5,7 @@ using Terraria;
 
 namespace AquaRegia.Library.Extended.Fluent.Spawners;
 
-public class ArcDustSpawner : BaseDustSpawner
+public class ArcDustSpawner : DustSpawner<ArcDustSpawner>
 {
     private float _offset = 0f;
     private float _speed = 0f;
@@ -46,24 +46,6 @@ public class ArcDustSpawner : BaseDustSpawner
         }
 
         return dusts;
-    }
-
-    public new ArcDustSpawner Perfect(bool isPerfect)
-    {
-        base.Perfect(isPerfect);
-        return this;
-    }
-
-    public new ArcDustSpawner Size(Vector2 size, float scale = 1f)
-    {
-        base.Size(size, scale);
-        return this;
-    }
-
-    public new ArcDustSpawner Color(Color color, int alpha, float fadeIn = 0f)
-    {
-        base.Color(color, alpha, fadeIn);
-        return this;
     }
 
     public ArcDustSpawner Position(Vector2 position, float offset = 0f)

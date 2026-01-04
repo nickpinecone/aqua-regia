@@ -4,7 +4,7 @@ using Terraria;
 
 namespace AquaRegia.Library.Extended.Fluent.Spawners;
 
-public class SingleDustSpawner : BaseDustSpawner
+public class SingleDustSpawner : DustSpawner<SingleDustSpawner>
 {
     private Vector2 _velocity = Vector2.Zero;
     private bool _noGravity = false;
@@ -23,30 +23,6 @@ public class SingleDustSpawner : BaseDustSpawner
         dust.fadeIn = _fadeIn;
 
         return dust;
-    }
-
-    public new SingleDustSpawner Perfect(bool isPerfect)
-    {
-        base.Perfect(isPerfect);
-        return this;
-    }
-
-    public new SingleDustSpawner Size(Vector2 size, float scale = 1f)
-    {
-        base.Size(size, scale);
-        return this;
-    }
-
-    public new SingleDustSpawner Position(Vector2 position)
-    {
-        base.Position(position);
-        return this;
-    }
-
-    public new SingleDustSpawner Color(Color color, int alpha, float fadeIn = 0f)
-    {
-        base.Color(color, alpha, fadeIn);
-        return this;
     }
 
     public SingleDustSpawner Velocity(Vector2 velocity, bool noGravity = false)
