@@ -24,7 +24,7 @@ public class BuffModule : IModule, IProjectileRuntime
         Percent = percent;
     }
 
-    public void ApplyToTarget(NPC target)
+    public void ApplyBuff(NPC target)
     {
         if (Main.rand.Percent(Percent))
         {
@@ -34,6 +34,6 @@ public class BuffModule : IModule, IProjectileRuntime
 
     public void RuntimeOnHitNPC(BaseProjectile baseProjectile, NPC target, NPC.HitInfo hit, int damageDone)
     {
-        ApplyToTarget(target);
+        ApplyBuff(target);
     }
 }

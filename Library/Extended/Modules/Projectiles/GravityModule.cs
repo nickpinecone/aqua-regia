@@ -24,6 +24,11 @@ public class GravityModule : IModule, IProjectileRuntime
         return velocity;
     }
 
+    public void Reset()
+    {
+        Value = Default;
+    }
+
     public void ApplyGravity(Projectile projectile)
     {
         projectile.velocity = GetGravity(projectile.velocity);

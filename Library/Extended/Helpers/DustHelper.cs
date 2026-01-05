@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using AquaRegia.Config;
 using AquaRegia.Library.Extended.Extensions;
 using Microsoft.Xna.Framework;

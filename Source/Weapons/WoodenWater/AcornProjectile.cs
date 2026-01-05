@@ -34,15 +34,17 @@ public class AcornProjectile : BaseProjectile
     {
         base.SetDefaults();
 
+        HeadBounce.OnHeadBounce = OnHeadBounce;
+
+        RotateOnMove.SetDefaults();
+        Gravity.SetDefaults();
+
         Property.Set(this)
             .Size(20, 20)
             .Damage(DamageClass.Ranged, 5)
             .Friendly(true, false)
             .Alpha(255)
             .TimeLeft(120);
-
-        RotateOnMove.SetDefaults();
-        Gravity.SetDefaults();
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -63,10 +65,8 @@ public class AcornProjectile : BaseProjectile
             .Spawn();
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    private void OnHeadBounce()
     {
-        base.OnHitNPC(target, hit, damageDone);
-
         SoundEngine.PlaySound(BonkSound);
         Gravity.Value /= 1.2f;
     }

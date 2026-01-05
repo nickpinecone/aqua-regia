@@ -6,23 +6,26 @@ namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
 public class RecallModule : IModule, IProjectileRuntime
 {
-    public float RecallSpeed { get; set; }
-    public float RecallAcc { get; set; }
+    public float MaxSpeed { get; set; }
+    public float Acc { get; set; }
+    public float AccChange { get; set; }
     public float NearAmount { get; set; }
-
     public bool IsRecalled { get; private set; }
 
-    public void SetDefaults(float recallSpeed, float recallAcc = 1f, float nearAmount = 32f)
+    public Action? OnRecall { get; set; }
+
+    public void SetDefaults(float maxRecallSpeed, float acc = 1f, float accChange = 1.01f, float nearAmount = 32f)
     {
-        RecallSpeed = recallSpeed;
-        RecallAcc = recallAcc;
+        MaxSpeed = maxRecallSpeed;
+        Acc = acc;
+        AccChange = accChange;
         NearAmount = nearAmount;
     }
 
     public Vector2 GetRecallVelocity(Vector2 ownerPosition, Vector2 projectilePosition, Vector2 projectileVelocity)
     {
-        var velocity = (ownerPosition - projectilePosition).SafeNormalize(Vector2.Zero) * RecallSpeed;
-        return projectileVelocity.MoveTowards(velocity, RecallAcc);
+        var velocity = (ownerPosition - projectilePosition).SafeNormalize(Vector2.Zero) * MaxSpeed;
+        return projectileVelocity.MoveTowards(velocity, Acc);
     }
 
     public float GetRecallRotation(Vector2 velocity)
@@ -41,7 +44,9 @@ public class RecallModule : IModule, IProjectileRuntime
     public void Recall(Projectile projectile)
     {
         if (IsRecalled) return;
+
         IsRecalled = true;
+        OnRecall?.Invoke();
 
         projectile.velocity = -projectile.velocity.SafeNormalize(Vector2.Zero);
     }
@@ -56,7 +61,7 @@ public class RecallModule : IModule, IProjectileRuntime
             projectile.velocity = GetRecallVelocity(owner.Center, projectile.Center, projectile.velocity);
             projectile.rotation = GetRecallRotation(projectile.velocity);
 
-            RecallAcc *= 1.01f;
+            Acc *= AccChange;
             KillWhenNear(projectile, owner.Center);
 
             return false;

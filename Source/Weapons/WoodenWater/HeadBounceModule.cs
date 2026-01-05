@@ -1,3 +1,4 @@
+using System;
 using AquaRegia.Library.Extended;
 using AquaRegia.Library.Extended.Modules;
 using Microsoft.Xna.Framework;
@@ -7,8 +8,12 @@ namespace AquaRegia.Weapons.WoodenWater;
 
 public class HeadBounceModule : IModule, IProjectileRuntime
 {
+    public Action? OnHeadBounce { get; set; }
+
     public Vector2 BounceOff()
     {
+        OnHeadBounce?.Invoke();
+
         var side = Main.rand.NextFromList(1, -1);
         var sideVector = new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(30 * side));
         var bounceVelocity = sideVector.RotatedByRandom(MathHelper.ToRadians(15));
