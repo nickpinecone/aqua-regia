@@ -52,7 +52,7 @@ public class WoodenWaterProjectile : BaseProjectile
             var position = target.Center - new Vector2(0, target.height * 1.5f + Main.rand.NextFloat(0f, 6f));
 
             new ProjectileSpawner<AcornProjectile>()
-                .Context(Projectile.GetSource_FromThis(), Owner)
+                .Context(new ProjectileSource(this), Owner)
                 .Position(position)
                 .Damage(hit.Damage, hit.Knockback)
                 .Spawn();

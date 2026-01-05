@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
@@ -15,7 +16,7 @@ public class GravityModule : IModule, IProjectileRuntime
         Change = gravityChange;
     }
 
-    public Vector2 ApplyGravity(Vector2 velocity)
+    public Vector2 GetGravity(Vector2 velocity)
     {
         Value += Change;
         velocity.Y += Value;
@@ -23,8 +24,13 @@ public class GravityModule : IModule, IProjectileRuntime
         return velocity;
     }
 
-    public void RuntimeAI(BaseProjectile projectile)
+    public void ApplyGravity(Projectile projectile)
     {
-        projectile.Projectile.velocity = ApplyGravity(projectile.Projectile.velocity);
+        projectile.velocity = GetGravity(projectile.velocity);
+    }
+
+    public void RuntimeAI(BaseProjectile baseProjectile)
+    {
+        ApplyGravity(baseProjectile.Projectile);
     }
 }

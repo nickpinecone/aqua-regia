@@ -64,13 +64,18 @@ public class WaterModule : IModule, IProjectileRuntime
         return dusts;
     }
 
-    public void RuntimeOnKill(BaseProjectile projectile, int timeLeft)
+    public void ApplyDust(Projectile projectile)
     {
-        KillEffect(projectile.Projectile.Center, projectile.Projectile.velocity);
+        CreateDust(projectile.Center, projectile.velocity);
     }
 
-    public void RuntimeAI(BaseProjectile projectile)
+    public void RuntimeOnKill(BaseProjectile baseProjectile, int timeLeft)
     {
-        CreateDust(projectile.Projectile.Center, projectile.Projectile.velocity);
+        KillEffect(baseProjectile.Projectile.Center, baseProjectile.Projectile.velocity);
+    }
+
+    public void RuntimeAI(BaseProjectile baseProjectile)
+    {
+        ApplyDust(baseProjectile.Projectile);
     }
 }

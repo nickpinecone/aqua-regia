@@ -9,9 +9,9 @@ public class PropertyModule : IModule
 {
     private BaseItem _base = null!;
 
-    public PropertyModule Set(BaseItem item)
+    public PropertyModule Set(BaseItem baseItem)
     {
-        _base = item;
+        _base = baseItem;
         return this;
     }
 

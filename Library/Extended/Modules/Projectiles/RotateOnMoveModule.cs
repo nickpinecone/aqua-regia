@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
@@ -22,8 +23,13 @@ public class RotateOnMoveModule : IModule, IProjectileRuntime
         return 0f;
     }
 
-    public void RuntimeAI(BaseProjectile projectile)
+    public void ApplyRotation(Projectile projectile)
     {
-        projectile.Projectile.rotation += GetRotation(projectile.Projectile.velocity);
+        projectile.rotation += GetRotation(projectile.velocity);
+    }
+
+    public void RuntimeAI(BaseProjectile baseProjectile)
+    {
+        ApplyRotation(baseProjectile.Projectile);
     }
 }

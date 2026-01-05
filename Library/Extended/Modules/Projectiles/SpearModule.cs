@@ -14,7 +14,17 @@ public class SpearModule : IModule, IProjectileRuntime
         HoldoutRangeMax = holdoutRangeMax;
     }
 
-    public void RuntimeAI(BaseProjectile baseProjectile)
+    public float GetRotation(Vector2 velocity)
+    {
+        return velocity.ToRotation() + MathHelper.ToRadians(135f);
+    }
+
+    public void ApplyRotation(Projectile projectile)
+    {
+        projectile.rotation = GetRotation(projectile.velocity);
+    }
+
+    public void ApplyAttack(BaseProjectile baseProjectile)
     {
         var owner = baseProjectile.Owner;
         var projectile = baseProjectile.Projectile;
@@ -46,6 +56,11 @@ public class SpearModule : IModule, IProjectileRuntime
             projectile.velocity * HoldoutRangeMax, progress
         );
 
-        projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
+        ApplyRotation(projectile);
+    }
+
+    public void RuntimeAI(BaseProjectile baseProjectile)
+    {
+        ApplyAttack(baseProjectile);
     }
 }

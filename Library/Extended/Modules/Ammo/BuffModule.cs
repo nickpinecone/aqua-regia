@@ -32,7 +32,7 @@ public class BuffModule : IModule, IProjectileRuntime
         }
     }
 
-    public void RuntimeOnHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+    public void RuntimeOnHitNPC(BaseProjectile baseProjectile, NPC target, NPC.HitInfo hit, int damageDone)
     {
         ApplyToTarget(target);
     }

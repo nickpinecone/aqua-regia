@@ -28,7 +28,7 @@ public class StateModule<T> : IModule, IProjectileRuntime
         _handlers[state] = handler;
     }
 
-    public void RuntimeAI(BaseProjectile projectile)
+    public void RuntimeAI(BaseProjectile baseProjectile)
     {
         UpdateState();
     }

@@ -10,8 +10,8 @@ public class ExplosionSource : ProjectileSource
     public readonly int Radius;
     public readonly int CritChance;
 
-    public ExplosionSource(BaseProjectile projectile, DamageClass damageType, int radius, int critChance) :
-        base(projectile)
+    public ExplosionSource(BaseProjectile projectile, DamageClass damageType, int radius, int critChance)
+        : base(projectile)
     {
         DamageType = damageType;
         Radius = radius;

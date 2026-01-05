@@ -7,42 +7,66 @@ namespace AquaRegia.Library.Extended.Modules.Projectiles;
 public class RecallModule : IModule, IProjectileRuntime
 {
     public float RecallSpeed { get; set; }
-    public bool Recalled { get; private set; }
+    public float RecallAcc { get; set; }
+    public float NearAmount { get; set; }
 
-    public void SetDefaults(float recallSpeed)
+    public bool IsRecalled { get; private set; }
+
+    public void SetDefaults(float recallSpeed, float recallAcc = 1f, float nearAmount = 32f)
     {
         RecallSpeed = recallSpeed;
+        RecallAcc = recallAcc;
+        NearAmount = nearAmount;
     }
 
-    public void Recall()
+    public Vector2 GetRecallVelocity(Vector2 ownerPosition, Vector2 projectilePosition, Vector2 projectileVelocity)
     {
-        Recalled = true;
+        var velocity = (ownerPosition - projectilePosition).SafeNormalize(Vector2.Zero) * RecallSpeed;
+        return projectileVelocity.MoveTowards(velocity, RecallAcc);
     }
 
-    public void Update(BaseProjectile baseProjectile)
+    public float GetRecallRotation(Vector2 velocity)
     {
-        var projectile = baseProjectile.Projectile;
-        var owner = baseProjectile.Owner;
+        return velocity.ToRotation() + MathHelper.ToRadians(-45f);
+    }
 
-        projectile.timeLeft = 10;
-        if (!Recalled) return;
-
-        projectile.tileCollide = false;
-        var velocity = (owner.Center - projectile.Center).SafeNormalize(Vector2.Zero) * RecallSpeed;
-        projectile.velocity = projectile.velocity.MoveTowards(velocity, 1f);
-
-        if (owner.Center.DistanceSQ(projectile.Center) < Math.Pow(32f, 2))
+    public void KillWhenNear(Projectile projectile, Vector2 ownerPosition)
+    {
+        if (ownerPosition.DistanceSQ(projectile.Center) < Math.Pow(NearAmount, 2))
         {
             projectile.Kill();
         }
-
-        projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(-45f);
     }
 
-    public bool RuntimePreAI(BaseProjectile projectile)
+    public void Recall(Projectile projectile)
     {
-        Update(projectile);
+        if (IsRecalled) return;
+        IsRecalled = true;
 
-        return !Recalled;
+        projectile.velocity = -projectile.velocity.SafeNormalize(Vector2.Zero);
+    }
+
+    public bool ApplyRecall(Projectile projectile, Player owner)
+    {
+        projectile.timeLeft = 10;
+
+        if (IsRecalled)
+        {
+            projectile.tileCollide = false;
+            projectile.velocity = GetRecallVelocity(owner.Center, projectile.Center, projectile.velocity);
+            projectile.rotation = GetRecallRotation(projectile.velocity);
+
+            RecallAcc *= 1.01f;
+            KillWhenNear(projectile, owner.Center);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool RuntimePreAI(BaseProjectile baseProjectile)
+    {
+        return ApplyRecall(baseProjectile.Projectile, baseProjectile.Owner);
     }
 }

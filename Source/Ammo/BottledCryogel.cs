@@ -45,9 +45,9 @@ public class BottledCryogel : BaseAmmo
             water.Color = Color.Cyan;
         }
 
-        var frostburn = new BuffModule();
-        frostburn.SetDefaults(BuffID.Frostburn, 4f, 15);
+        var buff = new BuffModule();
+        buff.SetDefaults(BuffID.Frostburn, 4f, 15);
 
-        projectile.Composite.AddRuntimeModule(frostburn);
+        projectile.Composite.AddRuntimeModule(buff);
     }
 }

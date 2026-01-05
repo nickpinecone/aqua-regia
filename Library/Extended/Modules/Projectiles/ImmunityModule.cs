@@ -52,17 +52,17 @@ public class ImmunityModule : IModule, IProjectileRuntime
         _removeQueue.Clear();
     }
 
-    public void RuntimeOnHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+    public void RuntimeOnHitNPC(BaseProjectile baseProjectile, NPC target, NPC.HitInfo hit, int damageDone)
     {
         Reset(target);
     }
 
-    public void RuntimeAI(BaseProjectile projectile)
+    public void RuntimeAI(BaseProjectile baseProjectile)
     {
         Update();
     }
 
-    public bool? RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    public bool? RuntimeCanHitNPC(BaseProjectile baseProjectile, NPC target)
     {
         return CanHit(target);
     }

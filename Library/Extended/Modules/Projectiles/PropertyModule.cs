@@ -7,9 +7,9 @@ public class PropertyModule : IModule
 {
     private BaseProjectile _base = null!;
 
-    public PropertyModule Set(BaseProjectile projectile)
+    public PropertyModule Set(BaseProjectile baseProjectile)
     {
-        _base = projectile;
+        _base = baseProjectile;
         return this;
     }
 

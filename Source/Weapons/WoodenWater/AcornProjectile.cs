@@ -17,8 +17,8 @@ public class AcornProjectile : BaseProjectile
     public override string Texture => Assets.Sprites.Weapons.WoodenWater.acorn_projectile;
 
     private PropertyModule Property { get; } = new();
-    private HeadBounceModule HeadBounce { get; } = new();
 
+    [RuntimeModule] private HeadBounceModule HeadBounce { get; } = new();
     [RuntimeModule] private GravityModule Gravity { get; } = new();
     [RuntimeModule(1)] private RotateOnMoveModule RotateOnMove { get; } = new();
 
@@ -63,21 +63,11 @@ public class AcornProjectile : BaseProjectile
             .Spawn();
     }
 
-    public override bool? CanHitNPC(NPC target)
-    {
-        if (!HeadBounce.CanHit(target, Projectile.Center))
-            return false;
-
-        return base.CanHitNPC(target);
-    }
-
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         base.OnHitNPC(target, hit, damageDone);
 
         SoundEngine.PlaySound(BonkSound);
-
-        Projectile.velocity = HeadBounce.BounceOff(target, Projectile.Center);
         Gravity.Value /= 1.2f;
     }
 

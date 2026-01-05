@@ -2,7 +2,6 @@ using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
 using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenTrident;
@@ -11,8 +10,7 @@ public class WoodenTridentThrow : BaseProjectile
 {
     public override string Texture => Assets.Sprites.Weapons.WoodenTrident.wooden_trident_projectile;
 
-    public bool IsCollided = false;
-
+    private SpearModule Spear { get; } = new();
     private PropertyModule Property { get; } = new();
     private GravityModule Gravity { get; } = new();
 
@@ -22,7 +20,7 @@ public class WoodenTridentThrow : BaseProjectile
     {
         base.SetDefaults();
 
-        Gravity.SetDefaults();
+        Gravity.SetDefaults(0.005f, 0.005f);
         Recall.SetDefaults(36f);
 
         Property.Set(this)
@@ -39,7 +37,6 @@ public class WoodenTridentThrow : BaseProjectile
         base.OnTileCollide(oldVelocity);
 
         Projectile.velocity = Vector2.Zero;
-        IsCollided = true;
 
         return false;
     }
@@ -48,11 +45,10 @@ public class WoodenTridentThrow : BaseProjectile
     {
         base.AI();
 
-        if (!IsCollided)
+        if (Projectile.velocity != Vector2.Zero)
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
-
-            Gravity.RuntimeAI(this);
+            Spear.ApplyRotation(Projectile);
+            Gravity.ApplyGravity(Projectile);
         }
     }
 }

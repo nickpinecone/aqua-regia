@@ -16,7 +16,7 @@ public class SpriteModule : IModule, IItemRuntime
         Shift = shift ?? Vector2.Zero;
     }
 
-    public Vector2 ApplyOffset(Vector2 position, Vector2 velocity)
+    public Vector2 GetOffset(Vector2 position, Vector2 velocity)
     {
         var normalized = velocity.SafeNormalize(Vector2.Zero);
         var offset = new Vector2(position.X + normalized.X * Offset.X, position.Y + normalized.Y * Offset.Y);
@@ -24,15 +24,14 @@ public class SpriteModule : IModule, IItemRuntime
         return offset + Shift;
     }
 
-    public Vector2? RuntimeHoldoutOffset(BaseItem item)
+    public Vector2? RuntimeHoldoutOffset(BaseItem baseItem)
     {
         return HoldoutOffset;
     }
 
-    public void RuntimeModifyShootStats(BaseItem item, Player player, ref Vector2 position, ref Vector2 velocity,
-        ref int type,
-        ref int damage, ref float knockback)
+    public void RuntimeModifyShootStats(BaseItem baseItem, Player player, ref Vector2 position, ref Vector2 velocity,
+        ref int type, ref int damage, ref float knockback)
     {
-        position = ApplyOffset(position, velocity);
+        position = GetOffset(position, velocity);
     }
 }

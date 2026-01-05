@@ -6,33 +6,33 @@ namespace AquaRegia.Library.Extended.Modules;
 
 public interface IProjectileRuntime
 {
-    public bool RuntimeTileCollide(BaseProjectile projectile, Vector2 oldVelocity)
+    public bool RuntimeTileCollide(BaseProjectile baseProjectile, Vector2 oldVelocity)
     {
         return true;
     }
 
-    public bool? RuntimeCanHitNPC(BaseProjectile projectile, NPC target)
+    public bool? RuntimeCanHitNPC(BaseProjectile baseProjectile, NPC target)
     {
         return null;
     }
 
-    public void RuntimeOnHitNPC(BaseProjectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+    public void RuntimeOnHitNPC(BaseProjectile baseProjectile, NPC target, NPC.HitInfo hit, int damageDone)
     {
     }
 
-    public void RuntimeAI(BaseProjectile projectile)
+    public void RuntimeAI(BaseProjectile baseProjectile)
     {
     }
 
-    public void RuntimeOnKill(BaseProjectile projectile, int timeLeft)
+    public void RuntimeOnKill(BaseProjectile baseProjectile, int timeLeft)
     {
     }
 
-    public void RuntimeOnSpawn(BaseProjectile projectile, IEntitySource source)
+    public void RuntimeOnSpawn(BaseProjectile baseProjectile, IEntitySource source)
     {
     }
 
-    public bool RuntimePreAI(BaseProjectile projectile)
+    public bool RuntimePreAI(BaseProjectile baseProjectile)
     {
         return true;
     }

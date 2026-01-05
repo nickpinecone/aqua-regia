@@ -39,7 +39,7 @@ public class ProgressModule : IModule, IItemRuntime
         _timer.Restart();
     }
 
-    public void RuntimeHoldItem(BaseItem item, Player player)
+    public void RuntimeHoldItem(BaseItem baseItem, Player player)
     {
         Update();
     }

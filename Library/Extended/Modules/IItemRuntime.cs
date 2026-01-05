@@ -7,39 +7,43 @@ namespace AquaRegia.Library.Extended.Modules;
 
 public interface IItemRuntime
 {
-    public void RuntimeSetStaticDefaults(BaseItem item)
+    public void RuntimeSetStaticDefaults(BaseItem baseItem)
     {
     }
 
-    public void RuntimeModifyTooltips(BaseItem item, List<TooltipLine> tooltip)
+    public void RuntimeModifyTooltips(BaseItem baseItem, List<TooltipLine> tooltip)
     {
     }
 
-    public Vector2? RuntimeHoldoutOffset(BaseItem item)
+    public Vector2? RuntimeHoldoutOffset(BaseItem baseItem)
     {
         return null;
     }
 
-    public void RuntimeHoldItem(BaseItem item, Player player)
+    public void RuntimeHoldItem(BaseItem baseItem, Player player)
     {
     }
 
-    public void RuntimeModifyShootStats(BaseItem item, Player player, ref Vector2 position,
+    public void RuntimeModifyShootStats(BaseItem baseItem, Player player, ref Vector2 position,
         ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
     {
     }
 
-    public bool RuntimeCanUseItem(BaseItem item, Player player)
+    public bool RuntimeCanUseItem(BaseItem baseItem, Player player)
     {
         return true;
     }
 
-    public bool? RuntimeUseItem(BaseItem item, Player player)
+    public bool? RuntimeUseItem(BaseItem baseItem, Player player)
     {
         return null;
     }
 
-    void RuntimeAltUseAlways(BaseItem item, Player player)
+    void RuntimeAltUseAlways(BaseItem baseItem, Player player)
+    {
+    }
+
+    void RuntimeSetDefaults(BaseItem baseItem)
     {
     }
 }

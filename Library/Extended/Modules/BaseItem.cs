@@ -77,6 +77,16 @@ public abstract class BaseItem : ModItem, IComposite<IItemRuntime>
         }
     }
 
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+
+        foreach (var module in RuntimeModules)
+        {
+            module.RuntimeSetDefaults(this);
+        }
+    }
+
     public override void HoldItem(Player player)
     {
         base.HoldItem(player);

@@ -14,9 +14,9 @@ public class DataModule<TSource, TPlayer> : IModule, IProjectileRuntime
     public TSource Source { get; private set; } = default!;
     public TPlayer Player { get; private set; } = null!;
 
-    public void RuntimeOnSpawn(BaseProjectile projectile, IEntitySource source)
+    public void RuntimeOnSpawn(BaseProjectile baseProjectile, IEntitySource source)
     {
         Source = (TSource)source;
-        Player = projectile.Owner.GetModPlayer<TPlayer>();
+        Player = baseProjectile.Owner.GetModPlayer<TPlayer>();
     }
 }

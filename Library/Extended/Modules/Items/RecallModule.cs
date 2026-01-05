@@ -17,47 +17,47 @@ public class RecallModule<T> : IModule, IItemRuntime
         ThrowSpeed = throwSpeed;
     }
 
-    public void Throw(BaseItem item, Player player)
+    public void ThrowProjectile(BaseItem baseItem, Player player)
     {
         new ProjectileSpawner<T>()
-            .Context(new WeaponWithAmmoSource(item), player)
-            .Damage(item.Item.damage, item.Item.knockBack)
+            .Context(new WeaponWithAmmoSource(baseItem), player)
+            .Damage(baseItem.Item.damage, baseItem.Item.knockBack)
             .Position(player.Center)
             .Velocity((Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * ThrowSpeed)
             .Spawn();
     }
 
-    public void Recall()
+    public void RecallAll()
     {
         foreach (var proj in Main.ActiveProjectiles)
         {
             if (proj.ModProjectile is T thrown && thrown.Composite.TryGetModule<RecallModule>(out var recall))
             {
-                recall.Recall();
+                recall.Recall(proj);
             }
         }
     }
 
-    public void ThrowOrRecall(BaseItem item, Player player)
+    public void ThrowOrRecall(BaseItem baseItem, Player player)
     {
-        if (player.ownedProjectileCounts[item.Item.shoot] < 1 &&
+        if (player.ownedProjectileCounts[baseItem.Item.shoot] < 1 &&
             player.ownedProjectileCounts[ModContent.ProjectileType<T>()] < 1)
         {
-            Throw(item, player);
+            ThrowProjectile(baseItem, player);
         }
         else
         {
-            Recall();
+            RecallAll();
         }
     }
 
-    public bool RuntimeCanUseItem(BaseItem item, Player player)
+    public bool RuntimeCanUseItem(BaseItem baseItem, Player player)
     {
         return player.ownedProjectileCounts[ModContent.ProjectileType<T>()] < 1;
     }
 
-    public void RuntimeAltUseAlways(BaseItem item, Player player)
+    public void RuntimeAltUseAlways(BaseItem baseItem, Player player)
     {
-        ThrowOrRecall(item, player);
+        ThrowOrRecall(baseItem, player);
     }
 }

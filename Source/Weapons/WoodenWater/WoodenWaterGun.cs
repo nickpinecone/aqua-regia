@@ -16,9 +16,9 @@ public class WoodenWaterGun : BaseItem
     public override string Texture => Assets.Sprites.Weapons.WoodenWater.wooden_water_gun;
 
     private PropertyModule Property { get; } = new();
-    private TreeBoostModule TreeBoost { get; } = new();
-    private WaterModule Water { get; } = new();
-
+    
+    [RuntimeModule] private TreeBoostModule TreeBoost { get; } = new();
+    [RuntimeModule] private WaterModule Water { get; } = new();
     [RuntimeModule] private SpriteModule Sprite { get; } = new();
     [RuntimeModule(1)] private AccuracyModule Accuracy { get; } = new();
     [RuntimeModule] private ProgressModule Progress { get; } = new();
@@ -28,7 +28,6 @@ public class WoodenWaterGun : BaseItem
         base.SetDefaults();
 
         Sprite.SetDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
-        Water.SetDefaults(this);
         Progress.SetDefaults(5 * 60);
         Accuracy.SetDefaults(3.5f);
 
@@ -50,13 +49,6 @@ public class WoodenWaterGun : BaseItem
             .AddIngredient(ItemID.Acorn, 5)
             .AddTile(TileID.WorkBenches)
             .Register();
-    }
-
-    public override void HoldItem(Player player)
-    {
-        base.HoldItem(player);
-
-        Item.damage = TreeBoost.Apply(player);
     }
 
     public override void AltUseAlways(Player player)

@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using AquaRegia.Library.Extended;
+using AquaRegia.Library.Extended.Modules;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
-public class TreeBoostModule : IModule
+public class TreeBoostModule : IModule, IItemRuntime
 {
     private int _defaultDamage;
     private int _boostAmount;
@@ -31,5 +32,10 @@ public class TreeBoostModule : IModule
         return isNearTree
             ? _defaultDamage + _boostAmount
             : _defaultDamage;
+    }
+
+    public void RuntimeHoldItem(BaseItem baseItem, Player player)
+    {
+        baseItem.Item.damage = Apply(player);
     }
 }
