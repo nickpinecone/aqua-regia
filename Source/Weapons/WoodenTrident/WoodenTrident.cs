@@ -23,12 +23,12 @@ public class WoodenTrident : BaseItem
         Recall.SetDefaults(12f);
 
         Property.Set(this)
-            .Damage(25, 6.5f, DamageClass.Melee)
-            .UseStyle(ItemUseStyleID.Shoot, 18, 12)
-            .UseSound(SoundID.Item71)
-            .Shoot<WoodenTridentProjectile>(AmmoID.None, 3.7f)
+            .Damage(8, 1f, DamageClass.Melee)
+            .UseStyle(ItemUseStyleID.Shoot, 28, 28)
+            .UseSound(SoundID.Item1)
+            .Shoot<WoodenTridentProjectile>(AmmoID.None, 1f)
             .Hide(true)
-            .Rarity(ItemRarityID.Pink)
-            .Price(Item.sellPrice(silver: 10));
+            .Rarity(ItemRarityID.White)
+            .Price(Item.sellPrice(copper: 10));
     }
 }

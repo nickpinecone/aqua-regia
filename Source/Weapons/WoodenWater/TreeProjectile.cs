@@ -30,8 +30,8 @@ public class TreeProjectile : BaseProjectile
 
     private PropertyModule Property { get; } = new();
 
-    [RuntimeModule] private StateModule<TreeState> State { get; } = new(TreeState.Appear);
     [RuntimeModule] private ImmunityModule Immunity { get; } = new();
+    [RuntimeModule] private StateModule<TreeState> State { get; } = new(TreeState.Appear);
 
     private Tween<int> Appear { get; } = Tween.Create<int>(6);
     private Tween<float> Rotate { get; } = Tween.Create<float>(20);
@@ -43,6 +43,8 @@ public class TreeProjectile : BaseProjectile
     {
         base.SetDefaults();
 
+        Immunity.SetDefaults();
+        
         Property.Set(this)
             .Size(76, 66)
             .Damage(DamageClass.Ranged, -1)

@@ -1,8 +1,10 @@
 using System;
+using AquaRegia.Library;
 using AquaRegia.Library.Extended;
 using AquaRegia.Library.Extended.Modules;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
@@ -10,9 +12,16 @@ public class HeadBounceModule : IModule, IProjectileRuntime
 {
     public Action? OnHeadBounce { get; set; }
 
+    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact.bonk)
+    {
+        Volume = 0.4f,
+        PitchVariance = 0.1f,
+    };
+
     public Vector2 BounceOff()
     {
         OnHeadBounce?.Invoke();
+        SoundEngine.PlaySound(BonkSound);
 
         var side = Main.rand.NextFromList(1, -1);
         var sideVector = new Vector2(0, -1).RotatedBy(MathHelper.ToRadians(30 * side));

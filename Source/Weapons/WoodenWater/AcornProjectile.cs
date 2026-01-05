@@ -18,17 +18,12 @@ public class AcornProjectile : BaseProjectile
 
     private PropertyModule Property { get; } = new();
 
+    [RuntimeModule] private ImmunityModule Immunity { get; } = new();
     [RuntimeModule] private HeadBounceModule HeadBounce { get; } = new();
     [RuntimeModule] private GravityModule Gravity { get; } = new();
     [RuntimeModule(1)] private RotateOnMoveModule RotateOnMove { get; } = new();
 
     private Tween<int> Appear { get; } = Tween.Create<int>(10);
-
-    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact.bonk)
-    {
-        Volume = 0.4f,
-        PitchVariance = 0.1f,
-    };
 
     public override void SetDefaults()
     {
@@ -36,6 +31,7 @@ public class AcornProjectile : BaseProjectile
 
         HeadBounce.OnHeadBounce = OnHeadBounce;
 
+        Immunity.SetDefaults(10);
         RotateOnMove.SetDefaults();
         Gravity.SetDefaults();
 
@@ -67,7 +63,6 @@ public class AcornProjectile : BaseProjectile
 
     private void OnHeadBounce()
     {
-        SoundEngine.PlaySound(BonkSound);
         Gravity.Value /= 1.2f;
     }
 

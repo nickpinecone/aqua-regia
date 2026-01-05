@@ -11,7 +11,7 @@ public class ImmunityModule : IModule, IProjectileRuntime
 
     private int ImmunityTime { get; set; }
 
-    public ImmunityModule(int immunityTime = 20)
+    public void SetDefaults(int immunityTime = 20)
     {
         ImmunityTime = immunityTime;
     }
@@ -57,9 +57,11 @@ public class ImmunityModule : IModule, IProjectileRuntime
         Reset(target);
     }
 
-    public void RuntimeAI(BaseProjectile baseProjectile)
+    public bool RuntimePreAI(BaseProjectile baseProjectile)
     {
         Update();
+
+        return true;
     }
 
     public bool? RuntimeCanHitNPC(BaseProjectile baseProjectile, NPC target)

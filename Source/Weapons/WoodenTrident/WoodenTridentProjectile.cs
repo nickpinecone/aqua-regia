@@ -12,12 +12,14 @@ public class WoodenTridentProjectile : BaseProjectile
 
     private PropertyModule Property { get; } = new();
 
+    [RuntimeModule] private ImmunityModule Immunity { get; } = new();
     [RuntimeModule] private SpearModule Spear { get; } = new();
 
     public override void SetDefaults()
     {
         base.SetDefaults();
 
+        Immunity.SetDefaults();
         Spear.SetDefaults();
 
         Property.Set(this)

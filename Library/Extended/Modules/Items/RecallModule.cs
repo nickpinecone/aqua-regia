@@ -3,6 +3,8 @@ using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Extended.Sources;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AquaRegia.Library.Extended.Modules.Items;
@@ -19,6 +21,8 @@ public class RecallModule<T> : IModule, IItemRuntime
 
     public void ThrowProjectile(BaseItem baseItem, Player player)
     {
+        SoundEngine.PlaySound(SoundID.Item1);
+        
         new ProjectileSpawner<T>()
             .Context(new WeaponWithAmmoSource(baseItem), player)
             .Damage(baseItem.Item.damage, baseItem.Item.knockBack)
@@ -29,6 +33,8 @@ public class RecallModule<T> : IModule, IItemRuntime
 
     public void RecallAll()
     {
+        SoundEngine.PlaySound(SoundID.Item7);
+        
         foreach (var proj in Main.ActiveProjectiles)
         {
             if (proj.ModProjectile is T thrown && thrown.Composite.TryGetModule<RecallModule>(out var recall))

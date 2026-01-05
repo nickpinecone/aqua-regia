@@ -9,17 +9,21 @@ public class RecallModule : IModule, IProjectileRuntime
     public float MaxSpeed { get; set; }
     public float Acc { get; set; }
     public float AccChange { get; set; }
+
     public float NearAmount { get; set; }
+    public float FarThreshold { get; set; }
     public bool IsRecalled { get; private set; }
 
     public Action? OnRecall { get; set; }
 
-    public void SetDefaults(float maxRecallSpeed, float acc = 1f, float accChange = 1.01f, float nearAmount = 32f)
+    public void SetDefaults(float maxRecallSpeed, float acc = 1f, float accChange = 1.01f, float nearAmount = 32f,
+        float farThreshold = 1000f)
     {
         MaxSpeed = maxRecallSpeed;
         Acc = acc;
         AccChange = accChange;
         NearAmount = nearAmount;
+        FarThreshold = farThreshold;
     }
 
     public Vector2 GetRecallVelocity(Vector2 ownerPosition, Vector2 projectilePosition, Vector2 projectileVelocity)
@@ -41,6 +45,14 @@ public class RecallModule : IModule, IProjectileRuntime
         }
     }
 
+    public void RecallIfFar(Projectile projectile, Vector2 ownerPosition)
+    {
+        if (projectile.Center.DistanceSQ(ownerPosition) > Math.Pow(FarThreshold, 2))
+        {
+            Recall(projectile);
+        }
+    }
+
     public void Recall(Projectile projectile)
     {
         if (IsRecalled) return;
@@ -54,6 +66,8 @@ public class RecallModule : IModule, IProjectileRuntime
     public bool ApplyRecall(Projectile projectile, Player owner)
     {
         projectile.timeLeft = 10;
+
+        RecallIfFar(projectile, owner.Center);
 
         if (IsRecalled)
         {

@@ -14,12 +14,14 @@ public class ExplosionProjectile : BaseProjectile
 
     private PropertyModule Property { get; } = new();
 
-    [RuntimeModule] private DataModule<ExplosionSource> Data { get; } = new();
     [RuntimeModule] private ImmunityModule Immunity { get; } = new();
+    [RuntimeModule] private DataModule<ExplosionSource> Data { get; } = new();
 
     public override void SetDefaults()
     {
         base.SetDefaults();
+        
+        Immunity.SetDefaults();
 
         Property.Set(this)
             .Size(16, 16)

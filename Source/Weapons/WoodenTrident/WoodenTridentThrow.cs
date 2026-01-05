@@ -14,6 +14,7 @@ public class WoodenTridentThrow : BaseProjectile
     private SpearModule Spear { get; } = new();
     private GravityModule Gravity { get; } = new();
 
+    [RuntimeModule] private ImmunityModule Immunity { get; } = new();
     [RuntimeModule] private RecallModule Recall { get; } = new();
     [RuntimeModule] private AttachModule Attach { get; } = new();
 
@@ -23,6 +24,7 @@ public class WoodenTridentThrow : BaseProjectile
 
         Attach.OnAttach = OnAttach;
 
+        Immunity.SetDefaults();
         Gravity.SetDefaults(0.005f, 0.005f);
         Recall.SetDefaults(36f);
 
