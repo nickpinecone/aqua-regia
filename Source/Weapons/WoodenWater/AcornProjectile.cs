@@ -6,9 +6,7 @@ using AquaRegia.Library.Extended.Modules.Projectiles;
 using AquaRegia.Library.Tween;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
@@ -36,9 +34,9 @@ public class AcornProjectile : BaseProjectile
         Gravity.SetDefaults();
 
         Property.Set(this)
+            .Defaults.Ranged()
             .Size(20, 20)
-            .Damage(DamageClass.Ranged, 5)
-            .Friendly(true, false)
+            .Penetrate(5)
             .Alpha(255)
             .TimeLeft(120);
     }

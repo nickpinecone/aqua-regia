@@ -1,8 +1,6 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenTrident;
 
@@ -29,12 +27,9 @@ public class WoodenTridentThrow : BaseProjectile
         Recall.SetDefaults(36f);
 
         Property.Set(this)
-            .Size(18, 18, 1.2f)
-            .Friendly(true, false)
-            .Damage(DamageClass.Melee, -1)
-            .TileCollide(false)
-            .TimeLeft(10)
-            .DrawOffset(0, drawOriginOffset: new Vector2(-26, 0));
+            .Defaults.TridentThrow()
+            .Size(18, 18)
+            .TileCollide(false);
     }
 
     private void OnAttach()

@@ -3,7 +3,6 @@ using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Items;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenTrident;
 
@@ -23,11 +22,10 @@ public class WoodenTrident : BaseItem
         Recall.SetDefaults(12f);
 
         Property.Set(this)
-            .Damage(8, 1f, DamageClass.Melee)
-            .UseStyle(ItemUseStyleID.Shoot, 28, 28)
-            .UseSound(SoundID.Item1)
-            .Shoot<WoodenTridentProjectile>(AmmoID.None, 1f)
-            .Hide(true)
+            .Defaults.Spear()
+            .Damage(8, 1f)
+            .UseTime(28, 28)
+            .Shoot<WoodenTridentProjectile>()
             .Rarity(ItemRarityID.White)
             .Price(Item.sellPrice(copper: 10));
     }

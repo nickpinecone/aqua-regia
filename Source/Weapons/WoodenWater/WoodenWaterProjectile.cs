@@ -7,7 +7,6 @@ using AquaRegia.Library.Extended.Sources;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
@@ -31,9 +30,9 @@ public class WoodenWaterProjectile : BaseProjectile
         Gravity.SetDefaults();
 
         Property.Set(this)
+            .Defaults.Ranged()
             .Size(16, 16)
-            .Damage(DamageClass.Ranged, 1)
-            .Friendly(true, false)
+            .Penetrate(1)
             .TimeLeft(35);
     }
 

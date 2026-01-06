@@ -16,16 +16,20 @@ public class BottledCryogel : BaseAmmo
 
     private PropertyModule Property { get; } = new();
 
+    public override void SetStaticDefaults()
+    {
+        Item.ResearchUnlockCount = 50;
+    }
+
     public override void SetDefaults()
     {
         base.SetDefaults();
 
         Property.Set(this)
-            .Damage(2, 0.2f, DamageClass.Ranged)
-            .Ammo(ModContent.ItemType<BottledWater>())
+            .Defaults.BottledWater()
+            .Damage(2, 0.2f)
             .Rarity(ItemRarityID.White)
-            .MaxStack(Item.CommonMaxStack, true)
-            .Price(Item.sellPrice(0, 0, 0, 8));
+            .Price(Item.sellPrice(copper: 8));
     }
 
     public override void AddRecipes()

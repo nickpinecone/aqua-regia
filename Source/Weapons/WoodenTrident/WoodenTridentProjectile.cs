@@ -1,8 +1,6 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenTrident;
 
@@ -23,12 +21,7 @@ public class WoodenTridentProjectile : BaseProjectile
         Spear.SetDefaults();
 
         Property.Set(this)
-            .Size(18, 18, 1.2f)
-            .Friendly(true, false)
-            .Damage(DamageClass.Melee, -1)
-            .TileCollide(false, true)
-            .TimeLeft(int.MaxValue)
-            .DrawOffset(0, drawOriginOffset: new Vector2(-26, 0))
-            .Hide(true);
+            .Defaults.Spear()
+            .Size(18, 18);
     }
 }

@@ -1,4 +1,3 @@
-using AquaRegia.Ammo;
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Modules;
@@ -7,7 +6,6 @@ using AquaRegia.Library.Extended.Sources;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
@@ -16,9 +14,8 @@ public class WoodenWaterGun : BaseItem
     public override string Texture => Assets.Sprites.Weapons.WoodenWater.wooden_water_gun;
 
     private PropertyModule Property { get; } = new();
-    
+
     [RuntimeModule] private TreeBoostModule TreeBoost { get; } = new();
-    [RuntimeModule] private WaterModule Water { get; } = new();
     [RuntimeModule] private SpriteModule Sprite { get; } = new();
     [RuntimeModule(1)] private AccuracyModule Accuracy { get; } = new();
     [RuntimeModule] private ProgressModule Progress { get; } = new();
@@ -32,12 +29,13 @@ public class WoodenWaterGun : BaseItem
         Accuracy.SetDefaults(3.5f);
 
         Property.Set(this)
+            .Defaults.WaterGun()
             .Size(38, 22)
-            .Damage(4, 0.8f, DamageClass.Ranged)
-            .UseStyle(ItemUseStyleID.Shoot, 20, 20)
-            .Shoot<WoodenWaterProjectile>(ModContent.ItemType<BottledWater>(), 22f)
+            .Damage(4, 0.8f)
+            .UseTime(20, 20)
+            .Shoot<WoodenWaterProjectile>(22f)
             .Rarity(ItemRarityID.White)
-            .Price(Item.sellPrice(0, 0, 0, 20));
+            .Price(Item.sellPrice(copper: 20));
 
         TreeBoost.SetDefaults(Item.damage, 2);
     }

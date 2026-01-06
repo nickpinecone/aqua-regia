@@ -12,7 +12,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace AquaRegia.Weapons.WoodenWater;
 
@@ -44,13 +43,14 @@ public class TreeProjectile : BaseProjectile
         base.SetDefaults();
 
         Immunity.SetDefaults();
-        
+
         Property.Set(this)
+            .Defaults.Ranged()
             .Size(76, 66)
-            .Damage(DamageClass.Ranged, -1)
+            .Penetrate(-1)
             .Friendly(false, false)
             .TimeLeft(120)
-            .DrawOffset(38)
+            .GfxOffY(38)
             .Alpha(255);
 
         State.AddState(TreeState.Appear, HandleAppear);

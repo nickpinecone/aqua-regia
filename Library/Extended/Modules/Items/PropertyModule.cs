@@ -1,3 +1,4 @@
+using AquaRegia.Ammo;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -7,11 +8,26 @@ namespace AquaRegia.Library.Extended.Modules.Items;
 
 public class PropertyModule : IModule
 {
+    public PropertyDefaults Defaults { get; private set; } = null!;
+    
     private BaseItem _base = null!;
 
     public PropertyModule Set(BaseItem baseItem)
     {
         _base = baseItem;
+        Defaults = new PropertyDefaults(this);
+        return this;
+    }
+
+    public PropertyModule Width(int width)
+    {
+        _base.Item.width = width;
+        return this;
+    }
+
+    public PropertyModule Height(int height)
+    {
+        _base.Item.height = height;
         return this;
     }
 
@@ -22,11 +38,36 @@ public class PropertyModule : IModule
         return this;
     }
 
-    public PropertyModule Damage(int damage, float knockBack, DamageClass damageType)
+    public PropertyModule KnockBack(float knockBack)
+    {
+        _base.Item.knockBack = knockBack;
+        return this;
+    }
+
+    public PropertyModule DamageType(DamageClass damageType)
+    {
+        _base.Item.DamageType = damageType;
+        return this;
+    }
+
+    public PropertyModule Damage(int damage)
+    {
+        _base.Item.damage = damage;
+        return this;
+    }
+
+    public PropertyModule Damage(int damage, float knockBack)
     {
         _base.Item.damage = damage;
         _base.Item.knockBack = knockBack;
+        return this;
+    }
+
+    public PropertyModule Damage(DamageClass damageType, int damage, float knockBack)
+    {
         _base.Item.DamageType = damageType;
+        _base.Item.damage = damage;
+        _base.Item.knockBack = knockBack;
         return this;
     }
 
@@ -36,8 +77,41 @@ public class PropertyModule : IModule
         return this;
     }
 
-    /// <param name="ammo">For value use <see cref="ItemID"/></param>
-    /// <param name="shootSpeed"></param>
+    public PropertyModule UseAmmo(int ammo)
+    {
+        _base.Item.useAmmo = ammo;
+        return this;
+    }
+
+    public PropertyModule ShootSpeed(float shootSpeed)
+    {
+        _base.Item.shootSpeed = shootSpeed;
+        return this;
+    }
+
+    public PropertyModule Melee(bool melee)
+    {
+        _base.Item.noMelee = !melee;
+        return this;
+    }
+
+    public PropertyModule Shoot<T>()
+        where T : BaseProjectile
+    {
+        _base.Item.noMelee = true;
+        _base.Item.shoot = ModContent.ProjectileType<T>();
+        return this;
+    }
+
+    public PropertyModule Shoot<T>(float shootSpeed)
+        where T : BaseProjectile
+    {
+        _base.Item.noMelee = true;
+        _base.Item.shootSpeed = shootSpeed;
+        _base.Item.shoot = ModContent.ProjectileType<T>();
+        return this;
+    }
+
     public PropertyModule Shoot<T>(int ammo, float shootSpeed)
         where T : BaseProjectile
     {
@@ -48,15 +122,42 @@ public class PropertyModule : IModule
         return this;
     }
 
-    /// <param name="useStyle">For use style use <see cref="ItemUseStyleID"/></param>
-    /// <param name="useTime"></param>
-    /// <param name="useAnimation"></param>
-    /// <param name="autoReuse"></param>
-    public PropertyModule UseStyle(int useStyle, int useTime, int useAnimation, bool autoReuse = true)
+    public PropertyModule UseStyle(int useStyle)
+    {
+        _base.Item.useStyle = useStyle;
+        return this;
+    }
+
+    public PropertyModule UseAnimation(int useAnimation)
+    {
+        _base.Item.useAnimation = useAnimation;
+        return this;
+    }
+
+    public PropertyModule AutoReuse(bool autoReuse = true)
+    {
+        _base.Item.autoReuse = autoReuse;
+        return this;
+    }
+
+    public PropertyModule UseTime(int useTime)
+    {
+        _base.Item.useTime = useTime;
+        return this;
+    }
+
+    public PropertyModule UseTime(int useTime, int useAnimation)
     {
         _base.Item.useTime = useTime;
         _base.Item.useAnimation = useAnimation;
+        return this;
+    }
+
+    public PropertyModule UseStyle(int useStyle, int useTime, int useAnimation, bool autoReuse = true)
+    {
         _base.Item.useStyle = useStyle;
+        _base.Item.useTime = useTime;
+        _base.Item.useAnimation = useAnimation;
         _base.Item.autoReuse = autoReuse;
         return this;
     }
@@ -67,22 +168,24 @@ public class PropertyModule : IModule
         return this;
     }
 
-    /// <param name="rare">For rarity use <see cref="ItemRarityID"/></param>
     public PropertyModule Rarity(int rare)
     {
         _base.Item.rare = rare;
         return this;
     }
 
-    /// <param name="value">For value use Item.<see cref="Item.sellPrice"/> or Item.<see cref="Item.buyPrice"/></param>
     public PropertyModule Price(int value)
     {
         _base.Item.value = value;
         return this;
     }
 
-    /// <param name="maxStack">For value can use Item.<see cref="Item.CommonMaxStack"/></param>
-    /// <param name="consumable"></param>
+    public PropertyModule Consumable(bool consumable)
+    {
+        _base.Item.consumable = consumable;
+        return this;
+    }
+
     public PropertyModule MaxStack(int maxStack, bool consumable = false)
     {
         _base.Item.maxStack = maxStack;
@@ -94,5 +197,33 @@ public class PropertyModule : IModule
     {
         _base.Item.noUseGraphic = noUseGraphic;
         return this;
+    }
+
+    public class PropertyDefaults(PropertyModule propertyModule)
+    {
+        private static readonly SoundStyle WaterShootSound = new(Assets.Audio.Use.water_shoot)
+        {
+            Pitch = -0.1f,
+            PitchVariance = 0.1f,
+        };
+
+        public PropertyModule BottledWater() => propertyModule
+            .DamageType(DamageClass.Ranged)
+            .Ammo(ModContent.ItemType<BottledWater>())
+            .MaxStack(Item.CommonMaxStack, true);
+
+        public PropertyModule WaterGun() => propertyModule
+            .DamageType(DamageClass.Ranged)
+            .UseAmmo(ModContent.ItemType<BottledWater>())
+            .UseSound(WaterShootSound)
+            .UseStyle(ItemUseStyleID.Shoot);
+
+        public PropertyModule Spear() => propertyModule
+            .DamageType(DamageClass.Melee)
+            .Melee(false)
+            .ShootSpeed(1f)
+            .UseStyle(ItemUseStyleID.Shoot)
+            .UseSound(SoundID.Item1)
+            .Hide(true);
     }
 }

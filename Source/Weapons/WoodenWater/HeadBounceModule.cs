@@ -12,7 +12,7 @@ public class HeadBounceModule : IModule, IProjectileRuntime
 {
     public Action? OnHeadBounce { get; set; }
 
-    private SoundStyle BonkSound { get; } = new(Assets.Audio.Impact.bonk)
+    private static readonly SoundStyle BonkSound = new(Assets.Audio.Impact.bonk)
     {
         Volume = 0.4f,
         PitchVariance = 0.1f,
