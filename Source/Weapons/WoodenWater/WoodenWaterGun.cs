@@ -1,4 +1,5 @@
 using AquaRegia.Library;
+using AquaRegia.Library.Extended.Extensions;
 using AquaRegia.Library.Extended.Fluent;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Items;
@@ -25,7 +26,7 @@ public class WoodenWaterGun : BaseItem
         base.SetDefaults();
 
         Sprite.SetDefaults(new Vector2(26f, 26f), new Vector2(0, 6));
-        Progress.SetDefaults(5 * 60);
+        Progress.SetDefaults(5.FromSeconds());
         Accuracy.SetDefaults(3.5f);
 
         Property.Set(this)

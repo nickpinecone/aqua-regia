@@ -7,6 +7,9 @@ namespace AquaRegia.Library.Extended.Modules.Projectiles;
 
 public class AttachModule : IModule, IProjectileRuntime
 {
+    public bool CanAttachToNPC { get; set; } = true;
+    public bool CanAttachToTile { get; set; } = true;
+
     public Vector2 Offset { get; private set; }
     public NPC? Target { get; private set; }
     public Projectile? Projectile { get; private set; }
@@ -17,11 +20,26 @@ public class AttachModule : IModule, IProjectileRuntime
     public Action? OnTileAttach { get; set; }
     public Action? OnNpcAttach { get; set; }
 
+    public void SetDefaults(bool canAttachToNPC = true, bool canAttachToTile = true)
+    {
+        CanAttachToNPC = canAttachToNPC;
+        CanAttachToTile = canAttachToTile;
+    }
+
     public bool CanAttach(NPC target)
     {
-        return (Projectile is null || !Projectile.IsTileCollide()) &&
+        return CanAttachToNPC &&
+               (Projectile is null || !Projectile.IsTileCollide()) &&
                (Target is null || !Target.CanBeChasedBy()) &&
                target.CanBeChasedBy();
+    }
+
+    public bool CanAttach(Projectile projectile)
+    {
+        return CanAttachToTile &&
+               (Target is null || !Target.CanBeChasedBy()) &&
+               (Projectile is null || !Projectile.IsTileCollide()) &&
+               projectile.IsTileCollide();
     }
 
     private void AttachCommon(Projectile projectile)
@@ -38,13 +56,6 @@ public class AttachModule : IModule, IProjectileRuntime
         Projectile = null;
         Target = target;
         Offset = projectile.Center - target.Center;
-    }
-
-    public bool CanAttach(Projectile projectile)
-    {
-        return (Target is null || !Target.CanBeChasedBy()) &&
-               (Projectile is null || !Projectile.IsTileCollide()) &&
-               projectile.IsTileCollide();
     }
 
     public void Attach(Projectile projectile)

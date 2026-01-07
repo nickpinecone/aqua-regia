@@ -1,4 +1,5 @@
 using AquaRegia.Library;
+using AquaRegia.Library.Extended.Extensions;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Ammo;
 using AquaRegia.Library.Extended.Modules.Projectiles;
@@ -50,7 +51,7 @@ public class BottledCryogel : BaseAmmo
         }
 
         var buff = new BuffModule();
-        buff.SetDefaults(BuffID.Frostburn, 4f, 15);
+        buff.SetDefaults(BuffID.Frostburn, 4.FromSeconds(), 15);
 
         projectile.Composite.AddRuntimeModule(buff);
     }

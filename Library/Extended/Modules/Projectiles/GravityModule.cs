@@ -1,3 +1,4 @@
+using AquaRegia.Library.Extended.Extensions;
 using Microsoft.Xna.Framework;
 using Terraria;
 
@@ -9,7 +10,7 @@ public class GravityModule : IModule, IProjectileRuntime
     public float Value { get; set; }
     public float Change { get; set; }
 
-    public void SetDefaults(float gravity = 0.01f, float gravityChange = 0.02f)
+    public void SetDefaults(float gravity = 1f, float gravityChange = 1.01f)
     {
         Default = gravity;
         Value = Default;
@@ -18,8 +19,8 @@ public class GravityModule : IModule, IProjectileRuntime
 
     public Vector2 GetGravity(Vector2 velocity)
     {
-        Value += Change;
-        velocity.Y += Value;
+        Value *= Change;
+        velocity.Y += Value.ToSeconds();
 
         return velocity;
     }

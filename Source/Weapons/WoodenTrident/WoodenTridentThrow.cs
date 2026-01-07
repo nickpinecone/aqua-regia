@@ -24,7 +24,8 @@ public class WoodenTridentThrow : BaseProjectile
         Attach.OnAttach = OnAttach;
 
         Immunity.SetDefaults();
-        Gravity.SetDefaults(0.005f, 0.005f);
+        Attach.SetDefaults();
+        Gravity.SetDefaults(0.5f);
         Recall.SetDefaults(36f);
 
         Property.Set(this)
