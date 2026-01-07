@@ -36,6 +36,12 @@ public class ArcDustSpawner : DustSpawner<ArcDustSpawner>
         return dusts;
     }
 
+    public ArcDustSpawner Offset(float offset)
+    {
+        _offset = offset;
+        return this;
+    }
+
     public ArcDustSpawner Position(Vector2 position, float offset = 0f)
     {
         base.Position(position);
@@ -43,10 +49,10 @@ public class ArcDustSpawner : DustSpawner<ArcDustSpawner>
         return this;
     }
 
-    public ArcDustSpawner Speed(float speed, bool noGravity = false)
+    public ArcDustSpawner Speed(float speed, bool gravity = true)
     {
         _speed = speed;
-        _noGravity = noGravity;
+        _noGravity = !gravity;
         return this;
     }
 

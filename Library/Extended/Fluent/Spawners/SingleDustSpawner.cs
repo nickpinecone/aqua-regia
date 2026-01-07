@@ -24,10 +24,10 @@ public class SingleDustSpawner : DustSpawner<SingleDustSpawner>
         return dust;
     }
 
-    public SingleDustSpawner Velocity(Vector2 velocity, bool noGravity = false)
+    public SingleDustSpawner Velocity(Vector2 velocity, bool gravity = true)
     {
         _velocity = velocity;
-        _noGravity = noGravity;
+        _noGravity = !gravity;
         return this;
     }
 }

@@ -117,8 +117,8 @@ public class TreeProjectile : BaseProjectile
             new DustSpawner(DustID.Cloud).Arc()
                 .Position(Projectile.Bottom)
                 .Size(new Vector2(2, 2), 5f)
-                .Speed(9f, true)
-                .Color(default, 75)
+                .Speed(9f, false)
+                .Alpha(75)
                 .Edges(
                     Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-150)),
                     Vector2.UnitX.RotatedBy(MathHelper.ToRadians(-30)),

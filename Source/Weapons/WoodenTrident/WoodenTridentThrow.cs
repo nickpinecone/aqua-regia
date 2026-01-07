@@ -1,6 +1,7 @@
 using AquaRegia.Library;
 using AquaRegia.Library.Extended.Modules;
 using AquaRegia.Library.Extended.Modules.Projectiles;
+using Terraria;
 
 namespace AquaRegia.Weapons.WoodenTrident;
 
@@ -11,10 +12,10 @@ public class WoodenTridentThrow : BaseProjectile
     private PropertyModule Property { get; } = new();
     private SpearModule Spear { get; } = new();
     private GravityModule Gravity { get; } = new();
+    private AttachModule Attach { get; } = new();
 
     [RuntimeModule] private ImmunityModule Immunity { get; } = new();
     [RuntimeModule] private RecallModule Recall { get; } = new();
-    [RuntimeModule] private AttachModule Attach { get; } = new();
 
     public override void SetDefaults()
     {
@@ -37,9 +38,21 @@ public class WoodenTridentThrow : BaseProjectile
         Gravity.Reset();
     }
 
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        base.OnHitNPC(target, hit, damageDone);
+
+        if (!Recall.IsRecalled && Attach.CanAttach(target))
+        {
+            Attach.Attach(Projectile, target);
+        }
+    }
+
     public override void AI()
     {
         base.AI();
+
+        Attach.ApplyAttach(Projectile);
 
         if (!Attach.Attached)
         {

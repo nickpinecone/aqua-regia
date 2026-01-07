@@ -35,7 +35,7 @@ public class WaterModule : IModule, IProjectileRuntime
             .Position(position)
             .Size(new Vector2(2, 2), 1.2f)
             .Velocity(velocity)
-            .Color(Color, 0)
+            .Color(Color)
             .Spawn();
     }
 
@@ -53,8 +53,8 @@ public class WaterModule : IModule, IProjectileRuntime
             var dust = new DustSpawner(Dust).Single()
                 .Perfect(true)
                 .Position(offsetPosition)
-                .Size(Vector2.Zero, Scale)
-                .Velocity(velocity.SafeNormalize(Vector2.Zero), true)
+                .Scale(Scale)
+                .Velocity(velocity.SafeNormalize(Vector2.Zero), false)
                 .Color(Color, Alpha, 1f)
                 .Spawn();
 

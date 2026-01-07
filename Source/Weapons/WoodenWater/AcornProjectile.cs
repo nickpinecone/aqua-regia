@@ -55,7 +55,7 @@ public class AcornProjectile : BaseProjectile
         new DustSpawner(DustExID.Wood).Single()
             .Position(Projectile.Center)
             .Size(new Vector2(10, 10))
-            .Velocity(Vector2.Zero, true)
+            .Velocity(Vector2.Zero, false)
             .Spawn();
     }
 

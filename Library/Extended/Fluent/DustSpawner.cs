@@ -51,6 +51,12 @@ public abstract class DustSpawner<T>
         _isPerfect = isPerfect;
         return (T)this;
     }
+    
+    public T Scale(float scale)
+    {
+        _scale = scale;
+        return (T)this;
+    }
 
     public T Size(Vector2 size, float scale = 1f)
     {
@@ -65,13 +71,25 @@ public abstract class DustSpawner<T>
         return (T)this;
     }
 
-    public T NoGravity(bool noGravity)
+    public T Gravity(bool gravity)
     {
-        _noGravity = noGravity;
+        _noGravity = !gravity;
+        return (T)this;
+    }
+    
+    public T Alpha(int alpha)
+    {
+        _alpha = alpha;
+        return (T)this;
+    }
+    
+    public T FadeIn(float fadeIn = 0f)
+    {
+        _fadeIn = fadeIn;
         return (T)this;
     }
 
-    public T Color(Color color, int alpha, float fadeIn = 0f)
+    public T Color(Color color, int alpha = 0, float fadeIn = 0f)
     {
         _color = color;
         _alpha = alpha;
